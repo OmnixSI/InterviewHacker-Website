@@ -1,0 +1,12 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import {root,publicRoot,loadCatalog,fingerprints,galleryCards,replaceBlock,readmeGallery} from './catalog.mjs';
+const catalog=await loadCatalog(),prints=await fingerprints(catalog);
+const indexFile=path.join(publicRoot,'index.html');
+const index=replaceBlock(await readFile(indexFile,'utf8'),'gallery',galleryCards(catalog,prints));
+await writeFile(indexFile,index);
+await writeFile(path.join(publicRoot,'styles.json'),JSON.stringify(catalog,null,2)+'\n');
+const readmeFile=path.join(root,'README.md');
+const readme=replaceBlock(await readFile(readmeFile,'utf8'),'readme',await readmeGallery(catalog,prints,index));
+await writeFile(readmeFile,readme);
+console.log(`Synced README gallery, website cards and style catalog (${catalog.styles.length} design styles).`);

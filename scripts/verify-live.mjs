@@ -15,7 +15,7 @@ async function walk(dir) {
 await walk(path.join(root,'dist'));
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const results = await Promise.all(inventory.map(async file => {
-  const response = await fetch(`${base}/${file === 'index.html' ? '' : file}`);
+  const response = await fetch(`${base}/${file.replace(/(^|\/)index\.html$/, '$1')}`);
   const actual = Buffer.from(await response.arrayBuffer());
   const expected = await readFile(path.join(root,'dist',file));
   if (!response.ok || digest(actual)!==digest(expected)) throw new Error(`Published file mismatch: ${file} ${response.status}`);
@@ -23,6 +23,7 @@ const results = await Promise.all(inventory.map(async file => {
 }));
 const head = await fetch(base, {method:'HEAD'});
 for (const header of ['content-security-policy','permissions-policy','x-content-type-options','referrer-policy']) if(!head.headers.has(header)) throw new Error(`Missing ${header}`);
+if (!head.headers.get('content-security-policy').includes("frame-ancestors 'self'")) throw new Error('Same-origin comparison framing is not enabled');
 const result={url:base,checkedAt:new Date().toISOString(),files:results,headers:Object.fromEntries(head.headers)};
 await mkdir(path.join(root,'validation'),{recursive:true});
 await writeFile(path.join(root,'validation','production-check.json'),JSON.stringify(result,null,2)+'\n');

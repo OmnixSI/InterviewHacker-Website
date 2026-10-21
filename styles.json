@@ -1,0 +1,36 @@
+{
+  "title": "InterviewHacker Design Gallery",
+  "origin": "https://interviewhacker.vercel.app",
+  "styles": [
+    {
+      "slug": "minimal",
+      "name": "Minimal",
+      "subtitle": "简洁 · 原生 · 从容",
+      "description": "温和紫色、玻璃提词卡与清晰的产品叙事，让功能与使用流程自然展开。",
+      "path": "/minimal/",
+      "preview": "/previews/minimal-home.png",
+      "accent": "#ad9aff",
+      "tags": [
+        "简洁紫色",
+        "原生工具感",
+        "产品叙事"
+      ],
+      "updated": "2026-10-21"
+    },
+    {
+      "slug": "technology",
+      "name": "Technology",
+      "subtitle": "技术 · 交互 · 沉浸",
+      "description": "粒子光场、深浅章节与可操控的技术链路，把声音到表达的过程变成体验。",
+      "path": "/technology/",
+      "preview": "/previews/technology-home.png",
+      "accent": "#c5ff65",
+      "tags": [
+        "WebGL 粒子",
+        "滚动叙事",
+        "技术控制台"
+      ],
+      "updated": "2026-10-21"
+    }
+  ]
+}

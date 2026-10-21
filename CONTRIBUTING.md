@@ -13,20 +13,36 @@ npm run dev
 
 浏览器打开 http://127.0.0.1:4173 。
 
-## 常见修改位置
+## 风格与展示画廊
+
+README 是风格展示画廊。**只有设计语言明显不同的新方案才增加一个风格入口**；文案、修复、动效与布局优化继续维护原路径，通过 Git 历史追踪，不建立每次更新的对照副本。
 
 | 内容 | 文件 |
 | --- | --- |
-| 页面结构、主要文案、元信息 | `public/index.html` |
-| 色彩、排版、响应式和 CSS 动效 | `public/style.css` |
-| 场景、技术节点、按钮与滚动叙事 | `public/app.js` |
-| 粒子、GPU 形态和 Canvas 备用渲染 | `public/engine.js` |
-| 图片、字体与分享卡片 | `public/shots/`、`public/assets/`、`public/og.png` |
+| 风格登记、特点和固定地址 | `styles.json` |
+| 画廊主页 | `public/index.html`、`public/gallery.css` |
+| 简洁紫色风格 | `public/minimal/` |
+| 技术沉浸风格 | `public/technology/` |
+| 并排对比工具 | `public/compare/` |
+| 真实首页预览 | `public/previews/<slug>-home.png`、`gallery-home.png` |
 | 部署和响应头 | `vercel.json`、`public/vercel.json` |
+
+每套风格独立保留 HTML、CSS、JS、字体和图片，资源使用相对路径，规范链接与分享地址指向该风格路径。新风格复制所需素材时保留授权声明，并在 HTML 内保留返回画廊的入口。
+
+页面改动完成后：
+
+1. 在浏览器检查桌面与窄屏布局、交互和资源加载。
+2. 视觉变化时刷新对应真实首页截图；新增风格时先登记 `styles.json`。推荐桌面视口 1280 × 844，使用 PNG。截图必须展示实际页面，不能使用 OG 分享图冒充。
+3. 运行 `npm run docs:sync`，同步 README、画廊卡片和公开风格列表。
+4. 若画廊外观发生变化，刷新 `gallery-home.png`，再次运行同步。
+5. 确认 README 展示当前首页和正确在线地址，再检查、构建、提交。
+
+`docs:sync` 不自动拍摄截图。CI 校验登记、入口、图片文件、源码指纹和 README 是否同步；维护者负责截图与真实视觉的一致性。修改源码但未同步 README 会使检查失败。对比工具自动读取登记列表，不需要为普通更新添加新选项。
 
 ## 提交与审核
 
 ```sh
+npm run docs:sync
 npm run check
 npm run build
 git add .

@@ -1,4 +1,4 @@
-import { mountSignalEngine } from "/engine.js";
+import { mountSignalEngine } from "./engine.js";
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -55,7 +55,7 @@ function selectFeature(name, focus = false) {
   $('#feature-title').replaceChildren(...data.title.split('\n').flatMap((line, i) => i ? [document.createElement('br'), document.createTextNode(line)] : [document.createTextNode(line)]));
   $('#feature-description').textContent = data.description;
   $('#feature-points').replaceChildren(...data.points.map(point => { const li = document.createElement('li'); li.textContent = point; return li; }));
-  $('#feature-image').src = `/shots/${data.image}`;
+  $('#feature-image').src = `./shots/${data.image}`;
   $('#feature-image').alt = data.alt;
 }
 $$('[data-feature]').forEach((button, i, buttons) => {
@@ -82,7 +82,7 @@ $$('dialog').forEach(dialog => {
 });
 $('.screenshot-frame').addEventListener('click', () => {
   const data = features[currentFeature];
-  $('#image-dialog img').src = `/shots/${data.image}`;
+  $('#image-dialog img').src = `./shots/${data.image}`;
   $('#image-dialog img').alt = data.alt;
   openDialog($('#image-dialog'));
 });
