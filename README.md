@@ -11,7 +11,7 @@
 
 [![展示画廊首页](public/previews/gallery-home.png?v=1413a4a21812)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:395b6b3b1b0dda880065d403186ff6eaa2b4a16c2b4083e785a874b6d5ab8b96 preview:1413a4a21812c584b600d7e0f9e16a8907501b1c4508370bbfe58a193907e558 -->
+<!-- gallery-source:c0b8c89188aba9ea36f96b5fd6ebb71961630315659451148739a4319317acf2 preview:1413a4a21812c584b600d7e0f9e16a8907501b1c4508370bbfe58a193907e558 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -32,6 +32,16 @@
 **访问页面：[https://interviewhacker.vercel.app/technology/](https://interviewhacker.vercel.app/technology/)**
 
 <!-- style:technology source:6ab4b4d80523e89040b345608ba63fea96ed516c44fc7ee8b6a69d8bf862c676 preview:a975b5668b9dba5982d2721dd348cb026f70bf95d7a2bf022dad91a7bb2e8839 -->
+
+### Story · 场景 · 叙事 · 轻盈
+
+[![Story 首页](public/previews/story-home.png?v=ded3beba890f)](https://interviewhacker.vercel.app/story/)
+
+以场景照片和清晰的产品界面展开长页叙事，呈现会前准备、实时对话与会后复盘。
+
+**访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
+
+<!-- style:story source:de1b10c424495bc00e2b926053a1981d8010796ef0846bf826e0436d5cdb33e2 preview:ded3beba890f6d3e63d70b59d0592e7d386398115929d68cc7122b26f145c546 -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -44,7 +54,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/` 和 `/technology/` 是两种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/` 和 `/story/` 是三种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -54,6 +64,7 @@ npm run dev
 | 画廊布局与样式 | `public/index.html`、`public/gallery.css` |
 | Minimal 全部页面代码和素材 | `public/minimal/` |
 | Technology 全部页面代码和素材 | `public/technology/` |
+| Story 全部页面代码和素材 | `public/story/` |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |
