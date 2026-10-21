@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./styles/typography.css?v=3177727c73bc">
   <link rel="stylesheet" href="./styles/brand-overrides.css?v=b3023179f6c9">
   <link rel="stylesheet" href="./styles/privacy-section.css?v=8e991bb35b40">
+  <link rel="stylesheet" href="./styles/product-showcase.css?v=82dee9a98219">
   <link rel="stylesheet" href="./style.css?v=3fb39b3b91b3">
   <link rel="preload" href="./assets/fonts/harmonyos/HarmonyOS_Sans_SC_Regular.ttf" as="font" type="font/ttf" crossorigin>
   <title>InterviewHacker — Story</title>
@@ -178,12 +179,12 @@
      <div class="row group--nowrap:md">
       <div class="col col--xs-2 col--md-6">
        <p class="text-lead leading-trim" data-reveal-old="text" style="--word-total: 55; --line-total: 5">
-        面试、学术报告、商务会议和课程中，InterviewHacker 分别识别对方与麦克风的声音，判断问题并生成可直接表达的建议回答。默认使用本机离线语音识别；你也可以按场景带入资料，并在会后回看记录与复盘。
+        面试、学术报告、商务会议和课程中，分别听清对方与自己的声音，及时整理问题与建议回答。按场景带入资料，会后继续复盘。
        </p>
       </div>
       <div class="col col--xs-2 offset--md-3 col--md-3 mt-1.25 mt-0:md">
        <div class="group group--nowrap group--bottom group--intro">
-        <a aria-label="Scroll to next section" class="btn btn--primary-alt btn--xs btn--square is-hidden--md-up intro__scroll-button" href="#scroll-to">
+        <a aria-label="向下查看功能" class="btn btn--primary-alt btn--xs btn--square is-hidden--md-up intro__scroll-button" href="#scroll-to">
          <span class="btn__content">
           <span class="btn__icon">
            <svg aria-hidden="true" class="icon icon-arrow-down-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -212,7 +213,7 @@
       </div>
      </div>
     </div>
-    <a aria-label="Scroll to next section" class="btn btn--secondary btn--sm btn--square is-hidden--sm-down intro__scroll-button-outer ui-light l-intro-arrow-down" data-parallax-pattern="l-intro-button" data-plugin="parallax" href="#capabilities">
+    <a aria-label="向下查看功能" class="btn btn--secondary btn--sm btn--square is-hidden--sm-down intro__scroll-button-outer ui-light l-intro-arrow-down" data-parallax-pattern="l-intro-button" data-plugin="parallax" href="#capabilities">
      <span class="btn__content">
       <span class="btn__text">
        <svg aria-hidden="true" class="icon icon-arrow-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -240,9 +241,6 @@
       </div>
      </div>
      <div class="intro__bottom__image" data-parallax-pattern="l-intro-image" data-parallax-scale-to="[0.4, 0.75]" data-plugin="parallax">
-      <picture class="is-hidden--md-up" draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-plugin="deco" data-deco-multiplier="0.5" data-ih-dark="./assets/ih/assistant-native-dark.svg" data-ih-light="./assets/ih/assistant-native-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-native-light.svg" width="1600"/>
-      </picture>
       <div class="intro__bottom__image__item intro__bottom__image__item--2 is-hidden--sm-down" data-deco-multiplier="0.4" data-plugin="deco">
        <img alt="" decoding="async" height="512" loading="eager" src="./assets/ih/people/person-03.webp" width="512"/>
       </div>
@@ -251,9 +249,6 @@
       </div>
      </div>
      <div class="intro__bottom__image" data-parallax-pattern="l-intro-image" data-parallax-scale-to="[0.5, 0.75]" data-plugin="parallax">
-      <picture class="is-hidden--md-up" draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-plugin="deco" data-deco-multiplier="0.5" data-ih-dark="./assets/ih/assistant-native-dark.svg" data-ih-light="./assets/ih/assistant-native-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-native-light.svg" width="1600"/>
-      </picture>
       <div class="intro__bottom__image__item intro__bottom__image__item--3 is-hidden--sm-down" data-deco-multiplier="0.3" data-plugin="deco">
        <img alt="" decoding="async" height="512" loading="eager" src="./assets/ih/people/person-05.webp" width="512"/>
       </div>
@@ -262,23 +257,21 @@
       </div>
      </div>
     </div>
-    <div class="intro__bottom__video-placeholder js-intro-video-container">
+    <div class="intro__bottom__video-placeholder js-intro-video-container ih-hero-device" data-parallax-pattern="l-intro-image-opacity" data-plugin="parallax">
+     <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="eager" decoding="async"/>
     </div>
    </div>
    <div class="container-h intro-video__container" data-reveal-old="fade-in-bottom">
     <div class="intro-video__content tablet-preview" data-parallax-pattern="l-intro-content l-intro-content-tablet-caption l-intro-content-tablet-background l-intro-content-tablet-video-opacity l-intro-content-tablet-screen-opacity" data-plugin="parallax" style="--tablet-caption-opacity: 0; --background-opacity: 0; --tablet-video-opacity: 1; --tablet-screen-opacity: 0; --tablet-opacity: 1">
      <div class="intro-video__tablet" data-parallax-pattern="l-intro-tablet" data-plugin="parallax" style="--video-opacity: 0">
       <picture class="is-hidden--no-js tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/assistant-native-dark.svg" data-ih-light="./assets/ih/assistant-native-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-native-light.svg" width="1600"/>
+       <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
       </picture>
       <picture class="is-hidden--no-js intro-video__tablet__image tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/materials-light.webp" width="1600"/>
+       <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
       </picture>
      </div>
      <div class="intro-video__player js-intro-video" data-parallax-pattern="l-intro-video" data-plugin="parallax">
-      <img alt="InterviewHacker 对话场景照片示意" class="background background--cover is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="eager" src="./assets/ih/people/person-01.webp" width="512"/>
-      <div class="intro-video__player__progress">
-      </div>
      </div>
     </div>
    </div>
@@ -324,7 +317,7 @@
    <div class="col col--md-4 col--lg-7" data-parallax--205-0='{"opacity": 0}' data-parallax--225-0='{"opacity": 1}' data-parallax--270-0='{"opacity": 1, "easing": "easeInQuad"}' data-parallax--320-0='{"opacity": 0}' data-parallax-clamp="true" data-parallax-enable-mq="md-up" data-parallax-measure-selector=".intro-sticky" data-plugin="parallax">
     <div class="tablet-preview is-hidden--md-up">
      <picture class="is-invisible--js is-hidden--no-js tablet-preview__image img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-      <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/materials-light.webp" width="1600"/>
+      <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
      </picture>
     </div>
     <p class="text-h2-md text-color-heading leading-trim mt-1.75 mt-0:md mb-2 px-1 px-0:md">
@@ -357,33 +350,13 @@
 </div>
  <div class="intro-content intro-content--center intro-convenient ui-light">
  <div class="container-h">
-  <div class="row pt-3.5 pt-0:md">
-   <div class="col col--md-3 intro-convenient__image is-hidden--sm-down" data-parallax-clamp="true" data-parallax-pattern="l-intro-phone-left" data-plugin="parallax">
-    <picture class="is-invisible--js is-hidden--no-js intro-convenient__image-item intro-convenient__image-item--left" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-     <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
-    </picture>
-   </div>
-   <div class="col col--xs-2 col--md-6">
-    <p class="text-h2-md text-color-heading leading-trim mb-2 text-center">
-     用适合自己的方式查看
-    </p>
-    <p class="h4 leading-trim text-color-text mb-2 mb-0:md text-center intro-content__text">
-     在助手窗口查看完整对话，也可以使用悬浮提词器，或在同一 Wi-Fi 下用手机伴侣查看回答。
-    </p>
-    <div class="intro-convenient__mobile-images is-hidden--md-up">
-     <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-      <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
-     </picture>
-     <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-      <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
-     </picture>
-    </div>
-   </div>
-   <div class="col col--md-3 intro-convenient__image is-hidden--sm-down" data-parallax-clamp="true" data-parallax-pattern="l-intro-phone-right" data-plugin="parallax">
-    <picture class="is-invisible--js is-hidden--no-js intro-convenient__image-item intro-convenient__image-item--right" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-     <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
-    </picture>
-   </div>
+  <div class="ih-viewing-heading">
+   <p class="text-h2-md text-color-heading leading-trim mb-1">用适合自己的方式查看</p>
+   <p class="h4 leading-trim text-color-text">完整内容留在助手窗口，重点放进悬浮提词器。同一 Wi-Fi 下，也可以用手机伴侣查看当前问题与回答。</p>
+  </div>
+  <div class="ih-viewing-stage">
+   <figure class="ih-viewing-prompter"><img data-product-screen="prompter" alt="悬浮提词器" data-ih-dark="./assets/product-scenes/prompter-dark.svg" data-ih-light="./assets/product-scenes/prompter-light.svg" src="./assets/product-scenes/prompter-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure>
+   <figure class="ih-viewing-phone"><img data-product-screen="phone" alt="手机伴侣" data-ih-dark="./assets/product-scenes/phone-dark.svg" data-ih-light="./assets/product-scenes/phone-light.svg" src="./assets/product-scenes/phone-light.svg" width="440" height="860" loading="lazy" decoding="async"/></figure>
   </div>
  </div>
 </div>
@@ -394,7 +367,7 @@
     <div class="col col--xs-2 col--md-6 offset--md-2 offset--lg-1 mb-2 mt-0:md">
      <div class="tablet-preview" data-parallax-pattern="l-intro-prepare-tablet" data-plugin="parallax">
       <picture class="is-invisible--js is-hidden--no-js img-full tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
+       <img data-product-screen="materials" alt="场景资料与回答技能" data-ih-dark="./assets/product-scenes/materials-dark.svg" data-ih-light="./assets/product-scenes/materials-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/materials-light.svg" width="1600"/>
       </picture>
      </div>
     </div>
@@ -406,7 +379,7 @@
       资料和技能，按需参与
      </p>
      <p class="h4 leading-trim text-color-text mb-2 mb-3:md mb-2:lg mb-3:xxxxl intro-content__text px-1 px-0:md">
-      导入简历、岗位说明、论文、幻灯片或会议材料；资料会先在本机解析，再按问题检索相关内容。
+      简历、岗位说明、论文或会议材料，都可以加入当前场景。资料在本机解析，回答时按问题取用相关内容。
      </p>
      <div class="intro-content__card">
       <div class="card card--intro ui-background-alt">
@@ -438,7 +411,7 @@
     <div class="col col--xs-2 col--md-6 mb-2 mt-0:md intro-resume__screen">
      <div class="tablet-preview" data-parallax-pattern="l-intro-resume-tablet" data-plugin="parallax">
       <picture class="is-invisible--js is-hidden--no-js img-full tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-       <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/history-dark.webp" data-ih-light="./assets/ih/history-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/history-light.webp" width="1600"/>
+       <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/review-light.svg" width="1600"/>
       </picture>
      </div>
     </div>
@@ -531,7 +504,7 @@
    </div>
    <div class="col col--xs-2 col--md-6 l-streamlined-deco pt-3 pt-0:md">
     <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-parallax-pattern="l-streamlined-deco" data-plugin="appear  parallax" draggable="false">
-     <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
+     <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
     </picture>
    </div>
   </div>
@@ -550,47 +523,26 @@
      <ol class="l-steps-images__list">
       <li>
        <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/assistant-dark.webp" data-ih-light="./assets/ih/assistant-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-light.webp" width="1600"/>
+        <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
        </picture>
       </li>
       <li data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
        <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/materials-light.webp" width="1600"/>
+        <img data-product-screen="materials" alt="场景资料与回答技能" data-ih-dark="./assets/product-scenes/materials-dark.svg" data-ih-light="./assets/product-scenes/materials-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/materials-light.svg" width="1600"/>
        </picture>
       </li>
       <li data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
        <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
+        <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
        </picture>
       </li>
       <li data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
        <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/history-dark.webp" data-ih-light="./assets/ih/history-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/history-light.webp" width="1600"/>
+        <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/review-light.svg" width="1600"/>
        </picture>
       </li>
      </ol>
-     <ol class="l-steps-deco__list" data-parallax-pattern="l-steps-image" data-parallax-steps='[{"from":{"x":0.9285714285714286,"y":0.27631578947368424,"centerX":0.8982142857142857,"centerY":0.28421052631578947},"to":{"x":0.7285714285714285,"y":0.4052631578947368,"centerX":0.7857142857142857,"centerY":0.4763157894736842}},{"from":{"x":0.7285714285714285,"y":0.4052631578947368,"centerX":0.7857142857142857,"centerY":0.4763157894736842},"to":{"x":0.5035714285714286,"y":0.6157894736842106,"centerX":0.55,"centerY":0.6684210526315789}},{"from":{"x":0.5035714285714286,"y":0.6157894736842106,"centerX":0.55,"centerY":0.6684210526315789},"to":{"x":0.9285714285714286,"y":0.718421052631579,"centerX":0.8660714285714286,"centerY":0.6973684210526315}}]' data-plugin="parallax">
-      <li>
-       <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/assistant-dark.webp" data-ih-light="./assets/ih/assistant-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-light.webp" width="1600"/>
-       </picture>
-      </li>
-      <li data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
-       <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/materials-light.webp" width="1600"/>
-       </picture>
-      </li>
-      <li data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
-       <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
-       </picture>
-      </li>
-      <li data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
-       <picture class="is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-        <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/history-dark.webp" data-ih-light="./assets/ih/history-light.webp" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/history-light.webp" width="1600"/>
-       </picture>
-      </li>
-     </ol>
+
     </div>
    </div>
   </div>
@@ -664,7 +616,7 @@
          </svg>
         </div>
         <div class="l-why-item__inner-content">
-         <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/history-dark.webp" data-ih-light="./assets/ih/history-light.webp" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/ih/history-light.webp" width="1600"/>
+         <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
          <p class="h4 leading-trim">
           系统声音与麦克风分开识别，并尝试排除扬声器回声。
          </p>
@@ -690,7 +642,7 @@
          </svg>
         </div>
         <div class="l-why-item__inner-content">
-         <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/assistant-dark.webp" data-ih-light="./assets/ih/assistant-light.webp" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/ih/assistant-light.webp" width="1600"/>
+         <img data-product-screen="context" alt="结合场景资料的回答" data-ih-dark="./assets/product-scenes/context-dark.svg" data-ih-light="./assets/product-scenes/context-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/context-light.svg" width="1600"/>
          <p class="h4 leading-trim">
           问题、相关资料、经验和题库可结合当前场景提供上下文。
          </p>
@@ -716,7 +668,7 @@
          </svg>
         </div>
         <div class="l-why-item__inner-content">
-         <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/ih/materials-light.webp" width="1600"/>
+         <img data-product-screen="devices" alt="助手窗口与手机伴侣" data-ih-dark="./assets/product-scenes/devices-dark.svg" data-ih-light="./assets/product-scenes/devices-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/devices-light.svg" width="1600"/>
          <p class="h4 leading-trim">
           支持助手窗口、提词器和手机伴侣；可选择回答引擎与语音识别方式。
          </p>
@@ -742,7 +694,7 @@
          </svg>
         </div>
         <div class="l-why-item__inner-content">
-         <img alt="InterviewHacker 产品界面截图" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" draggable="false" height="787" loading="eager" src="./assets/ih/teleprompter-light.webp" width="1600"/>
+         <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/review-light.svg" width="1600"/>
          <p class="h4 leading-trim">
           可保存转录、问题、回答和摘要，并把复盘结果整理为经验与题目。
          </p>
@@ -791,9 +743,7 @@
   <h2 class="text-h2-md leading-trim mb-2">
    InterviewHacker 使用场景
   </h2>
-  <p class="ih-stories-note text-lead text-color-text">
-   以下为产品工作流示意，不代表用户评价或真实个案。
-  </p>
+
   <div class="l-success is-hidden--md-down">
  <article class="card card--story ui-background-alt">
   <div class="card__sizer">
@@ -807,16 +757,16 @@
                                         "changeHide": {"name": "slideOut"}
                                     }' data-content-animation-controller-selector=":root .js-success-content-animation-controller" data-content-animation-plugins="controller" data-plugin="contentAnimation">
        <div aria-hidden="false" class="" data-content-animation-item="0" data-content-animation-top="true" data-content-animation-visible="true">
-        <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h3m2-6v12m5-16v20m5-14v8"/></svg></div>
        </div>
        <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="1">
-        <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h7l2 2 2-2h7v18h-7l-2 2-2-2H4zM13 5v18"/></svg></div>
        </div>
        <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="2">
-        <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h20v14H3zM8 23h10M13 19v4"/></svg></div>
        </div>
        <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="3">
-        <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2h10l6 6v16H5zM15 2v7h6M8 14h10M8 18h10"/></svg></div>
        </div>
       </div>
      </div>
@@ -870,7 +820,7 @@
         为这次面试选择岗位场景，带入简历与职位资料；实时整理问题，按需要查看建议回答。
        </p>
        <figure class="ih-story-media">
-        <img alt="InterviewHacker 面试助手界面" data-ih-dark="./assets/ih/assistant-dark.webp" data-ih-light="./assets/ih/assistant-light.webp" decoding="async" height="1044" loading="lazy" src="./assets/ih/assistant-light.webp" width="1600"/>
+        <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
        </figure>
       </div>
       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="1">
@@ -878,7 +828,7 @@
         导入论文、讲稿和幻灯片；演讲时关注当前页面、过渡句与听众可能提出的问题。
        </p>
        <figure class="ih-story-media">
-        <img alt="InterviewHacker 演讲提词器界面" data-ih-dark="./assets/ih/teleprompter-dark.webp" data-ih-light="./assets/ih/teleprompter-light.webp" decoding="async" height="787" loading="lazy" src="./assets/ih/teleprompter-light.webp" width="1600"/>
+        <img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/lecture-light.svg" width="1600"/>
        </figure>
       </div>
       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="2">
@@ -886,7 +836,7 @@
         提前放入议程、产品资料和目标；会中记录问题，会后整理决定事项与待办。
        </p>
        <figure class="ih-story-media">
-        <img alt="InterviewHacker 会议记录与复盘界面" data-ih-dark="./assets/ih/workspace-review-dark.webp" data-ih-light="./assets/ih/workspace-review-light.webp" decoding="async" height="1044" loading="lazy" src="./assets/ih/workspace-review-light.webp" width="1600"/>
+        <img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/meeting-light.svg" width="1600"/>
        </figure>
       </div>
       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="3">
@@ -894,13 +844,13 @@
         把课程课件和笔记放入独立场景；提问时查看相关内容，课后回看重点和任务。
        </p>
        <figure class="ih-story-media">
-        <img alt="InterviewHacker 课程资料整理界面" data-ih-dark="./assets/ih/materials-dark.webp" data-ih-light="./assets/ih/materials-light.webp" decoding="async" height="1044" loading="lazy" src="./assets/ih/materials-light.webp" width="1600"/>
+        <img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/course-light.svg" width="1600"/>
        </figure>
       </div>
      </div>
     </div>
     <div class="is-hidden--no-js group group--small l-success__buttons">
-     <a aria-hidden="true" class="btn btn--secondary-alt btn--square btn--sm js-success-prev" role="button" tabindex="0">
+     <button type="button" class="btn btn--secondary-alt btn--square btn--sm js-success-prev" aria-label="上一个使用场景">
       <span class="btn__content">
        <span class="btn__icon">
         <svg aria-hidden="true" class="icon icon-arrow-left" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -909,8 +859,8 @@
         </svg>
        </span>
       </span>
-     </a>
-     <a aria-hidden="true" class="btn btn--secondary-alt btn--square btn--sm js-success-next" role="button" tabindex="0">
+     </button>
+     <button type="button" class="btn btn--secondary-alt btn--square btn--sm js-success-next" aria-label="下一个使用场景">
       <span class="btn__content">
        <span class="btn__icon">
         <svg aria-hidden="true" class="icon icon-arrow-right" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -919,120 +869,13 @@
         </svg>
        </span>
       </span>
-     </a>
+     </button>
     </div>
    </div>
   </div>
  </article>
 </div>
-  <div class="l-success is-hidden--lg-up">
- <ul class="mobile-scrollable">
-  <li class="mobile-scrollable__item">
-   <article class="card card--story ui-background-alt">
-    <div class="card__sizer">
-    </div>
-    <div class="card__content row">
-     <div class="col col--xs-2 col--lg-3">
-      <div class="card__group pb-2 pb-0:lg">
-       <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
-       <div class="leading-trim">
-        <p class="text-t1-static text-color-heading">
-         求职面试
-        </p>
-        <p class="text-t1-static text-color-small">
-         问题与回答
-        </p>
-       </div>
-      </div>
-     </div>
-     <div class="col col--xs-2 col--lg-6 pl-small:lg leading-trim pt-1 pt-0:lg pb-1 pb-0:lg">
-      <p class="h4 card__text">
-       为这次面试选择岗位场景，带入简历与职位资料；实时整理问题，按需要查看建议回答。
-      </p>
-     </div>
-    </div>
-   </article>
-  </li>
-  <li class="mobile-scrollable__item">
-   <article class="card card--story ui-background-alt">
-    <div class="card__sizer">
-    </div>
-    <div class="card__content row">
-     <div class="col col--xs-2 col--lg-3">
-      <div class="card__group pb-2 pb-0:lg">
-       <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
-       <div class="leading-trim">
-        <p class="text-t1-static text-color-heading">
-         学术报告
-        </p>
-        <p class="text-t1-static text-color-small">
-         讲稿与幻灯片
-        </p>
-       </div>
-      </div>
-     </div>
-     <div class="col col--xs-2 col--lg-6 pl-small:lg leading-trim pt-1 pt-0:lg pb-1 pb-0:lg">
-      <p class="h4 card__text">
-       导入论文、讲稿和幻灯片；演讲时关注当前页面、过渡句与听众可能提出的问题。
-      </p>
-     </div>
-    </div>
-   </article>
-  </li>
-  <li class="mobile-scrollable__item">
-   <article class="card card--story ui-background-alt">
-    <div class="card__sizer">
-    </div>
-    <div class="card__content row">
-     <div class="col col--xs-2 col--lg-3">
-      <div class="card__group pb-2 pb-0:lg">
-       <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
-       <div class="leading-trim">
-        <p class="text-t1-static text-color-heading">
-         商务会议
-        </p>
-        <p class="text-t1-static text-color-small">
-         议程与目标
-        </p>
-       </div>
-      </div>
-     </div>
-     <div class="col col--xs-2 col--lg-6 pl-small:lg leading-trim pt-1 pt-0:lg pb-1 pb-0:lg">
-      <p class="h4 card__text">
-       提前放入议程、产品资料和目标；会中记录问题，会后整理决定事项与待办。
-      </p>
-     </div>
-    </div>
-   </article>
-  </li>
-  <li class="mobile-scrollable__item">
-   <article class="card card--story ui-background-alt">
-    <div class="card__sizer">
-    </div>
-    <div class="card__content row">
-     <div class="col col--xs-2 col--lg-3">
-      <div class="card__group pb-2 pb-0:lg">
-       <img alt="产品使用场景照片示意" class="card__image is-invisible--js is-hidden--no-js" data-plugin="appear " data-appear-preload-on-idle="false" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" draggable="false" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
-       <div class="leading-trim">
-        <p class="text-t1-static text-color-heading">
-         课程学习
-        </p>
-        <p class="text-t1-static text-color-small">
-         课件与笔记
-        </p>
-       </div>
-      </div>
-     </div>
-     <div class="col col--xs-2 col--lg-6 pl-small:lg leading-trim pt-1 pt-0:lg pb-1 pb-0:lg">
-      <p class="h4 card__text">
-       把课程课件和笔记放入独立场景；提问时查看相关内容，课后回看重点和任务。
-      </p>
-     </div>
-    </div>
-   </article>
-  </li>
- </ul>
-</div>
+  <div class="l-success is-hidden--lg-up"><ul class="mobile-scrollable"><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>求职面试</h3><p>带入简历与岗位说明，整理问题，按需要查看建议回答。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" src="./assets/product-scenes/lecture-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>学术报告</h3><p>提前准备论文、讲稿与幻灯片，讲清方法，也准备应对追问。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" src="./assets/product-scenes/meeting-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>商务会议</h3><p>带着议程与目标开始，会后回看讨论重点、决定事项与下一步。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" src="./assets/product-scenes/course-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>课程学习</h3><p>让课件和笔记留在独立场景，提问时找到相关内容，课后回看重点。</p></div></article></li></ul></div>
  </div>
 </section>
         <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section6" id="benefits">
@@ -1173,17 +1016,14 @@
  </div>
 </section>
         <section class="section section--no-overflow ui-dark ui-background l-pdf" data-scroll-section="" data-scroll-section-id="section7" id="privacy">
- <div class="l-pdf__background">
- <picture class="background background--cover parallax-image-move l-pdf__background" draggable="false">
-  <img alt="InterviewHacker 产品界面截图" data-plugin="parallax" data-ih-dark="./assets/ih/assistant-dark.webp" data-ih-light="./assets/ih/assistant-light.webp" data-parallax-pattern="imageMove" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/ih/assistant-light.webp" width="1600"/>
- </picture>
-</div>
+ <div class="l-pdf__background ih-privacy-glow" aria-hidden="true"></div>
  <div class="container-h l-pdf__container py-3 py-3.75:md py-3:lg" data-plugin="parallax" data-parallax-enable-mq="lg-up" data-parallax-pattern="section-under-next">
  <div class="row row--pad">
   <div class="col col--xs-2 col--md-6">
    <h2 class="leading-trim pr-2 pr-0:md">
     数据去向，由你决定。
    </h2>
+   <figure class="ih-privacy-device"><img data-product-screen="privacy" alt="本机数据与服务使用" data-ih-dark="./assets/product-scenes/privacy-dark.svg" data-ih-light="./assets/product-scenes/privacy-light.svg" src="./assets/product-scenes/privacy-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure>
   </div>
   <div class="col col--xs-2 col--md-6 l-pdf__form">
    <p class="text-lead leading-trim">
@@ -1202,7 +1042,7 @@
      </span>
     </span>
    </a>
-   <p class="text-small leading-trim mt-1">当前应用版本 v1.8.0；下载需要仓库访问权。页面中的产品界面为交互示意，不会录音或调用模型。</p>
+   <p class="text-small leading-trim mt-1">当前应用版本 v1.8.0；下载需要仓库访问权。</p>
    <p class="text-small leading-trim mt-1">开始使用需要语音识别 + 对话服务。回答会使用当前问题检索到的资料片段，不会把所有资料塞入上下文。</p>
   </div>
  </div>
@@ -1380,7 +1220,7 @@
         <span class="btn btn--xs btn--text-medium btn--secondary-alt">
          <span class="btn__content">
           <span class="btn__text">
-           Learn more
+           了解更多
           </span>
          </span>
         </span>
@@ -1407,7 +1247,7 @@
         <span class="btn btn--xs btn--text-medium btn--secondary-alt">
          <span class="btn__content">
           <span class="btn__text">
-           Learn more
+           了解更多
           </span>
          </span>
         </span>
@@ -1434,7 +1274,7 @@
         <span class="btn btn--xs btn--text-medium btn--secondary-alt">
          <span class="btn__content">
           <span class="btn__text">
-           Learn more
+           了解更多
           </span>
          </span>
         </span>
@@ -1452,129 +1292,129 @@
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
   </div>
   <div class="card card--footer is-hidden--md-up">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
   </div>
   <div class="card card--footer is-hidden--md-up">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
   </div>
   <div class="card card--footer is-hidden--md-up">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
   </div>
   <div class="card card--footer is-hidden--md-up">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
   </div>
   <div class="card card--footer is-hidden--md-up">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
   </div>
  </div>
  <div class="l-subscribe__background-group l-subscribe__background-group--right is-hidden--sm-down">
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-02.webp" data-ih-light="./assets/ih/people/person-02.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-02.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-03.webp" data-ih-light="./assets/ih/people/person-03.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-03.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-04.webp" data-ih-light="./assets/ih/people/person-04.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-04.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-05.webp" data-ih-light="./assets/ih/people/person-05.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-05.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-06.webp" data-ih-light="./assets/ih/people/person-06.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-06.webp" width="512"/>
   </div>
   <div class="card card--footer">
    <div class="card__sizer">
    </div>
-   <img alt="InterviewHacker 对话场景照片示意" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
+   <img alt="对话场景" class="background background--cover" data-ih-dark="./assets/ih/people/person-01.webp" data-ih-light="./assets/ih/people/person-01.webp" decoding="async" height="512" loading="lazy" src="./assets/ih/people/person-01.webp" width="512"/>
   </div>
  </div>
 </div>

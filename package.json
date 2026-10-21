@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory public",
     "build": "node scripts/build.mjs",
-    "check": "node scripts/check-js.mjs && node scripts/check.mjs",
+    "check": "node scripts/check-js.mjs && node scripts/story-screens.mjs --check && node scripts/check.mjs",
+    "screens:build": "node scripts/story-screens.mjs",
     "docs:sync": "node scripts/version-story.mjs && node scripts/sync-readme.mjs"
   },
   "repository": {

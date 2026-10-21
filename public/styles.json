@@ -35,17 +35,17 @@
     {
       "slug": "story",
       "name": "Story",
-      "subtitle": "场景 · 叙事 · 轻盈",
-      "description": "鸿蒙字体、场景照片与连续滚动叙事，呈现会前准备、实时对话与会后复盘。",
+      "subtitle": "产品 · 场景 · 精致",
+      "description": "鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。",
       "path": "/story/",
       "preview": "/previews/story-home.png",
       "accent": "#666bff",
       "tags": [
-        "场景摄影",
-        "产品流程",
-        "浅色排版"
+        "设备展示",
+        "场景叙事",
+        "产品界面"
       ],
-      "updated": "2026-10-21"
+      "updated": "2026-10-22"
     }
   ]
 }

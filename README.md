@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=aba56f2242af)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=6792ba4a915b)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:737e51375f0a7cb7bd9e270f0718f2b6da5ef7e00ba462a361f6b772453dea45 preview:aba56f2242af90339f6c994c2c51a33ab035f5a1bb6c58b0287b410b3dafa0ec -->
+<!-- gallery-source:5fad0457ed4fff840a3bdb3cfdbafeb2be2f105ecf5f749f149e0548c5aa1df3 preview:6792ba4a915ba8373346f9b2903a9c545b757e588471f0e01d04eedc910bb602 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -33,15 +33,15 @@
 
 <!-- style:technology source:6ab4b4d80523e89040b345608ba63fea96ed516c44fc7ee8b6a69d8bf862c676 preview:a975b5668b9dba5982d2721dd348cb026f70bf95d7a2bf022dad91a7bb2e8839 -->
 
-### Story · 场景 · 叙事 · 轻盈
+### Story · 产品 · 场景 · 精致
 
-[![Story 首页](public/previews/story-home.png?v=466c5170a764)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=6d0e4efa33d6)](https://interviewhacker.vercel.app/story/)
 
-鸿蒙字体、场景照片与连续滚动叙事，呈现会前准备、实时对话与会后复盘。
+鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:b1f079b6cc2adf77345164e7a1ac3ad9038ee098051e597a24549a5e889d611d preview:466c5170a76484d6f2f260a931a41ecc10c8d98e09963bef29df286822e6ff3d -->
+<!-- style:story source:f3a894f0bc3910e3feb03c21564e37cda6b58b07982e77b3be665daca48d4d91 preview:6d0e4efa33d645766d275120ced946fca6449bdbbe3268852baad521f60511fe -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -64,7 +64,6 @@ npm run dev
 | 画廊布局与样式 | `public/index.html`、`public/gallery.css` |
 | Minimal 全部页面代码和素材 | `public/minimal/` |
 | Technology 全部页面代码和素材 | `public/technology/` |
-| Story 全部页面代码和素材 | `public/story/` |
 | Story 全部页面代码和素材 | `public/story/` |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
@@ -107,3 +106,5 @@ Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.
 Story 保留用户提供源码的独立样式、主题、共享动效及页面脚本加载顺序；不要重新合并为不透明的 app.js。`npm run docs:sync` 会为所有 Story CSS / JS 入口计算内容版本，避免已缓存的旧资源混入新页面。字体、图片及视口尺寸变化后会重新测量滚动区间。
 
 Story 使用本地随站分发的 HarmonyOS Sans SC Regular / Medium，保留原始字体文件与许可，页脚展示字体署名。`public/story/` 为当前维护入口，修改后同步首页截图、README 与线上地址。
+
+Story 产品画面由 `scripts/story-screens.mjs` 生成：运行 `npm run screens:build` 更新 12 组浅色 / 深色矢量界面，再检查页面、更新首页截图并 `npm run docs:sync`。画面与文案的对应表、合成来源及维护约定见 [Story 产品展示](docs/STORY-ARTWORK.md)。
