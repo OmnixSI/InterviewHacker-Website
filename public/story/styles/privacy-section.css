@@ -1,0 +1,58 @@
+/* Keep the privacy disclosure readable over its product-image backdrop. */
+.l-pdf > .l-pdf__background::before {
+  background: rgba(var(--ih-theme-background-rgb), .62);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.l-pdf__background img {
+  opacity: .36;
+}
+
+.l-pdf__container {
+  position: relative;
+  z-index: 2;
+}
+
+.l-pdf .l-pdf__form {
+  background: var(--ih-theme-surface);
+  border: 1px solid var(--ih-theme-line);
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(15, 17, 21, .12);
+  gap: 16px;
+  justify-content: flex-start;
+  padding: clamp(20px, 2.2vw, 32px);
+}
+
+.l-pdf .l-pdf__form > p {
+  margin: 0;
+}
+
+.l-pdf .l-pdf__form .text-lead {
+  color: var(--ih-theme-heading);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.l-pdf .l-pdf__form .text-small {
+  color: var(--ih-theme-copy);
+  font-size: 14px;
+}
+
+.l-pdf .l-pdf__form > .btn {
+  margin-top: 2px;
+}
+
+@media (min-width: 980px) {
+  .l-pdf .row {
+    align-items: center;
+  }
+
+  .l-pdf .row .l-pdf__form {
+    align-self: center;
+    min-height: 0;
+  }
+}
