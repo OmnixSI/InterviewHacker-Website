@@ -1,6 +1,7 @@
 import { readFile, access, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {root,publicRoot,loadCatalog,fingerprints,galleryCards,extractBlock,readmeGallery} from './catalog.mjs';
 const catalog=await loadCatalog(),prints=await fingerprints(catalog);
 const index=await readFile(path.join(publicRoot,'index.html'),'utf8');
@@ -35,13 +36,22 @@ await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/co
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
  for(const text of ['v1.8.0','需要仓库访问权','不会把所有资料塞入上下文','语音识别 + 对话服务','交互示意'])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
- const css=await readFile(path.join(base,'style.css'),'utf8'),js=await readFile(path.join(base,'app.js'),'utf8');
+ const css=await readFile(path.join(base,'style.css'),'utf8');
+ const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
+ const js=(await Promise.all(scripts.map(src=>readFile(path.resolve(base,src.split('?')[0]),'utf8')))).join('\n');
  assert(css.includes('prefers-reduced-motion'));
  for(const match of js.matchAll(/image: '([^']+)'/g))await access(path.join(base,'shots',match[1]));
  assert(!/fonts\.googleapis|mcode\.cn|v1\.7\.0|无法被检测|<sup>®/.test(html));
  if(style.slug==='technology'){
   assert(!/Paddle|Qwen|Codex|DeepSeek|OpenAI/.test(html.slice(0,html.indexOf('<section id="faq"'))));
   for(const id of ['signal-field','story-field','tech-panel','inject-signal'])assert(html.includes(`id="${id}"`));
+ }
+ if(style.slug==='story'){
+  assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Story theme must initialize before reference measurements');
+  for(const m of html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)){
+   const bytes=await readFile(path.join(base,m[1]));
+   assert.equal(m[2],createHash('sha256').update(bytes).digest('hex').slice(0,12),'Story resource version is stale: run npm run docs:sync');
+  }
  }
 }
 const staticConfig=JSON.parse(await readFile(path.join(publicRoot,'vercel.json'),'utf8'));

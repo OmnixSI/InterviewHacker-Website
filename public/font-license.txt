@@ -91,3 +91,7 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+Story uses HarmonyOS Sans SC (Regular and Medium), copyright 2021 Huawei Device Co., Ltd.
+Original, unmodified font files are bundled with the website. License and credit:
+public/story/assets/fonts/harmonyos/LICENSE.txt
+https://github.com/openharmony/global_system_resources/blob/master/LICENSE_Fonts

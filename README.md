@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=0995a3c10929)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=aba56f2242af)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:3a32ac1d8d48aa1d2dabb39ee97572cd24dcf32ac6de132bc783d6b8302401d5 preview:0995a3c109296e75cac11a6a84a873c92378d632f6371cd5b9617bea7cfccaa8 -->
+<!-- gallery-source:737e51375f0a7cb7bd9e270f0718f2b6da5ef7e00ba462a361f6b772453dea45 preview:aba56f2242af90339f6c994c2c51a33ab035f5a1bb6c58b0287b410b3dafa0ec -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,13 +35,13 @@
 
 ### Story · 场景 · 叙事 · 轻盈
 
-[![Story 首页](public/previews/story-home.png?v=970d0e35ab58)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=466c5170a764)](https://interviewhacker.vercel.app/story/)
 
-以场景照片和清晰的产品界面展开长页叙事，呈现会前准备、实时对话与会后复盘。
+鸿蒙字体、场景照片与连续滚动叙事，呈现会前准备、实时对话与会后复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:451771d2c493da66607022d8efc984ffeeb1a6c87dedc2fb61ae2af32de4b7e8 preview:970d0e35ab58dadd182150922b0b14cd73b7d55414548099ddc4ea105c7bed11 -->
+<!-- style:story source:648a6d46beeee91ad110edfad6b1069533fbea85c7b1e732009e47c562433c5e preview:466c5170a76484d6f2f260a931a41ecc10c8d98e09963bef29df286822e6ff3d -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -101,3 +101,9 @@ Minimal 从已发布的第一版恢复；Technology 为 Think in Flow 技术展�
 Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.py` 后，可在 macOS 使用 `swift scripts/render-og.swift scripts/og.svg public/technology/og.png` 更新对应分享图（与首页截图分开维护）；字体许可见 [FONT-LICENSE.txt](FONT-LICENSE.txt)；Story 的 Geist 和 Inter 字体许可分别保留在对应 `assets/fonts/` 子目录。当前未附加通用开源许可证，产品名称、截图及其他素材保留原有权利。
 
 不要提交 token、私钥、`.vercel/`、`dist/` 或本机 `validation/` 输出。
+
+### Story 部署维护
+
+Story 保留用户提供源码的独立样式、主题、共享动效及页面脚本加载顺序；不要重新合并为不透明的 app.js。`npm run docs:sync` 会为所有 Story CSS / JS 入口计算内容版本，避免已缓存的旧资源混入新页面。字体、图片及视口尺寸变化后会重新测量滚动区间。
+
+Story 使用本地随站分发的 HarmonyOS Sans SC Regular / Medium，保留原始字体文件与许可，页脚展示字体署名。`public/story/` 为当前维护入口，修改后同步首页截图、README 与线上地址。
