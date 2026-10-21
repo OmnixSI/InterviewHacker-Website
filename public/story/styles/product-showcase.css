@@ -1,6 +1,7 @@
 /* Product-specific media with one coherent device treatment. */
 .intro-video__player { visibility: hidden; pointer-events: none; }
 .ih-hero-device { aspect-ratio: 1600 / 1044; pointer-events: none; z-index: 2; }
+.intro-convenient { background: var(--ih-theme-background); position: relative; z-index: 2; }
 .ih-viewing-heading { margin: 0 auto 28px; max-width: 760px; text-align: center; }
 .ih-viewing-heading .h4 { margin-bottom: 0; }
 .ih-viewing-stage { align-items: center; display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr) minmax(170px, .36fr); margin: 0 auto; max-width: 980px; }
