@@ -22,7 +22,8 @@ function drawing(p) {
   const button=(x,y,label,w=170,primary=false)=>rect(x,y,w,48,24,primary?'url(#accent)':p.soft)+text(x+w/2,y+32,label,21,primary?'#fff':p.copy,500,'text-anchor="middle"');
   function wave(x,y,w,color,seed=0) {
     return Array.from({length:46},(_,i)=>{
-      const h=6+Math.abs(Math.sin(i*1.7+seed)*Math.cos(i*.47+seed))*36;
+      // Quantize decorative bars so SVG output is stable across JS engines/CPUs.
+      const h=Math.round((6+Math.abs(Math.sin(i*1.7+seed)*Math.cos(i*.47+seed))*36)*100)/100;
       return rect(x+i*w/46,y-h/2,3,h,1.5,color);
     }).join('');
   }
