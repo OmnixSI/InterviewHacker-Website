@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=6792ba4a915b)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=24412d8a2258)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:5fad0457ed4fff840a3bdb3cfdbafeb2be2f105ecf5f749f149e0548c5aa1df3 preview:6792ba4a915ba8373346f9b2903a9c545b757e588471f0e01d04eedc910bb602 -->
+<!-- gallery-source:e1b12b59ef8cf62caa78600a5aeaa3faf1cdebd8343aa2f179dc9d8a9fdc6322 preview:24412d8a2258acb1614804bf6da3f1055ed94089db32b9bae2c0ea268e3abe96 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,18 +35,18 @@
 
 ### Story · 产品 · 场景 · 精致
 
-[![Story 首页](public/previews/story-home.png?v=6d0e4efa33d6)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=0eee76317e0a)](https://interviewhacker.vercel.app/story/)
 
 鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:1aab3cb0f924fe0f428b14edc23a8a1881e76be447098a1fddf7762e2dd5bac8 preview:6d0e4efa33d645766d275120ced946fca6449bdbbe3268852baad521f60511fe -->
+<!-- style:story source:1fbdbc327ede87d7e9c4190f98ebb7136786a38e260b9f92a9e79dbfe2645f25 preview:0eee76317e0ab6d3eed72e7c13b3ebd50e174cd6cdc45915b32c40980e7c28f8 -->
 <!-- STYLES:END -->
 
 ## 本地运行
 
-需要 Node.js 24+；本地预览另需 Python 3。没有 npm 依赖。
+需要 Node.js 24（与正式构建一致，可用 `nvm use`）；本地预览另需 Python 3。没有 npm 依赖。
 
 ```sh
 git clone https://github.com/OmnixSI/InterviewHacker-Website.git
@@ -108,3 +108,5 @@ Story 保留用户提供源码的独立样式、主题、共享动效及页面�
 Story 使用本地随站分发的 HarmonyOS Sans SC Regular / Medium，保留原始字体文件与许可，页脚展示字体署名。`public/story/` 为当前维护入口，修改后同步首页截图、README 与线上地址。
 
 Story 产品画面由 `scripts/story-screens.mjs` 生成：运行 `npm run screens:build` 更新 12 组浅色 / 深色矢量界面，再检查页面、更新首页截图并 `npm run docs:sync`。画面与文案的对应表、合成来源及维护约定见 [Story 产品展示](docs/STORY-ARTWORK.md)。
+
+Story 动效与手机适配由 `styles/motion-polish.css` 和 `scripts/motion-polish.js` 维护：入场采用缓出曲线，设备位移由滚动进度控制；触屏场景卡片使用原生滑动，支持定位按钮及系统减少动态效果。修改后需复核 320–430 手机竖屏、短横屏、平板和桌面，更新实际首页预览。部署前须完成检查和构建并等 CI 通过；发布后确认正式别名与逐文件校验成功。

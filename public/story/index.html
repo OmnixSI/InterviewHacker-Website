@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="./styles/brand-overrides.css?v=b3023179f6c9">
   <link rel="stylesheet" href="./styles/privacy-section.css?v=8e991bb35b40">
   <link rel="stylesheet" href="./styles/product-showcase.css?v=b2fa2b6a5303">
+  <link rel="stylesheet" href="./styles/motion-polish.css?v=d16d690c16b0"/>
   <link rel="stylesheet" href="./style.css?v=3fb39b3b91b3">
   <link rel="preload" href="./assets/fonts/harmonyos/HarmonyOS_Sans_SC_Regular.ttf" as="font" type="font/ttf" crossorigin>
   <title>InterviewHacker — Story</title>
@@ -152,7 +153,7 @@
       </span>
      </span>
     </a>
-    <a aria-label="Menu" class="btn btn--primary-alt btn--square btn--sm-static is-hidden--lg-up ml-1 ml-0.5:md" href="#menu">
+    <a aria-label="菜单" class="btn btn--primary-alt btn--square btn--sm-static is-hidden--lg-up ml-1 ml-0.5:md" href="#menu">
      <span class="btn__content">
       <span class="btn__icon">
        <svg aria-hidden="true" class="icon icon-menu" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -875,7 +876,7 @@
   </div>
  </article>
 </div>
-  <div class="l-success is-hidden--lg-up"><ul class="mobile-scrollable"><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>求职面试</h3><p>带入简历与岗位说明，整理问题，按需要查看建议回答。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" src="./assets/product-scenes/lecture-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>学术报告</h3><p>提前准备论文、讲稿与幻灯片，讲清方法，也准备应对追问。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" src="./assets/product-scenes/meeting-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>商务会议</h3><p>带着议程与目标开始，会后回看讨论重点、决定事项与下一步。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" src="./assets/product-scenes/course-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>课程学习</h3><p>让课件和笔记留在独立场景，提问时找到相关内容，课后回看重点。</p></div></article></li></ul></div>
+  <div class="l-success is-hidden--lg-up"><ul class="mobile-scrollable" aria-label="使用场景" tabindex="0"><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>求职面试</h3><p>带入简历与岗位说明，整理问题，按需要查看建议回答。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" src="./assets/product-scenes/lecture-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>学术报告</h3><p>提前准备论文、讲稿与幻灯片，讲清方法，也准备应对追问。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" src="./assets/product-scenes/meeting-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>商务会议</h3><p>带着议程与目标开始，会后回看讨论重点、决定事项与下一步。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" src="./assets/product-scenes/course-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>课程学习</h3><p>让课件和笔记留在独立场景，提问时找到相关内容，课后回看重点。</p></div></article></li></ul><nav class="ih-scene-dots is-hidden--no-js" aria-label="选择使用场景"><button class="ih-scene-dot" type="button" data-scene-index="0" aria-label="查看求职面试" aria-current="true"></button><button class="ih-scene-dot" type="button" data-scene-index="1" aria-label="查看学术报告"></button><button class="ih-scene-dot" type="button" data-scene-index="2" aria-label="查看商务会议"></button><button class="ih-scene-dot" type="button" data-scene-index="3" aria-label="查看课程学习"></button></nav></div>
  </div>
 </section>
         <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section6" id="benefits">
@@ -1504,7 +1505,7 @@
       </main>
     </div>
     <div class="js-modal">
- <div aria-hidden="true" aria-label="Modal menu" class="modal modal--side modal--side-top is-hidden" data-nosnippet="" data-plugin="modal" id="menu" role="dialog" tabindex="0">
+ <div aria-hidden="true" aria-label="导航菜单" class="modal modal--side modal--side-top is-hidden" data-nosnippet="" data-plugin="modal" id="menu" role="dialog" tabindex="0">
   <div class="modal__background">
   </div>
   <div class="modal__animation">
@@ -1512,7 +1513,7 @@
     <div class="modal__content-wrapper js-modal-scrollable-content">
      <div class="modal__content js-modal-ignore-auto-close">
       <div class="modal__content-animation">
-       <a aria-label="Close" class="btn btn--black btn--square btn--md modal__close js-modal-close" role="button" tabindex="0">
+       <a aria-label="关闭菜单" class="btn btn--black btn--square btn--md modal__close js-modal-close" role="button" tabindex="0">
         <span class="btn__content">
          <span class="btn__icon">
           <svg aria-hidden="true" class="icon icon-close" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
@@ -1596,7 +1597,7 @@
            </li>
           </ul>
           <p class="text-lead leading-trim text-color-small mt-2.5 mb-0.5">
-           Pro tips
+           使用提示
           </p>
           <ul>
            <li>
@@ -1638,20 +1639,11 @@
  </div>
 </div>
   </div>
-  <div class="rotate-device is-hidden--xs is-hidden--md-up ui-dark ui-background">
- <p class="leading-trim text-lead-bold px-1 py-1">
-  Please, rotate your
-  <br/>
-  phone
- </p>
- <img alt="" class="rotate-device__arrows is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " data-src="./assets/images/common/rotate/arrows.svg?v=1791814836" draggable="false" src="./assets/images/px.gif?v=1791814836"/>
- <img alt="" class="rotate-device__device is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " data-src="./assets/images/common/rotate/device.svg?v=1791814836" draggable="false" src="./assets/images/px.gif?v=1791814836"/>
- <img alt="" class="rotate-device__check is-invisible--js is-hidden--no-js" data-appear-preload-on-idle="false" data-plugin="appear " data-src="./assets/images/common/rotate/check.svg?v=1791814836" draggable="false" src="./assets/images/px.gif?v=1791814836"/>
-</div>
   <script src="./scripts/theme.js?v=47c9bc9aead2"></script>
   <script src="./assets/javascripts/shared.js?v=6ccc7a6f5fbf"></script>
   <script src="./assets/javascripts/landing.js?v=09aa5bae3aec"></script>
   <script src="./scripts/close-popover.js?v=a156913f928b"></script>
+  <script src="./scripts/motion-polish.js?v=59a5070d49c0"></script>
   <script src="./scripts/layout-sync.js?v=8012fbd0bb6f"></script>
 </body>
 </html>

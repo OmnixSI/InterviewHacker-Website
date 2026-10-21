@@ -19,6 +19,6 @@
     "url": "https://github.com/OmnixSI/InterviewHacker-Website/issues"
   },
   "engines": {
-    "node": ">=24"
+    "node": "24.x"
   }
 }
