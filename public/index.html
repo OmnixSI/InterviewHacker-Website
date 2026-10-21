@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b10">
+  <title>InterviewHacker — 让思路，领先下一句。</title>
+  <meta name="description" content="面试、会议、答辩与课堂的实时 AI 提词助手。双路收音、本机转写、流式回答、场景资料与会后复盘。为 Apple Silicon 打造的原生 macOS 应用。">
+  <link rel="canonical" href="https://interviewhacker.vercel.app/">
+  <meta property="og:url" content="https://interviewhacker.vercel.app/">
+  <meta property="og:site_name" content="InterviewHacker">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="InterviewHacker — 让思路，领先下一句。">
+  <meta property="og:description" content="双路感知、上下文编排与流式响应。解构实时对话背后的完整技术链路。">
+  <meta property="og:image" content="https://interviewhacker.vercel.app/og.png?v=think-in-flow">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://interviewhacker.vercel.app/og.png?v=think-in-flow">
+  <meta property="og:image:alt" content="InterviewHacker — 让思路，领先下一句。macOS 实时 AI 提词助手。">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preload" href="/assets/geist-latin-wght-normal-BgDaEnEv.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#" aria-label="InterviewHacker 首页"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Interview<span class="brand-light">Hacker</span></span></a>
+      <nav class="desktop-nav" aria-label="主导航"><a href="#technology">技术核心</a><a href="#live-demo">实时体验</a><a href="#workflow">产品界面</a><a href="#faq">常见问题</a></nav>
+      <button class="button button-small" data-download>获取 macOS 版 <span aria-hidden="true">↗</span></button>
+      <button class="menu-button" aria-label="打开导航" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="移动导航" hidden><a href="#technology">技术核心</a><a href="#live-demo">实时体验</a><a href="#workflow">产品界面</a><a href="#faq">常见问题</a></nav>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+  <main id="main">
+    <section class="hero section-shell" id="experience" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div><div class="hero-watermark" aria-hidden="true">THINK<br>IN FLOW.</div>
+      <div class="hero-copy">
+        <a href="#technology" class="version-pill"><span class="status-dot"></span>INTERVIEWHACKER v1.8<span class="pill-separator"></span>REALTIME. REIMAGINED. <span>↗</span></a>
+        <p class="eyebrow hero-eyebrow">THE REALTIME CONVERSATION ENGINE</p>
+        <h1 id="hero-title">让思路，<br><span class="hero-word">领先下一句。</span></h1>
+        <p class="hero-lead">听见问题，让你的准备开始流动。</p>
+        <p class="hero-detail">双路感知 · 上下文编排 · 实时提词<br>为面试、答辩与会议打造的原生 macOS 助手。</p>
+        <div class="hero-actions"><button class="button button-primary" data-download>获取 macOS 版 <span aria-hidden="true">↗</span></button><a class="text-link" href="#technology">深入技术核心 <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-meta"><span>APPLE SILICON</span><i></i><span>macOS 14+</span><i></i><span>NATIVE EXPERIENCE</span></div>
+      </div>
+      <div class="hero-stage" aria-label="交互式技术可视化">
+        <div class="engine-crosshair crosshair-a" aria-hidden="true"></div><div class="engine-crosshair crosshair-b" aria-hidden="true"></div>
+        <canvas id="signal-field" aria-hidden="true"></canvas>
+        <div class="engine-hud hud-top"><span><i class="status-dot"></i> SIGNAL ENGINE</span><span id="engine-renderer">PROCEDURAL VISUAL</span></div>
+        <div class="engine-chip" aria-hidden="true"><span class="chip-symbol">IH</span><span>CONTEXT<br>ENGINE</span></div>
+        <div class="engine-label engine-label-a" aria-hidden="true"><b>INPUT_01</b><span>VOICE STREAM</span><i></i></div>
+        <div class="engine-label engine-label-b" aria-hidden="true"><b>CONTEXT_02</b><span>MEMORY / KNOWLEDGE</span><i></i></div>
+        <div class="engine-label engine-label-c" aria-hidden="true"><b>OUTPUT_03</b><span>THOUGHT → WORDS</span><i></i></div>
+        <div class="engine-readout"><span class="readout-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="engine-state" role="status">声场已就位 / AWAITING SIGNAL</span><button id="inject-signal" aria-label="注入一束演示信号">注入信号 <span aria-hidden="true">↗</span></button></div>
+        <div class="engine-modes" role="group" aria-label="粒子形态"><button data-shape="0" aria-pressed="true" class="active">01 声场</button><button data-shape="1" aria-pressed="false">02 语义</button><button data-shape="2" aria-pressed="false">03 联结</button></div>
+        <span class="engine-caption">可视化演示 · 移动指针探索 · 不采集音频</span>
+      </div>
+      <div class="hero-bottom"><span class="mono">BUILT AROUND YOUR NEXT THOUGHT.</span><a href="#signal-story">SCROLL TO DECODE <span aria-hidden="true">↓</span></a><span class="mono">01 — THE CORE</span></div>
+    </section>
+    <div class="signal-marquee" aria-hidden="true"><div>DUAL-STREAM PERCEPTION <i>✳</i> CONTEXT ORCHESTRATION <i>✳</i> STREAMING INTELLIGENCE <i>✳</i> NATIVE ON MAC <i>✳</i> DUAL-STREAM PERCEPTION <i>✳</i> CONTEXT ORCHESTRATION <i>✳</i> STREAMING INTELLIGENCE <i>✳</i> NATIVE ON MAC <i>✳</i></div></div>
+
+    <section class="signal-story" id="signal-story" aria-labelledby="story-title">
+      <div class="story-pin section-shell">
+        <div class="story-top"><p class="eyebrow">A SIGNAL BECOMES A THOUGHT.</p><span class="mono">SCROLL EXPERIMENT / 可视化叙事</span></div>
+        <h2 class="story-accessible" id="story-title">从声音，到语境，再到表达。</h2>
+        <div class="story-type" aria-hidden="true"><span data-story-word="0" class="active">VOICE<span>声音</span></span><span data-story-word="1">CONTEXT<span>语境</span></span><span data-story-word="2">RESPONSE<span>表达</span></span></div>
+        <div class="story-art" aria-hidden="true"><canvas id="story-field"></canvas><span class="story-orbit-label">VOICE → CONTEXT → RESPONSE</span></div>
+        <div class="story-bottom"><span id="story-index" class="story-index">01 / 03</span><div><h3 id="story-heading">先听见，真实的对话。</h3><p id="story-description">双路音频各自进入识别管线，在本机成为可处理的文字。</p></div><span class="story-scroll" aria-hidden="true">继续滚动<br>↓</span></div>
+        <div class="story-progress" aria-hidden="true"><span></span></div>
+      </div>
+      <div class="story-static"><p><strong>01 声音</strong>双路音频独立识别，过滤回声。</p><p><strong>02 语境</strong>连接场景资料与当前问题，检索相关片段。</p><p><strong>03 表达</strong>组织当前上下文，流式呈现建议回答。</p></div>
+    </section>
+
+    <section id="technology" class="technology section-shell section-space" aria-labelledby="technology-title">
+      <div class="section-intro reveal"><div><p class="eyebrow"><span class="section-number">01 / ENGINEERING</span> 从信号到思路</p><h2 id="technology-title">流畅背后，<br>是一整套精密协作。</h2></div><p class="section-description">声音、问题、资料、回答。<br>我们把每一个环节，接成你的实时思考链路。</p></div>
+      <div class="tech-lab">
+        <div class="lab-topline"><span><i class="status-dot"></i> PIPELINE EXPLORER</span><span>INTERACTIVE SYSTEM VIEW / 示意</span></div>
+        <div class="pipeline-nodes" role="tablist" aria-label="技术链路"><button id="tech-capture" role="tab" aria-selected="true" aria-controls="tech-panel" data-tech="capture" class="active"><span class="node-graphic" aria-hidden="true">≋</span><span>01 / CAPTURE</span><b>双路感知</b><i aria-hidden="true"></i></button><button id="tech-decode" role="tab" aria-selected="false" aria-controls="tech-panel" tabindex="-1" data-tech="decode"><span class="node-graphic" aria-hidden="true">⌁</span><span>02 / REFINE</span><b>两遍识别</b><i aria-hidden="true"></i></button><button id="tech-retrieve" role="tab" aria-selected="false" aria-controls="tech-panel" tabindex="-1" data-tech="retrieve"><span class="node-graphic" aria-hidden="true">⌘</span><span>03 / CONTEXT</span><b>上下文编排</b><i aria-hidden="true"></i></button><button id="tech-stream" role="tab" aria-selected="false" aria-controls="tech-panel" tabindex="-1" data-tech="stream"><span class="node-graphic" aria-hidden="true">↗</span><span>04 / STREAM</span><b>流式响应</b><i aria-hidden="true"></i></button></div>
+        <div class="tech-panel" id="tech-panel" role="tabpanel" aria-labelledby="tech-capture" tabindex="0"><div class="tech-visual" data-visual="capture" aria-hidden="true"><div class="track track-remote"><span>REMOTE</span><div class="wave-track"></div><b>对方</b></div><div class="track track-self"><span>SELF</span><div class="wave-track"></div><b>我</b></div><div class="trace-merge"><i></i><span>独立识别 / 回声过滤</span><i></i></div><div class="trace-output"><span>QUESTION_DETECTED</span><strong>识别问题，触发回答。</strong><span class="trace-cursor">▌</span></div></div><div class="tech-explanation"><span id="tech-kicker" class="mono">TWO STREAMS. ONE CONVERSATION.</span><h3 id="tech-title">听得见，也分得清。</h3><p id="tech-description">系统声音与麦克风分别采集、独立识别。本地规则过滤回声、判断提问，让“对方在问”与“我在回答”各归其位。</p><div id="tech-tags"><span>双通道采集</span><span>本机规则判断</span><span>回声可恢复</span></div></div></div>
+        <div class="lab-footer"><span>点击节点，解构处理链路</span><button id="run-pipeline" aria-label="运行链路演示">运行链路演示 <span aria-hidden="true">▶</span></button></div>
+      </div>
+      <div class="engineering-stats"><article><span>DUAL-STREAM</span><strong>2<span>路</span></strong><p>系统声音与麦克风独立处理</p></article><article><span>RETRIEVAL BUDGET</span><strong>500<span>ms</span></strong><p>语义结果等待预算，超时用关键词</p></article><article><span>SEMANTIC SPACE</span><strong>1024<span>维</span></strong><p>可选本机向量检索，召回相近表达</p></article><article><span>TASK ISOLATION</span><strong>只读<span>工具</span></strong><p>原件代读限定在本轮文件清单</p></article></div>
+    </section>
+
+    <section class="experience-lab section-shell section-space" id="live-demo" aria-labelledby="demo-title"><div class="demo-intro reveal"><p class="eyebrow"><span class="section-number">02 / IN THE MOMENT</span> 实时提词体验</p><h2 id="demo-title">复杂的链路，<br>只为自然的下一句。</h2><p>把准备好的背景，变成当下说得出口的回答。<br>选一个场景，看看思路怎样展开。</p>        <div class="scenario-switch" role="group" aria-label="演示场景"><button class="active" aria-pressed="true" data-scene="interview">面试</button><button aria-pressed="false" data-scene="academic">学术答辩</button><button aria-pressed="false" data-scene="meeting">商务会议</button><button aria-pressed="false" data-scene="course">课堂</button></div><span class="demo-caption">预设内容交互示意，不调用录音或 AI 服务。</span></div><div class="demo-console">        <div class="prompt-window">
+          <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>InterviewHacker</span><span class="window-status"><span class="status-dot"></span>聆听中</span></div>
+          <div class="prompt-body">
+            <div class="speaker-line"><span class="speaker-icon" aria-hidden="true">↙</span><span>对方 · 系统声音</span><span class="question-label">问题</span></div>
+            <p id="demo-question" class="demo-question">如果缓存删除失败了，你们怎么保证一致性？</p>
+            <div class="thought-path" aria-hidden="true"><span></span><i></i><span>检索场景资料</span><i></i><span>组织回答</span></div>
+            <div class="answer-card"><div class="answer-heading"><span class="sparkle" aria-hidden="true">✦</span><span>建议回答</span><span class="answer-stream">流式生成</span></div><div id="demo-answer" class="demo-answer" aria-live="off">我会先保证数据库写入成功，再删除缓存。删除失败时，通过重试队列和 binlog 订阅兜底，保证最终一致。</div><div class="answer-tags"><span>贴合你的资料</span><span>可以直接说出口</span></div></div>
+            <div class="prompt-bottom"><span class="demo-disclaimer">交互示意 · 非实时录音</span><button class="replay-button" aria-label="重新播放提词演示"><span aria-hidden="true">↻</span> 重播</button></div>
+          </div>
+        </div>
+</div></section>
+
+    <section id="workflow" class="workflow section-shell section-space" aria-labelledby="workflow-title">
+      <div class="section-intro reveal"><div><p class="eyebrow"><span class="section-number">03 / NATIVE EXPERIENCE</span> 产品界面</p><h2 id="workflow-title">从听见，<br>到说清。</h2></div><p class="section-description">不用在会议窗口、笔记和聊天框之间来回切换。<br>从会前准备到会后复盘，思路始终连在一起。</p></div>
+      <div class="workflow-tabs" role="tablist" aria-label="产品工作流"><button id="tab-listen" class="active" role="tab" aria-selected="true" aria-controls="workflow-panel" data-feature="listen"><span>01</span>听见问题</button><button id="tab-context" role="tab" aria-selected="false" aria-controls="workflow-panel" tabindex="-1" data-feature="context"><span>02</span>带上背景</button><button id="tab-prompt" role="tab" aria-selected="false" aria-controls="workflow-panel" tabindex="-1" data-feature="prompt"><span>03</span>自然开口</button><button id="tab-review" role="tab" aria-selected="false" aria-controls="workflow-panel" tabindex="-1" data-feature="review"><span>04</span>留下经验</button></div>
+      <div class="workflow-panel" id="workflow-panel" role="tabpanel" aria-labelledby="tab-listen" tabindex="0">
+        <div class="feature-copy"><span class="feature-symbol" id="feature-symbol" aria-hidden="true">≋</span><h3 id="feature-title">听得到双方，<br>也分得清你我。</h3><p id="feature-description">系统声音是「对方」，麦克风是「我」。两条音轨独立识别，实时转写；本地规则识别问题，触发流式回答。</p><ul id="feature-points"><li>默认在本机完成语音识别</li><li>流式出字，整句再精修</li><li>回声自动忽略，也能手动恢复</li></ul><span class="screenshot-note">应用截图 · 演示数据</span></div>
+        <button class="screenshot-frame" aria-label="放大应用截图"><img id="feature-image" src="/shots/assistant-dark.webp" width="1120" height="820" alt="助手页：实时对话、问题识别与建议回答" loading="lazy"><span class="zoom-label">查看界面 <span aria-hidden="true">↗</span></span></button>
+      </div>
+      <div class="workflow-footnote"><span class="status-dot"></span><span>流式调度连接你选择的回答服务。响应速度取决于模型、网络与服务额度。</span></div>
+    </section>
+
+    <section class="craft section-shell section-space" aria-labelledby="craft-title">
+      <div class="section-intro reveal"><div><p class="eyebrow"><span class="section-number">04 / DESIGNED TO FLOW</span> 原生体验</p><h2 id="craft-title">准备得再多，<br>也需要临场的那一下。</h2></div><p class="section-description">让工具靠近你的工作方式。<br>少一点打断，多一点专注。</p></div>
+      <div class="craft-grid">
+        <article class="craft-card craft-large reveal"><div class="card-topline"><span class="mono">FOCUS MODE</span><span aria-hidden="true">↗</span></div><h3>目光不必离开，<br>思路也能跟上。</h3><p>把半透明提词器放在摄像头下方。字号、透明度、鼠标穿透随手调整，让回答靠近视线。</p><div class="prompter-art" aria-hidden="true"><div class="camera-dot"></div><div class="art-prompter"><span>✦ 当前建议</span><p>我会先讲结论，<br><em>再用一个具体例子说明。</em></p><div>⌘ ⇧ O <span>显示 / 隐藏提词器</span></div></div><div class="art-bezel"></div></div><span class="card-note">整屏共享可能包含提词器，请先测试共享可见性。</span></article>
+        <article class="craft-card craft-context reveal"><div class="card-topline"><span class="mono">CONTEXT MATTERS</span><span aria-hidden="true">↗</span></div><div class="file-art" aria-hidden="true"><span class="file f1">PDF<small>我的简历</small></span><span class="file f2">MD<small>岗位要求</small></span><span class="file f3">PPT<small>项目汇报</small></span><span class="context-spark">✦</span></div><h3>同一个你，<br>不同场景的准备。</h3><p>面试、学术、商务、课程与通用模式，各用一套资料和回答要求。切换场景，背景跟着切换。</p></article>
+        <article class="craft-card craft-shortcut reveal"><div class="card-topline"><span class="mono">AT YOUR COMMAND</span><span aria-hidden="true">↗</span></div><div class="shortcut-art" aria-hidden="true"><kbd>⌘</kbd><kbd>⇧</kbd><kbd>↵</kbd></div><h3>需要时，立即接住。</h3><p>一个快捷键触发回答。还可以手动输入、截图提问，或把回答调成更短、举例、STAR 与英文版。</p></article>
+      </div>
+    </section>
+
+    <section id="choices" class="choices" aria-labelledby="choices-title"><div class="section-shell section-space">
+      <div class="choices-heading reveal"><div><p class="eyebrow"><span class="section-number">05 / YOUR CONTROL</span> 自由配置</p><h2 id="choices-title">先开口。<br>其他的，按需来。</h2></div><div><p>语音识别 + 对话服务，是开始的基础。<br>OCR 增强、语义检索，是你需要时再加的能力。</p><span class="choice-version">v1.8.0 · 简洁设置与五步引导</span></div></div>
+      <div class="setup-grid"><div class="setup-core"><span class="mono">THE ESSENTIALS / 核心流程</span><ol><li><span>01</span><div><h3>准备语音</h3><p>允许音频权限，准备识别引擎，选好会议声音来源。</p></div><span class="core-check" aria-hidden="true">↘</span></li><li><span>02</span><div><h3>连接对话</h3><p>连接可用的回答服务，测试通过即可开始。</p></div><span class="core-check" aria-hidden="true">↘</span></li><li><span>03</span><div><h3>开始辅助</h3><p>资料可以稍后添加。进入助手，开始聆听与提词。</p></div><span class="core-check" aria-hidden="true">✓</span></li></ol><div class="core-footer">首次安装与功能版本升级，<br>引导都会带你走一遍。</div></div>
+      <div class="setup-options"><div class="options-heading"><span class="mono">MAKE IT YOURS / 可选增强</span><span>配置预览</span></div>
+        <div class="option-row"><div><h3>本机 OCR 增强 <span>可选</span></h3><p>版面感知 · 区域识别 · 阅读顺序重建</p></div><button class="toggle" id="ocr-toggle" role="switch" aria-checked="false" aria-label="预览启用本机 OCR 增强" aria-describedby="ocr-explanation"><span></span></button></div><p id="ocr-explanation" class="option-explanation">默认系统 OCR，无需下载 OCR 权重。适合常规文字与清晰扫描件；复杂表格、公式可考虑本机增强。</p>
+        <div class="option-row"><div><h3>本机语义检索 <span>可选</span></h3><p>本机向量化 · 语义与关键词双路召回</p></div><button class="toggle" id="vector-toggle" role="switch" aria-checked="false" aria-label="预览启用本机语义检索" aria-describedby="vector-explanation"><span></span></button></div><p id="vector-explanation" class="option-explanation">不开启时，仍会按关键词检索资料片段；不会把所有资料塞入上下文。相近但不同词的表达可能漏检。</p>
+        <div class="download-estimate"><div><span>可选组件额外下载</span><strong id="download-size" role="status" aria-live="polite">0 <small>MB</small></strong></div><span id="download-note">不含语音引擎所需模型</span><p id="runtime-note">此处仅展示取舍，不会下载或修改应用设置。</p></div>
+        <p class="codex-alternative">不想下载增强模型？可选原件代读模式，通过本轮限定的只读工具处理；需联网并使用服务额度。</p>
+      </div></div>
+      <div class="choices-footer"><span>日常只看必要设置。</span><span>需要更多控制时，再打开「高级设置」。</span><a href="#faq">了解数据与使用边界 <span aria-hidden="true">↗</span></a></div>
+    </div></section>
+
+    <section class="privacy section-shell section-space" aria-labelledby="privacy-title"><div class="privacy-intro reveal"><p class="eyebrow"><span class="section-number">06 / DATA BOUNDARIES</span> 数据边界</p><h2 id="privacy-title">你的数据，<br>去向清清楚楚。</h2><p>本机识别，不等于所有 AI 都在本机。<br>每一条路径，都应该说清楚。</p></div><div class="data-paths"><article><span class="path-index">01 / AUDIO</span><div><h3>语音，默认在本机识别。</h3><p>默认不保存原始音频。若主动选择云端语音服务，音频会发送给对应服务商。</p></div><span class="path-badge local">本机优先</span></article><article><span class="path-index">02 / ANSWER</span><div><h3>回答，由你选择的服务生成。</h3><p>相关转录、问题与资料片段会交给你选择的回答服务；启用截图或技能时会带上对应内容。在线回答与原件代读需要联网。</p></div><span class="path-badge">服务可选</span></article><article><span class="path-index">03 / MEMORY</span><div><h3>资料与记录，留在你的 Mac。</h3><p>导入资料长期保存为 Markdown 与元数据。会话、场景和备份保存在本机，可自行导出或删除。</p></div><span class="path-badge local">本机保存</span></article></div></section>
+
+    <section id="faq" class="faq section-shell section-space" aria-labelledby="faq-title"><div class="faq-intro"><p class="eyebrow"><span class="section-number">07 / GET STARTED</span> 开始之前</p><h2 id="faq-title">先说清楚，<br>再开始。</h2><p>关于安装、使用与选择。</p></div><div class="faq-list">
+      <details><summary>什么样的 Mac 可以使用？<span aria-hidden="true">+</span></summary><p>支持 Apple Silicon（M 系列芯片），兼容目标为 macOS 14 或更新版本。Intel Mac 暂不支持。当前版本在 M2 Pro 16 GB、macOS 26.5.2 验证；macOS 14 尚无真机验证。系统语音识别选项需要 macOS 26。</p></details>
+      <details><summary>可以直接下载吗？第一次怎么打开？<span aria-hidden="true">+</span></summary><p>当前 v1.8.0 通过私有 GitHub 仓库的 Releases 分发，需要仓库访问权。DMG 约 18 MB。应用沿用项目签名，尚未完成 Apple Developer ID 公证；首次打开若被系统拦截，请在「系统设置 → 隐私与安全性」确认来源后选择「仍要打开」。</p></details>
+      <details><summary>一定要下载 OCR 和向量模型吗？<span aria-hidden="true">+</span></summary><p>不需要。语音识别和对话服务是核心；OCR 增强与语义检索是独立的可选能力。默认使用系统 OCR，资料仍可通过关键词检索。全部可选模型约 1.88 GB，另有约 186 MB 的文档运行包；安装占用与下载体积不同。Office 结构提取也需要该运行包，由应用管理，无需手动安装 Python。</p></details>
+      <details><summary>回答需要联网或付费账号吗？<span aria-hidden="true">+</span></summary><p>默认本机语音识别不需要联网。回答需要配置可用的服务：支持本机 CLI（Codex）和兼容 API，也可连接兼容的本机推理服务。账号、网络、计费和额度规则照常适用，质量与速度取决于所选模型和硬件。</p></details>
+      <details><summary>不开启语义检索，会把全部资料发给 AI 吗？<span aria-hidden="true">+</span></summary><p>不会。当前实现按统一的资料切片做关键词检索，再把命中片段纳入回答。开启向量检索后，会增加语义召回，更容易找到近义表达，但需要下载模型、占用内存并建立索引。实时语义检索等待超时会采用关键词结果。</p></details>
+      <details><summary>共享屏幕时，提词器会被看到吗？<span aria-hidden="true">+</span></summary><p>部分整屏共享可能包含提词器，应用不保证对录屏不可见，也不宣称无法检测。请在开始前使用共享可见性测试，并优先选择合适的窗口共享方式。录音与转写前请取得参与者同意，并遵守面试、会议、课程与考试的规则。</p></details>
+    </div></section>
+
+    <section class="closing section-shell" aria-labelledby="closing-title"><div class="closing-signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">STAY IN THE CONVERSATION. STAY AHEAD.</p><h2 id="closing-title">你的准备，<br>值得更好的临场。</h2><button class="button button-primary" data-download>获取 InterviewHacker <span aria-hidden="true">↗</span></button><p>v1.8.0 <span>·</span> macOS 14+ <span>·</span> Apple Silicon</p><span class="closing-access">通过 GitHub Releases 分发 · 需要仓库访问权</span></section>
+  </main>
+  <footer class="section-shell"><a class="brand" href="#"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>InterviewHacker</a><p>为每一次认真对话而做。</p><div><a href="#faq">使用须知</a><a href="https://github.com/OmnixSI/InterviewHacker/releases/tag/v1.8.0" target="_blank" rel="noopener noreferrer">版本记录 ↗</a></div><span class="footer-copyright">© 2026 InterviewHacker</span></footer>
+  <dialog id="download-dialog" aria-labelledby="download-title"><button class="dialog-close" aria-label="关闭下载说明">×</button><span class="dialog-icon" aria-hidden="true">↙</span><p class="eyebrow">READY FOR YOUR NEXT CONVERSATION</p><h2 id="download-title">在 Mac 上，开始。</h2><p>InterviewHacker v1.8.0<br>Apple Silicon · macOS 14+ · DMG 约 18 MB</p><div class="download-notice"><strong>当前需要 GitHub 仓库访问权</strong><p>登录有权限的 GitHub 账号后，前往 Releases 下载安装包。没有访问权时，GitHub 会显示 404。</p></div><a class="button button-primary" href="https://github.com/OmnixSI/InterviewHacker/releases/tag/v1.8.0" target="_blank" rel="noopener noreferrer">前往 GitHub Releases <span aria-hidden="true">↗</span></a><p class="dialog-fineprint">首次打开可能需要在系统「隐私与安全性」中允许。<br>应用内引导会帮助你准备语音识别与对话服务。</p></dialog>
+  <dialog id="image-dialog" aria-label="应用界面大图"><button class="dialog-close" aria-label="关闭应用界面大图">×</button><img src="/shots/assistant-dark.webp" alt="应用界面大图"><p>应用截图 · 演示数据</p></dialog>
+</body>
+</html>

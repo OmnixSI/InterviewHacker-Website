@@ -1,0 +1,11 @@
+.vercel/
+dist/
+reference/
+validation/
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
