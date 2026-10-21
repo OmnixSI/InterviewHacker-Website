@@ -15,6 +15,7 @@ for(const dir of roots){
 }
 async function inspectHtml(file, expectedCanonical) {
  const html=await readFile(file,'utf8');
+ for(const script of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) assert(/\bsrc=/.test(script[1]) || !script[2].trim() || /type="application\/(?:ld\+)?json"/.test(script[1]), `Inline executable script blocked by deployment CSP: ${file}`);
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  assert.equal(ids.length,new Set(ids).size,`Duplicate IDs: ${file}`);
  assert.equal((html.match(/<h1\b/g)||[]).length,1,`Expected one h1: ${file}`);

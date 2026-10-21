@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=1413a4a21812)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=0995a3c10929)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:c0b8c89188aba9ea36f96b5fd6ebb71961630315659451148739a4319317acf2 preview:1413a4a21812c584b600d7e0f9e16a8907501b1c4508370bbfe58a193907e558 -->
+<!-- gallery-source:3a32ac1d8d48aa1d2dabb39ee97572cd24dcf32ac6de132bc783d6b8302401d5 preview:0995a3c109296e75cac11a6a84a873c92378d632f6371cd5b9617bea7cfccaa8 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,13 +35,13 @@
 
 ### Story · 场景 · 叙事 · 轻盈
 
-[![Story 首页](public/previews/story-home.png?v=ded3beba890f)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=970d0e35ab58)](https://interviewhacker.vercel.app/story/)
 
 以场景照片和清晰的产品界面展开长页叙事，呈现会前准备、实时对话与会后复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:de1b10c424495bc00e2b926053a1981d8010796ef0846bf826e0436d5cdb33e2 preview:ded3beba890f6d3e63d70b59d0592e7d386398115929d68cc7122b26f145c546 -->
+<!-- style:story source:451771d2c493da66607022d8efc984ffeeb1a6c87dedc2fb61ae2af32de4b7e8 preview:970d0e35ab58dadd182150922b0b14cd73b7d55414548099ddc4ea105c7bed11 -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -64,6 +64,7 @@ npm run dev
 | 画廊布局与样式 | `public/index.html`、`public/gallery.css` |
 | Minimal 全部页面代码和素材 | `public/minimal/` |
 | Technology 全部页面代码和素材 | `public/technology/` |
+| Story 全部页面代码和素材 | `public/story/` |
 | Story 全部页面代码和素材 | `public/story/` |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
@@ -95,8 +96,8 @@ npm run build
 
 本仓库只包含网站，不包含桌面应用、安装包、模型权重、用户资料或凭据。演示不采集音频、不调用模型、不发送遥测。桌面应用下载仍指向其私有 GitHub Releases，需要相应访问权。
 
-Minimal 从已发布的第一版恢复；Technology 为 Think in Flow 技术展示风格。设计依据见 [COMPETITION-DIRECTION.md](COMPETITION-DIRECTION.md)，既有验证见 [VALIDATION-COMPETITION.md](VALIDATION-COMPETITION.md)，画廊与路径迁移验证见 [VALIDATION-GALLERY.md](VALIDATION-GALLERY.md)。
+Minimal 从已发布的第一版恢复；Technology 为 Think in Flow 技术展示风格，Story 来自已合并的 PR #1，以场景摄影与产品流程展开叙事。设计依据见 [COMPETITION-DIRECTION.md](COMPETITION-DIRECTION.md)，既有验证见 [VALIDATION-COMPETITION.md](VALIDATION-COMPETITION.md)，画廊与路径迁移验证见 [VALIDATION-GALLERY.md](VALIDATION-GALLERY.md)，Story 接入验证见 [VALIDATION-STORY.md](VALIDATION-STORY.md)。
 
-Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.py` 后，可在 macOS 使用 `swift scripts/render-og.swift scripts/og.svg public/technology/og.png` 更新对应分享图（与首页截图分开维护）；字体许可见 [FONT-LICENSE.txt](FONT-LICENSE.txt)，各风格资源内也保留授权文件。当前未附加通用开源许可证，产品名称、截图及其他素材保留原有权利。
+Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.py` 后，可在 macOS 使用 `swift scripts/render-og.swift scripts/og.svg public/technology/og.png` 更新对应分享图（与首页截图分开维护）；字体许可见 [FONT-LICENSE.txt](FONT-LICENSE.txt)；Story 的 Geist 和 Inter 字体许可分别保留在对应 `assets/fonts/` 子目录。当前未附加通用开源许可证，产品名称、截图及其他素材保留原有权利。
 
 不要提交 token、私钥、`.vercel/`、`dist/` 或本机 `validation/` 输出。
