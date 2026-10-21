@@ -41,7 +41,7 @@
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:0c826f4ab4fec765e43405c137ca4709d946fb88b391c3e33aef344978811ba4 preview:466c5170a76484d6f2f260a931a41ecc10c8d98e09963bef29df286822e6ff3d -->
+<!-- style:story source:b1f079b6cc2adf77345164e7a1ac3ad9038ee098051e597a24549a5e889d611d preview:466c5170a76484d6f2f260a931a41ecc10c8d98e09963bef29df286822e6ff3d -->
 <!-- STYLES:END -->
 
 ## 本地运行

@@ -157,3 +157,13 @@ html[data-theme] .ui-dark {
   --t-scrollbar-hover-rgb: var(--ih-theme-line-alt-rgb);
   color: var(--t-text);
 }
+
+/* The reference's static badges use c-white, which is a dark surface in this theme.
+   Leave inline animated badge colors intact; keep static numbers and checks legible. */
+html[data-theme="dark"] .badge {
+  color: var(--ih-theme-heading);
+}
+
+html[data-theme="dark"] .badge:not(.badge--success) {
+  background-color: var(--ih-theme-line-alt);
+}
