@@ -513,4 +513,35 @@ for (const [theme,p] of Object.entries(palettes)) {
   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" fill="none"><title>InterviewHacker 在面试、组会、谈判与网课中的界面</title>${definitions(p)}<defs><linearGradient id="wall-fade" x1="0" x2="1"><stop offset=".35" stop-color="${page[theme]}" stop-opacity="0"/><stop offset=".72" stop-color="${page[theme]}" stop-opacity=".92"/><stop offset="1" stop-color="${page[theme]}"/></linearGradient></defs><rect width="1536" height="1024" fill="${page[theme]}"/><g ${font} opacity=".9">${cells.join('')}</g><rect width="1536" height="1024" fill="url(#wall-fade)"/></svg>\n`;
   await emit(path.join(classicOut,`wall-${theme}.svg`),svg);
 }
-console.log(`${check?'Verified':'Generated'} ${Object.keys(titles).length*2} product screens × ${outs.length} styles, plus Classic close-ups.`);
+// Classic hero side panels are tall (≈0.72) and perspective-clipped, so they get complete
+// portrait cards rather than crops: scene, who asked, the question, and the key answer.
+const cards={
+  lecture:['cap','组会 · Mamba 论文精读','导师追问','为什么参数随输入变化，还能并行训练？',['并行扫描：线性递推满足结合律','核融合：中间状态只放 SRAM','重计算：显存与 FlashAttention 相当']],
+  meeting:['bag','华东代理商 · 年度续约','对方请求','采购量翻倍，单价能不能再降 8 个点？',['阶梯价：1.5 倍降 4%，翻倍降 6%','换条件：账期 90 天缩到 60 天','守底线：降幅上限 6%']],
+  course:['book','操作系统 · 虚拟内存','老师提问','TLB 未命中时，硬件和操作系统分别做什么？',['MMU 逐级查页表，补回 TLB','页表项无效 → 缺页异常','内核调页、更新页表后重试']],
+  review:['clock','字节后端二面 · 复盘','会后整理','Kafka 怎么保证消息不丢？',['补上 acks=all 与幂等生产者','重试 + 消费端手动提交','已加入场景题库']],
+  prompter:['eye','悬浮提词器','放在摄像头下方','如果删除缓存失败了怎么办？',['失败的 key 进重试队列','binlog 订阅兜底再删一次','热点 key 延迟双删']],
+  skill:['spark','技能 · SKILL.md','系统设计答题框架','设计一个短链服务，你会怎么做？',['先澄清需求与读写比例','估算规模，再画核心链路','最后讲取舍与兜底']]};
+for (const [theme,p] of Object.entries(palettes)) {
+  for(const [key,[ic,scene,who,q,points]] of Object.entries(cards)){
+    const W=360,H=500,lines=[];
+    // Minimal local text helpers (the drawing() helpers are scoped to screens).
+    const t=(x,y,str,size,fill,weight=400)=>`<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}">${esc(str)}</text>`;
+    const wrapped=wrapRich([[q,true]],25,W-56).map(l=>l.map(s=>s[0]).join(''));
+    let y=150;
+    for(const l of wrapped){lines.push(t(28,y,l,25,p.ink,600));y+=36;}
+    y+=14;
+    lines.push(`<path d="M28 ${y}H${W-28}" stroke="${p.line}"/>`);y+=36;
+    lines.push(t(28,y,'建议回答',16,p.accentInk,600));y+=34;
+    for(const pt of points){lines.push(`<circle cx="34" cy="${y-6}" r="3.5" fill="${p.accent}"/>`+t(48,y,pt,17,p.copy));y+=34;}
+    const bars=Array.from({length:22},(_,i)=>{const h=Math.round((4+Math.abs(Math.sin(i*1.9+key.length))*16)*100)/100;return `<rect x="${28+i*7}" y="${n(H-38-h/2)}" width="3" height="${h}" rx="1.5" fill="${i%2?p.green:p.accent}"/>`;}).join('');
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" fill="none"><title>${esc(scene)}：${esc(q)}</title><defs><linearGradient id="card-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${p.panel}"/><stop offset="1" stop-color="${p.canvas2}"/></linearGradient></defs><g ${font}>`+
+      `<rect width="${W}" height="${H}" fill="url(#card-bg)"/>`+
+      `<rect x="20" y="22" width="${W-40}" height="44" rx="22" fill="${p.soft}"/><circle cx="44" cy="44" r="5" fill="${p.green}"/>`+t(58,51,scene,16,p.ink,600)+
+      `<rect x="28" y="84" width="${textWidth(who,15)+28}" height="30" rx="15" fill="${p.tint}"/>`+t(42,104,who,15,p.accentInk,600)+
+      lines.join('')+bars+t(W-28,H-32,'流式输出',14,p.faint).replace('<text ','<text text-anchor="end" ')+
+      `</g></svg>\n`;
+    await emit(path.join(classicOut,`card-${key}-${theme}.svg`),svg);
+  }
+}
+console.log(`${check?'Verified':'Generated'} ${Object.keys(titles).length*2} product screens × ${outs.length} styles, plus Classic close-ups and cards.`);

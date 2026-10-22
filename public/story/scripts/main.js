@@ -166,7 +166,8 @@
   const navLinks = $$('.site-nav a');
   for (const link of navLinks) {
     const sec = $(link.getAttribute('href'));
-    if (sec) ScrollTrigger.create({trigger: sec, start: 'top 45%', end: 'bottom 45%', onToggle: s => link.classList.toggle('is-active', s.isActive)});
+    // Refresh after the pinned sections so their added scroll length is counted.
+    if (sec) ScrollTrigger.create({trigger: sec, start: 'top 45%', end: 'bottom 45%', refreshPriority: -1, onToggle: s => link.classList.toggle('is-active', s.isActive)});
   }
 
   // Lift the CSS pre-hide in the same task that sets GSAP's start states, so nothing flashes and
@@ -253,61 +254,95 @@
     document.addEventListener('ih:motion', syncMarquee);
     syncMarquee();
 
-    /* Pipeline */
+    /* Pipeline: a signal travels the wire; each station lights as it arrives, and a payload
+       tag riding the pulse shows what the data has become at that point. */
     const pin = $('[data-pipeline]');
     const track = $('[data-pipe-track]');
     const wire = $('[data-pipe-wire]');
     const stations = $$('[data-station]');
     const counter = $('[data-pipe-index]');
+    const ghost = $('[data-pipe-ghost]');
+    const payload = $('[data-pipe-payload]');
+    const payloadText = payload?.querySelector('span');
+    const railItems = $$('[data-pipe-rail] li');
+    const railFill = $('[data-pipe-fill]');
     const scramble = $('[data-scramble]');
-    let scrambled = false;
+    const titles = stations.map(s => s.querySelector('h3').textContent);
+    const payloads = ['音频帧 · 对方 / 我', '转录文本 · 整句精修', '问题 · 追问', '3 段相关资料', '逐字输出的回答', '提词器 · 手机伴侣'];
+    let lit = -2, scrambled = false;
     function light(i) {
-      stations.forEach((s, k) => s.classList.toggle('is-lit', k <= i));
-      if (counter) counter.textContent = String(Math.max(0, i) + 1).padStart(2, '0');
+      if (i === lit) return;
+      lit = i;
+      stations.forEach((s, k) => { s.classList.toggle('is-lit', k <= i); s.classList.toggle('is-current', k === i); });
+      railItems.forEach((r, k) => { r.classList.toggle('is-done', k < i); r.classList.toggle('is-current', k === i); });
+      const shown = Math.max(0, i);
+      if (counter) counter.textContent = String(shown + 1).padStart(2, '0');
+      if (ghost) gsap.to(ghost, {duration: .7, scrambleText: {text: titles[shown], chars: titles.join(''), speed: .6}, overwrite: true});
+      if (payloadText) payloadText.textContent = payloads[shown];
       if (i >= 1 && !scrambled && scramble) {
         scrambled = true;
         gsap.fromTo(scramble, {scrambleText: {text: '　'}}, {duration: 1.6, scrambleText: {text: scramble.dataset.scramble, chars: '删除缓存失败了怎么办如果', revealDelay: .3, speed: .5}});
       }
     }
+    light(-1);
     if (wide) {
-      const points = () => stations.map(s => {
-        const shift = new DOMMatrixReadOnly(getComputedStyle(s).transform).m42;
-        return [s.offsetLeft + s.offsetWidth / 2, s.offsetTop + shift + s.offsetHeight / 2];
-      });
+      // Stagger comes from margin (not transform) so measurements never fight tweens.
+      const points = () => stations.map(s => [s.offsetLeft + s.offsetWidth / 2, s.offsetTop + s.offsetHeight / 2]);
+      const pathEl = $('#pipe-path');
+      const grad = $('#wire-grad');
       function layoutWire() {
         const w = track.scrollWidth, h = track.offsetHeight;
         wire.setAttribute('width', w); wire.setAttribute('height', h);
         wire.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        grad?.setAttribute('x2', w);
         const p = points();
-        let d = `M${p[0][0] - 220} ${p[0][1]} L${p[0][0]} ${p[0][1]}`;
+        let d = `M${p[0][0] - 260} ${p[0][1]} L${p[0][0]} ${p[0][1]}`;
         for (let i = 1; i < p.length; i++) {
           const [x0, y0] = p[i - 1], [x1, y1] = p[i], mx = (x0 + x1) / 2;
           d += ` C${mx} ${y0} ${mx} ${y1} ${x1} ${y1}`;
         }
         const end = p[p.length - 1];
-        d += ` L${end[0] + 260} ${end[1]}`;
+        d += ` L${end[0] + 300} ${end[1]}`;
         for (const path of $$('path', wire)) path.setAttribute('d', d);
       }
       layoutWire();
       const dist = () => Math.max(0, track.scrollWidth - innerWidth);
-      const pathEl = $('#pipe-path');
+      const pulse = $('.wire-pulse');
+      let pathLen = 1, payloadHidden = false;
       const tl = gsap.timeline({
         defaults: {ease: 'none'},
         scrollTrigger: {
-          trigger: pin, pin: true, scrub: 1, start: 'top top', end: () => `+=${dist() * 1.15}`, invalidateOnRefresh: true,
+          trigger: pin, pin: true, scrub: 1, start: 'top top', end: () => `+=${dist() * 1.2}`, invalidateOnRefresh: true,
           onRefreshInit: layoutWire,
-          onUpdate: s => {
-            const x = s.progress * (track.scrollWidth - 120);
-            let idx = -1;
-            points().forEach(([px], k) => { if (px <= x + 180) idx = k; });
-            light(idx);
+          onRefresh: () => { pathLen = pathEl.getTotalLength(); }
+        },
+        onUpdate() {
+          // Follow the pulse: its point on the path decides which station is lit.
+          const pt = pathEl.getPointAtLength(this.progress() * pathLen);
+          const tx = gsap.getProperty(track, 'x');
+          let idx = -1;
+          points().forEach(([px], k) => { if (pt.x >= px - 24) idx = k; });
+          light(idx);
+          if (payload) {
+            // Only label the signal in the gaps; over a card the card itself tells the story.
+            const behind = stations.some(st => pt.x > st.offsetLeft - 30 && pt.x < st.offsetLeft + st.offsetWidth + 30);
+            gsap.set(payload, {x: pt.x + tx, y: pt.y});
+            if (behind !== payloadHidden) { payloadHidden = behind; gsap.to(payload, {autoAlpha: behind ? 0 : 1, scale: behind ? .85 : 1, duration: .3, overwrite: 'auto'}); }
           }
+          if (railFill) railFill.style.transform = `scaleX(${this.progress().toFixed(4)})`;
         }
       });
+      pathLen = pathEl.getTotalLength();
       tl.to([track, wire], {x: () => -dist()}, 0)
         .fromTo('.wire-line, .wire-glow', {drawSVG: '0%'}, {drawSVG: '100%'}, 0)
-        .to('.wire-pulse', {motionPath: {path: pathEl, align: pathEl, alignOrigin: [.5, .5]}}, 0);
-      gsap.from(stations, {opacity: 0, y: 60, stagger: .08, duration: 1.2, scrollTrigger: {trigger: pin, start: 'top 70%', once: true}});
+        .to(pulse, {motionPath: {path: pathEl, align: pathEl, alignOrigin: [.5, .5]}}, 0);
+      // Ambient particles stream along the whole wire while the section is on screen.
+      const sparks = $$('.wire-spark').map((dot, k) => gsap.to(dot, {
+        motionPath: {path: pathEl, align: pathEl, alignOrigin: [.5, .5]}, duration: 7, ease: 'none', repeat: -1, delay: -k * 1.75, paused: true
+      }));
+      const syncSparks = on => sparks.forEach(t => on && !isPaused() ? t.play() : t.pause());
+      ScrollTrigger.create({trigger: pin, start: 'top bottom', end: () => `+=${dist() * 1.2 + innerHeight * 2}`, onToggle: s => syncSparks(s.isActive)});
+      document.addEventListener('ih:motion', () => syncSparks(ScrollTrigger.isInViewport(pin)));
     } else {
       ScrollTrigger.create({
         trigger: track, start: 'top 70%', end: 'bottom 60%', scrub: true,
@@ -316,7 +351,6 @@
           light(Math.floor(s.progress * stations.length * .999));
         }
       });
-      gsap.from(stations, {x: 30, opacity: 0, stagger: .1, scrollTrigger: {trigger: track, start: 'top 80%', once: true}});
     }
 
     /* Chapters: sticky device that swaps screens with a clip-path wipe. */

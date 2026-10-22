@@ -232,3 +232,55 @@ html[data-theme="dark"] [data-scroll-section-id="section1"] p {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Narrow layouts stack the copy over the scene wall; fade the wall out beneath the text. */
+@media (max-width: 979px) {
+  html[data-theme] .l-stress-free-bg::after {
+    background: linear-gradient(to bottom, rgba(var(--ih-theme-background-rgb), .4) 0%, rgba(var(--ih-theme-background-rgb), .88) 42%, rgb(var(--ih-theme-background-rgb)) 66%);
+  }
+}
+
+/* Below the desktop breakpoint the steps used to scroll over the sticky title and device. */
+@media (max-width: 979px) {
+  .l-steps-section.sticky { display: block; }
+  .l-steps-section .sticky__layer--sticky { position: relative; top: auto; transform: none !important; }
+  .l-steps-section .l-steps-title { margin-bottom: 1.25rem; }
+  .l-steps-section .sticky__layer { min-height: 0; height: auto; max-height: none; }
+  .l-steps-section .l-steps-content { padding-top: 1.5rem; padding-bottom: 2rem; }
+  .l-steps-section .l-steps-content li,
+  .l-steps-section .l-steps-content li:last-child { height: auto; padding-top: 1.25rem; padding-bottom: 1.25rem; }
+}
+
+/* Hero side panels hold product cards, not photos: replace the template's black edge
+   shading with a soft fade into the page, deeper for panels further back. */
+.intro__bottom__image__item:before {
+  background: linear-gradient(var(--ih-card-fade-angle, 270deg), rgba(var(--ih-theme-background-rgb), 0) 35%, rgba(var(--ih-theme-background-rgb), var(--ih-card-fade, .45)) 100%) !important;
+}
+.intro__bottom__image__item--1, .intro__bottom__image__item--6 { --ih-card-fade: .62; }
+.intro__bottom__image__item--2, .intro__bottom__image__item--5 { --ih-card-fade: .42; }
+.intro__bottom__image__item--3, .intro__bottom__image__item--4 { --ih-card-fade: .22; }
+.intro__bottom__image__item--4, .intro__bottom__image__item--5, .intro__bottom__image__item--6 { --ih-card-fade-angle: 90deg; }
+.intro__bottom__image__item img { object-fit: cover; object-position: center top; }
+
+/* Scene carousel (see scripts/scene-switch.js): stacked slides, transform + opacity only. */
+.ih-switch { display: grid; }
+.ih-switch > [data-content-animation-item] {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translate3d(calc(var(--ih-switch-dir, 1) * 28px), 0, 0);
+  transition: opacity .45s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1), visibility 0s .7s;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+.ih-switch > .is-leaving {
+  transform: translate3d(calc(var(--ih-switch-dir, 1) * -28px), 0, 0);
+}
+.ih-switch > .is-active {
+  opacity: 1;
+  transform: none;
+  transition-delay: .06s, .06s, 0s;
+  visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ih-switch > [data-content-animation-item] { transform: none; transition: opacity .01s, visibility 0s; }
+}

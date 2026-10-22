@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="./assets/fonts/harmonyos.css?v=b4f94e68a8e6">
   <link rel="stylesheet" href="./assets/fonts/geist.css?v=e396ec8cee86">
   <link rel="stylesheet" href="./assets/vendor/lenis.css?v=a0510d86f0c8">
-  <link rel="stylesheet" href="./style.css?v=fe0dc95c0a21">
+  <link rel="stylesheet" href="./style.css?v=3df04d3ac2cd">
   <title>InterviewHacker — Story</title>
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./assets/manifest/apple-touch-icon.png">
@@ -213,6 +213,7 @@
           <h2 id="pipeline-title" class="display">从声音到下一句，<br class="br-md">一条连续的链路。</h2>
           <p class="pipeline__count" aria-hidden="true"><b data-pipe-index>01</b><span>/ 06</span></p>
         </header>
+        <p class="pipeline__ghost" data-pipe-ghost aria-hidden="true">双路收音</p>
         <div class="pipeline__viewport">
           <ol class="pipeline__track" data-pipe-track>
             <li class="station" data-station>
@@ -260,7 +261,7 @@
           </ol>
           <svg class="pipeline__wire" data-pipe-wire aria-hidden="true" focusable="false">
             <defs>
-              <linearGradient id="wire-grad" x1="0" x2="1" y1="0" y2="0">
+              <linearGradient id="wire-grad" gradientUnits="userSpaceOnUse" x1="0" x2="2400" y1="0" y2="0">
                 <stop offset="0" stop-color="#8b7bff"/><stop offset=".5" stop-color="#5ad8ff"/><stop offset="1" stop-color="#5ef0b4"/>
               </linearGradient>
               <filter id="wire-blur" x="-10%" y="-50%" width="120%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
@@ -268,9 +269,15 @@
             <path class="wire-base" d=""/>
             <path class="wire-glow" d="" filter="url(#wire-blur)"/>
             <path class="wire-line" id="pipe-path" d=""/>
+            <circle class="wire-spark" r="2.5"/><circle class="wire-spark" r="2"/><circle class="wire-spark" r="3"/><circle class="wire-spark" r="2"/>
             <circle class="wire-pulse" r="7"/>
           </svg>
+          <div class="pipe-payload" data-pipe-payload aria-hidden="true"><i></i><span>音频帧 · 对方 / 我</span></div>
         </div>
+        <ol class="pipe-rail container" data-pipe-rail aria-hidden="true">
+          <li>双路收音</li><li>两遍识别</li><li>问题识别</li><li>场景检索</li><li>流式回答</li><li>随处查看</li>
+          <span class="pipe-rail__track"><span data-pipe-fill></span></span>
+        </ol>
       </div>
     </section>
 
@@ -604,6 +611,6 @@
   <script src="./assets/vendor/lenis.min.js?v=10f00688bc3f"></script>
   <script src="./scripts/shader.js?v=ea1c0bd0fa53"></script>
   <script src="./scripts/demo.js?v=19d742f7b815"></script>
-  <script src="./scripts/main.js?v=73524874643b"></script>
+  <script src="./scripts/main.js?v=96e827fcb4d0"></script>
 </body>
 </html>
