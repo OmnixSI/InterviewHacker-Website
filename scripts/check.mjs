@@ -47,6 +47,12 @@ for(const style of catalog.styles){
   for(const id of ['signal-field','story-field','tech-panel','inject-signal'])assert(html.includes(`id="${id}"`));
  }
  if(style.slug==='story'){
+  const intro=html.slice(html.indexOf('id="intro-top"'),html.indexOf('id="capabilities"'));
+  assert.equal((intro.match(/class="[^"]*\bih-hero-device-single\b/g)||[]).length,1,'Hero must have exactly one animated device');
+  assert(!intro.includes('data-parallax-pattern="l-intro-tablet"'),'Hero geometry must not have two transform owners');
+  assert(!/<div[^>]*class="intro__content"[^>]*data-parallax/.test(intro),'Hero copy must share the viewport handoff clock');
+  const handoffCss=await readFile(path.join(base,'styles/hero-handoff.css'),'utf8');
+  assert.match(handoffCss,/\.ih-hero-handoff-ready\s+\.ih-hero-fallback\s*\{[^}]*visibility:\s*hidden\b/,'Ready hero must hide its loading fallback');
   const screensBetween=(start,end)=>[...html.slice(html.indexOf(start),html.indexOf(end,html.indexOf(start))).matchAll(/data-product-screen="([^"]+)"/g)].map(m=>m[1]);
   assert.deepEqual(screensBetween('id="features"','data-scroll-section-id="section4"'),['workspace','materials','conversation','review'],'Story workflow screens must match the four steps');
   assert.deepEqual(screensBetween('data-scroll-section-id="section4"','data-scroll-section-id="section5"'),['conversation','context','devices','review'],'Story capability artwork must match its feature');

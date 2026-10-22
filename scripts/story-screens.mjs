@@ -5,12 +5,12 @@ import {root} from './catalog.mjs';
 // Editable product artwork. Each screen is composed from the feature described
 // beside it, rather than reusing an unrelated full-app screenshot.
 const palettes = {
-  light: {canvas:'#eef0f7', panel:'#ffffff', soft:'#f5f6fb', ink:'#222538', copy:'#5f657a', line:'#e3e6ef', tint:'#eeecff', accent:'#6e63ed', green:'#2b9d72'},
-  dark: {canvas:'#141722', panel:'#202433', soft:'#282d3e', ink:'#f0f1fa', copy:'#b1b8cf', line:'#363c50', tint:'#35305a', accent:'#b0a6ff', green:'#6ad9ae'}
+  light: {canvas:'#eff1f7', panel:'#ffffff', soft:'#f6f7fb', ink:'#24283b', copy:'#626b83', line:'#e2e6f0', tint:'#eeecff', accent:'#6e63ed', green:'#248563'},
+  dark: {canvas:'#121723', panel:'#1c2232', soft:'#252d40', ink:'#f0f3fc', copy:'#b2bed5', line:'#343f55', tint:'#353254', accent:'#b9afff', green:'#73dbb5'}
 };
 const esc = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 function drawing(p) {
-  const rect=(x,y,w,h,r=18,fill=p.panel,stroke='none',extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" ${extra}/>`;
+  const rect=(x,y,w,h,r=18,fill=p.panel,stroke='none',extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke==='none'&&fill===p.panel?p.line:stroke}" ${extra}/>`;
   const text=(x,y,s,size=25,fill=p.ink,weight=400,extra='')=>`<text x="${x}" y="${y}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${esc(s)}</text>`;
   const lines=(x,y,ss,size=25,fill=p.copy,gap=40,weight=400)=>ss.map((s,i)=>text(x,y+i*gap,s,size,fill,weight)).join('');
   const line=(x1,y1,x2,y2,color=p.line)=>`<path d="M${x1} ${y1}H${x2}" stroke="${color}"/>`;
@@ -24,24 +24,32 @@ function drawing(p) {
     return Array.from({length:46},(_,i)=>{
       // Quantize decorative bars so SVG output is stable across JS engines/CPUs.
       const h=Math.round((6+Math.abs(Math.sin(i*1.7+seed)*Math.cos(i*.47+seed))*36)*100)/100;
-      return rect(x+i*w/46,y-h/2,3,h,1.5,color);
+      return rect(Number((x+i*w/46).toFixed(2)),Number((y-h/2).toFixed(2)),3,h,1.5,color);
     }).join('');
   }
   function shell(body, active='助手') {
     const nav=['助手','场景','记录','设置'];
-    return `<g filter="url(#device-shadow)">`+
-      rect(50,18,1500,966,34,'url(#metal)','#6e7283')+
-      rect(60,28,1480,946,29,'#12141b')+
+    return `<ellipse cx="800" cy="1026" rx="660" ry="6" fill="#101626" opacity=".16" filter="url(#contact-shadow)"/>`+
+      `<g filter="url(#device-shadow)">`+
+      rect(50,18,1500,966,34,'url(#metal)','#7b8498')+
+      rect(53,21,1494,960,31,'none','url(#rim-light)')+
+      rect(60,28,1480,946,28,'#10131b')+
+      `<path d="M87 42H1513" stroke="#bfc8db" stroke-opacity=".25"/>`+
+      `<circle cx="800" cy="34" r="3.2" fill="#090d15" stroke="#8491aa" stroke-width=".6"/><circle cx="799.3" cy="33.3" r=".8" fill="#7186a5"/>`+
       `<g clip-path="url(#display)">`+rect(74,42,1452,912,16,p.canvas)+
       rect(74,42,1452,82,0,p.panel)+line(74,124,1526,124)+
       ['#ff6a65','#f8c34b','#62c878'].map((c,i)=>`<circle cx="${108+i*26}" cy="82" r="8" fill="${c}"/>`).join('')+
       text(196,91,'InterviewHacker',24,p.ink,500)+
       rect(450,60,492,46,23,p.soft)+nav.map((n,i)=>(n===active?rect(456+i*121,64,117,38,19,p.tint):'')+text(515+i*121,90,n,21,n===active?p.accent:p.copy,500,'text-anchor="middle"')).join('')+
       `<circle cx="1182" cy="82" r="5" fill="${p.green}"/>`+text(1198,89,'本机语音已就绪',18,p.copy)+text(1473,90,'Ⅱ',23,p.copy)+
-      body+`</g>`+text(800,974,'I N T E R V I E W H A C K E R',10,'#a4a8b6',500,'text-anchor="middle"')+
-      `<path d="M18 988H1582L1546 1018Q1540 1026 1518 1026H82Q60 1026 54 1018Z" fill="url(#base)" stroke="#959aa9"/>`+
-      `<path d="M653 988H947L933 1000H667Z" fill="#707584"/>`+
-      `<path d="M62 1017H1538" stroke="#636978" opacity=".6"/></g>`;
+      body+`</g>`+
+      `<path d="M88 44H1511" stroke="#fff" stroke-opacity=".18"/>`+
+      text(800,972,'I N T E R V I E W H A C K E R',9,'#98a3ba',500,'text-anchor="middle"')+
+      `<path d="M18 988H1582L1546 1018Q1540 1026 1518 1026H82Q60 1026 54 1018Z" fill="url(#base)" stroke="#9ca6bb" stroke-width=".8"/>`+
+      `<path d="M18 989H1582" stroke="#f4f6fd" stroke-opacity=".8"/>`+
+      `<path d="M652 988H948L934 999Q932 1001 926 1001H674Q668 1001 666 999Z" fill="url(#notch)"/>`+
+      `<path d="M64 1017H1536" stroke="#f0f3fc" stroke-opacity=".34"/>`+
+      `<path d="M82 1025H1518" stroke="#3a4356" stroke-opacity=".74"/></g>`;
   }
   function sidebar(mode='scene', selected='产品设计面试') {
     let out=rect(92,144,230,790,20,p.panel)+text(114,190,mode==='settings'?'设置':mode==='record'?'会话记录':'我的场景',24,p.ink,500)+(mode==='settings'?'':text(286,190,'＋',24,p.copy));
@@ -66,7 +74,12 @@ function drawing(p) {
       });
       out+=text(372,490,'对方',20,p.copy)+rect(366,510,460,130,18,p.soft)+lines(388,552,['你是怎样推动跨团队合作，','让一个有分歧的项目落地的？'],25,p.ink,40);
       out+=text(372,690,'我',20,p.copy)+rect(404,710,422,126,18,p.tint)+lines(426,752,['我会先找到共同目标，','再把分歧转成可验证的方案。'],23,p.ink,38);
-      out+=text(370,900,'问题会随对方的补充更新',19,p.copy);
+      const flow=[['双路识别',p.green],['问题整理',p.accent],['建议回答',p.accent]];
+      flow.forEach(([label,color],i)=>{
+        const x=370+i*156;
+        out+=rect(x,864,136,38,19,i===2?p.tint:p.soft)+`<circle cx="${x+17}" cy="883" r="3" fill="${color}"/>`+text(x+31,889,label,17,i===2?p.accent:p.copy,500);
+        if(i<2)out+=`<path d="M${x+142} 883H${x+150}m-3-3 3 3-3 3" stroke="${p.copy}" stroke-opacity=".6" stroke-linecap="round" stroke-linejoin="round"/>`;
+      });
     }
     out+=icon(896,175,'spark',p.accent,26)+text(935,197,'建议回答',29,p.ink,500)+chip(1316,169,'当前场景',164,true)+
       line(894,220,1482,220)+text(900,266,'如何推动跨团队合作？',23,p.copy)+
@@ -185,6 +198,20 @@ function drawing(p) {
 }
 
 const titles={conversation:'双路实时对话与建议回答',context:'结合场景资料的回答',workspace:'独立场景与回答要求',materials:'场景资料与回答技能',review:'会话记录与复盘',prompter:'悬浮提词器',phone:'手机伴侣',devices:'助手窗口与手机伴侣',lecture:'学术报告与讲稿准备',meeting:'会议记录与行动事项',course:'课程资料与笔记',privacy:'本机数据与服务使用'};
+// Keep the physical display aperture identical in every desktop scene. The page
+// can transform one device between hero and content without remapping UI pixels.
+const definitions = `<defs>
+  <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7265ed"/><stop offset="1" stop-color="#9769ee"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e1e6f1"/><stop offset=".12" stop-color="#9aa4b8"/><stop offset=".56" stop-color="#737f96"/><stop offset=".86" stop-color="#b2bbcc"/><stop offset="1" stop-color="#5d6980"/></linearGradient>
+  <linearGradient id="rim-light" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#fff" stop-opacity=".8"/><stop offset=".42" stop-color="#e0e8fb" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient>
+  <linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f0f3fa"/><stop offset=".16" stop-color="#c7d0df"/><stop offset=".55" stop-color="#a4b0c5"/><stop offset="1" stop-color="#67758f"/></linearGradient>
+  <linearGradient id="notch" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#6c7991"/><stop offset="1" stop-color="#b8c3d5"/></linearGradient>
+  <clipPath id="display"><rect x="74" y="42" width="1452" height="912" rx="16"/></clipPath>
+  <filter id="device-shadow" x="-8%" y="-6%" width="116%" height="126%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0d1426" flood-opacity=".17"/></filter>
+  <filter id="contact-shadow" x="-10%" y="-100%" width="120%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="15" stdDeviation="17" flood-color="#0d1426" flood-opacity=".16"/></filter>
+  <filter id="phone-shadow" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0d1426" flood-opacity=".18"/></filter>
+</defs>`.replace(/>\s+</g,'><');
 const out=path.join(root,'public/story/assets/product-scenes');
 const check=process.argv.includes('--check');
 await mkdir(out,{recursive:true});
@@ -192,7 +219,7 @@ for (const [theme,p] of Object.entries(palettes)) {
   const screens=drawing(p);
   for(const [name,draw] of Object.entries(screens)) {
     const phone=name==='phone',w=phone?440:1600,h=phone?860:1044;
-    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none"><title>${titles[name]}</title><defs><linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7564f4"/><stop offset="1" stop-color="#9e6af4"/></linearGradient><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#bfc5d4"/><stop offset=".35" stop-color="#525968"/><stop offset=".8" stop-color="#a7afc0"/><stop offset="1" stop-color="#6b7383"/></linearGradient><linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d2d6e1"/><stop offset=".35" stop-color="#aeb5c6"/><stop offset="1" stop-color="#777f90"/></linearGradient><clipPath id="display"><rect x="74" y="42" width="1452" height="912" rx="16"/></clipPath><filter id="device-shadow" x="-10%" y="-10%" width="120%" height="135%"><feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#0e1427" flood-opacity=".18"/></filter><filter id="card-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#0e1427" flood-opacity=".18"/></filter><filter id="phone-shadow" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0e1427" flood-opacity=".2"/></filter></defs><g font-family="'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif" text-rendering="geometricPrecision">${draw()}</g></svg>\n`;
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none"><title>${titles[name]}</title>${definitions}<g font-family="'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif" text-rendering="geometricPrecision">${draw()}</g></svg>\n`;
     const file=path.join(out,`${name}-${theme}.svg`);
     if(check){if(await readFile(file,'utf8')!==svg)throw Error(`Stale product artwork: ${name}-${theme}.svg`);}
     else await writeFile(file,svg);

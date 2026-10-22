@@ -2,22 +2,31 @@
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const narrow = matchMedia('(max-width: 567px)');
+  const wide = matchMedia('(min-width: 980px)');
   const stage = document.querySelector('.ih-viewing-stage');
   const figures = stage ? [...stage.querySelectorAll('figure')] : [];
   let frame = 0;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const settle = t => t * t * t * (t * (t * 6 - 15) + 10);
 
   function updateDevices() {
     frame = 0;
     if (!stage || document.hidden) return;
     const rect = stage.getBoundingClientRect();
     if (rect.bottom < -80 || rect.top > innerHeight + 80) return;
-    const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / (innerHeight + rect.height)));
+    const progress = clamp((innerHeight - rect.top) / (innerHeight + rect.height));
     const curve = progress * progress * (3 - 2 * progress);
+    // Arrive below the copy, hold while it is readable, then depart after it leaves.
+    const arrival = 1 - settle(clamp((innerHeight - rect.top) / (innerHeight * .6)));
+    const departure = settle(clamp(-rect.top / (rect.height * .7)));
     figures.forEach((figure, i) => {
-      const distance = reduced.matches ? 0 : (narrow.matches ? 10 : 32);
+      const distance = reduced.matches ? 0 : (wide.matches ? (i ? 360 : 280) : narrow.matches ? 10 : 48);
       const direction = i ? -1 : 1;
-      figure.style.setProperty('--ih-device-y', `${((.5 - curve) * distance * direction).toFixed(2)}px`);
-      figure.style.setProperty('--ih-device-angle', `${(reduced.matches || narrow.matches ? 0 : (.5 - curve) * 3 * direction).toFixed(3)}deg`);
+      const travel = wide.matches ? (arrival - departure) * .5 : .5 - curve;
+      figure.style.setProperty('--ih-device-y', `${(travel * distance).toFixed(2)}px`);
+      figure.style.setProperty('--ih-device-x', `${(reduced.matches || !wide.matches ? 0 : travel * -140 * direction).toFixed(2)}px`);
+      figure.style.setProperty('--ih-device-angle', `${(reduced.matches || narrow.matches ? 0 : travel * (wide.matches ? 16 : 3) * direction).toFixed(3)}deg`);
+      figure.style.setProperty('--ih-device-scale', (reduced.matches || !wide.matches ? 1 : 1 - travel * travel * .24).toFixed(4));
     });
   }
   function schedule() {

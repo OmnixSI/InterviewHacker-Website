@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=24412d8a2258)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=d5a5319317c6)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:e1b12b59ef8cf62caa78600a5aeaa3faf1cdebd8343aa2f179dc9d8a9fdc6322 preview:24412d8a2258acb1614804bf6da3f1055ed94089db32b9bae2c0ea268e3abe96 -->
+<!-- gallery-source:c235b6e6d992e7747dabb25809f22f8d5c0d1d465434d4b5b2d3787c80389688 preview:d5a5319317c65e223d361ff325448511bba44f556c4bd93da4c2fc9a48562537 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,13 +35,13 @@
 
 ### Story · 产品 · 场景 · 精致
 
-[![Story 首页](public/previews/story-home.png?v=0eee76317e0a)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=731a214f808a)](https://interviewhacker.vercel.app/story/)
 
 鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:1fbdbc327ede87d7e9c4190f98ebb7136786a38e260b9f92a9e79dbfe2645f25 preview:0eee76317e0ab6d3eed72e7c13b3ebd50e174cd6cdc45915b32c40980e7c28f8 -->
+<!-- style:story source:3887721f62a5e01c07b3a4b863db41f67f992874c3585a89bb5585c1d7bbeb99 preview:731a214f808a21156275de6fd44e9d18f920fe0b2c5416ac74fe96005cff851d -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -110,3 +110,5 @@ Story 使用本地随站分发的 HarmonyOS Sans SC Regular / Medium，保留原
 Story 产品画面由 `scripts/story-screens.mjs` 生成：运行 `npm run screens:build` 更新 12 组浅色 / 深色矢量界面，再检查页面、更新首页截图并 `npm run docs:sync`。画面与文案的对应表、合成来源及维护约定见 [Story 产品展示](docs/STORY-ARTWORK.md)。
 
 Story 动效与手机适配由 `styles/motion-polish.css` 和 `scripts/motion-polish.js` 维护：入场采用缓出曲线，设备位移由滚动进度控制；触屏场景卡片使用原生滑动，支持定位按钮及系统减少动态效果。修改后需复核 320–430 手机竖屏、短横屏、平板和桌面，更新实际首页预览。部署前须完成检查和构建并等 CI 通过；发布后确认正式别名与逐文件校验成功。
+
+首页首图由 `scripts/hero-handoff.js` 维护单一设备的连续交接，禁止在锚点与目标位置同时淡入两台完整设备。文案与设备共享视口进度；原左右场景叙事继续保留。手机窄屏、短横屏及初始减少动态效果访问采用顺序阅读。设备材质、界面与双路识别动线仍在 `scripts/story-screens.mjs` 编辑。

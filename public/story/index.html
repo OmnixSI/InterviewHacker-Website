@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="./styles/brand-overrides.css?v=b3023179f6c9">
   <link rel="stylesheet" href="./styles/privacy-section.css?v=8e991bb35b40">
   <link rel="stylesheet" href="./styles/product-showcase.css?v=b2fa2b6a5303">
-  <link rel="stylesheet" href="./styles/motion-polish.css?v=d16d690c16b0"/>
+  <link rel="stylesheet" href="./styles/motion-polish.css?v=88345be70105"/>
+  <link rel="stylesheet" href="./styles/hero-handoff.css?v=0689eb98e206"/>
   <link rel="stylesheet" href="./style.css?v=3fb39b3b91b3">
   <link rel="preload" href="./assets/fonts/harmonyos/HarmonyOS_Sans_SC_Regular.ttf" as="font" type="font/ttf" crossorigin>
   <title>InterviewHacker — Story</title>
@@ -173,7 +174,7 @@
  <div class="intro-sticky__section ui-dark" id="intro-top">
   <div class="intro" data-plugin="reveal">
    <div class="container-h intro__container">
-    <div class="intro__content" data-parallax-0-0='{"opacity": 1}' data-parallax-0-50='{"opacity": 0}' data-parallax-clamp="true" data-parallax-enable-mq="null" data-plugin="parallax">
+    <div class="intro__content">
      <h1 aria-label="InterviewHacker，您的私人 SI 助手" class="intro__title leading-trim" data-reveal-old="title">
       <span class="ih-hero-title-brand">InterviewHacker</span><br/><span class="ih-hero-title-tagline">您的私人 SI 助手</span>
      </h1>
@@ -259,14 +260,14 @@
      </div>
     </div>
     <div class="intro__bottom__video-placeholder js-intro-video-container ih-hero-device" data-parallax-pattern="l-intro-image-opacity" data-plugin="parallax">
-     <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="eager" decoding="async"/>
+     <img class="ih-hero-fallback" data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="eager" decoding="async"/>
     </div>
    </div>
    <div class="container-h intro-video__container" data-reveal-old="fade-in-bottom">
-    <div class="intro-video__content tablet-preview" data-parallax-pattern="l-intro-content l-intro-content-tablet-caption l-intro-content-tablet-background l-intro-content-tablet-video-opacity l-intro-content-tablet-screen-opacity" data-plugin="parallax" style="--tablet-caption-opacity: 0; --background-opacity: 0; --tablet-video-opacity: 1; --tablet-screen-opacity: 0; --tablet-opacity: 1">
-     <div class="intro-video__tablet" data-parallax-pattern="l-intro-tablet" data-plugin="parallax" style="--video-opacity: 0">
-      <picture class="is-hidden--no-js tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
-       <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
+    <div class="intro-video__content tablet-preview ih-hero-target" data-parallax-pattern="l-intro-content l-intro-content-tablet-caption l-intro-content-tablet-background l-intro-content-tablet-video-opacity l-intro-content-tablet-screen-opacity" data-plugin="parallax" style="--tablet-caption-opacity: 0; --background-opacity: 0; --tablet-video-opacity: 1; --tablet-screen-opacity: 0; --tablet-opacity: 1">
+     <div class="intro-video__tablet ih-hero-device-single">
+      <picture class="tablet-preview__image" draggable="false">
+       <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
       </picture>
       <picture class="is-hidden--no-js intro-video__tablet__image tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
        <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
@@ -1643,7 +1644,8 @@
   <script src="./assets/javascripts/shared.js?v=6ccc7a6f5fbf"></script>
   <script src="./assets/javascripts/landing.js?v=09aa5bae3aec"></script>
   <script src="./scripts/close-popover.js?v=a156913f928b"></script>
-  <script src="./scripts/motion-polish.js?v=59a5070d49c0"></script>
+  <script src="./scripts/motion-polish.js?v=fed24aed7f28"></script>
+  <script src="./scripts/hero-handoff.js?v=2ee18ffec13d"></script>
   <script src="./scripts/layout-sync.js?v=8012fbd0bb6f"></script>
 </body>
 </html>
