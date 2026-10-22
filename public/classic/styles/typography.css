@@ -1,0 +1,174 @@
+:root {
+  --ih-font-body: "HarmonyOS Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --ih-font-brand: var(--ih-font-body);
+}
+
+body,
+button,
+input,
+select,
+textarea,
+.btn,
+.text,
+.text-small,
+small,
+.text-lead,
+.text-lead-bold,
+.text-t1-static,
+.text-t2-static,
+.text--block-lead,
+.text-h4-limited,
+.text-h4-sm,
+.h4,
+h4 {
+  font-family: var(--ih-font-body);
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3,
+.text-h1,
+.text-h2,
+.text-h2-md,
+.text-h2-lg,
+.text-h2-xl,
+.intro__title {
+  font-family: var(--ih-font-body);
+  font-weight: 500;
+  font-feature-settings: "kern";
+  font-synthesis: none;
+}
+
+h1,
+.h1,
+.intro__title {
+  --lh: 1.3em;
+  font-size: clamp(48px, 5.1vw, 74px);
+  line-height: 1.3;
+  letter-spacing: -3.5px;
+}
+
+h2,
+.h2,
+.text-h2,
+.text-h2-md,
+.text-h2-lg,
+.text-h2-xl,
+.l-steps-title {
+  text-wrap: balance;
+  --lh: 1.4em;
+  font-size: clamp(32px, 3.6vw, 49px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -1.8px;
+}
+
+h3,
+.h3,
+.l-why-item__title h3 {
+  --lh: 1.5em;
+  font-size: clamp(22px, 2.1vw, 27px);
+  line-height: 1.5;
+  letter-spacing: -.8px;
+}
+
+p,
+.text,
+.text-lead,
+.text-lead-bold,
+.text-h4-limited,
+.h4,
+h4 {
+  --lh: 1.7em;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: normal;
+}
+
+.text-small,
+small {
+  --lh: 1.7em;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.btn,
+.text-lead-bold {
+  font-weight: 500;
+}
+
+.btn {
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+
+header nav .btn {
+  font-weight: 400;
+}
+
+.ih-wordmark,
+.ih-hero-title-brand {
+  font-family: var(--ih-font-brand);
+}
+
+.ih-hero-title-brand {
+  display: inline-block;
+  font-size: .53em;
+  font-weight: 500;
+  letter-spacing: -.04em;
+}
+
+.ih-hero-title-tagline {
+  display: inline-block;
+  max-width: 100%;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.card--benefit .card__top .h4 {
+  font-family: var(--ih-font-body);
+  --lh: 1.5em;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -.4px;
+  line-height: 1.5;
+}
+
+.ih-editorial-line {
+  display: block;
+}
+
+@media (max-width: 567px) {
+  h1,
+  .intro__title {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+
+  h2,
+  .text-h2-md,
+  .text-h2-lg,
+  .l-steps-title {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+}
+
+@media (max-width: 360px) {
+  .intro__title {
+    font-size: 42px;
+  }
+}

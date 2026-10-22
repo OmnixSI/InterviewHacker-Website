@@ -1,0 +1,4 @@
+.style-gallery-back{position:fixed;right:18px;bottom:18px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(20,23,28,.14);border-radius:999px;background:rgba(255,255,255,.94);color:#20232b;box-shadow:0 8px 28px rgba(15,17,21,.16);font:600 12px/1.2 Geist,-apple-system,BlinkMacSystemFont,sans-serif;text-decoration:none;backdrop-filter:blur(12px)}
+.style-gallery-back:hover{transform:translateY(-2px)}
+.style-gallery-back:focus-visible{outline:3px solid #666bff;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.style-gallery-back{transition:none}}

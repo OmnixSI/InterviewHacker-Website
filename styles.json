@@ -46,6 +46,21 @@
         "设备展示"
       ],
       "updated": "2026-10-23"
+    },
+    {
+      "slug": "classic",
+      "name": "Classic",
+      "subtitle": "专业 · 严肃 · 设备叙事",
+      "description": "Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交接，克制的明暗章节串联准备、实时辅助与复盘。",
+      "path": "/classic/",
+      "preview": "/previews/classic-home.png",
+      "accent": "#666bff",
+      "tags": [
+        "设备交接",
+        "明暗章节",
+        "产品界面"
+      ],
+      "updated": "2026-10-23"
     }
   ]
 }

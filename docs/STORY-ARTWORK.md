@@ -35,6 +35,21 @@
 
 `npm run check` 校验以上顺序、深浅主题配对，以及生成器输出与仓库文件一致。
 
+## Classic（`/classic/`）
+
+Classic 是 Story 重建前的原始版本，保留原模板引擎、设备交接与明暗章节，作为独立风格登记在画廊中。它与 Story 共用同一套 24 张产品画面（生成器同时写入两个目录），原有的映射与检查保持不变：四步流程 workspace → materials → conversation → review；四张能力卡 conversation → context → devices → review；四种场景 conversation / lecture / meeting / course。
+
+原模板首屏两侧和下载区使用的人物照片、以及“把注意力留给交流”区的照片墙，已全部换成从同一批画面裁出的产品特写（`tile-*.svg`，SVG viewBox 裁切）和场景墙（`wall-*.svg`），不再使用来源不明的人像素材：
+
+| 特写 key | 内容 |
+| --- | --- |
+| answer | 字节二面：删除缓存失败的追问回答 |
+| lecture | 组会：讲稿跟随与可能被问 |
+| meeting | 谈判：按底线给出报价建议 |
+| course | 网课：老师提问与课件对齐 |
+| prompter | 摄像头下方的悬浮提词器 |
+| review | 复盘：问题清单与改进建议 |
+
 ## 实时演示
 
 “实时演示”是 HTML 构建的助手窗口，由 `public/story/scripts/demo.js` 播放固定脚本：字节后端二面中“订单系统库存怎么扣 → 缓存一致性追问 → 回声被忽略 → 一键改为更简短”。不访问麦克风、模型、网络或遥测；可暂停，减少动态效果时显示静态最终状态。

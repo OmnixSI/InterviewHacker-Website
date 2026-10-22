@@ -473,10 +473,11 @@ const definitions = (p) => `<defs>
   <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#05070d" flood-opacity=".45"/></filter>
   <filter id="phone-shadow" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0d1426" flood-opacity=".18"/></filter>
 </defs>`.replace(/>\s+</g,'><');
-const out=path.join(root,'public/story/assets/product-scenes');
+// Story and Classic share one product artwork set; each style keeps its own copy.
+const outs=['story','classic'].map(slug=>path.join(root,`public/${slug}/assets/product-scenes`));
 const check=process.argv.includes('--check');
-await mkdir(out,{recursive:true});
-for (const [theme,p] of Object.entries(palettes)) {
+for (const out of outs) await mkdir(out,{recursive:true});
+for (const out of outs) for (const [theme,p] of Object.entries(palettes)) {
   const screens=drawing(p);
   for(const [name,draw] of Object.entries(screens)) {
     const phone=name==='phone',w=phone?440:1600,h=phone?860:1044;
@@ -486,4 +487,30 @@ for (const [theme,p] of Object.entries(palettes)) {
     else await writeFile(file,svg);
   }
 }
-console.log(`${check?'Verified':'Generated'} ${Object.keys(titles).length*2} product screens.`);
+// Classic also uses square close-ups and a wide wall cut from the same screens (SVG viewBox
+// crops), in place of the template's stock portraits.
+const tiles={
+  answer:['conversation',[800,140,720,720],'追问：删除缓存失败怎么办'],
+  lecture:['lecture',[84,140,720,720],'组会：讲稿跟随当前幻灯片'],
+  meeting:['meeting',[800,140,720,720],'谈判：按底线给出报价建议'],
+  course:['course',[84,140,720,720],'网课：老师提问与课件对齐'],
+  prompter:['prompter',[400,40,800,800],'摄像头下方的悬浮提词器'],
+  review:['review',[540,140,720,720],'复盘：问题清单与改进建议']};
+const page={light:'#f5f6f8',dark:'#0f1115'};
+const classicOut=path.join(root,'public/classic/assets/product-scenes');
+const font=`font-family="'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif" text-rendering="geometricPrecision"`;
+async function emit(file,svg){if(check){if(await readFile(file,'utf8')!==svg)throw Error(`Stale product artwork: ${path.basename(file)}`);}else await writeFile(file,svg);}
+for (const [theme,p] of Object.entries(palettes)) {
+  const screens=drawing(p);
+  const crop=(key,x,y,w,h,r=28)=>{const [scene,[vx,vy,vw,vh]]=tiles[key];return `<svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${vx} ${vy} ${vw} ${vh}"><clipPath id="c-${key}"><rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" rx="${r*vw/w}"/></clipPath><g clip-path="url(#c-${key})"><rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" fill="${p.canvas}"/>${screens[scene]()}</g><rect x="${vx+.5}" y="${vy+.5}" width="${vw-1}" height="${vh-1}" rx="${r*vw/w}" fill="none" stroke="${p.line}" stroke-width="${2*vw/w}"/></svg>`;};
+  for(const [key,[,,label]] of Object.entries(tiles)){
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none"><title>${label}</title>${definitions(p)}<g ${font}>${crop(key,0,0,512,512,28)}</g></svg>\n`;
+    await emit(path.join(classicOut,`tile-${key}-${theme}.svg`),svg);
+  }
+  // 1536×1024 wall: staggered close-ups that fade into the page on the right, where the copy sits.
+  const keys=Object.keys(tiles),cells=[];
+  keys.forEach((key,i)=>{const col=i%3,row=Math.floor(i/3);cells.push(crop(key,40+col*500,(col%2?140:60)+row*500,460,460,26));});
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" fill="none"><title>InterviewHacker 在面试、组会、谈判与网课中的界面</title>${definitions(p)}<defs><linearGradient id="wall-fade" x1="0" x2="1"><stop offset=".35" stop-color="${page[theme]}" stop-opacity="0"/><stop offset=".72" stop-color="${page[theme]}" stop-opacity=".92"/><stop offset="1" stop-color="${page[theme]}"/></linearGradient></defs><rect width="1536" height="1024" fill="${page[theme]}"/><g ${font} opacity=".9">${cells.join('')}</g><rect width="1536" height="1024" fill="url(#wall-fade)"/></svg>\n`;
+  await emit(path.join(classicOut,`wall-${theme}.svg`),svg);
+}
+console.log(`${check?'Verified':'Generated'} ${Object.keys(titles).length*2} product screens × ${outs.length} styles, plus Classic close-ups.`);

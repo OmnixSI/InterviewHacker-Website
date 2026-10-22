@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=c07c335ec71f)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=2b8886b3ef46)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:d4b5349b0327f0d86619b6aab9e81c83554f82649a0eca8e2b2be5bc4d420026 preview:c07c335ec71fd21fa4ddeff82944c70772c2c594f4b44b535da8d11021a2e49c -->
+<!-- gallery-source:93e8b1c8af5bf6ccc27d2418d950193a723856a8b10b2f400d8f362826a52183 preview:2b8886b3ef468b6e4294efb18f6697e90e35ababc4c09bc56f9b45552f52983c -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -42,6 +42,16 @@
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
 <!-- style:story source:9e88cf1414d2d5276251e1133c661db0b242bae7fc488f9ffa88ce19560c7a3e preview:8e8115bd48ad3d47ac856ddcebf272031aee74955933c1d88c7aa67d30a781b1 -->
+
+### Classic · 专业 · 严肃 · 设备叙事
+
+[![Classic 首页](public/previews/classic-home.png?v=ec4bb6809fc2)](https://interviewhacker.vercel.app/classic/)
+
+Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交接，克制的明暗章节串联准备、实时辅助与复盘。
+
+**访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
+
+<!-- style:classic source:d2b31a71426af39221094ba5cd1f50710ffd2d52e59c73c58c1c109a51474b56 preview:ec4bb6809fc205b4f2d86129c0ee70c9d33bc26ea0e710c8d65b3fcefebd292b -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -54,7 +64,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/` 和 `/story/` 是三种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/` 和 `/classic/` 是四种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -65,6 +75,7 @@ npm run dev
 | Minimal 全部页面代码和素材 | `public/minimal/` |
 | Technology 全部页面代码和素材 | `public/technology/` |
 | Story 全部页面代码和素材 | `public/story/` |
+| Classic（Story 原始版本）全部页面代码和素材 | `public/classic/` |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |

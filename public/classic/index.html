@@ -1,0 +1,1651 @@
+<!doctype html>
+<html lang="zh-CN" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f8">
+  <meta name="description" content="InterviewHacker 是一款原生 macOS 实时 SI 对话助手，适用于面试、学术报告、商务会议与课程。默认本机离线语音识别，按场景准备资料，并在会后复盘。">
+  <meta property="og:title" content="InterviewHacker — 您的私人 SI 助手">
+  <meta property="og:description" content="听清问题，准备下一句。从面试到会议，为每一次重要对话做好准备。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://interviewhacker.vercel.app/classic/">
+  <meta property="og:image" content="https://interviewhacker.vercel.app/previews/classic-home.png">
+  <link rel="canonical" href="https://interviewhacker.vercel.app/classic/">
+  <link rel="stylesheet" href="./assets/stylesheets/global.css?v=1779405ab2ab">
+  <link rel="stylesheet" href="./assets/stylesheets/landing.css?v=e1d5e28f5500">
+  <link rel="stylesheet" href="./assets/fonts/harmonyos.css?v=b4f94e68a8e6">
+  <link rel="stylesheet" href="./styles/theme-palette.css?v=0a33ec150f8c">
+  <link rel="stylesheet" href="./styles/typography.css?v=3177727c73bc">
+  <link rel="stylesheet" href="./styles/brand-overrides.css?v=b3023179f6c9">
+  <link rel="stylesheet" href="./styles/privacy-section.css?v=8e991bb35b40">
+  <link rel="stylesheet" href="./styles/product-showcase.css?v=b2fa2b6a5303">
+  <link rel="stylesheet" href="./styles/motion-polish.css?v=88345be70105"/>
+  <link rel="stylesheet" href="./styles/hero-handoff.css?v=0689eb98e206"/>
+  <link rel="stylesheet" href="./style.css?v=3fb39b3b91b3">
+  <link rel="preload" href="./assets/fonts/harmonyos/HarmonyOS_Sans_SC_Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <title>InterviewHacker — Classic</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <script src="./scripts/bootstrap.js?v=32f5a89b00c8"></script>
+</head>
+<body data-barba="wrapper" aria-live="polite">
+  <a class="style-gallery-back" href="/" target="_top" aria-label="返回风格展示画廊">← 风格画廊</a>
+  <a href="#top" class="sr-only sr-only--focusable">跳到主要内容</a>
+  <div aria-hidden="true" class="preloader js-preloader is-hidden" data-plugin="preloader">
+ <div class="preloader__content ui-dark ui-background">
+ </div>
+</div>
+  <div class="page-content-wrapper js-page-content-wrapper ui-light-background" data-barba="container" data-barba-namespace="page">
+    <header class="header is-hidden--print header--sticky ui-dark" data-plugin="stickyHeader">
+ <div class="ui-background">
+  <div class="container-h">
+   <div class="header__content">
+    <a aria-label="InterviewHacker 首页" class="mr-auto mr-0:lg ih-brand" href="#top">
+     <svg aria-hidden="true" class="ih-brand-mark" viewBox="0 0 30 30">
+      <path d="M4 15h4l3-7 4 14 4-17 4 13 3-6h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
+      </path>
+     </svg>
+     <span class="ih-wordmark">
+      InterviewHacker
+     </span>
+    </a>
+    <nav class="is-hidden--md-down group group--none group--middle" data-plugin="navigation">
+     <a class="btn btn--outline btn--outline--none btn--xs" href="#capabilities">
+      <span class="btn__content">
+       <span class="btn__text">
+        核心能力
+       </span>
+      </span>
+     </a>
+     <a class="btn btn--outline btn--outline--none btn--xs" href="#features">
+      <span class="btn__content">
+       <span class="btn__text">
+        功能与流程
+       </span>
+      </span>
+     </a>
+     <a class="btn btn--outline btn--outline--none btn--xs" href="#stories">
+      <span class="btn__content">
+       <span class="btn__text">
+        使用场景
+       </span>
+      </span>
+     </a>
+     <a class="btn btn--outline btn--outline--none btn--xs" href="#benefits">
+      <span class="btn__content">
+       <span class="btn__text">
+        产品优势
+       </span>
+      </span>
+     </a>
+     <a class="btn btn--outline btn--outline--none btn--xs" href="#faq">
+      <span class="btn__content">
+       <span class="btn__text">
+        常见问题
+       </span>
+      </span>
+     </a>
+     <span class="group__separator">
+     </span>
+     <button aria-controls="header-more-menu" aria-expanded="false" aria-haspopup="true" class="btn btn--link btn--link--heading btn--md-padding btn--xs btn--icon-small-margin" id="header-tips" type="button">
+      <span class="btn__content">
+       <span class="btn__text">
+        更多
+       </span>
+       <span class="btn__icon js-header-tips-ref">
+        <svg aria-hidden="true" class="icon icon-dropdown" height="10" style="--icon-width: 18; --icon-height: 10" viewbox="0 0 18 10" width="18">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#dropdown" xlink:href="./assets/images/icons.svg?v=story-scroll-2#dropdown">
+         </use>
+        </svg>
+       </span>
+      </span>
+     </button>
+     <div class="popover popover--triangle is-hidden" data-plugin="popover" data-popover-event-reference="#header-tips" data-popover-hide-on-scroll="true" data-popover-position="bottom-end" data-popover-reference=".js-header-tips-ref" data-popover-trigger="click" id="header-more-menu">
+      <div class="popover__shadow">
+      </div>
+      <div class="popover__content ui-dark">
+       <ol class="header-popover-nav">
+        <li>
+         <a class="btn btn--link btn--link--heading btn--xs btn--full" href="#privacy">
+          <span class="btn__content">
+           <span class="btn__text">
+            数据与隐私
+           </span>
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="btn btn--link btn--link--heading btn--xs btn--full" href="#stories">
+          <span class="btn__content">
+           <span class="btn__text">
+            应用场景
+           </span>
+          </span>
+         </a>
+        </li>
+        <li>
+         <a class="btn btn--link btn--link--heading btn--xs btn--full" href="#tips">
+          <span class="btn__content">
+           <span class="btn__text">
+            使用技巧
+           </span>
+          </span>
+         </a>
+        </li>
+       </ol>
+      </div>
+     </div>
+    </nav>
+    <button aria-label="切换深色模式" aria-pressed="false" class="btn btn--outline btn--xs ih-theme-toggle" data-theme-toggle="" type="button">
+     <span aria-hidden="true" class="ih-theme-toggle__icon">
+      <svg height="20" viewBox="0 0 20 20" width="20">
+       <path class="ih-theme-icon--moon" d="M16.5 12.7A7.2 7.2 0 0 1 7.3 3.5 7.2 7.2 0 1 0 16.5 12.7Z" fill="currentColor"/>
+       <g class="ih-theme-icon--sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6">
+        <circle cx="10" cy="10" r="3.3"/>
+        <path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4 4l1.4 1.4m9.2 9.2L16 16M16 4l-1.4 1.4m-9.2 9.2L4 16"/>
+       </g>
+      </svg>
+     </span>
+     <span data-theme-label="">深色模式</span>
+    </button>
+    <a class="btn btn--primary btn--round btn--xs ui-light" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+     <span class="btn__content">
+      <span class="btn__text">
+       下载
+      </span>
+     </span>
+    </a>
+    <a aria-label="菜单" class="btn btn--primary-alt btn--square btn--sm-static is-hidden--lg-up ml-1 ml-0.5:md" href="#menu">
+     <span class="btn__content">
+      <span class="btn__icon">
+       <svg aria-hidden="true" class="icon icon-menu" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#menu" xlink:href="./assets/images/icons.svg?v=story-scroll-2#menu">
+        </use>
+       </svg>
+      </span>
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+</header>
+    <div class="page-content js-page-content">
+      <main id="top">
+        <section class="section ui-dark ui-background intro-sticky" data-scroll-section="" data-scroll-section-id="section0">
+ <div class="intro-sticky__section ui-dark" id="intro-top">
+  <div class="intro" data-plugin="reveal">
+   <div class="container-h intro__container">
+    <div class="intro__content">
+     <h1 aria-label="InterviewHacker，您的私人 SI 助手" class="intro__title leading-trim" data-reveal-old="title">
+      <span class="ih-hero-title-brand">InterviewHacker</span><br/><span class="ih-hero-title-tagline">您的私人 SI 助手</span>
+     </h1>
+     <div class="row group--nowrap:md">
+      <div class="col col--xs-2 col--md-6">
+       <p class="text-lead leading-trim" data-reveal-old="text" style="--word-total: 55; --line-total: 5">
+        面试、学术报告、商务会议和课程中，分别听清对方与自己的声音，及时整理问题与建议回答。按场景带入资料，会后继续复盘。
+       </p>
+      </div>
+      <div class="col col--xs-2 offset--md-3 col--md-3 mt-1.25 mt-0:md">
+       <div class="group group--nowrap group--bottom group--intro">
+        <a aria-label="向下查看功能" class="btn btn--primary-alt btn--xs btn--square is-hidden--md-up intro__scroll-button" href="#scroll-to">
+         <span class="btn__content">
+          <span class="btn__icon">
+           <svg aria-hidden="true" class="icon icon-arrow-down-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+            <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-down-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-down-lg">
+            </use>
+           </svg>
+          </span>
+         </span>
+        </a>
+        <div class="group__fill">
+         <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+          <span class="btn__content">
+           <span class="btn__text">
+            下载 InterviewHacker
+           </span>
+           <span class="btn__icon">
+            <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+             <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+             </use>
+            </svg>
+           </span>
+          </span>
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <a aria-label="向下查看功能" class="btn btn--secondary btn--sm btn--square is-hidden--sm-down intro__scroll-button-outer ui-light l-intro-arrow-down" data-parallax-pattern="l-intro-button" data-plugin="parallax" href="#capabilities">
+     <span class="btn__content">
+      <span class="btn__text">
+       <svg aria-hidden="true" class="icon icon-arrow-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-down">
+        </use>
+       </svg>
+       <svg aria-hidden="true" class="icon icon-arrow-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-down">
+        </use>
+       </svg>
+      </span>
+     </span>
+    </a>
+   </div>
+  </div>
+  <div class="intro-sticky__section__content intro-video" data-plugin="reveal" data-reveal-enable-mq="null" data-scroll="" data-scroll-sticky="" data-scroll-target="#intro-top">
+   <div class="container-h intro__bottom" data-reveal-old="fade-in-bottom">
+    <div class="intro__bottom__inner" data-parallax-pattern="l-intro-image-opacity" data-plugin="parallax">
+     <div class="intro__bottom__image is-hidden--sm-down" data-parallax-pattern="l-intro-image" data-parallax-scale-to="[0.3, 0.75]" data-plugin="parallax">
+      <div class="intro__bottom__image__item intro__bottom__image__item--1" data-deco-multiplier="0.5" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+      </div>
+      <div class="intro__bottom__image__item intro__bottom__image__item--6" data-deco-multiplier="0.5" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-meeting-dark.svg" data-ih-light="./assets/product-scenes/tile-meeting-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-meeting-light.svg" width="512"/>
+      </div>
+     </div>
+     <div class="intro__bottom__image" data-parallax-pattern="l-intro-image" data-parallax-scale-to="[0.4, 0.75]" data-plugin="parallax">
+      <div class="intro__bottom__image__item intro__bottom__image__item--2 is-hidden--sm-down" data-deco-multiplier="0.4" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-course-dark.svg" data-ih-light="./assets/product-scenes/tile-course-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-course-light.svg" width="512"/>
+      </div>
+      <div class="intro__bottom__image__item intro__bottom__image__item--5 is-hidden--sm-down" data-deco-multiplier="0.4" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-prompter-dark.svg" data-ih-light="./assets/product-scenes/tile-prompter-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-prompter-light.svg" width="512"/>
+      </div>
+     </div>
+     <div class="intro__bottom__image" data-parallax-pattern="l-intro-image" data-parallax-scale-to="[0.5, 0.75]" data-plugin="parallax">
+      <div class="intro__bottom__image__item intro__bottom__image__item--3 is-hidden--sm-down" data-deco-multiplier="0.3" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-review-dark.svg" data-ih-light="./assets/product-scenes/tile-review-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-review-light.svg" width="512"/>
+      </div>
+      <div class="intro__bottom__image__item intro__bottom__image__item--4 is-hidden--sm-down" data-deco-multiplier="0.3" data-plugin="deco">
+       <img alt="" data-ih-dark="./assets/product-scenes/tile-answer-dark.svg" data-ih-light="./assets/product-scenes/tile-answer-light.svg" decoding="async" height="512" loading="eager" src="./assets/product-scenes/tile-answer-light.svg" width="512"/>
+      </div>
+     </div>
+    </div>
+    <div class="intro__bottom__video-placeholder js-intro-video-container ih-hero-device" data-parallax-pattern="l-intro-image-opacity" data-plugin="parallax">
+     <img class="ih-hero-fallback" data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="eager" decoding="async"/>
+    </div>
+   </div>
+   <div class="container-h intro-video__container" data-reveal-old="fade-in-bottom">
+    <div class="intro-video__content tablet-preview ih-hero-target" data-parallax-pattern="l-intro-content l-intro-content-tablet-caption l-intro-content-tablet-background l-intro-content-tablet-video-opacity l-intro-content-tablet-screen-opacity" data-plugin="parallax" style="--tablet-caption-opacity: 0; --background-opacity: 0; --tablet-video-opacity: 1; --tablet-screen-opacity: 0; --tablet-opacity: 1">
+     <div class="intro-video__tablet ih-hero-device-single">
+      <picture class="tablet-preview__image" draggable="false">
+       <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
+      </picture>
+      <picture class="is-hidden--no-js intro-video__tablet__image tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+       <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
+      </picture>
+     </div>
+     <div class="intro-video__player js-intro-video" data-parallax-pattern="l-intro-video" data-plugin="parallax">
+     </div>
+    </div>
+   </div>
+  </div>
+  <div aria-hidden="true" class="intro__scroll-target" id="scroll-to">
+  </div>
+ </div>
+ <div class="intro-content intro-content--right intro-see ui-light">
+ <div class="container-h pb-1 pb-0:md">
+  <div class="intro-background intro-background--first row pt-2 pt-0:md">
+   <div class="col offset--md-7 col--md-4 col--lg-5 offset--xl-8 col--xl-5" data-parallax--100-0='{"opacity": 1}' data-parallax--80-0='{"opacity": 0}' data-parallax-clamp="true" data-parallax-enable-mq="md-up" data-parallax-measure-selector=".intro-sticky" data-plugin="parallax">
+    <p class="text-h2-md text-color-heading leading-trim mb-2 intro-see__anchor px-1 px-0:md" id="capabilities">
+     听见问题，及时准备回答
+    </p>
+    <p class="intro-content__text h4 text-color-text leading-trim mb-2 mb-3:md mb-2:lg mb-3:xxxxl px-1 px-0:md">
+     区分提问、请求与追问。对方补充后半句时，回答会跟着完整问题更新。
+    </p>
+    <div class="intro-content__card">
+     <div class="card card--intro ui-background-alt">
+      <div class="card__top">
+       <svg aria-hidden="true" class="icon icon-intro-save card__icon" height="100" style="--icon-width: 100; --icon-height: 100" viewbox="0 0 100 100" width="100">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#intro-save" xlink:href="./assets/images/icons.svg?v=story-scroll-2#intro-save">
+        </use>
+       </svg>
+       <p class="card__number text-color-heading">
+        实时
+       </p>
+      </div>
+      <div class="card__text">
+       <p class="text-lead leading-trim">
+        识别到的问题会整理成清晰的回答提示，方便你先看重点，再用自己的方式表达。
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+ <div class="intro-content intro-content--left intro-process ui-light">
+ <div class="container-h row">
+  <div class="intro-background">
+   <div class="col col--md-4 col--lg-7" data-parallax--205-0='{"opacity": 0}' data-parallax--225-0='{"opacity": 1}' data-parallax--270-0='{"opacity": 1, "easing": "easeInQuad"}' data-parallax--320-0='{"opacity": 0}' data-parallax-clamp="true" data-parallax-enable-mq="md-up" data-parallax-measure-selector=".intro-sticky" data-plugin="parallax">
+    <div class="tablet-preview is-hidden--md-up">
+     <picture class="is-invisible--js is-hidden--no-js tablet-preview__image img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+      <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
+     </picture>
+    </div>
+    <p class="text-h2-md text-color-heading leading-trim mt-1.75 mt-0:md mb-2 px-1 px-0:md">
+     回答带上当前场景
+    </p>
+    <p class="h4 leading-trim text-color-text mb-2 mb-3:md mb-2:lg mb-3:xxxxl intro-content__text px-1 px-0:md">
+     每场面试、报告或会议都有独立背景，切换场景即可带入对应的目标、资料与回答要求。
+    </p>
+    <div class="intro-content__card">
+     <div class="card card--intro ui-background-alt">
+      <div class="card__top">
+       <svg aria-hidden="true" class="icon icon-intro-effective card__icon" height="100" style="--icon-width: 100; --icon-height: 100" viewbox="0 0 100 100" width="100">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#intro-effective" xlink:href="./assets/images/icons.svg?v=story-scroll-2#intro-effective">
+        </use>
+       </svg>
+       <p class="card__number text-color-heading">
+        场景
+       </p>
+      </div>
+      <div class="card__text">
+       <p class="text-lead leading-trim">
+        回答只参考当前场景里相关的资料、经验和题库，减少临场翻找信息的时间。
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+ <div class="intro-content intro-content--center intro-convenient ui-light">
+ <div class="container-h">
+  <div class="ih-viewing-heading">
+   <p class="text-h2-md text-color-heading leading-trim mb-1">用适合自己的方式查看</p>
+   <p class="h4 leading-trim text-color-text">完整内容留在助手窗口，重点放进悬浮提词器。同一 Wi-Fi 下，也可以用手机伴侣查看当前问题与回答。</p>
+  </div>
+  <div class="ih-viewing-stage">
+   <figure class="ih-viewing-prompter"><img data-product-screen="prompter" alt="悬浮提词器" data-ih-dark="./assets/product-scenes/prompter-dark.svg" data-ih-light="./assets/product-scenes/prompter-light.svg" src="./assets/product-scenes/prompter-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure>
+   <figure class="ih-viewing-phone"><img data-product-screen="phone" alt="手机伴侣" data-ih-dark="./assets/product-scenes/phone-dark.svg" data-ih-light="./assets/product-scenes/phone-light.svg" src="./assets/product-scenes/phone-light.svg" width="440" height="860" loading="lazy" decoding="async"/></figure>
+  </div>
+ </div>
+</div>
+ <div class="intro-prepare" id="intro-prepare">
+ <div class="intro-content--left ui-light intro-prepare">
+  <div class="container-h pt-4 pt-4:md pb-1 pb-3:md">
+   <div class="intro-background row">
+    <div class="col col--xs-2 col--md-6 offset--md-2 offset--lg-1 mb-2 mt-0:md">
+     <div class="tablet-preview" data-parallax-pattern="l-intro-prepare-tablet" data-plugin="parallax">
+      <picture class="is-invisible--js is-hidden--no-js img-full tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+       <img data-product-screen="materials" alt="场景资料与回答技能" data-ih-dark="./assets/product-scenes/materials-dark.svg" data-ih-light="./assets/product-scenes/materials-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/materials-light.svg" width="1600"/>
+      </picture>
+     </div>
+    </div>
+    <div class="col col--xs-2 col--md-4 col--lg-5 col--order-first-md">
+     <p class="text-h2-md text-color-heading leading-trim mb-2 is-hidden--sm-down">
+      资料和技能，按需参与
+     </p>
+     <p class="text-h2-md text-color-heading leading-trim mb-2 px-1 px-0:md is-hidden--md-up" data-nosnippet="">
+      资料和技能，按需参与
+     </p>
+     <p class="h4 leading-trim text-color-text mb-2 mb-3:md mb-2:lg mb-3:xxxxl intro-content__text px-1 px-0:md">
+      简历、岗位说明、论文或会议材料，都可以加入当前场景。资料在本机解析，回答时按问题取用相关内容。
+     </p>
+     <div class="intro-content__card">
+      <div class="card card--intro ui-background-alt">
+       <div class="card__top">
+        <svg aria-hidden="true" class="icon icon-intro-process card__icon" height="100" style="--icon-width: 100; --icon-height: 100" viewbox="0 0 100 100" width="100">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#intro-process" xlink:href="./assets/images/icons.svg?v=story-scroll-2#intro-process">
+         </use>
+        </svg>
+        <p class="card__number text-color-heading">
+         资料
+        </p>
+       </div>
+       <div class="card__text">
+        <p class="text-lead leading-trim">
+         也可以导入自己的 SKILL.md，让回答按全局习惯或指定场景使用答题框架。
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+ <div class="intro-resume" id="intro-resume">
+ <div class="intro-content--left ui-light">
+  <div class="container-h pb-3 pb-4:md">
+   <div class="intro-background row">
+    <div class="col col--xs-2 col--md-6 mb-2 mt-0:md intro-resume__screen">
+     <div class="tablet-preview" data-parallax-pattern="l-intro-resume-tablet" data-plugin="parallax">
+      <picture class="is-invisible--js is-hidden--no-js img-full tablet-preview__image" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+       <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/review-light.svg" width="1600"/>
+      </picture>
+     </div>
+    </div>
+    <div class="col col--xs-2 col--md-4 col--lg-5 offset--md-2 offset--lg-1">
+     <p class="text-h2-md text-color-heading leading-trim px-1 px-0:md mb-2 is-hidden--sm-down">
+      会后继续积累
+     </p>
+     <p class="text-h2-md text-color-heading leading-trim px-1 px-0:md mb-2 is-hidden--md-up" data-nosnippet="">
+      会后继续积累
+     </p>
+     <p class="h4 leading-trim text-color-text mb-2 mb-3:md mb-2:lg mb-3:xxxxl intro-content__text px-1 px-0:md">
+      结束后可回看转录、问题、回答和摘要；复盘得到的经验与题目可以留给下一次使用。
+     </p>
+     <div class="intro-content__card">
+      <div class="card card--intro ui-background-alt">
+       <div class="card__top">
+        <svg aria-hidden="true" class="icon icon-intro-process card__icon" height="100" style="--icon-width: 100; --icon-height: 100" viewbox="0 0 100 100" width="100">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#intro-process" xlink:href="./assets/images/icons.svg?v=story-scroll-2#intro-process">
+         </use>
+        </svg>
+        <p class="card__number text-color-heading">
+         复盘
+        </p>
+       </div>
+       <div class="card__text">
+        <p class="text-lead leading-trim">
+         会话记录与场景资料保存在本机；你可以在设置中关闭记录、导出备份或删除数据。
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+</section>
+        <section class="section section--full-height:lg section--center:md section--no-overflow ui-dark ui-background" data-scroll-section="" data-scroll-section-id="section1">
+ <picture class="is-invisible--js is-hidden--no-js background background--cover l-stress-free-bg" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+  <img alt="InterviewHacker 在面试、组会、谈判与网课中的界面" data-plugin="parallax" data-ih-dark="./assets/product-scenes/wall-dark.svg" data-ih-light="./assets/product-scenes/wall-light.svg" data-parallax-pattern="imageMoveBackground" decoding="async" draggable="false" height="1024" loading="lazy" src="./assets/product-scenes/wall-light.svg" width="1536"/>
+ </picture>
+ <div class="container-h pt-12 pb-3 py-7:md py-0:lg">
+  <div class="row row--pad">
+   <div class="col col--xs-2 col--md-4 col--lg-5 offset--md-7">
+    <h2 class="text-h2-md leading-trim">
+     <span class="ih-editorial-line">把注意力</span><span class="ih-editorial-line">留给交流。</span>
+    </h2>
+    <p class="leading-trim h4 mt-2 pb-2:md">
+     双路收音分别处理对方的系统声音和你的麦克风，让你更容易跟上问题与自己的表达。回答建议用于辅助准备，请结合实际情况判断和作答。
+    </p>
+   </div>
+  </div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-dark ui-background" data-scroll-section="" data-scroll-section-id="section2" id="scenes">
+ <div class="container-h pt-3 pt-0:md" data-parallax-enable-mq="lg-up" data-parallax-pattern="section-under-next" data-plugin="parallax">
+  <div class="row row--pad">
+   <div class="col col--xs-2 col--md-6 py-7:md pt-0:lg pb-2:lg section--full-height:lg section--center:md section--with-overflow l-streamlined-content">
+    <div>
+     <h2 class="text-h2-md leading-trim">
+      <span class="ih-editorial-line">一场对话，</span><span class="ih-editorial-line">一套合适的背景。</span>
+     </h2>
+     <div class="row row--pad my-2">
+      <div class="col col--xs-2 col--md-8 col--xxxl-6">
+       <p class="leading-trim text-h4-limited text-color-text">
+        为面试、学术报告、商务会议、课程或通用交流建立独立场景。当前场景的目标、资料、经验和题库会按需参与回答。
+       </p>
+      </div>
+     </div>
+     <div class="row row--pad">
+      <div class="col col--xs-2 col--md-7 col--lg-6 col--xxxl-5">
+       <div class="pr-6 pr-0:md">
+        <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+         <span class="btn__content">
+          <span class="btn__text">
+           下载 InterviewHacker
+          </span>
+          <span class="btn__icon">
+           <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+            <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+            </use>
+           </svg>
+          </span>
+         </span>
+        </a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="col col--xs-2 col--md-6 l-streamlined-deco pt-3 pt-0:md">
+    <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-parallax-pattern="l-streamlined-deco" data-plugin="appear  parallax" draggable="false">
+     <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
+    </picture>
+   </div>
+  </div>
+ </div>
+</section>
+        <section class="section ui-light ui-background-alt pt-1 pt-0:lg" data-scroll-section="" data-scroll-section-id="section3" id="features">
+ <div class="sticky sticky--full-height l-steps-section container-css-vars" data-parallax-enable-mq="lg-up" data-parallax-pattern="section-under-next" data-plugin="parallax" id="steps">
+  <div class="sticky__layer sticky__layer--sticky section--center:lg" data-scroll="" data-scroll-sticky="" data-scroll-target="#steps">
+ <div class="container-h pt-1.5 pt-3:md pt-0:lg">
+  <h2 class="h1 leading-trim mb-2 col--md-8 offset--md-2 col--lg-auto offset--lg-0 l-steps-title">
+   从准备到复盘，清楚走完每一步。
+  </h2>
+  <div class="row row--pad">
+   <div class="col col--xs-2 col--md-8 offset--md-2 col--lg-6 offset--lg-0">
+    <div class="l-steps-deco l-steps-images">
+     <ol class="l-steps-images__list">
+      <li>
+       <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+        <img data-product-screen="workspace" alt="独立场景与回答要求" data-ih-dark="./assets/product-scenes/workspace-dark.svg" data-ih-light="./assets/product-scenes/workspace-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/workspace-light.svg" width="1600"/>
+       </picture>
+      </li>
+      <li data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
+       <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+        <img data-product-screen="materials" alt="场景资料与回答技能" data-ih-dark="./assets/product-scenes/materials-dark.svg" data-ih-light="./assets/product-scenes/materials-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/materials-light.svg" width="1600"/>
+       </picture>
+      </li>
+      <li data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
+       <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+        <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
+       </picture>
+      </li>
+      <li data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-steps-zoom" data-plugin="parallax">
+       <picture class="is-invisible--js is-hidden--no-js img-full" data-appear-preload-on-idle="false" data-plugin="appear " draggable="false">
+        <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="lazy" src="./assets/product-scenes/review-light.svg" width="1600"/>
+       </picture>
+      </li>
+     </ol>
+
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+  <div class="sticky__layer">
+ <div class="container-h">
+  <div class="row row--pad">
+   <ol class="col col--md-8 offset--md-2 col--lg-5 offset--lg-7 l-steps-content">
+    <li data-parallax-count="4" data-parallax-index="0" data-parallax-pattern="l-steps-li" data-plugin="parallax">
+     <span aria-hidden="" class="badge text-lead leading-trim l-steps-content__deco">
+      1
+     </span>
+     <h3 class="h4 leading-trim">
+      选择场景：为面试、报告、会议或课程建立专属上下文。
+     </h3>
+    </li>
+    <li data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-li" data-plugin="parallax">
+     <span aria-hidden="" class="badge text-lead leading-trim l-steps-content__deco" data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-badge" data-plugin="parallax">
+      2
+     </span>
+     <h3 class="h4 leading-trim" data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-steps-title" data-plugin="parallax">
+      加入资料：导入相关文件，设置目标、回答要求与可选技能。
+     </h3>
+    </li>
+    <li data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-li" data-plugin="parallax">
+     <span aria-hidden="" class="badge text-lead leading-trim l-steps-content__deco" data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-badge" data-plugin="parallax">
+      3
+     </span>
+     <h3 class="h4 leading-trim" data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-steps-title" data-plugin="parallax">
+      开始辅助：选择音频来源，实时查看转录、问题判断和流式回答。
+     </h3>
+    </li>
+    <li>
+     <span aria-hidden="" class="badge text-lead leading-trim l-steps-content__deco" data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-steps-badge" data-plugin="parallax">
+      4
+     </span>
+     <h3 class="h4 leading-trim" data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-steps-title" data-plugin="parallax">
+      会后复盘：回看问题、回答与摘要，把经验留给下一次。
+     </h3>
+    </li>
+   </ol>
+  </div>
+ </div>
+</div>
+ </div>
+</section>
+        <section class="section ui-light ui-background pt-0.75 pt-0:lg pb-3 pb-3.75:md pb-0:lg l-why-section" data-scroll-section="" data-scroll-section-id="section4">
+ <div class="sticky sticky--full-height:lg l-why" id="why" style="--item-count: 4">
+  <div class="sticky__layer sticky__layer--sticky section--center:lg" data-scroll="" data-scroll-sticky="" data-scroll-target="#why">
+   <div class="container-h pt-2.25 pt-3:md pt-0:lg">
+    <h2 class="text-h2-md leading-trim mb-2">
+     为重要对话准备的工具。
+    </h2>
+    <div class="row row--pad l-why-list" style="--items-count: 4">
+     <div class="col col--xs-2">
+      <div class="l-why-item" data-parallax-count="4" data-parallax-index="0" data-parallax-pattern="l-why-progress " data-plugin="parallax">
+       <div class="l-why-item__title">
+        <h3 class="leading-trim">
+         双路实时识别
+        </h3>
+       </div>
+       <div class="l-why-item__inner">
+        <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+         1
+        </div>
+        <div aria-hidden="" class="badge badge--rt badge--success l-why-item__inner-deco">
+         <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+          <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+          </use>
+         </svg>
+        </div>
+        <div class="l-why-item__inner-content">
+         <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
+         <p class="h4 leading-trim">
+          系统声音与麦克风分开识别，并尝试排除扬声器回声。
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col col--xs-2">
+      <div class="l-why-item" data-parallax-count="4" data-parallax-index="1" data-parallax-pattern="l-why-progress l-why-move" data-plugin="parallax">
+       <div class="l-why-item__title">
+        <h3 class="leading-trim">
+         回答贴合场景
+        </h3>
+       </div>
+       <div class="l-why-item__inner">
+        <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+         2
+        </div>
+        <div aria-hidden="" class="badge badge--rt badge--success l-why-item__inner-deco">
+         <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+          <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+          </use>
+         </svg>
+        </div>
+        <div class="l-why-item__inner-content">
+         <img data-product-screen="context" alt="结合场景资料的回答" data-ih-dark="./assets/product-scenes/context-dark.svg" data-ih-light="./assets/product-scenes/context-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/context-light.svg" width="1600"/>
+         <p class="h4 leading-trim">
+          问题、相关资料、经验和题库可结合当前场景提供上下文。
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col col--xs-2">
+      <div class="l-why-item" data-parallax-count="4" data-parallax-index="2" data-parallax-pattern="l-why-progress l-why-move" data-plugin="parallax">
+       <div class="l-why-item__title">
+        <h3 class="leading-trim">
+         查看方式灵活
+        </h3>
+       </div>
+       <div class="l-why-item__inner">
+        <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+         3
+        </div>
+        <div aria-hidden="" class="badge badge--rt badge--success l-why-item__inner-deco">
+         <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+          <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+          </use>
+         </svg>
+        </div>
+        <div class="l-why-item__inner-content">
+         <img data-product-screen="devices" alt="助手窗口与手机伴侣" data-ih-dark="./assets/product-scenes/devices-dark.svg" data-ih-light="./assets/product-scenes/devices-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/devices-light.svg" width="1600"/>
+         <p class="h4 leading-trim">
+          支持助手窗口、提词器和手机伴侣；可选择回答引擎与语音识别方式。
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col col--xs-2">
+      <div class="l-why-item l-why-item--last" data-parallax-count="4" data-parallax-index="3" data-parallax-pattern="l-why-progress l-why-move" data-plugin="parallax">
+       <div class="l-why-item__title">
+        <h3 class="leading-trim">
+         复盘形成积累
+        </h3>
+       </div>
+       <div class="l-why-item__inner">
+        <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+         4
+        </div>
+        <div aria-hidden="" class="badge badge--rt badge--success l-why-item__inner-deco">
+         <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+          <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+          </use>
+         </svg>
+        </div>
+        <div class="l-why-item__inner-content">
+         <img data-product-screen="review" alt="会话记录与复盘" data-ih-dark="./assets/product-scenes/review-dark.svg" data-ih-light="./assets/product-scenes/review-light.svg" decoding="async" draggable="false" height="1044" loading="eager" src="./assets/product-scenes/review-light.svg" width="1600"/>
+         <p class="h4 leading-trim">
+          可保存转录、问题、回答和摘要，并把复盘结果整理为经验与题目。
+         </p>
+         <div class="l-why-item__button is-hidden--md-down">
+          <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+           <span class="btn__content">
+            <span class="btn__text">
+             下载 InterviewHacker
+            </span>
+            <span class="btn__icon">
+             <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+              <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+              </use>
+             </svg>
+            </span>
+           </span>
+          </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="col col--xs-2 pt-1">
+      <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+       <span class="btn__content">
+        <span class="btn__text">
+         下载 InterviewHacker
+        </span>
+        <span class="btn__icon">
+         <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+          <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+          </use>
+         </svg>
+        </span>
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section5" id="stories">
+ <hr/>
+ <div class="container-h py-3 py-3.75:md pt-2.5:lg py-3:xxxxl">
+  <h2 class="text-h2-md leading-trim mb-2">
+   InterviewHacker 使用场景
+  </h2>
+
+  <div class="l-success is-hidden--md-down">
+ <article class="card card--story ui-background-alt">
+  <div class="card__sizer">
+  </div>
+  <div class="card__content row">
+   <div class="col col--lg-3">
+    <div class="card__group pb-2 pb-0:lg">
+     <div class="l-success__images">
+      <div class="content-animation content-animation--ready" data-content-animation-animations='{
+                                        "changeShow": {"name": "slideIn"},
+                                        "changeHide": {"name": "slideOut"}
+                                    }' data-content-animation-controller-selector=":root .js-success-content-animation-controller" data-content-animation-plugins="controller" data-plugin="contentAnimation">
+       <div aria-hidden="false" class="" data-content-animation-item="0" data-content-animation-top="true" data-content-animation-visible="true">
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h3m2-6v12m5-16v20m5-14v8"/></svg></div>
+       </div>
+       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="1">
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h7l2 2 2-2h7v18h-7l-2 2-2-2H4zM13 5v18"/></svg></div>
+       </div>
+       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="2">
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h20v14H3zM8 23h10M13 19v4"/></svg></div>
+       </div>
+       <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="3">
+        <div class="ih-scene-symbol" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2h10l6 6v16H5zM15 2v7h6M8 14h10M8 18h10"/></svg></div>
+       </div>
+      </div>
+     </div>
+     <div class="content-animation content-animation--ready" data-content-animation-animations='{
+                                    "changeShow": {"name": "fadeIn"},
+                                    "changeHide": {"name": "fadeOut"}
+                                }' data-content-animation-controller-selector=":root .js-success-content-animation-controller" data-content-animation-plugins="controller" data-plugin="contentAnimation">
+      <div aria-hidden="false" class="leading-trim text-t1-static ui-background-alt" data-content-animation-item="0" data-content-animation-top="true" data-content-animation-visible="true">
+       <p class="text-color-heading">
+        求职面试
+       </p>
+       <p class="text-color-small">
+        问题与回答
+       </p>
+      </div>
+      <div aria-hidden="true" class="leading-trim text-t1-static ui-background-alt is-hidden" data-content-animation-invisible="true" data-content-animation-item="1">
+       <p class="text-color-heading">
+        学术报告
+       </p>
+       <p class="text-color-small">
+        讲稿与幻灯片
+       </p>
+      </div>
+      <div aria-hidden="true" class="leading-trim text-t1-static ui-background-alt is-hidden" data-content-animation-invisible="true" data-content-animation-item="2">
+       <p class="text-color-heading">
+        商务会议
+       </p>
+       <p class="text-color-small">
+        议程与目标
+       </p>
+      </div>
+      <div aria-hidden="true" class="leading-trim text-t1-static ui-background-alt is-hidden" data-content-animation-invisible="true" data-content-animation-item="3">
+       <p class="text-color-heading">
+        课程学习
+       </p>
+       <p class="text-color-small">
+        课件与笔记
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="l-success__text col col--lg-9">
+    <div class="col--lg-8 pl-small">
+     <div class="content-animation js-success-content-animation-controller content-animation--ready" data-content-animation-animations='{
+                                    "changeShow": {"name": "slideIn", "slideMargin": 20},
+                                    "changeHide": {"name": "slideOut", "slideMargin": 20}
+                                }' data-content-animation-next-selector=":root .js-success-next" data-content-animation-prev-selector=":root .js-success-prev" data-plugin="contentAnimation">
+      <div aria-hidden="false" class="" data-content-animation-item="0" data-content-animation-top="true" data-content-animation-visible="true">
+       <p class="h4 leading-trim card__text">
+        为这次面试选择岗位场景，带入简历与职位资料；实时整理问题，按需要查看建议回答。
+       </p>
+       <figure class="ih-story-media">
+        <img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/conversation-light.svg" width="1600"/>
+       </figure>
+      </div>
+      <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="1">
+       <p class="h4 leading-trim card__text">
+        导入论文、讲稿和幻灯片；演讲时关注当前页面、过渡句与听众可能提出的问题。
+       </p>
+       <figure class="ih-story-media">
+        <img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/lecture-light.svg" width="1600"/>
+       </figure>
+      </div>
+      <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="2">
+       <p class="h4 leading-trim card__text">
+        提前放入议程、产品资料和目标；会中记录问题，会后整理决定事项与待办。
+       </p>
+       <figure class="ih-story-media">
+        <img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/meeting-light.svg" width="1600"/>
+       </figure>
+      </div>
+      <div aria-hidden="true" class="is-hidden" data-content-animation-invisible="true" data-content-animation-item="3">
+       <p class="h4 leading-trim card__text">
+        把课程课件和笔记放入独立场景；提问时查看相关内容，课后回看重点和任务。
+       </p>
+       <figure class="ih-story-media">
+        <img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" decoding="async" height="1044" loading="lazy" src="./assets/product-scenes/course-light.svg" width="1600"/>
+       </figure>
+      </div>
+     </div>
+    </div>
+    <div class="is-hidden--no-js group group--small l-success__buttons">
+     <button type="button" class="btn btn--secondary-alt btn--square btn--sm js-success-prev" aria-label="上一个使用场景">
+      <span class="btn__content">
+       <span class="btn__icon">
+        <svg aria-hidden="true" class="icon icon-arrow-left" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-left" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-left">
+         </use>
+        </svg>
+       </span>
+      </span>
+     </button>
+     <button type="button" class="btn btn--secondary-alt btn--square btn--sm js-success-next" aria-label="下一个使用场景">
+      <span class="btn__content">
+       <span class="btn__icon">
+        <svg aria-hidden="true" class="icon icon-arrow-right" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right">
+         </use>
+        </svg>
+       </span>
+      </span>
+     </button>
+    </div>
+   </div>
+  </div>
+ </article>
+</div>
+  <div class="l-success is-hidden--lg-up"><ul class="mobile-scrollable" aria-label="使用场景" tabindex="0"><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="conversation" alt="双路实时对话与建议回答" data-ih-dark="./assets/product-scenes/conversation-dark.svg" data-ih-light="./assets/product-scenes/conversation-light.svg" src="./assets/product-scenes/conversation-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>求职面试</h3><p>带入简历与岗位说明，整理问题，按需要查看建议回答。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="lecture" alt="学术报告与讲稿准备" data-ih-dark="./assets/product-scenes/lecture-dark.svg" data-ih-light="./assets/product-scenes/lecture-light.svg" src="./assets/product-scenes/lecture-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>学术报告</h3><p>提前准备论文、讲稿与幻灯片，讲清方法，也准备应对追问。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="meeting" alt="会议记录与行动事项" data-ih-dark="./assets/product-scenes/meeting-dark.svg" data-ih-light="./assets/product-scenes/meeting-light.svg" src="./assets/product-scenes/meeting-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>商务会议</h3><p>带着议程与目标开始，会后回看讨论重点、决定事项与下一步。</p></div></article></li><li class="mobile-scrollable__item"><article class="ih-scene-card"><figure><img data-product-screen="course" alt="课程资料与笔记" data-ih-dark="./assets/product-scenes/course-dark.svg" data-ih-light="./assets/product-scenes/course-light.svg" src="./assets/product-scenes/course-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure><div class="ih-scene-card__copy"><h3>课程学习</h3><p>让课件和笔记留在独立场景，提问时找到相关内容，课后回看重点。</p></div></article></li></ul><nav class="ih-scene-dots is-hidden--no-js" aria-label="选择使用场景"><button class="ih-scene-dot" type="button" data-scene-index="0" aria-label="查看求职面试" aria-current="true"></button><button class="ih-scene-dot" type="button" data-scene-index="1" aria-label="查看学术报告"></button><button class="ih-scene-dot" type="button" data-scene-index="2" aria-label="查看商务会议"></button><button class="ih-scene-dot" type="button" data-scene-index="3" aria-label="查看课程学习"></button></nav></div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section6" id="benefits">
+ <hr/>
+ <div class="container-h py-3 py-3.75:md pt-2.5:lg pb-3:lg py-3:xxxxl">
+  <h2 class="text-h2-lg leading-trim mb-2">
+   让准备、表达与复盘连在一起。
+  </h2>
+  <div class="row row--pad">
+   <div class="col col--xs-1 col--lg-3" data-parallax-enable-mq="" data-parallax-index="0" data-parallax-pattern="l-benefit-progress" data-plugin="parallax">
+    <article class="card card--benefit ui-background-alt" style="--index: 1">
+     <div class="card__sizer">
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--success card__success">
+      <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+       <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+       </use>
+      </svg>
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--inactive text-lead leading-trim">
+      1
+     </div>
+     <div aria-hidden="" class="badge badge--lt text-lead leading-trim card__active">
+      1
+     </div>
+     <div class="card__content">
+      <div class="card__top">
+       <p class="h4 leading-trim">
+        场景化上下文
+       </p>
+      </div>
+      <p class="text-lead leading-trim">
+       为不同面试、报告和会议分别维护背景与回答要求。
+      </p>
+     </div>
+    </article>
+   </div>
+   <div class="col col--xs-1 col--lg-3" data-parallax-enable-mq="" data-parallax-index="1" data-parallax-pattern="l-benefit-progress" data-plugin="parallax">
+    <article class="card card--benefit ui-background-alt" style="--index: 2">
+     <div class="card__sizer">
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--success card__success">
+      <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+       <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+       </use>
+      </svg>
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--inactive text-lead leading-trim">
+      2
+     </div>
+     <div aria-hidden="" class="badge badge--lt text-lead leading-trim card__active">
+      2
+     </div>
+     <div class="card__content">
+      <div class="card__top">
+       <p class="h4 leading-trim">
+        按需选择服务
+       </p>
+      </div>
+      <p class="text-lead leading-trim">
+       可选本机离线识别、系统语音或云端识别，并连接你配置的回答引擎。
+      </p>
+     </div>
+    </article>
+   </div>
+   <div class="col col--xs-1 col--lg-3 mt-0.5 mt-0:lg" data-parallax-enable-mq="" data-parallax-index="2" data-parallax-pattern="l-benefit-progress" data-plugin="parallax">
+    <article class="card card--benefit ui-background-alt" style="--index: 3">
+     <div class="card__sizer">
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--success card__success">
+      <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+       <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+       </use>
+      </svg>
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--inactive text-lead leading-trim">
+      3
+     </div>
+     <div aria-hidden="" class="badge badge--lt text-lead leading-trim card__active">
+      3
+     </div>
+     <div class="card__content">
+      <div class="card__top">
+       <p class="h4 leading-trim">
+        本机保存资料
+       </p>
+      </div>
+      <p class="text-lead leading-trim">
+       资料在本机解析，场景和会话数据保存在本机目录。
+      </p>
+     </div>
+    </article>
+   </div>
+   <div class="col col--xs-1 col--lg-3 mt-0.5 mt-0:lg" data-parallax-enable-mq="" data-parallax-index="3" data-parallax-pattern="l-benefit-progress" data-plugin="parallax">
+    <article class="card card--benefit ui-background-alt" style="--index: 4">
+     <div class="card__sizer">
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--success card__success">
+      <svg aria-hidden="true" class="icon icon-check" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+       <use href="./assets/images/icons.svg?v=story-scroll-2#check" xlink:href="./assets/images/icons.svg?v=story-scroll-2#check">
+       </use>
+      </svg>
+     </div>
+     <div aria-hidden="" class="badge badge--lt badge--inactive text-lead leading-trim">
+      4
+     </div>
+     <div aria-hidden="" class="badge badge--lt text-lead leading-trim card__active">
+      4
+     </div>
+     <div class="card__content">
+      <div class="card__top">
+       <p class="h4 leading-trim">
+        持续复用经验
+       </p>
+      </div>
+      <p class="text-lead leading-trim">
+       把复盘整理成经验库和题库，在后续对话中按需参考。
+      </p>
+     </div>
+    </article>
+   </div>
+  </div>
+  <div class="text-center pt-1.5 pt-1.25:md pt-1:lg pt-1.5:xxxxl">
+   <a class="btn btn--primary btn--space-between btn--full col--md-3" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+    <span class="btn__content">
+     <span class="btn__text">
+      下载 InterviewHacker
+     </span>
+     <span class="btn__icon">
+      <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+       <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+       </use>
+      </svg>
+     </span>
+    </span>
+   </a>
+  </div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-dark ui-background l-pdf" data-scroll-section="" data-scroll-section-id="section7" id="privacy">
+ <div class="l-pdf__background ih-privacy-glow" aria-hidden="true"></div>
+ <div class="container-h l-pdf__container py-3 py-3.75:md py-3:lg" data-plugin="parallax" data-parallax-enable-mq="lg-up" data-parallax-pattern="section-under-next">
+ <div class="row row--pad">
+  <div class="col col--xs-2 col--md-6">
+   <h2 class="leading-trim pr-2 pr-0:md">
+    数据去向，由你决定。
+   </h2>
+   <figure class="ih-privacy-device"><img data-product-screen="privacy" alt="本机数据与服务使用" data-ih-dark="./assets/product-scenes/privacy-dark.svg" data-ih-light="./assets/product-scenes/privacy-light.svg" src="./assets/product-scenes/privacy-light.svg" width="1600" height="1044" loading="lazy" decoding="async"/></figure>
+  </div>
+  <div class="col col--xs-2 col--md-6 l-pdf__form">
+   <p class="text-lead leading-trim">
+    默认使用本机离线语音识别，原始音频不会保存。若选择云端识别并同意，音频会发送给所选服务。生成回答时，转录、问题、相关资料片段、截图与启用的技能会发送到你配置的回答引擎；场景资料和会话记录保存在本机。
+   </p>
+   <p class="text-small leading-trim mt-1">
+    联网搜索开启后，问题文本会发送至所选搜索服务。手机伴侣默认关闭；启用后仅同步当前问题与回答，通过本地网络以明文 HTTP 传输，请只在可信 Wi-Fi 下使用。
+   </p>
+   <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker#数据去向">
+    <span class="btn__content">
+     <span class="btn__text">
+      查看完整数据去向
+     </span>
+     <span class="btn__icon">
+      &nearrow;
+     </span>
+    </span>
+   </a>
+   <p class="text-small leading-trim mt-1">当前应用版本 v1.8.0；下载需要仓库访问权。</p>
+   <p class="text-small leading-trim mt-1">开始使用需要语音识别 + 对话服务。回答会使用当前问题检索到的资料片段，不会把所有资料塞入上下文。</p>
+  </div>
+ </div>
+</div>
+</section>
+        <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section8" id="faq">
+ <div class="container-h py-3 py-3.75:md py-3:lg">
+  <div class="row row--pad">
+   <div class="col col--xs-2 col--md-6 mb-2 mb-0:md">
+    <h2 class="text-h2-md leading-trim">
+     常见问题
+    </h2>
+   </div>
+   <div class="col col--xs-2 col--md-6 accordion l-faq-list" data-plugin="accordion">
+    <div class="card card--faq ui-background-alt" itemscope="" itemtype="https://schema.org/Question">
+     <a aria-controls="accordion-content-363859" aria-expanded="false" class="card__top accordion__heading text-lead btn-container" href="#accordion-content-363859" id="accordion-heading-363859" role="button">
+      <p class="card__title text-color-heading leading-trim" itemprop="name">
+       InterviewHacker 是什么？
+      </p>
+      <div class="card__rt">
+       <span class="btn btn--secondary-alt btn--square btn--tiny accordion__icon">
+        <span class="btn__content">
+         <span class="btn__icon">
+          <svg aria-hidden="true" class="icon icon-arrow-angle-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+           <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down">
+           </use>
+          </svg>
+         </span>
+        </span>
+       </span>
+      </div>
+     </a>
+     <div aria-hidden="true" aria-labelledby="accordion-heading-363859" class="accordion__content" id="accordion-content-363859" itemprop="acceptedAnswer" itemscope="" itemtype="https://schema.org/Answer" role="region">
+      <div>
+       <p class="card__text h4 leading-trim" itemprop="text">
+        InterviewHacker 是面向 macOS 的私人 SI（Super Intelligence，超级智能）对话助手，可用于面试、学术报告、商务会议、课程和通用交流。
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="card card--faq ui-background-alt" itemscope="" itemtype="https://schema.org/Question">
+     <a aria-controls="accordion-content-764160" aria-expanded="false" class="card__top accordion__heading text-lead btn-container" href="#accordion-content-764160" id="accordion-heading-764160" role="button">
+      <p class="card__title text-color-heading leading-trim" itemprop="name">
+       语音识别可以离线使用吗？
+      </p>
+      <div class="card__rt">
+       <span class="btn btn--secondary-alt btn--square btn--tiny accordion__icon">
+        <span class="btn__content">
+         <span class="btn__icon">
+          <svg aria-hidden="true" class="icon icon-arrow-angle-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+           <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down">
+           </use>
+          </svg>
+         </span>
+        </span>
+       </span>
+      </div>
+     </a>
+     <div aria-hidden="true" aria-labelledby="accordion-heading-764160" class="accordion__content" id="accordion-content-764160" itemprop="acceptedAnswer" itemscope="" itemtype="https://schema.org/Answer" role="region">
+      <div>
+       <p class="card__text h4 leading-trim" itemprop="text">
+        默认使用本机离线语音识别；也可按需选择 Apple Speech 或云端识别。云端识别需要按提示同意后才会发送音频。
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="card card--faq ui-background-alt" itemscope="" itemtype="https://schema.org/Question">
+     <a aria-controls="accordion-content-749804" aria-expanded="false" class="card__top accordion__heading text-lead btn-container" href="#accordion-content-749804" id="accordion-heading-749804" role="button">
+      <p class="card__title text-color-heading leading-trim" itemprop="name">
+       哪些内容会发送给外部服务？
+      </p>
+      <div class="card__rt">
+       <span class="btn btn--secondary-alt btn--square btn--tiny accordion__icon">
+        <span class="btn__content">
+         <span class="btn__icon">
+          <svg aria-hidden="true" class="icon icon-arrow-angle-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+           <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down">
+           </use>
+          </svg>
+         </span>
+        </span>
+       </span>
+      </div>
+     </a>
+     <div aria-hidden="true" aria-labelledby="accordion-heading-749804" class="accordion__content" id="accordion-content-749804" itemprop="acceptedAnswer" itemscope="" itemtype="https://schema.org/Answer" role="region">
+      <div>
+       <p class="card__text h4 leading-trim" itemprop="text">
+        生成回答时，转录、问题、检索到的资料片段、主动添加的截图和启用的技能会发送到你配置的回答引擎。联网搜索开启后，问题文本会发送到所选搜索服务。
+       </p>
+      </div>
+     </div>
+    </div>
+    <div class="card card--faq ui-background-alt" itemscope="" itemtype="https://schema.org/Question">
+     <a aria-controls="accordion-content-779622" aria-expanded="false" class="card__top accordion__heading text-lead btn-container" href="#accordion-content-779622" id="accordion-heading-779622" role="button">
+      <p class="card__title text-color-heading leading-trim" itemprop="name">
+       它支持提词器和手机伴侣吗？
+      </p>
+      <div class="card__rt">
+       <span class="btn btn--secondary-alt btn--square btn--tiny accordion__icon">
+        <span class="btn__content">
+         <span class="btn__icon">
+          <svg aria-hidden="true" class="icon icon-arrow-angle-down" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+           <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-angle-down">
+           </use>
+          </svg>
+         </span>
+        </span>
+       </span>
+      </div>
+     </a>
+     <div aria-hidden="true" aria-labelledby="accordion-heading-779622" class="accordion__content" id="accordion-content-779622" itemprop="acceptedAnswer" itemscope="" itemtype="https://schema.org/Answer" role="region">
+      <div>
+       <p class="card__text h4 leading-trim" itemprop="text">
+        支持悬浮提词器和手机伴侣。手机与 Mac 连接同一 Wi-Fi 后，可查看实时回答并进行遥控。
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-light ui-background" data-scroll-section="" data-scroll-section-id="section9" id="tips">
+ <hr/>
+ <div class="container-h py-3 py-3.75:md py-3:lg carousel--ready" data-carousel-enable-mq="md-up" data-carousel-slides-per-view="2" data-plugin="carousel">
+  <div class="row row--between-xs mb-2">
+   <h2 class="text-h2-md leading-trim">
+    使用技巧
+   </h2>
+   <div class="row row--between-xs is-hidden--md-down">
+    <div class="is-hidden--no-js group group--small">
+     <a class="btn btn--secondary btn--square btn--sm js-carousel-prev is-disabled" role="button" tabindex="0">
+      <span class="btn__content">
+       <span class="btn__icon">
+        <svg aria-hidden="true" class="icon icon-arrow-left" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-left" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-left">
+         </use>
+        </svg>
+       </span>
+      </span>
+     </a>
+     <a class="btn btn--secondary btn--square btn--sm js-carousel-next" role="button" tabindex="0">
+      <span class="btn__content">
+       <span class="btn__icon">
+        <svg aria-hidden="true" class="icon icon-arrow-right" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+         <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right">
+         </use>
+        </svg>
+       </span>
+      </span>
+     </a>
+    </div>
+   </div>
+  </div>
+  <div class="carousel carousel--md-up carousel--not-ready mt-auto">
+   <div class="carousel__list">
+    <div class="mobile-scrollable mobile-scrollable:sm-down carousel__list__inner js-carousel-list" data-plugin="mobileScrollable">
+     <div class="col col--xs-2 col--md-6 mobile-scrollable__item carousel__list__item js-carousel-item" data-index="1">
+      <a class="card card--tip card--with-badge ui-background-alt btn-container" href="#privacy">
+       <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+        1
+       </div>
+       <div class="card__top">
+        <p class="card__title leading-trim h3">
+         会前：先选对场景
+        </p>
+       </div>
+       <div class="card__content">
+        <hr/>
+        <p class="card__text pt-1 pt-small:md pb-3 pb-2:md pb-2.5:lg leading-trim text-lead text-color-text">
+         面试、报告和会议分别建立场景，提前加入职位说明、论文、议程或笔记，让回答有当前背景。
+        </p>
+       </div>
+       <div>
+        <span class="btn btn--xs btn--text-medium btn--secondary-alt">
+         <span class="btn__content">
+          <span class="btn__text">
+           了解更多
+          </span>
+         </span>
+        </span>
+       </div>
+      </a>
+     </div>
+     <div class="col col--xs-2 col--md-6 mobile-scrollable__item carousel__list__item js-carousel-item" data-index="2">
+      <a class="card card--tip card--with-badge ui-background-alt btn-container" href="#stories">
+       <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+        2
+       </div>
+       <div class="card__top">
+        <p class="card__title leading-trim h3">
+         会中：按需要调整
+        </p>
+       </div>
+       <div class="card__content">
+        <hr/>
+        <p class="card__text pt-1 pt-small:md pb-3 pb-2:md pb-2.5:lg leading-trim text-lead text-color-text">
+         建议回答支持缩短、展开、举例、STAR、切换语言和澄清；把它当成提示，再用自己的话表达。
+        </p>
+       </div>
+       <div>
+        <span class="btn btn--xs btn--text-medium btn--secondary-alt">
+         <span class="btn__content">
+          <span class="btn__text">
+           了解更多
+          </span>
+         </span>
+        </span>
+       </div>
+      </a>
+     </div>
+     <div class="col col--xs-2 col--md-6 mobile-scrollable__item carousel__list__item js-carousel-item" data-index="3">
+      <a class="card card--tip card--with-badge ui-background-alt btn-container" href="#tips">
+       <div aria-hidden="" class="badge badge--rt text-lead leading-trim">
+        3
+       </div>
+       <div class="card__top">
+        <p class="card__title leading-trim h3">
+         会后：整理复盘
+        </p>
+       </div>
+       <div class="card__content">
+        <hr/>
+        <p class="card__text pt-1 pt-small:md pb-3 pb-2:md pb-2.5:lg leading-trim text-lead text-color-text">
+         结束后回看问题、完整转录和摘要；将有效经验与改进后的回答加入场景经验库和题库。
+        </p>
+       </div>
+       <div>
+        <span class="btn btn--xs btn--text-medium btn--secondary-alt">
+         <span class="btn__content">
+          <span class="btn__text">
+           了解更多
+          </span>
+         </span>
+        </span>
+       </div>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+        <section class="section section--no-overflow ui-dark ui-background" data-scroll-section="" data-scroll-section-id="section10" id="download">
+ <div class="l-subscribe__background">
+ <div class="l-subscribe__background-group l-subscribe__background-group--left">
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="组会论文讲解" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="商务谈判" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-meeting-dark.svg" data-ih-light="./assets/product-scenes/tile-meeting-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-meeting-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="网课提问" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-course-dark.svg" data-ih-light="./assets/product-scenes/tile-course-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-course-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="悬浮提词器" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-prompter-dark.svg" data-ih-light="./assets/product-scenes/tile-prompter-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-prompter-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="会后复盘" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-review-dark.svg" data-ih-light="./assets/product-scenes/tile-review-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-review-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer is-hidden--md-up">
+   <div class="card__sizer">
+   </div>
+   <img alt="面试追问回答" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-answer-dark.svg" data-ih-light="./assets/product-scenes/tile-answer-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-answer-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer is-hidden--md-up">
+   <div class="card__sizer">
+   </div>
+   <img alt="组会论文讲解" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer is-hidden--md-up">
+   <div class="card__sizer">
+   </div>
+   <img alt="商务谈判" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-meeting-dark.svg" data-ih-light="./assets/product-scenes/tile-meeting-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-meeting-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer is-hidden--md-up">
+   <div class="card__sizer">
+   </div>
+   <img alt="网课提问" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-course-dark.svg" data-ih-light="./assets/product-scenes/tile-course-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-course-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer is-hidden--md-up">
+   <div class="card__sizer">
+   </div>
+   <img alt="悬浮提词器" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-prompter-dark.svg" data-ih-light="./assets/product-scenes/tile-prompter-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-prompter-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="会后复盘" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-review-dark.svg" data-ih-light="./assets/product-scenes/tile-review-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-review-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="面试追问回答" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-answer-dark.svg" data-ih-light="./assets/product-scenes/tile-answer-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-answer-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="组会论文讲解" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="商务谈判" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-meeting-dark.svg" data-ih-light="./assets/product-scenes/tile-meeting-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-meeting-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="网课提问" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-course-dark.svg" data-ih-light="./assets/product-scenes/tile-course-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-course-light.svg" width="512"/>
+  </div>
+ </div>
+ <div class="l-subscribe__background-group l-subscribe__background-group--right is-hidden--sm-down">
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="悬浮提词器" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-prompter-dark.svg" data-ih-light="./assets/product-scenes/tile-prompter-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-prompter-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="会后复盘" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-review-dark.svg" data-ih-light="./assets/product-scenes/tile-review-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-review-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="面试追问回答" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-answer-dark.svg" data-ih-light="./assets/product-scenes/tile-answer-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-answer-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="组会论文讲解" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="商务谈判" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-meeting-dark.svg" data-ih-light="./assets/product-scenes/tile-meeting-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-meeting-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="网课提问" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-course-dark.svg" data-ih-light="./assets/product-scenes/tile-course-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-course-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="悬浮提词器" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-prompter-dark.svg" data-ih-light="./assets/product-scenes/tile-prompter-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-prompter-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="会后复盘" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-review-dark.svg" data-ih-light="./assets/product-scenes/tile-review-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-review-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="面试追问回答" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-answer-dark.svg" data-ih-light="./assets/product-scenes/tile-answer-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-answer-light.svg" width="512"/>
+  </div>
+  <div class="card card--footer">
+   <div class="card__sizer">
+   </div>
+   <img alt="组会论文讲解" class="background background--cover" data-ih-dark="./assets/product-scenes/tile-lecture-dark.svg" data-ih-light="./assets/product-scenes/tile-lecture-light.svg" decoding="async" height="512" loading="lazy" src="./assets/product-scenes/tile-lecture-light.svg" width="512"/>
+  </div>
+ </div>
+</div>
+ <div class="container-h pt-3 l-subscribe">
+ <div class="l-subscribe__top">
+  <h2 class="text-h2-md leading-trim mb-4 mb-2:md l-subscribe__top-title">
+   准备好下一次重要对话了吗？
+  </h2>
+  <div class="row row--pad">
+   <div class="col col--xs-2 col--md-4 col--xl-3">
+    <a class="btn btn--primary btn--space-between btn--full" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+     <span class="btn__content">
+      <span class="btn__text">
+       下载 InterviewHacker
+      </span>
+      <span class="btn__icon">
+       <svg aria-hidden="true" class="icon icon-arrow-right-lg" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+        <use href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg" xlink:href="./assets/images/icons.svg?v=story-scroll-2#arrow-right-lg">
+        </use>
+       </svg>
+      </span>
+     </span>
+    </a>
+   </div>
+  </div>
+ </div>
+ <div class="group group--bottom group--middle:md mt-5 mt-3:md mt-4:xxxxl footer">
+  <div class="footer-nav">
+   <a class="btn btn--link btn--underline btn--text-default" href="#privacy">
+    <span class="btn__content">
+     <span class="btn__text">
+      数据与隐私
+     </span>
+    </span>
+   </a>
+   <a class="btn btn--link btn--underline btn--text-default" href="#stories">
+    <span class="btn__content">
+     <span class="btn__text">
+      使用场景
+     </span>
+    </span>
+   </a>
+   <a class="btn btn--link btn--underline btn--text-default" href="#tips">
+    <span class="btn__content">
+     <span class="btn__text">
+      使用技巧
+     </span>
+    </span>
+   </a>
+   <a class="btn btn--link btn--underline btn--text-default" href="https://github.com/OmnixSI/InterviewHacker">
+    <span class="btn__content">
+     <span class="btn__text">
+      项目文档
+     </span>
+    </span>
+   </a>
+  </div>
+  <div class="group__right group__left:md">
+   <p class="leading-trim text-right">
+    &copy; 2026 InterviewHacker
+   </p>
+   <a class="is-hidden--md-up btn-container footer-author link-color-text-static" href="https://github.com/OmnixSI/InterviewHacker" rel="noopener" target="_blank" title="在 GitHub 查看 InterviewHacker">
+    <span class="btn btn--link btn--underline btn--text-default">
+     <span class="btn__content">
+      <span class="btn__text">
+       开源项目
+       <span class="btn__underline">
+       </span>
+      </span>
+     </span>
+    </span>
+    <span class="leading-trim">
+     &nbsp;InterviewHacker&nbsp;&nbsp;
+    </span>
+    <svg aria-hidden="true" class="icon icon-vig-xs" height="14" style="--icon-width: 14; --icon-height: 14" viewbox="0 0 14 14" width="14">
+     <use href="./assets/images/icons.svg?v=story-scroll-2#vig-xs" xlink:href="./assets/images/icons.svg?v=story-scroll-2#vig-xs">
+     </use>
+    </svg>
+   </a>
+  </div>
+  <p class="group__right is-hidden--sm-down">
+   macOS 14+ &middot; Apple Silicon<br/>字体：HarmonyOS Sans
+  </p>
+ </div>
+</div>
+</section>
+      </main>
+    </div>
+    <div class="js-modal">
+ <div aria-hidden="true" aria-label="导航菜单" class="modal modal--side modal--side-top is-hidden" data-nosnippet="" data-plugin="modal" id="menu" role="dialog" tabindex="0">
+  <div class="modal__background">
+  </div>
+  <div class="modal__animation">
+   <div class="modal__scroller js-scroll-parent">
+    <div class="modal__content-wrapper js-modal-scrollable-content">
+     <div class="modal__content js-modal-ignore-auto-close">
+      <div class="modal__content-animation">
+       <a aria-label="关闭菜单" class="btn btn--black btn--square btn--md modal__close js-modal-close" role="button" tabindex="0">
+        <span class="btn__content">
+         <span class="btn__icon">
+          <svg aria-hidden="true" class="icon icon-close" height="22" style="--icon-width: 22; --icon-height: 22" viewbox="0 0 22 22" width="22">
+           <use href="./assets/images/icons.svg?v=story-scroll-2#close" xlink:href="./assets/images/icons.svg?v=story-scroll-2#close">
+           </use>
+          </svg>
+         </span>
+        </span>
+       </a>
+       <div class="menu-modal pb-1">
+        <header>
+         <div class="container-h menu-modal__top">
+          <a aria-label="InterviewHacker" class="mr-auto mr-0:lg" href="#top">
+           <svg aria-hidden="true" class="icon icon-logo" height="17" style="--icon-width: 85; --icon-height: 17" viewbox="0 0 85 17" width="85">
+            <use href="./assets/images/icons.svg?v=story-scroll-2#logo" xlink:href="./assets/images/icons.svg?v=story-scroll-2#logo">
+            </use>
+           </svg>
+          </a>
+          <a class="btn btn--primary btn--round btn--xs ui-light" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">
+           <span class="btn__content">
+            <span class="btn__text">
+             下载
+            </span>
+           </span>
+          </a>
+          <div class="pl-1 pl-0.5:md">
+           <span class="btn btn--square btn--sm-static is-invisible">
+            <span class="btn__content">
+            </span>
+           </span>
+          </div>
+         </div>
+        </header>
+        <div class="container-h pt-1.25">
+         <nav>
+          <ul>
+           <li>
+            <a class="btn btn--link btn--menu" href="#capabilities">
+             <span class="btn__content">
+              <span class="btn__text h3">
+               核心能力
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu" href="#features">
+             <span class="btn__content">
+              <span class="btn__text h3">
+               功能与流程
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu" href="#stories">
+             <span class="btn__content">
+              <span class="btn__text h3">
+               使用场景
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu" href="#benefits">
+             <span class="btn__content">
+              <span class="btn__text h3">
+               产品优势
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu" href="#faq">
+             <span class="btn__content">
+              <span class="btn__text h3">
+               常见问题
+              </span>
+             </span>
+            </a>
+           </li>
+          </ul>
+          <p class="text-lead leading-trim text-color-small mt-2.5 mb-0.5">
+           使用提示
+          </p>
+          <ul>
+           <li>
+            <a class="btn btn--link btn--menu-tips" href="#privacy">
+             <span class="btn__content">
+              <span class="btn__text h4">
+               数据与隐私
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu-tips" href="#stories">
+             <span class="btn__content">
+              <span class="btn__text h4">
+               使用场景
+              </span>
+             </span>
+            </a>
+           </li>
+           <li>
+            <a class="btn btn--link btn--menu-tips" href="#tips">
+             <span class="btn__content">
+              <span class="btn__text h4">
+               使用技巧
+              </span>
+             </span>
+            </a>
+           </li>
+          </ul>
+         </nav>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+  </div>
+  <script src="./scripts/theme.js?v=47c9bc9aead2"></script>
+  <script src="./assets/javascripts/shared.js?v=6ccc7a6f5fbf"></script>
+  <script src="./assets/javascripts/landing.js?v=09aa5bae3aec"></script>
+  <script src="./scripts/close-popover.js?v=a156913f928b"></script>
+  <script src="./scripts/motion-polish.js?v=fed24aed7f28"></script>
+  <script src="./scripts/hero-handoff.js?v=2ee18ffec13d"></script>
+  <script src="./scripts/layout-sync.js?v=8012fbd0bb6f"></script>
+</body>
+</html>

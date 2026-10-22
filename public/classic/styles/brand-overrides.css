@@ -1,0 +1,234 @@
+/* Product logo, component details and small layout adjustments. */
+.ih-brand {
+  align-items: center;
+  display: inline-flex;
+  gap: 9px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ih-brand-mark {
+  color: var(--t-primary);
+  flex: 0 0 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.ih-wordmark {
+  color: var(--t-heading);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -.04em;
+}
+
+.btn--primary {
+  background-image: linear-gradient(120deg, var(--ih-accent), var(--ih-accent-secondary));
+  color: #fff;
+}
+
+.ih-theme-toggle {
+  flex: 0 0 auto;
+  margin-left: calc(var(--scale-px) * 8);
+}
+
+.ih-theme-toggle__icon {
+  color: var(--ih-accent);
+  display: none;
+  height: 18px;
+  width: 18px;
+}
+
+.ih-theme-toggle__icon svg {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.ih-theme-icon--sun {
+  display: none;
+}
+
+html[data-theme="dark"] .ih-theme-icon--moon {
+  display: none;
+}
+
+html[data-theme="dark"] .ih-theme-icon--sun {
+  display: block;
+}
+
+.ih-stories-note {
+  margin-top: calc(var(--scale-px) * -12);
+  max-width: 720px;
+}
+
+.ih-story-media {
+  aspect-ratio: 2 / 1;
+  background: var(--t-background);
+  border: 1px solid var(--t-line);
+  border-radius: calc(var(--scale-px) * 12);
+  margin: calc(var(--scale-px) * 16) 0 0;
+  overflow: hidden;
+}
+
+.ih-story-media img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.intro__bottom__image__item img {
+  display: block;
+}
+
+.l-pdf__background img {
+  opacity: .42;
+}
+
+html[data-theme="light"] .l-stress-free-bg img {
+  filter: saturate(.86);
+}
+
+html[data-theme="light"] .l-stress-free-bg::after {
+  background: rgba(var(--ih-theme-background-rgb), .55);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+html[data-theme="light"] [data-scroll-section-id="section1"] h2 {
+  color: var(--ih-theme-heading);
+}
+
+html[data-theme="light"] [data-scroll-section-id="section1"] p {
+  color: var(--ih-theme-copy);
+}
+
+html[data-theme="dark"] .l-stress-free-bg::after {
+  background: rgba(var(--ih-theme-background-rgb), .55);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+html[data-theme="dark"] [data-scroll-section-id="section1"] h2 {
+  color: var(--ih-theme-heading);
+}
+
+html[data-theme="dark"] [data-scroll-section-id="section1"] p {
+  color: var(--ih-theme-copy);
+}
+
+.l-subscribe__background::before {
+  background: radial-gradient(
+    98.2% 64.26% at 0 80.33%,
+    var(--ih-theme-background) 0,
+    rgba(var(--ih-theme-background-rgb), 0) 100%
+  );
+}
+
+.l-subscribe__background::after {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--ih-theme-background-rgb), 0),
+    var(--ih-theme-background)
+  );
+}
+
+@media (min-width: 980px) {
+  .l-why-section {
+    padding-block: 0;
+  }
+
+  .l-why {
+    --ih-why-scroll-step: 66vh;
+    height: calc(100vh + (var(--item-count) - 1) * var(--ih-why-scroll-step));
+  }
+
+  .l-why-list {
+    --ih-why-card-height: min(54vh, 680px);
+    height: var(--ih-why-card-height);
+  }
+
+  .l-why-item__inner {
+    padding-top: clamp(60px, 8vh, 78px);
+  }
+
+  .l-why-item__inner-content > img {
+    flex: 0 0 min(62%, 520px);
+    max-width: 520px;
+    height: auto;
+    max-height: min(40vh, 360px);
+    object-position: left center;
+    filter: drop-shadow(0 10px 16px rgba(15, 17, 21, .2));
+  }
+
+  .l-why-item__inner-content > p {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+  }
+
+}
+
+@supports (height: 100lvh) {
+  @media (min-width: 980px) {
+    .l-why {
+      --ih-why-scroll-step: 66lvh;
+      height: calc(100lvh + (var(--item-count) - 1) * var(--ih-why-scroll-step));
+    }
+
+    .l-why-list {
+      --ih-why-card-height: min(54lvh, 680px);
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .ih-brand {
+    gap: 6px;
+  }
+
+  .ih-wordmark {
+    font-size: 12px;
+  }
+
+  .ih-brand-mark {
+    flex-basis: 21px;
+    height: 21px;
+    width: 21px;
+  }
+
+  .ih-theme-toggle {
+    font-size: 0;
+    height: 34px;
+    margin-left: 4px;
+    min-width: 34px;
+    padding: 0;
+    position: relative;
+    width: 34px;
+  }
+
+  .ih-theme-toggle__icon {
+    display: block;
+  }
+
+  .ih-stories-note {
+    margin-top: -8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

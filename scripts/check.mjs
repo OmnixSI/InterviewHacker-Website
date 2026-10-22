@@ -35,7 +35,7 @@ await inspectHtml(path.join(publicRoot,'index.html'),catalog.origin+'/');
 await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/compare/');
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
- for(const text of ['v1.8.0','需要仓库访问权','不会把所有资料塞入上下文','语音识别 + 对话服务',...(style.slug==='story'?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
+ for(const text of ['v1.8.0','需要仓库访问权','不会把所有资料塞入上下文','语音识别 + 对话服务',...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
  const js=(await Promise.all(scripts.map(src=>readFile(path.resolve(base,src.split('?')[0]),'utf8')))).join('\n');
@@ -63,9 +63,28 @@ for(const style of catalog.styles){
    assert(!/产品界面截图|示意|合成/.test(img[0]),'Keep Story artwork labels descriptive and unobtrusive');
   }
   assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./scripts/main.js')),'Story theme must initialize before motion measurements');
+ }
+ if(style.slug==='classic'){
+  const intro=html.slice(html.indexOf('id="intro-top"'),html.indexOf('id="capabilities"'));
+  assert.equal((intro.match(/class="[^"]*\bih-hero-device-single\b/g)||[]).length,1,'Classic hero must have exactly one animated device');
+  assert(!intro.includes('data-parallax-pattern="l-intro-tablet"'),'Classic hero geometry must not have two transform owners');
+  assert(!/<div[^>]*class="intro__content"[^>]*data-parallax/.test(intro),'Classic hero copy must share the viewport handoff clock');
+  const handoffCss=await readFile(path.join(base,'styles/hero-handoff.css'),'utf8');
+  assert.match(handoffCss,/\.ih-hero-handoff-ready\s+\.ih-hero-fallback\s*\{[^}]*visibility:\s*hidden\b/,'Classic ready hero must hide its loading fallback');
+  const screensBetween=(start,end)=>[...html.slice(html.indexOf(start),html.indexOf(end,html.indexOf(start))).matchAll(/data-product-screen="([^"]+)"/g)].map(m=>m[1]);
+  assert.deepEqual(screensBetween('id="features"','data-scroll-section-id="section4"'),['workspace','materials','conversation','review'],'Classic workflow screens must match the four steps');
+  assert.deepEqual(screensBetween('data-scroll-section-id="section4"','data-scroll-section-id="section5"'),['conversation','context','devices','review'],'Classic capability artwork must match its feature');
+  assert.deepEqual(screensBetween('id="stories"','data-scroll-section-id="section6"'),['conversation','lecture','meeting','course','conversation','lecture','meeting','course'],'Classic desktop and mobile stories must share the same screen mapping');
+  for(const img of html.matchAll(/<img\b[^>]*data-product-screen="([^"]+)"[^>]*>/g)){
+   for(const theme of ['light','dark'])assert(img[0].includes(`data-ih-${theme}="./assets/product-scenes/${img[1]}-${theme}.svg"`),'Classic product images must use matching theme assets');
+   assert(!/产品界面截图|示意|合成/.test(img[0]),'Keep Classic artwork labels descriptive and unobtrusive');
+  }
+  assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Classic theme must initialize before reference measurements');
+ }
+ if(['story','classic'].includes(style.slug)){
   for(const m of html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)){
    const bytes=await readFile(path.join(base,m[1]));
-   assert.equal(m[2],createHash('sha256').update(bytes).digest('hex').slice(0,12),'Story resource version is stale: run npm run docs:sync');
+   assert.equal(m[2],createHash('sha256').update(bytes).digest('hex').slice(0,12),`${style.slug} resource version is stale: run npm run docs:sync`);
   }
  }
 }

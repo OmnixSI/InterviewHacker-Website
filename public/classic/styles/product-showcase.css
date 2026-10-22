@@ -1,0 +1,68 @@
+/* Product-specific media with one coherent device treatment. */
+.intro-video__player { visibility: hidden; pointer-events: none; }
+.ih-hero-device { aspect-ratio: 1600 / 1044; pointer-events: none; z-index: 2; }
+.intro-convenient { background: var(--ih-theme-background); position: relative; z-index: 2; }
+.ih-viewing-heading { margin: 0 auto 28px; max-width: 760px; text-align: center; }
+.ih-viewing-heading .h4 { margin-bottom: 0; }
+.ih-viewing-stage { align-items: center; display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr) minmax(170px, .36fr); margin: 0 auto; max-width: 980px; }
+.ih-viewing-stage figure { margin: 0; }
+.ih-viewing-stage img { height: 46vh; object-fit: contain; width: 100%; }
+img[data-product-screen] { display: block; max-width: 100%; object-fit: contain; }
+.tablet-preview__image img[data-product-screen],
+.l-steps-images__list img[data-product-screen] { border-radius: 0; box-shadow: none; filter: none; }
+.l-steps-images, .l-steps-images__list li { background: transparent; border: 0; }
+.l-steps-images { border-radius: 0; }
+.l-steps-images__list picture { display: block; }
+.ih-story-media {
+  aspect-ratio: 1600 / 1044;
+  background: radial-gradient(ellipse at 50% 60%, rgba(var(--ih-accent-rgb), .12), transparent 70%);
+  border: 0; border-radius: 18px; margin: 22px -4px 0; overflow: visible;
+}
+.ih-story-media img { height: auto; width: 100%; }
+.ih-scene-symbol {
+  align-items: center; background: rgba(var(--ih-accent-rgb), .1);
+  border: 1px solid rgba(var(--ih-accent-rgb), .12); border-radius: 22px;
+  color: var(--ih-accent); display: flex; height: 76px; justify-content: center; width: 76px;
+}
+.ih-scene-symbol svg { height: 32px; width: 32px; }
+.ih-scene-card {
+  background: var(--ih-theme-surface); border: 1px solid var(--ih-theme-line);
+  border-radius: 24px; height: 100%; overflow: hidden;
+}
+.ih-scene-card figure {
+  background: radial-gradient(ellipse at 50% 40%, rgba(var(--ih-accent-rgb), .12), transparent 80%);
+  margin: 0; padding: 20px 12px 0;
+}
+.ih-scene-card figure img { height: auto; width: 100%; }
+.ih-scene-card__copy { padding: 18px 24px 28px; }
+.ih-scene-card__copy h3 { font-size: 24px; margin: 0 0 12px; }
+.ih-scene-card__copy p { color: var(--ih-theme-copy); line-height: 1.75; margin: 0; }
+.ih-privacy-glow { background: radial-gradient(ellipse at 15% 50%, rgba(var(--ih-accent-rgb), .1), transparent 60%); }
+.ih-privacy-device { margin: 36px -16px 0; }
+.ih-privacy-device img { height: auto; width: 100%; }
+@media (min-width: 980px) {
+  #stories .card--story { height: auto; }
+  #stories .card--story .card__sizer { display: none; }
+  #stories .card--story .card__content {
+    display: grid; gap: 36px; grid-template-columns: minmax(150px, .24fr) minmax(0, 1fr);
+    inset: auto; padding: 36px; position: relative;
+  }
+  #stories .card__content > .col { margin: 0; padding: 0; width: auto; }
+  #stories .card__group { border: 0; gap: 32px; justify-content: flex-start; padding: 0; }
+  #stories .l-success__images { width: 76px; }
+  #stories .l-success__text { margin: 0; overflow: visible; padding: 0; }
+  #stories .l-success__text > .col--lg-8 { padding: 0; width: 100%; }
+  #stories .card__text { max-width: 680px; text-indent: 0; }
+  #stories .l-success__buttons { align-self: flex-end; bottom: auto; margin-top: 18px; position: relative; right: auto; }
+  #stories .text-t1-static p:first-child { font-size: 25px; font-weight: 500; }
+  #stories .text-t1-static p + p { font-size: 14px; margin-top: 8px; }
+  .l-why-item__inner-content > img[data-product-screen] { flex-basis: 64%; max-height: min(38vh, 360px); max-width: 560px; }
+  .l-why-item__inner-content > p { line-height: 1.8; }
+}
+@media (max-width: 567px) {
+  .ih-hero-device { bottom: max(0px, calc(100svh - 720px)); }
+  .ih-viewing-heading { margin-bottom: 22px; padding: 0 16px; }
+  .ih-viewing-stage { gap: 6px; grid-template-columns: minmax(0, 1fr) minmax(90px, .4fr); padding: 0 12px 28px; }
+  .ih-viewing-stage img { height: auto; width: 100%; }
+  .ih-privacy-device { margin: 24px 0 32px; }
+}
