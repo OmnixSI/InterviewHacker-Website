@@ -47,21 +47,22 @@ for(const style of catalog.styles){
   for(const id of ['signal-field','story-field','tech-panel','inject-signal'])assert(html.includes(`id="${id}"`));
  }
  if(style.slug==='story'){
-  const intro=html.slice(html.indexOf('id="intro-top"'),html.indexOf('id="capabilities"'));
-  assert.equal((intro.match(/class="[^"]*\bih-hero-device-single\b/g)||[]).length,1,'Hero must have exactly one animated device');
-  assert(!intro.includes('data-parallax-pattern="l-intro-tablet"'),'Hero geometry must not have two transform owners');
-  assert(!/<div[^>]*class="intro__content"[^>]*data-parallax/.test(intro),'Hero copy must share the viewport handoff clock');
-  const handoffCss=await readFile(path.join(base,'styles/hero-handoff.css'),'utf8');
-  assert.match(handoffCss,/\.ih-hero-handoff-ready\s+\.ih-hero-fallback\s*\{[^}]*visibility:\s*hidden\b/,'Ready hero must hide its loading fallback');
+  const hero=html.slice(html.indexOf('id="top"'),html.indexOf('id="capabilities"'));
+  assert.equal((hero.match(/data-product-screen=/g)||[]).length,1,'Hero must show exactly one product device');
+  for(const hook of ['data-motion-toggle','data-demo-toggle','data-theme-toggle'])assert(html.includes(hook),`Story must keep its ${hook} control`);
+  assert(css.includes('reveal-fallback'),'Story pre-hidden content needs a CSS fallback when scripts fail');
+  for(const src of scripts)assert(src.startsWith('./'),'Story scripts must be same-origin for the deployment CSP');
+  await access(path.join(base,'assets/vendor/README.md'));
   const screensBetween=(start,end)=>[...html.slice(html.indexOf(start),html.indexOf(end,html.indexOf(start))).matchAll(/data-product-screen="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(screensBetween('id="features"','data-scroll-section-id="section4"'),['workspace','materials','conversation','review'],'Story workflow screens must match the four steps');
-  assert.deepEqual(screensBetween('data-scroll-section-id="section4"','data-scroll-section-id="section5"'),['conversation','context','devices','review'],'Story capability artwork must match its feature');
-  assert.deepEqual(screensBetween('id="stories"','data-scroll-section-id="section6"'),['conversation','lecture','meeting','course','conversation','lecture','meeting','course'],'Desktop and mobile stories must share the same screen mapping');
+  const chapters=['conversation','workspace','devices','materials','review'];
+  assert.deepEqual(screensBetween('id="features"','id="workflow"'),[...chapters,...chapters],'Story chapter text and sticky device must share one screen order');
+  assert.deepEqual(screensBetween('id="benefits"','id="loop"'),['context','phone','prompter'],'Story capability artwork must match its card');
+  assert.deepEqual(screensBetween('id="stories"','id="privacy"'),['conversation','lecture','meeting','course'],'Story scenes must match their tabs');
   for(const img of html.matchAll(/<img\b[^>]*data-product-screen="([^"]+)"[^>]*>/g)){
    for(const theme of ['light','dark'])assert(img[0].includes(`data-ih-${theme}="./assets/product-scenes/${img[1]}-${theme}.svg"`),'Product images must use matching theme assets');
    assert(!/产品界面截图|示意|合成/.test(img[0]),'Keep Story artwork labels descriptive and unobtrusive');
   }
-  assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Story theme must initialize before reference measurements');
+  assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./scripts/main.js')),'Story theme must initialize before motion measurements');
   for(const m of html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)){
    const bytes=await readFile(path.join(base,m[1]));
    assert.equal(m[2],createHash('sha256').update(bytes).digest('hex').slice(0,12),'Story resource version is stale: run npm run docs:sync');

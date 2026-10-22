@@ -36,16 +36,16 @@
       "slug": "story",
       "name": "Story",
       "subtitle": "产品 · 场景 · 精致",
-      "description": "鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。",
+      "description": "鸿蒙字体与金属设备外框，配合可播放的实时演示、WebGL 声纹光场和滚动叙事，串联准备、实时辅助与复盘。",
       "path": "/story/",
       "preview": "/previews/story-home.png",
       "accent": "#666bff",
       "tags": [
-        "设备展示",
-        "场景叙事",
-        "产品界面"
+        "实时演示",
+        "滚动叙事",
+        "设备展示"
       ],
-      "updated": "2026-10-22"
+      "updated": "2026-10-23"
     }
   ]
 }

@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=d5a5319317c6)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=c07c335ec71f)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:c235b6e6d992e7747dabb25809f22f8d5c0d1d465434d4b5b2d3787c80389688 preview:d5a5319317c65e223d361ff325448511bba44f556c4bd93da4c2fc9a48562537 -->
+<!-- gallery-source:d4b5349b0327f0d86619b6aab9e81c83554f82649a0eca8e2b2be5bc4d420026 preview:c07c335ec71fd21fa4ddeff82944c70772c2c594f4b44b535da8d11021a2e49c -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,13 +35,13 @@
 
 ### Story · 产品 · 场景 · 精致
 
-[![Story 首页](public/previews/story-home.png?v=731a214f808a)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=8e8115bd48ad)](https://interviewhacker.vercel.app/story/)
 
-鸿蒙字体、金属设备外框与对应场景的产品界面，串联准备、实时辅助和复盘。
+鸿蒙字体与金属设备外框，配合可播放的实时演示、WebGL 声纹光场和滚动叙事，串联准备、实时辅助与复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:3887721f62a5e01c07b3a4b863db41f67f992874c3585a89bb5585c1d7bbeb99 preview:731a214f808a21156275de6fd44e9d18f920fe0b2c5416ac74fe96005cff851d -->
+<!-- style:story source:9e88cf1414d2d5276251e1133c661db0b242bae7fc488f9ffa88ce19560c7a3e preview:8e8115bd48ad3d47ac856ddcebf272031aee74955933c1d88c7aa67d30a781b1 -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -97,7 +97,7 @@ npm run build
 
 Minimal 从已发布的第一版恢复；Technology 为 Think in Flow 技术展示风格，Story 来自已合并的 PR #1，以场景摄影与产品流程展开叙事。设计依据见 [COMPETITION-DIRECTION.md](COMPETITION-DIRECTION.md)，既有验证见 [VALIDATION-COMPETITION.md](VALIDATION-COMPETITION.md)，画廊与路径迁移验证见 [VALIDATION-GALLERY.md](VALIDATION-GALLERY.md)，Story 接入验证见 [VALIDATION-STORY.md](VALIDATION-STORY.md)。
 
-Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.py` 后，可在 macOS 使用 `swift scripts/render-og.swift scripts/og.svg public/technology/og.png` 更新对应分享图（与首页截图分开维护）；字体许可见 [FONT-LICENSE.txt](FONT-LICENSE.txt)；Story 的 Geist 和 Inter 字体许可分别保留在对应 `assets/fonts/` 子目录。当前未附加通用开源许可证，产品名称、截图及其他素材保留原有权利。
+Technology 分享图生成工具保留在 `scripts/`：`python3 scripts/make-og.py` 后，可在 macOS 使用 `swift scripts/render-og.swift scripts/og.svg public/technology/og.png` 更新对应分享图（与首页截图分开维护）；字体许可见 [FONT-LICENSE.txt](FONT-LICENSE.txt)；Story 的 HarmonyOS Sans 与 Geist / Geist Mono 字体许可保留在 `public/story/assets/fonts/` 子目录；Story 本地打包的 GSAP 与 Lenis 版本和许可见 `public/story/assets/vendor/README.md`。当前未附加通用开源许可证，产品名称、截图及其他素材保留原有权利。
 
 不要提交 token、私钥、`.vercel/`、`dist/` 或本机 `validation/` 输出。
 
