@@ -7,6 +7,8 @@ import { root } from './catalog.mjs';
 
 const from = path.join(root, 'public/story/assets/product-scenes');
 const to = path.join(root, 'public/final/assets/scenes');
+// Only the scenes Final actually shows; the device demo itself is rendered HTML.
+const used = ['conversation', 'lecture', 'meeting', 'course', 'phone'];
 const palette = {
   light: { '#6a5cf0': '#5b5ff0', '#5a4de0': '#4b4fd6', '#7265ed': '#5b5ff0', '#9769ee': '#5b5ff0', '#ece9ff': '#e9eaff',
     '#e9e6f6': '#ece8de', '#eef0f6': '#efede6', '#f4f5fa': '#f7f6f2', '#1f2335': '#16171b' },
@@ -15,7 +17,7 @@ const palette = {
 };
 
 await mkdir(to, { recursive: true });
-for (const name of (await readdir(from)).filter(n => n.endsWith('.svg'))) {
+for (const name of (await readdir(from)).filter(n => used.some(u => n === `${u}-light.svg` || n === `${u}-dark.svg`))) {
   const map = palette[name.endsWith('-dark.svg') ? 'dark' : 'light'];
   let svg = await readFile(path.join(from, name), 'utf8');
   for (const [a, b] of Object.entries(map)) svg = svg.replaceAll(new RegExp(a, 'gi'), b);

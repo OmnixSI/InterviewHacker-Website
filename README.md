@@ -61,7 +61,7 @@ Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交�
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:90ef8a08bd5027e2916e921d6c70c0048e60a3c975d4099a678b454b896cd7d9 preview:578000c1cb5eed46abe653a2b975e2ee58b18c54f9dceee3fdb6b036869f6af7 -->
+<!-- style:final source:2a9fc524579be614c9292734ce956a3053f858a55191b57ad60bf2a611715fca preview:578000c1cb5eed46abe653a2b975e2ee58b18c54f9dceee3fdb6b036869f6af7 -->
 <!-- STYLES:END -->
 
 ## 本地运行
