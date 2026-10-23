@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=a90f88eb42d1)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=77d3fde035f0)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:f4103d4a820c8de00eeca8a25599c75326b90839ff43d0476ed01a3d9ef45b86 preview:a90f88eb42d197061266317b29f839533bb1d1cb09ca8ad85e0725fb0bbfe338 -->
+<!-- gallery-source:11a443a3798d6375f577689535f137c52e5ba4710d2db8341ffb54e89f327f5f preview:77d3fde035f02e9e31c555a6bc93137a1e2bc3264418cf5dd5ffcf7709e88822 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -52,6 +52,16 @@ Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交�
 **访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
 
 <!-- style:classic source:13f4cfc797a1b3d7f17dd6fd71dc52ba2a76b8dae62096022702e34800e14bf8 preview:f40d7e9c4785b4aa782fbf39f4cf1521bdaeca6ca3d13f7c44d29d7497d724e9 -->
+
+### Final · 专业 · 精致 · 最终版
+
+[![Final 首页](public/previews/final-home.png?v=578000c1cb5e)](https://interviewhacker.vercel.app/final/)
+
+得意黑与定制手写字形，两遍识别的标题、双声道声场汇成一句回答，可操作的实时演示与中英双语，集合此前各版的长处。
+
+**访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
+
+<!-- style:final source:90ef8a08bd5027e2916e921d6c70c0048e60a3c975d4099a678b454b896cd7d9 preview:578000c1cb5eed46abe653a2b975e2ee58b18c54f9dceee3fdb6b036869f6af7 -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -64,7 +74,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/` 和 `/classic/` 是四种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/` 和 `/final/`（英文版 `/final/en/`）是五种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -76,6 +86,7 @@ npm run dev
 | Technology 全部页面代码和素材 | `public/technology/` |
 | Story 全部页面代码和素材 | `public/story/` |
 | Classic（Story 原始版本）全部页面代码和素材 | `public/classic/` |
+| Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |

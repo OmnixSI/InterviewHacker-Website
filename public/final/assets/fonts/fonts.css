@@ -1,0 +1,6 @@
+/* Final's type, self-hosted and subset (scripts/subset-fonts.py). All SIL OFL 1.1; licences sit beside each file. */
+@font-face { font-family: "IH Display"; src: url("./display/ih-display.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "IH Sans"; src: url("./sans/ih-sans.woff2") format("woff2"); font-weight: 400 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("./serif/instrument-serif.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: Geist; src: url("./geist/geist-latin-variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("./geist/geist-mono-latin-variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }

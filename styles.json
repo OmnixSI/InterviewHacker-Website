@@ -61,6 +61,21 @@
         "产品界面"
       ],
       "updated": "2026-10-23"
+    },
+    {
+      "slug": "final",
+      "name": "Final",
+      "subtitle": "专业 · 精致 · 最终版",
+      "description": "得意黑与定制手写字形，两遍识别的标题、双声道声场汇成一句回答，可操作的实时演示与中英双语，集合此前各版的长处。",
+      "path": "/final/",
+      "preview": "/previews/final-home.png",
+      "accent": "#5b5ff0",
+      "tags": [
+        "定制字形",
+        "双声道声场",
+        "中英双语"
+      ],
+      "updated": "2026-10-24"
     }
   ]
 }
