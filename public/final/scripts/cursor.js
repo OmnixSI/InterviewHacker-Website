@@ -66,10 +66,10 @@
 
   /* ---------- Type that listens ----------
      Characters rise by their distance to the cursor, with the speed of the pointer as loudness. */
-  function listen(container, { reach = 140, lift = 16, scale = .06 } = {}) {
-    if (!container || !window.SplitText || !window.gsap) return;
-    const split = SplitText.create(container, { type: 'chars', charsClass: 'ch' });
-    const chars = split.chars.map(el => ({ el, y: gsap.quickTo(el, 'y', { duration: .5, ease: 'power3.out' }), s: gsap.quickTo(el, 'scaleY', { duration: .5, ease: 'power3.out' }) }));
+  function listen(container, { reach = 140, lift = 16, scale = .06, cells = null } = {}) {
+    if (!container || !window.gsap || (!cells && !window.SplitText)) return;
+    const els = cells || SplitText.create(container, { type: 'chars', charsClass: 'ch' }).chars;
+    const chars = els.map(el => ({ el, y: gsap.quickTo(el, 'y', { duration: .5, ease: 'power3.out' }), s: gsap.quickTo(el, 'scaleY', { duration: .5, ease: 'power3.out' }) }));
     let centres = [], energy = 0, last = null, raf = 0, inside = false, px = 0, py = 0;
     const measure = () => { centres = chars.map(c => { const r = c.el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }); };
     const frame = () => {
@@ -94,7 +94,10 @@
     addEventListener('scroll', () => { if (inside) measure(); }, { passive: true });
   }
   const start = () => {
-    for (const line of $$('.hero__line')) listen(line.firstChild?.nodeType === 3 ? wrapText(line) : line, { reach: 120, lift: 14 });
+    // The headline's characters were already split into cells by the two-pass intro; reuse them.
+    const texts = $$('.hero__text');
+    if (texts.length) for (const t of texts) listen(t, { reach: 120, lift: 14, cells: $$('.hc', t) });
+    else for (const line of $$('.hero__line')) listen(line.firstChild?.nodeType === 3 ? wrapText(line) : line, { reach: 120, lift: 14 });
     listen(document.querySelector('[data-wordmark]'), { reach: 220, lift: 30, scale: .12 });
   };
   // Only the text node of the second hero line is split; the lettering beside it stays one drawing.

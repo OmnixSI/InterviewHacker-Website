@@ -123,58 +123,112 @@
     return tl;
   }
 
-  /* ---------- Hero headline: two-pass recognition ----------
-     A mono draft streams in with mistakes, the mistakes are struck and corrected, then the line settles
-     into the display face and the custom lettering writes itself. Scroll, click or a key skips to the end. */
+  /* ---------- Hero headline: two-pass recognition, in place ----------
+     1. A grey draft streams into the headline's own positions, mistakes and all, behind a live caret.
+     2. A refinement line sweeps across; each character it passes turns from draft to the display face,
+        mistakes are struck in amber first, then corrected.
+     3. At the end of the second line the draft word is struck and the lettering writes itself.
+     Plays on every load; scroll, click or a key jumps to the finished headline. */
   function twoPass() {
-    const h1 = $('[data-two-pass]'), finalEl = $('.hero__final', h1);
-    const letter = $('.hero__lettering svg', h1);
-    let seen = false;
-    try { seen = sessionStorage.getItem('ih-final-intro') === '1'; sessionStorage.setItem('ih-final-intro', '1'); } catch { /* fine */ }
-    if (reducedMQ.matches || seen) return gsap.timeline();
-    const draft = document.createElement('span');
-    draft.className = 'hero__draft';
-    draft.setAttribute('aria-hidden', 'true');
-    const parts = [];
-    let line = document.createElement('span');
-    draft.append(line);
-    for (const token of h1.dataset.draft.split('|')) {
-      for (const [k, piece] of token.split('¶').entries()) {
-        if (k > 0) { line = document.createElement('span'); draft.append(line); }
-        if (!piece) continue;
-        const [text, fix] = piece.split('>');
-        const span = document.createElement('span');
-        if (fix) span.className = 'bad';
-        line.append(span);
-        parts.push({ span, text, fix });
-      }
-    }
-    const caret = document.createElement('span');
-    caret.className = 'caret';
-    h1.append(draft);
-    const tl = gsap.timeline({ delay: .35 });
-    gsap.set(finalEl, { opacity: 0 });
+    const h1 = $('[data-two-pass]'), letterBox = $('.hero__lettering', h1), letter = $('svg', letterBox);
+    if (reducedMQ.matches || !h1) return gsap.timeline();
+    const lines = $$('.hero__line', h1);
+    // Chinese splits by character, Latin by word; spaces stay plain text so they never collapse.
+    const tokens = str => str.match(/[\u3000-\u9fff\uff00-\uffef]|\s+|[^\s\u3000-\u9fff\uff00-\uffef]+/g) || [];
+    const draftTokens = tokens(h1.dataset.draft || '');
+    // Split each line's text into cells holding a draft glyph and the final glyph.
+    const cells = [];
+    lines.forEach((line, li) => {
+      const text = line.firstChild;
+      if (!text || text.nodeType !== 3) return;
+      const wrap = document.createElement('span');
+      wrap.className = 'hero__text';
+      tokens(text.data).forEach((tok, ti) => {
+        if (/^\s+$/.test(tok)) { wrap.append(document.createTextNode(tok)); return; }
+        const draft = li === 0 ? draftTokens[ti] ?? tok : tok;
+        const cell = document.createElement('span');
+        cell.className = 'hc' + (draft !== tok ? ' is-wrong' : '');
+        cell.innerHTML = `<span class="hc__f"></span><span class="hc__d" aria-hidden="true"></span>`;
+        cell.firstChild.textContent = tok;
+        cell.lastChild.textContent = draft;
+        wrap.append(cell);
+        cells.push({ cell, line: li });
+      });
+      text.replaceWith(wrap);
+    });
+    const word = document.createElement('span');
+    word.className = 'hero__draftword';
+    word.setAttribute('aria-hidden', 'true');
+    word.textContent = h1.dataset.draftWord || '';
+    letterBox.prepend(word);
+    const caret = document.createElement('i');
+    caret.className = 'hero__caret';
+    const sweep = document.createElement('i');
+    sweep.className = 'hero__sweep';
+    h1.append(sweep);
+    h1.classList.add('is-drafting');
+
+    const F = c => $('.hc__f', c.cell), D = c => $('.hc__d', c.cell);
+    gsap.set(cells.map(F), { opacity: 0, yPercent: 18 });
+    gsap.set(cells.map(D), { opacity: 0 });
+    gsap.set(word, { opacity: 0 });
     gsap.set(strokes(letter), { drawSVG: '0%' });
-    for (const p of parts) {
-      tl.call(() => p.span.after(caret));
-      tl.to({}, { duration: p.text.length * .032, onUpdate() { p.span.textContent = p.text.slice(0, Math.ceil(this.progress() * p.text.length)); } });
+
+    const tl = gsap.timeline({ delay: .3, onComplete: finish });
+    // 1. Draft streams in.
+    const typeStep = root.lang.startsWith('zh') ? .06 : .13;
+    cells.forEach((c, i) => tl.call(() => c.cell.append(caret), null, i * typeStep).to(D(c), { opacity: 1, duration: .18, ease: 'power1.out' }, i * typeStep));
+    let t = cells.length * typeStep;
+    tl.call(() => word.append(caret), null, t).to(word, { opacity: 1, duration: .3 }, t);
+    t += .55;
+    tl.call(() => { caret.remove(); h1.classList.add('is-refining'); }, null, t);
+
+    // 2. The refinement sweep: each line in turn; characters flip as the line passes their centre.
+    const box = h1.getBoundingClientRect();
+    const rows = lines.map(line => {
+      const r = line.getBoundingClientRect();
+      const right = line.querySelector('.hero__lettering') ? letterBox.getBoundingClientRect().right : r.right;
+      return { left: r.left - box.left, right: right - box.left, top: r.top - box.top, height: r.height };
+    });
+    const sweepTime = .75;
+    // When the power1.inOut sweep reaches a fraction f of the line (the inverse of its easing).
+    const reach = f => { f = Math.max(0, Math.min(1, f)); return f < .5 ? Math.sqrt(f / 2) : 1 - Math.sqrt((1 - f) / 2); };
+    rows.forEach((row, li) => {
+      const start = t + li * .5;
+      tl.set(sweep, { x: row.left - 8, y: row.top, height: row.height, opacity: 0 }, start)
+        .to(sweep, { opacity: 1, duration: .12 }, start)
+        .to(sweep, { x: row.right + 8, duration: sweepTime, ease: 'power1.inOut' }, start)
+        .to(sweep, { opacity: 0, duration: .15 }, start + sweepTime - .1);
+      const span = Math.max(1, row.right - row.left);
+      for (const c of cells.filter(x => x.line === li)) {
+        const r = c.cell.getBoundingClientRect();
+        const at = start + sweepTime * reach((r.left + r.width / 2 - box.left - row.left) / span);
+        const wrong = c.cell.classList.contains('is-wrong');
+        if (wrong) tl.to(c.cell, { '--strike': 1, duration: .16, ease: 'ih.change' }, at - .08);
+        tl.to(D(c), { opacity: 0, yPercent: -22, duration: .32, ease: 'ih.change' }, at + (wrong ? .12 : 0))
+          .to(F(c), { opacity: 1, yPercent: 0, duration: .55, ease: 'ih.settle' }, at + (wrong ? .16 : .02));
+        if (wrong) tl.to(c.cell, { '--strike': 0, duration: .01 }, at + .2);
+      }
+      if (li === rows.length - 1) {
+        const wr = word.getBoundingClientRect();
+        const at = start + sweepTime * reach((wr.left - box.left - row.left) / span);
+        tl.to(word, { '--strike': 1, duration: .2, ease: 'ih.change' }, at)
+          .to(word, { opacity: 0, y: -10, duration: .3, ease: 'ih.change' }, at + .22)
+          .add(pen(letter, 1.3), at + .3);
+      }
+    });
+
+    function finish() {
+      caret.remove(); sweep.remove(); word.remove();
+      h1.classList.remove('is-drafting', 'is-refining');
+      gsap.set(cells.map(F), { clearProps: 'opacity,transform' });
+      gsap.set(cells.map(D), { opacity: 0 });
+      gsap.set(strokes(letter), { drawSVG: '100%' });
+      off();
     }
-    tl.to({}, { duration: .25 });
-    for (const p of parts.filter(x => x.fix)) {
-      tl.to(p.span, { '--strike': 1, duration: .28, ease: 'ih.change' })
-        .call(() => { p.span.textContent = p.fix; p.span.className = 'fixed'; p.span.style.removeProperty('--strike'); })
-        .to({}, { duration: .12 });
-    }
-    tl.call(() => caret.remove())
-      .to(draft, { opacity: 0, y: -10, duration: .45, ease: 'ih.change' }, '+=.15')
-      .fromTo($$('.hero__line', finalEl), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9, stagger: .08 }, '<.1')
-      .set(finalEl, { opacity: 1 }, '<')
-      .add(pen(letter, 1.5), '<.25')
-      .call(() => draft.remove());
-    const skip = () => { if (tl.progress() < 1) tl.progress(1); off(); };
-    const off = () => ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(t => removeEventListener(t, skip));
-    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(t => addEventListener(t, skip, { passive: true, once: true }));
-    tl.eventCallback('onComplete', off);
+    const skip = () => { if (tl.progress() < 1) tl.progress(1); };
+    const off = () => ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(type => removeEventListener(type, skip));
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(type => addEventListener(type, skip, { passive: true }));
     return tl;
   }
 
@@ -191,7 +245,7 @@
     /* Hero → voiceprint → device → a scroll-guided conversation, on one pinned stage.
        The first INTRO of the pin hands over from the headline to the device; the rest plays the demo. */
     const hero = $('[data-hero]'), pin = $('[data-hero-pin]');
-    const copy = $('[data-hero-copy]'), vp = $('[data-voiceprint]'), hint = $('.hero__hint');
+    const copy = $('[data-hero-copy]'), vp = $('[data-voiceprint]');
     const vpWord = $('.lettering--lead', vp), device = $('[data-device]');
     const guideEl = $('[data-guide]'), controls = $('[data-demo-controls]');
     const demo = window.IHDemo;
@@ -206,7 +260,7 @@
         const r = vpWord.getBoundingClientRect();
         baseline = (r.top - (gsap.getProperty(vp, 'y') || 0) - pin.getBoundingClientRect().top + r.height * BASELINE) / innerHeight;
       };
-      const peek = () => innerHeight * .835 - (vp.offsetTop + vp.offsetHeight + 22);
+      const peek = () => innerHeight * .875 - (vp.offsetTop + vp.offsetHeight + 22);
       gsap.set(strokes(vpWord), { drawSVG: '0%' });
       let free = null;
       const tl = gsap.timeline({
@@ -218,7 +272,7 @@
           onUpdate(self) {
             const p = self.progress, intro = Math.min(1, p / introEnd);
             const c = gsap.utils.clamp(0, 1, intro / .34);
-            field?.set({ converge: c, base: gsap.utils.interpolate(.79, baseline, gsap.parseEase('ih.change')(c)) });
+            field?.set({ converge: c, base: gsap.utils.interpolate(.815, baseline, gsap.parseEase('ih.change')(c)) });
             // The walkthrough owns the window from the moment the device has settled until the pin ends.
             const g = (p - introEnd) / (1 - introEnd - .015);
             const done = g >= 1;
@@ -228,7 +282,7 @@
         }
       });
       // Intro, laid out on a 0–1 clock, then stretched to its share of the pin.
-      tl.to([copy, hint], { y: -70, opacity: 0, duration: .26, ease: 'power2.in' }, 0)
+      tl.to(copy, { y: -70, opacity: 0, duration: .26, ease: 'power2.in' }, 0)
         .fromTo(vp, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .16, ease: 'ih.settle' }, .2)
         .add(pen(vpWord, .32, 'none'), .3)
         .to('.field', { opacity: 0, duration: .12 }, .5)

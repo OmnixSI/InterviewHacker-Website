@@ -247,7 +247,7 @@ void main(){
 
   /* ---------- Hero: two voices on the water ---------- */
   // On narrow screens the copy runs long, so the voices sit at the foot of the first screen instead.
-  const state = { them: .55, me: .35, converge: 0, base: matchMedia('(max-width: 960px)').matches ? .95 : .79 };
+  const state = { them: .55, me: .35, converge: 0, base: matchMedia('(max-width: 960px)').matches ? .95 : .815 };
   const target = { ...state };
   let colors = null, hero = null, dropClock = 0;
   const readColors = () => {
