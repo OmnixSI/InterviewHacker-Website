@@ -31,8 +31,8 @@
 
 html[data-theme="light"] {
   color-scheme: light;
-  --ih-theme-background: #f5f6f8;
-  --ih-theme-background-rgb: 245, 246, 248;
+  --ih-theme-background: #fff;
+  --ih-theme-background-rgb: 255, 255, 255;
   --ih-theme-surface: #fff;
   --ih-theme-surface-rgb: 255, 255, 255;
   --ih-theme-heading: #14171c;
@@ -51,8 +51,8 @@ html[data-theme="light"] {
   --c-black-rgb: 20, 23, 28;
   --c-black-2: #e9ecf1;
   --c-black-2-rgb: 233, 236, 241;
-  --c-superlight: #f5f6f8;
-  --c-superlight-rgb: 245, 246, 248;
+  --c-superlight: #fff;
+  --c-superlight-rgb: 255, 255, 255;
   --c-white: #fff;
   --c-white-rgb: 255, 255, 255;
   --ih-theme-line: #e3e6eb;
@@ -104,8 +104,38 @@ html[data-theme] .ui-background-alt {
   background-color: var(--ih-theme-surface);
 }
 
+html[data-theme] .js-page-content > main > .section {
+  background-color: var(--ih-theme-background);
+  border-block-width: 0;
+  box-shadow: none;
+}
+
+html[data-theme] .header--sticky {
+  border-bottom: 0;
+  --t-button-outline-border: var(--ih-theme-line-alt);
+  --t-button-outline-hover-border: var(--ih-theme-heading);
+  --t-button-outline-text: var(--ih-theme-heading);
+  --t-button-outline-hover-text: var(--ih-theme-heading);
+  --t-button-outline--none-text: var(--ih-theme-heading);
+  --t-button-outline--none-hover-text: var(--ih-theme-heading);
+  --t-button-outline--none-active-text: var(--ih-theme-heading);
+  --t-button-outline--none-active-hover-text: var(--ih-theme-heading);
+  --t-button-link--heading-text: var(--ih-theme-heading);
+  --t-button-link--heading-hover-text: var(--ih-theme-heading);
+}
+
+html[data-theme] .header--sticky.header--collapsed .header__background {
+  box-shadow: none;
+}
+
+.l-stress-free-bg,
+.l-pdf__background {
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
 html[data-theme] .ui-light,
-html[data-theme] .ui-dark {
+html[data-theme] .ui-dark,
+html[data-theme] .header--sticky {
   --t-background: var(--ih-theme-background);
   --t-background-rgb: var(--ih-theme-background-rgb);
   --t-background-alt: var(--ih-theme-surface);

@@ -76,13 +76,16 @@ for(const style of catalog.styles){
   assert.deepEqual(screensBetween('data-scroll-section-id="section4"','data-scroll-section-id="section5"'),['conversation','context','devices','review'],'Classic capability artwork must match its feature');
   assert.deepEqual(screensBetween('id="stories"','data-scroll-section-id="section6"'),['conversation','lecture','meeting','course','conversation','lecture','meeting','course'],'Classic desktop and mobile stories must share the same screen mapping');
   for(const img of html.matchAll(/<img\b[^>]*data-product-screen="([^"]+)"[^>]*>/g)){
-   for(const theme of ['light','dark'])assert(img[0].includes(`data-ih-${theme}="./assets/product-scenes/${img[1]}-${theme}.svg"`),'Classic product images must use matching theme assets');
+   for(const theme of ['light','dark']){
+    const source=img[0].match(new RegExp(`data-ih-${theme}="([^"]+)"`))?.[1];
+    assert.equal(source?.split(/[?#]/)[0],`./assets/product-scenes/${img[1]}-${theme}.svg`,'Classic product images must use matching theme assets');
+   }
    assert(!/产品界面截图|示意|合成/.test(img[0]),'Keep Classic artwork labels descriptive and unobtrusive');
   }
   assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Classic theme must initialize before reference measurements');
  }
  if(['story','classic'].includes(style.slug)){
-  for(const m of html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)){
+  for(const m of html.matchAll(/(?:href|src|data-ih-light|data-ih-dark)="(\.\/[^"?#]+\.(?:css|js|svg))\?v=([a-f0-9]{12})(?:#[^"]*)?"/g)){
    const bytes=await readFile(path.join(base,m[1]));
    assert.equal(m[2],createHash('sha256').update(bytes).digest('hex').slice(0,12),`${style.slug} resource version is stale: run npm run docs:sync`);
   }
