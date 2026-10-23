@@ -96,7 +96,7 @@ function drawing(p) {
   /* ---------- Device + app chrome ---------- */
   function shell(body, active='助手', {timer='14:06', bare=false}={}) {
     const nav=[['助手','wave'],['场景','layers'],['记录','clock'],['设置','settings']];
-    let chrome=rect(74,42,1452,912,16,'url(#canvas)')+`<ellipse cx="1300" cy="900" rx="520" ry="260" fill="${p.canvas2}" opacity=".7" filter="url(#soft-glow)"/>`+
+    let chrome=rect(74,42,1452,912,16,'url(#canvas)')+`<ellipse cx="1300" cy="900" rx="700" ry="420" fill="url(#corner-glow)"/>`+
       ['#ff6a65','#f8c34b','#62c878'].map((c,i)=>`<circle cx="${106+i*24}" cy="68" r="7" fill="${c}"/>`).join('')+
       rect(250,72,486,56,28,p.panel,p.line);
     nav.forEach(([label,ic],i)=>{
@@ -461,6 +461,7 @@ const titles={conversation:'字节后端二面：双路实时对话与追问回�
 const definitions = (p) => `<defs>
   <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7265ed"/><stop offset="1" stop-color="#9769ee"/></linearGradient>
   <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${p.canvas}"/><stop offset=".7" stop-color="${p.canvas}"/><stop offset="1" stop-color="${p.canvas2}"/></linearGradient>
+  <radialGradient id="corner-glow"><stop stop-color="${p.canvas2}" stop-opacity=".85"/><stop offset="1" stop-color="${p.canvas2}" stop-opacity="0"/></radialGradient>
   <linearGradient id="room" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3a4258"/><stop offset="1" stop-color="#1f2434"/></linearGradient>
   <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e1e6f1"/><stop offset=".12" stop-color="#9aa4b8"/><stop offset=".56" stop-color="#737f96"/><stop offset=".86" stop-color="#b2bbcc"/><stop offset="1" stop-color="#5d6980"/></linearGradient>
   <linearGradient id="rim-light" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#fff" stop-opacity=".8"/><stop offset=".42" stop-color="#e0e8fb" stop-opacity=".14"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient>
@@ -469,7 +470,6 @@ const definitions = (p) => `<defs>
   <clipPath id="display"><rect x="74" y="42" width="1452" height="912" rx="16"/></clipPath>
   <filter id="device-shadow" x="-8%" y="-6%" width="116%" height="126%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0d1426" flood-opacity=".17"/></filter>
   <filter id="contact-shadow" x="-10%" y="-100%" width="120%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
-  <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="90"/></filter>
   <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#05070d" flood-opacity=".45"/></filter>
   <filter id="phone-shadow" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0d1426" flood-opacity=".18"/></filter>
 </defs>`.replace(/>\s+</g,'><');

@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=43a2e26e500f)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=9cfa1c89d922)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:8bed15c4fa849dd14ad454b07d32165f7c25b748b7ad9f4d2ea5ca5c559f3b2e preview:43a2e26e500f8a519a094645c46357ded39df1e1237203556dfc7fee875685b4 -->
+<!-- gallery-source:8102ac2023ad34bb0ddc0ad613df01829d251bc0d0b7674ec017d72f6cf9f6e2 preview:9cfa1c89d9222b6e61c8b4fceb5238e4317a7c87fa3c05ce8ab8b85fb36774e0 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -41,17 +41,17 @@
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:a5df895028c97b1c9374afe7b27554b08d29d4575268cc125a00dd0cfa25cfe6 preview:8e8115bd48ad3d47ac856ddcebf272031aee74955933c1d88c7aa67d30a781b1 -->
+<!-- style:story source:4677a9d1f468a32c02a976a17a7f08ec62ec79bab626e59a0875f4775d47856b preview:8e8115bd48ad3d47ac856ddcebf272031aee74955933c1d88c7aa67d30a781b1 -->
 
 ### Classic · 专业 · 严肃 · 设备叙事
 
-[![Classic 首页](public/previews/classic-home.png?v=55b6324f4f19)](https://interviewhacker.vercel.app/classic/)
+[![Classic 首页](public/previews/classic-home.png?v=2bc1f6b2e813)](https://interviewhacker.vercel.app/classic/)
 
 Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交接，克制的明暗章节串联准备、实时辅助与复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
 
-<!-- style:classic source:b98e5cbb2764b118d311d7fe32c39beb9f75e22b6d6765820a8e010b5caed340 preview:55b6324f4f19d54173d5a339187bd980e1186596c7672343d1872d037f002891 -->
+<!-- style:classic source:3f13c30715de9d9038ae7d33ead07648c38fcb030eba67d64405392d00031e8a preview:2bc1f6b2e813bad9f7626922b74ba0dd2d903d263d8f4bc03c84c5c0c555b70a -->
 <!-- STYLES:END -->
 
 ## 本地运行

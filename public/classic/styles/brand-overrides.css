@@ -251,16 +251,31 @@ html[data-theme="dark"] [data-scroll-section-id="section1"] p {
   .l-steps-section .l-steps-content li:last-child { height: auto; padding-top: 1.25rem; padding-bottom: 1.25rem; }
 }
 
-/* Hero side panels hold product cards, not photos: replace the template's black edge
-   shading with a soft fade into the page, deeper for panels further back. */
-.intro__bottom__image__item:before {
-  background: linear-gradient(var(--ih-card-fade-angle, 270deg), rgba(var(--ih-theme-background-rgb), 0) 35%, rgba(var(--ih-theme-background-rgb), var(--ih-card-fade, .45)) 100%) !important;
+/* Hero side cards: two per side in a symmetric fan that tucks just behind the device.
+   Real 3D perspective (outer edge receding) replaces the template's photo clip polygons. */
+.intro__bottom__image__item {
+  -webkit-clip-path: none !important;
+  clip-path: none !important;
+  max-height: none !important;
+  perspective: 1100px;
 }
-.intro__bottom__image__item--1, .intro__bottom__image__item--6 { --ih-card-fade: .62; }
-.intro__bottom__image__item--2, .intro__bottom__image__item--5 { --ih-card-fade: .42; }
-.intro__bottom__image__item--3, .intro__bottom__image__item--4 { --ih-card-fade: .22; }
-.intro__bottom__image__item--4, .intro__bottom__image__item--5, .intro__bottom__image__item--6 { --ih-card-fade-angle: 90deg; }
-.intro__bottom__image__item img { object-fit: cover; object-position: center top; }
+.intro__bottom__image__item:before { display: none !important; }
+.intro__bottom__image__item--3 { left: 5% !important; width: 19.8% !important; }
+.intro__bottom__image__item--4 { right: 5% !important; width: 19.8% !important; }
+.intro__bottom__image__item--2 { left: -5% !important; width: 15.2% !important; bottom: 15% !important; }
+.intro__bottom__image__item--5 { right: -5% !important; width: 15.2% !important; bottom: 15% !important; }
+.intro__bottom__image__item img {
+  aspect-ratio: 360 / 500 !important;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--ih-theme-heading-rgb), .08);
+  box-shadow: 0 30px 60px -28px rgba(15, 17, 30, .45), 0 2px 6px rgba(15, 17, 30, .06);
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+.intro__bottom__image__item--2 img, .intro__bottom__image__item--3 img { transform-origin: 100% 50%; transform: rotateY(-16deg); }
+.intro__bottom__image__item--4 img, .intro__bottom__image__item--5 img { transform-origin: 0 50%; transform: rotateY(16deg); }
+.intro__bottom__image__item--2 img, .intro__bottom__image__item--5 img { opacity: .78; }
 
 /* Scene carousel (see scripts/scene-switch.js): stacked slides, transform + opacity only. */
 .ih-switch { display: grid; }

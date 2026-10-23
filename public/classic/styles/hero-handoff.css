@@ -53,3 +53,13 @@
   .ih-hero-target::before { display: none; }
   .ih-hero-device-single > .intro-video__tablet__image { display: none; }
 }
+
+/* Keep every moving hero piece on its own compositor layer so scroll-linked scale and
+   translate never re-rasterize the large product artwork. */
+.ih-hero-device-single,
+.intro__bottom__inner,
+.intro__bottom__image,
+.intro__bottom__image__item {
+  will-change: transform;
+  backface-visibility: hidden;
+}
