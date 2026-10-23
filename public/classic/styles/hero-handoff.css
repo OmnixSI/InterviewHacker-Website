@@ -1,5 +1,6 @@
 /* A single device moves from the hero anchor into the reference choreography. */
 .ih-hero-target { aspect-ratio: 1600 / 1044; height: auto; }
+.ih-hero-target::before { display: none; }
 .js .ih-hero-target { visibility: hidden; }
 .ih-hero-handoff-ready .ih-hero-target { visibility: visible; }
 .ih-hero-handoff-ready .ih-hero-fallback { visibility: hidden; }
@@ -64,11 +65,10 @@
   backface-visibility: hidden;
 }
 
-/* Same rule for the rest of the page: any scroll-driven parallax element that carries
-   product artwork gets its own layer instead of repainting the SVG each frame. */
-[data-plugin~="parallax"]:has(img),
-.l-steps-images__list li,
-.ih-viewing-stage,
-.l-pdf__background {
+/* Promote the artwork itself while its section is near the viewport. */
+.tablet-preview,
+.l-steps-images__list > li,
+.ih-viewing-stage figure,
+.ih-privacy-device {
   will-change: transform;
 }

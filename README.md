@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=77d3fde035f0)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=610d6b887eb1)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:11a443a3798d6375f577689535f137c52e5ba4710d2db8341ffb54e89f327f5f preview:77d3fde035f02e9e31c555a6bc93137a1e2bc3264418cf5dd5ffcf7709e88822 -->
+<!-- gallery-source:d80b28a90cfe8d5022e9f4edefeec462f38443b76d96c49be17086f87a039575 preview:610d6b887eb1b1ca84ed2b0bcde30f64b67ffbfff3114513fe6e3c1d45978794 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -45,13 +45,13 @@
 
 ### Classic · 专业 · 严肃 · 设备叙事
 
-[![Classic 首页](public/previews/classic-home.png?v=f40d7e9c4785)](https://interviewhacker.vercel.app/classic/)
+[![Classic 首页](public/previews/classic-home.png?v=78c018f29149)](https://interviewhacker.vercel.app/classic/)
 
-Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交接，克制的明暗章节串联准备、实时辅助与复盘。
+鸿蒙字体、带刘海的金属笔记本与连续设备交接，配合明暗双主题、磁吸滚动和六步工作链路，串联准备、实时辅助与复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
 
-<!-- style:classic source:13f4cfc797a1b3d7f17dd6fd71dc52ba2a76b8dae62096022702e34800e14bf8 preview:f40d7e9c4785b4aa782fbf39f4cf1521bdaeca6ca3d13f7c44d29d7497d724e9 -->
+<!-- style:classic source:56d7aa0c00aff7b7a5d8fedeb44f7cebf52f02819b9f9c0744af326bf533b9ca preview:78c018f29149273cbc5158edd36187b451f7d9c6e3852d986f5ff5f193ba817c -->
 
 ### Final · 专业 · 精致 · 最终版
 
@@ -85,7 +85,7 @@ npm run dev
 | Minimal 全部页面代码和素材 | `public/minimal/` |
 | Technology 全部页面代码和素材 | `public/technology/` |
 | Story 全部页面代码和素材 | `public/story/` |
-| Classic（Story 原始版本）全部页面代码和素材 | `public/classic/` |
+| Classic 全部页面代码和素材 | `public/classic/` |
 | Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
@@ -134,3 +134,9 @@ Story 产品画面由 `scripts/story-screens.mjs` 生成：运行 `npm run scree
 Story 动效与手机适配由 `styles/motion-polish.css` 和 `scripts/motion-polish.js` 维护：入场采用缓出曲线，设备位移由滚动进度控制；触屏场景卡片使用原生滑动，支持定位按钮及系统减少动态效果。修改后需复核 320–430 手机竖屏、短横屏、平板和桌面，更新实际首页预览。部署前须完成检查和构建并等 CI 通过；发布后确认正式别名与逐文件校验成功。
 
 首页首图由 `scripts/hero-handoff.js` 维护单一设备的连续交接，禁止在锚点与目标位置同时淡入两台完整设备。文案与设备共享视口进度；原左右场景叙事继续保留。手机窄屏、短横屏及初始减少动态效果访问采用顺序阅读。设备材质、界面与双路识别动线仍在 `scripts/story-screens.mjs` 编辑。
+
+### Classic 维护
+
+Classic 继续维护在 `/classic/`，本次更新沿用原风格入口。六步工作链路直接嵌入首页，由现有滚动器驱动；该栏目及附近区域关闭磁吸，避免与横向演示争抢滚动位置。其他栏目在手势停下并接近栏目起点时平滑吸附，参数集中在 `public/classic/scripts/section-snap.js` 的 `CONFIG`。
+
+Classic 的完整笔记本素材包含顶部刘海，浅色与深色界面分别生成；裁切卡片保留原布局。`npm run screens:build` 可重新生成这些素材，`npm run docs:sync` 会为 Classic 的 CSS、JS、SVG 和主题图片写入内容版本。首页使用局部背景，离屏栏目暂停装饰动画与无效更新。变更和实际验证范围见 [Classic 更新验证](VALIDATION-CLASSIC.md)。

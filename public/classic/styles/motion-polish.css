@@ -3,6 +3,12 @@
   --ih-ease-settle: cubic-bezier(.16, 1, .3, 1);
   --ih-ease-change: cubic-bezier(.65, 0, .35, 1);
 }
+.ih-motion-visibility-ready [data-scroll-section]:not(.ih-motion-active),
+.ih-motion-visibility-ready [data-scroll-section]:not(.ih-motion-active) * {
+  animation-play-state: paused !important;
+  will-change: auto !important;
+}
+.ih-switch > [aria-hidden="true"]:not(.is-leaving) { will-change: auto; }
 .ih-arriving { animation: ih-arrive 850ms var(--ih-ease-settle) both; animation-delay: var(--ih-arrival-delay, 0ms); }
 @keyframes ih-arrive {
   from { opacity: 0; transform: translate3d(0, 26px, 0) scale(.985); }

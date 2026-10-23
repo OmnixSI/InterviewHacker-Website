@@ -1,0 +1,702 @@
+/* The original Story pipeline block, scoped to the Classic homepage section. */
+#workflow.pipeline {
+  --bg: var(--ih-theme-background, #0f1115);
+  --bg-2: #0c0e14;
+  --surface: rgba(255, 255, 255, .035);
+  --surface-solid: #10121a;
+  --surface-2: rgba(255, 255, 255, .06);
+  --line: rgba(255, 255, 255, .08);
+  --line-2: rgba(255, 255, 255, .15);
+  --ink: #f3f5fb;
+  --copy: #b6bdcc;
+  --muted: #8a92a4;
+  --accent: #8a82ff;
+  --accent-ink: #c9c4ff;
+  --violet: #8b7bff;
+  --cyan: #5ad8ff;
+  --mint: #5ef0b4;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --font-sans: "HarmonyOS Sans SC", Geist, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --radius: 22px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --workflow-scroll-distance: 0px;
+  --workflow-progress: 1;
+  position: relative;
+  z-index: 0;
+  height: calc(100svh + var(--workflow-scroll-distance));
+  min-height: 0;
+  padding: 0;
+  overflow: clip;
+  isolation: isolate;
+  background: var(--bg);
+  color: var(--copy);
+  color-scheme: dark;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  scroll-margin-top: 0;
+}
+
+html[data-theme="light"] #workflow.pipeline {
+  --bg: var(--ih-theme-background, #fff);
+  --bg-2: #f5f6f8;
+  --surface: rgba(20, 23, 28, .035);
+  --surface-solid: #fff;
+  --surface-2: rgba(20, 23, 28, .045);
+  --line: #e3e6eb;
+  --line-2: #d4d9e1;
+  --ink: #14171c;
+  --copy: #46505f;
+  --muted: #626c7b;
+  --accent: #666bff;
+  --accent-ink: #555be8;
+  --violet: #7068f5;
+  --cyan: #218eb8;
+  --mint: #238d68;
+  background: var(--bg);
+  color-scheme: light;
+}
+
+html[data-theme="light"] #workflow.pipeline::before {
+  background:
+    radial-gradient(50% 60% at 20% 40%, rgba(102, 107, 255, .09), transparent 70%),
+    radial-gradient(40% 50% at 85% 70%, rgba(94, 180, 150, .07), transparent 70%);
+}
+
+html[data-theme="light"] #workflow .station:not(.is-lit) {
+  opacity: .66;
+}
+
+html[data-theme="light"] #workflow .station.is-lit {
+  border-color: rgba(102, 107, 255, .38);
+}
+
+html[data-theme="light"] #workflow .station.is-current {
+  border-color: rgba(102, 107, 255, .72);
+  box-shadow: 0 0 0 1px rgba(102, 107, 255, .16), 0 24px 64px -30px rgba(102, 107, 255, .34);
+}
+
+html[data-theme="light"] #workflow .pipeline__ghost {
+  -webkit-text-stroke-color: rgba(102, 107, 255, .12);
+}
+
+html[data-theme="light"] #workflow .pipe-payload {
+  border-color: rgba(102, 107, 255, .28);
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 10px 28px -12px rgba(53, 57, 120, .28);
+  color: #252a35;
+}
+
+html[data-theme="light"] #workflow .pipe-rail li.is-current::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(102, 107, 255, .18), 0 0 12px rgba(102, 107, 255, .45);
+}
+
+#workflow.pipeline::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at 20% 40%, rgba(102, 107, 255, .14), transparent 70%),
+    radial-gradient(40% 50% at 85% 70%, rgba(94, 240, 180, .08), transparent 70%);
+  content: "";
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent, #000 120px, #000 calc(100% - 120px), transparent);
+}
+
+#workflow .workflow-icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#workflow .pipeline__pin {
+  position: absolute;
+  inset: 0 0 auto;
+  top: 0;
+  display: flex;
+  width: 100%;
+  height: calc(100svh - var(--workflow-header-height, 0px));
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 32px;
+  transform: translate3d(0, var(--workflow-pin-offset, 0px), 0);
+  will-change: transform;
+}
+
+#workflow .pipeline__pin > .pipeline__head,
+#workflow .pipeline__pin > .pipeline__viewport,
+#workflow .pipeline__pin > .pipe-rail {
+  flex-shrink: 0;
+}
+
+#workflow .container {
+  width: min(100% - var(--gutter) * 2, var(--max));
+  margin-inline: auto;
+}
+
+#workflow .pipeline__head::before,
+#workflow .pipeline__head::after,
+#workflow .pipe-rail::before,
+#workflow .pipe-rail::after {
+  display: none;
+  content: none;
+}
+
+#workflow .pipeline__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+#workflow .pipeline__head .eyebrow {
+  margin: 0;
+}
+
+#workflow .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  line-height: 1;
+}
+
+#workflow .eyebrow > span {
+  padding: 5px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--muted);
+  font: 500 12px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+}
+
+#workflow .display {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(32px, 3.8vw, 56px);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.06;
+}
+
+#workflow .pipeline__count {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  color: var(--muted);
+  font: 400 14px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+#workflow .pipeline__count b {
+  margin-right: 8px;
+  color: var(--ink);
+  font: 500 56px/1 Geist, "HarmonyOS Sans SC", sans-serif;
+  letter-spacing: -.04em;
+}
+
+#workflow .pipeline__viewport {
+  position: relative;
+}
+
+#workflow .pipeline__track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: max-content;
+  align-items: flex-start;
+  gap: clamp(48px, 7vw, 120px);
+  margin: 0;
+  padding: 28px max(var(--gutter), calc((100vw - var(--max)) / 2)) 24px;
+  list-style: none;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+#workflow .station {
+  position: relative;
+  flex: 0 0 clamp(280px, 26vw, 360px);
+  width: clamp(280px, 26vw, 360px);
+  padding: 26px 24px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-solid);
+  opacity: .38;
+  transform: scale(.96);
+  transition: opacity .6s var(--ease-out), transform .8s var(--ease-out), border-color .5s, box-shadow .6s var(--ease-out);
+}
+
+#workflow .station:nth-child(2n) {
+  margin-top: 84px;
+}
+
+#workflow .station.is-lit {
+  border-color: rgba(138, 130, 255, .45);
+  opacity: 1;
+  transform: none;
+}
+
+#workflow .station.is-current {
+  border-color: rgba(138, 130, 255, .8);
+  box-shadow: 0 0 0 1px rgba(138, 130, 255, .25), 0 30px 90px -24px rgba(102, 107, 255, .75);
+}
+
+#workflow .station__num {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  color: var(--muted);
+  font: 500 13px/1 "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+#workflow .station__icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(139, 123, 255, .25), rgba(90, 216, 255, .12));
+  color: var(--ink);
+  transition: background .5s, color .5s, box-shadow .5s;
+}
+
+#workflow .station__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+#workflow .station.is-current .station__icon {
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  color: #fff;
+  box-shadow: 0 10px 30px -8px rgba(110, 100, 255, .8);
+}
+
+#workflow .station h3 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+#workflow .station p {
+  margin: 0;
+  color: var(--copy);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+#workflow .station__viz {
+  display: flex;
+  min-height: 52px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 13px;
+}
+
+#workflow .bars {
+  display: inline-flex;
+  height: 16px;
+  align-items: center;
+  gap: 2px;
+}
+
+#workflow .bars b {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: 50% 50%;
+  animation: pipeline-bar 1.1s var(--ease-in-out) infinite alternate;
+}
+
+#workflow .bars b:nth-child(2n) { animation-duration: .8s; }
+#workflow .bars b:nth-child(3n) { animation-duration: 1.4s; animation-delay: -.3s; }
+#workflow .bars b:nth-child(5n) { animation-delay: -.6s; }
+#workflow .bars--violet { color: var(--violet); }
+#workflow .bars--mint { color: var(--mint); }
+
+#workflow .station:not(.is-lit) .bars b,
+#workflow .station:not(.is-lit) .caret {
+  animation-play-state: paused;
+}
+
+#workflow .viz-lanes {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#workflow .viz-lanes .bars { gap: 4px; }
+#workflow .viz-scramble span { font-family: var(--font-sans); }
+
+#workflow .viz-tags b,
+#workflow .viz-files b {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#workflow .viz-tags b.is-on,
+#workflow .viz-files b.is-on {
+  border-color: transparent;
+  background: var(--accent);
+  color: #fff;
+}
+
+#workflow .station.is-current .viz-tags b.is-on,
+#workflow .station.is-current .viz-files b.is-on {
+  animation: pipeline-chip-pop 1.6s var(--ease-out) infinite;
+}
+
+#workflow .viz-stream { align-items: center; }
+#workflow .viz-devices { justify-content: center; gap: 10px; }
+#workflow .viz-devices b { display: block; border: 1.5px solid var(--line-2); border-radius: 6px; }
+#workflow .d-desk { width: 72px; height: 44px; }
+#workflow .d-prompt { width: 46px; height: 22px; border-color: var(--accent) !important; background: rgba(138, 130, 255, .25); }
+#workflow .d-phone { width: 22px; height: 40px; border-radius: 6px; }
+
+#workflow .station.is-current .d-desk,
+#workflow .station.is-current .d-prompt,
+#workflow .station.is-current .d-phone {
+  animation: pipeline-device-on 2.4s var(--ease-in-out) infinite;
+}
+
+#workflow .station.is-current .d-prompt { animation-delay: .4s; }
+#workflow .station.is-current .d-phone { animation-delay: .8s; }
+
+#workflow .pipeline__ghost {
+  position: absolute;
+  z-index: 0;
+  top: 54%;
+  left: 50%;
+  margin: 0;
+  color: transparent;
+  font-size: clamp(120px, 17vw, 260px);
+  font-weight: 600;
+  letter-spacing: -.05em;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px rgba(160, 170, 255, .1);
+  pointer-events: none;
+  translate: -50% -50%;
+}
+
+#workflow .pipeline__wire {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+  will-change: transform;
+}
+
+#workflow .wire-base,
+#workflow .wire-line,
+#workflow .wire-glow {
+  fill: none;
+  stroke-linecap: round;
+}
+
+#workflow .wire-base {
+  stroke: var(--line-2);
+  stroke-width: 1.5;
+  stroke-dasharray: 3, 7;
+}
+
+#workflow .wire-line {
+  stroke: url("#workflow-wire-grad");
+  stroke-width: 2.5;
+}
+
+#workflow .wire-glow {
+  opacity: .16;
+  stroke: url("#workflow-wire-grad");
+  stroke-width: 12;
+}
+
+#workflow .wire-spark { fill: url("#workflow-spark-glow"); }
+#workflow .wire-pulse { fill: url("#workflow-pulse-glow"); }
+
+#workflow .pipe-payload {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -54px 0 0 -14px;
+  padding: 7px 12px 7px 9px;
+  border: 1px solid rgba(160, 150, 255, .45);
+  border-radius: 999px;
+  background: rgba(16, 18, 30, .94);
+  box-shadow: 0 10px 30px -10px rgba(102, 107, 255, .7);
+  color: #eef0ff;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+#workflow .pipe-payload i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 10px var(--mint);
+}
+
+#workflow .pipe-rail {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  list-style: none;
+}
+
+#workflow .pipe-rail li {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding-top: 8px;
+  transition: color .4s;
+}
+
+#workflow .pipe-rail li::before {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--line-2);
+  border-radius: 50%;
+  background: var(--bg);
+  content: "";
+  transition: background .4s, border-color .4s, box-shadow .4s;
+}
+
+#workflow .pipe-rail li.is-done { color: var(--copy); }
+#workflow .pipe-rail li.is-done::before { border-color: transparent; background: var(--accent); }
+#workflow .pipe-rail li.is-current { color: var(--ink); }
+#workflow .pipe-rail li.is-current::before { border-color: transparent; background: #fff; box-shadow: 0 0 0 4px rgba(138, 130, 255, .35), 0 0 14px #8b7bff; }
+
+#workflow .pipe-rail__track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+#workflow .pipe-rail__track span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--violet), var(--cyan), var(--mint));
+}
+
+@keyframes pipeline-bar {
+  from { transform: scaleY(.2); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes pipeline-chip-pop {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(138, 130, 255, .55); }
+  50% { box-shadow: 0 0 0 6px rgba(138, 130, 255, 0); }
+}
+
+@keyframes pipeline-device-on {
+  0%, 100% { border-color: var(--line-2); }
+  40% { border-color: var(--cyan); box-shadow: 0 0 16px rgba(90, 216, 255, .45); }
+}
+
+@media (min-width: 901px) and (min-height: 641px) and (max-height: 800px) {
+  #workflow .pipeline__pin { padding-block: 16px 24px; }
+  #workflow .pipeline__head { gap: 10px; margin-bottom: 4px; }
+  #workflow .display { font-size: clamp(32px, 3.2vw, 44px); line-height: 1.05; }
+  #workflow .pipeline__count b { font-size: 44px; }
+  #workflow .pipeline__track { padding-block: 14px; }
+  #workflow .station { padding: 20px; }
+  #workflow .station:nth-child(2n) { margin-top: clamp(16px, calc((100svh - 640px) * .3), 48px); }
+  #workflow .station__icon { width: 40px; height: 40px; margin-bottom: 12px; }
+  #workflow .station__viz { margin-top: 14px; padding: 10px; }
+  #workflow .pipe-rail { margin-top: 8px; padding-top: 12px; }
+}
+
+@media (max-width: 900px), (max-height: 640px) {
+  #workflow.pipeline {
+    height: auto;
+    padding-block: 0;
+  }
+
+  #workflow .pipeline__pin {
+    position: relative;
+    inset: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding-block: 110px 80px;
+    transform: none;
+    will-change: auto;
+  }
+
+  #workflow .pipeline__head { margin-bottom: 48px; }
+  #workflow .pipeline__count { display: none; }
+
+  #workflow .pipeline__track {
+    width: auto;
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 var(--gutter) 0 calc(var(--gutter) + 34px);
+    transform: none !important;
+    will-change: auto;
+  }
+
+  #workflow .pipeline__track::before,
+  #workflow .pipeline__track::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gutter) + 10px);
+    width: 2px;
+    content: "";
+  }
+
+  #workflow .pipeline__track::before { background: var(--line-2); }
+  #workflow .pipeline__track::after {
+    background: linear-gradient(var(--violet), var(--cyan), var(--mint));
+    transform: scaleY(var(--workflow-progress, 1));
+    transform-origin: 50% 0;
+  }
+
+  #workflow .station,
+  #workflow .station:nth-child(2n) {
+    width: auto;
+    flex-basis: auto;
+    margin-top: 0;
+    opacity: 1;
+    transform: none;
+  }
+
+  #workflow .station::before {
+    position: absolute;
+    top: 34px;
+    left: -31px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+    content: "";
+  }
+
+  #workflow .pipeline__ghost,
+  #workflow .pipe-payload,
+  #workflow .pipe-rail,
+  #workflow .pipeline__wire { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #workflow.pipeline {
+    height: auto;
+    padding-block: 0;
+  }
+
+  #workflow .pipeline__pin {
+    position: relative;
+    inset: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding-block: 96px 72px;
+    transform: none;
+    will-change: auto;
+  }
+
+  #workflow .pipeline__track {
+    width: auto;
+    flex-direction: column;
+    gap: 18px;
+    padding: 0 var(--gutter) 0 calc(var(--gutter) + 34px);
+    transform: none !important;
+  }
+
+  #workflow .pipeline__track::before,
+  #workflow .pipeline__track::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gutter) + 10px);
+    width: 2px;
+    background: var(--line-2);
+    content: "";
+  }
+
+  #workflow .station,
+  #workflow .station:nth-child(2n) {
+    width: auto;
+    flex-basis: auto;
+    margin-top: 0;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  #workflow .station::before {
+    position: absolute;
+    top: 34px;
+    left: -31px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+    content: "";
+  }
+
+  #workflow .pipeline__ghost,
+  #workflow .pipe-payload,
+  #workflow .pipe-rail,
+  #workflow .pipeline__wire { display: none; }
+
+  #workflow .bars b,
+  #workflow .caret { animation: none; }
+}
+
+@media (max-width: 567px) {
+  #workflow .pipeline__pin { padding-block: 84px 64px; }
+  #workflow .pipeline__head { margin-bottom: 36px; }
+  #workflow .station { padding: 22px 18px 20px; }
+  #workflow .station h3 { font-size: 20px; }
+}
