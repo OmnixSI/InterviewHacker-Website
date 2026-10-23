@@ -39,6 +39,7 @@ def display_text(html):
     chunks += re.findall(r'class="(?:wordmark|slide__title|download__title)"[^>]*>([\s\S]*?)</', html)
     chunks += re.findall(r'data-draft="([^"]*)"', html)
     chunks += re.findall(r'class="call__tile[^"]*"><b>([^<]*)<', html)
+    chunks += re.findall(r'class="cmac__call"><span><b>([^<]*)<', html)
     chunks += re.findall(r'<p data-line[^>]*>([\s\S]*?)</p>', html)
     chunks += re.findall(r'class="mini-slide__page"><span[^>]*>[^<]*</span><b>([^<]*)<', html)
     # Walkthrough step titles are set by script from the demo data.

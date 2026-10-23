@@ -21,7 +21,7 @@
   <link rel="preload" href="../assets/fonts/serif/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="../assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="../style.css?v=fce79a1bf8db">
+  <link rel="stylesheet" href="../style.css?v=e4dc8d1c7efb">
   <script src="../scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
@@ -58,9 +58,9 @@
       <nav class="site-nav" id="site-nav" aria-label="Sections">
         <a href="#demo"><i>01</i>Demo</a>
         <a href="#scenes"><i>02</i>Moments</a>
-        <a href="#privacy"><i>03</i>Privacy</a>
-        <a href="#specs"><i>04</i>Specs</a>
-        <a href="#faq"><i>05</i>FAQ</a>
+        <a href="#companion"><i>03</i>Companion</a>
+        <a href="#privacy"><i>04</i>Privacy</a>
+        <a href="#specs"><i>05</i>Specs</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="../" hreflang="zh-CN" lang="zh-CN" data-lang-switch aria-label="切换到中文">中</a>
@@ -296,10 +296,67 @@
       </div>
     </section>
 
+
+    <!-- Phone companion: the screen beside you, paired by a scan, invisible to a full-screen share. -->
+    <section class="section companion" id="companion" aria-labelledby="companion-title" data-companion>
+      <div class="container">
+        <header class="companion__head">
+          <p class="eyebrow mono"><b>№ 03</b>Phone companion</p>
+          <h2 id="companion-title" class="display">The screen<br>beside you.</h2>
+          <p class="caption-serif">放在桌边的，那一块屏幕。</p>
+          <p class="lead">When you share your whole screen, hand the answers to your phone. One scan connects it — no app to install — the question and answer stay in sync, and the phone becomes a remote.</p>
+        </header>
+        <div class="companion__stage" data-companion-stage>
+          <div class="cmac" aria-hidden="true">
+            <div class="cmac__screen">
+              <p class="cmac__share mono"><i></i>Sharing entire screen</p>
+              <div class="cmac__call"><span><b>A</b><small>Interviewer</small></span><span><b>Me</b></span></div>
+              <div class="cmac__pair" data-pair>
+                <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
+                <p><b>Scan with your phone’s camera</b><span class="mono">One-time pairing code · 128-bit</span></p>
+              </div>
+              <p class="cmac__seen mono">What they see: just the call</p>
+            </div>
+            <div class="cmac__base"></div>
+          </div>
+          <svg class="clink" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 C60 20 70 6 100 6 S140 20 200 20" data-link/></svg>
+          <p class="clink__label mono" aria-hidden="true" data-link-label>Local network · or your own end-to-end encrypted relay</p>
+          <div class="phone" data-phone>
+            <span class="phone__island" aria-hidden="true"></span>
+            <div class="phone__screen">
+              <div class="phone__scan" data-scan aria-hidden="true"><i class="phone__finder"></i><i class="phone__beam"></i><span class="mono">Reading the code</span></div>
+              <div class="phone__live" data-live>
+                <p class="phone__bar mono"><span>14:07</span><span class="phone__ok"><i class="live-dot"></i>Connected to MacBook</span></p>
+                <p class="phone__count mono" data-phone-count>2 / 2</p>
+                <p class="phone__q" data-phone-q></p>
+                <p class="phone__a" data-phone-a aria-live="polite"></p>
+                <div class="phone__size" role="group" aria-label="Text size"><button type="button" data-size="-1" aria-label="Smaller text">A−</button><button type="button" data-size="1" aria-label="Larger text">A+</button></div>
+                <div class="phone__keys" role="group" aria-label="Remote">
+                  <button type="button" data-remote="answer" class="is-primary">Answer</button>
+                  <button type="button" data-remote="short">Shorter</button>
+                  <button type="button" data-remote="example">Example</button>
+                  <button type="button" data-remote="translate">中文版</button>
+                  <button type="button" data-remote="prev" aria-label="Previous">‹ Prev</button>
+                  <button type="button" data-remote="next" aria-label="Next">Next ›</button>
+                  <button type="button" data-remote="cancel">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="companion__facts" role="list">
+          <li><span class="mono">i.</span><h3>Scan and go</h3><p>Turn it on, scan with the camera, and the browser becomes your prompter.</p></li>
+          <li><span class="mono">ii.</span><h3>Off the shared screen</h3><p>Your phone isn’t on the shared screen — the safest place to read during a full-screen share.</p></li>
+          <li><span class="mono">iii.</span><h3>Only this moment syncs</h3><p>Off by default; a fresh pairing code each time, up to 4 devices; no transcripts, material or screenshots.</p></li>
+        </ul>
+        <p class="fine">Available today in the browser and as an Android debug build; an iOS app is not yet available.</p>
+      </div>
+    </section>
+
     <!-- Principles: three quiet statements instead of a data sheet. -->
     <section class="section principles" id="privacy" aria-labelledby="privacy-title">
       <div class="container">
-        <p class="eyebrow mono"><b>№ 03</b>Privacy</p>
+        <p class="eyebrow mono"><b>№ 04</b>Privacy</p>
         <h2 id="privacy-title" class="display">Quiet is<br>a form of respect.</h2>
         <p class="caption-serif">安静，也是一种尊重。</p>
         <ol class="principles__list" role="list">
@@ -315,7 +372,7 @@
     <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
       <div class="container specs-sheet__grid">
         <header>
-          <p class="eyebrow mono"><b>№ 04</b>Specifications</p>
+          <p class="eyebrow mono"><b>№ 05</b>Specifications</p>
           <h2 id="specs-title" class="display">Specifications</h2>
         </header>
         <dl class="sheet">
@@ -335,7 +392,7 @@
     <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="container faq__grid">
         <header>
-          <p class="eyebrow mono"><b>№ 05</b>FAQ</p>
+          <p class="eyebrow mono"><b>№ 06</b>FAQ</p>
           <h2 id="faq-title" class="display">Questions,<br>answered.</h2>
         </header>
         <div class="faq__list" data-faq>
@@ -366,10 +423,11 @@
       <ol class="index mono" role="list">
         <li><a href="#demo"><span>01</span>Live demo<i></i></a></li>
         <li><a href="#scenes"><span>02</span>Five moments<i></i></a></li>
-        <li><a href="#privacy"><span>03</span>Privacy<i></i></a></li>
-        <li><a href="#specs"><span>04</span>Specifications<i></i></a></li>
-        <li><a href="#faq"><span>05</span>FAQ<i></i></a></li>
-        <li><a href="#download"><span>06</span>Download<i></i></a></li>
+        <li><a href="#companion"><span>03</span>Phone companion<i></i></a></li>
+        <li><a href="#privacy"><span>04</span>Privacy<i></i></a></li>
+        <li><a href="#specs"><span>05</span>Specifications<i></i></a></li>
+        <li><a href="#faq"><span>06</span>FAQ<i></i></a></li>
+        <li><a href="#download"><span>07</span>Download<i></i></a></li>
       </ol>
       <p class="site-footer__fine">Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering.</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
@@ -390,8 +448,9 @@
   <script src="../assets/vendor/lenis.min.js?v=07020831fc52"></script>
   <script src="../scripts/field.js?v=2e66d2726ee7"></script>
   <script src="../scripts/demo.js?v=d85826925287"></script>
+  <script src="../scripts/companion.js?v=d068105e828a"></script>
   <script src="../scripts/motion.js?v=1d84124676a0"></script>
-  <script src="../scripts/cursor.js?v=478ae44ed0aa"></script>
+  <script src="../scripts/cursor.js?v=bdaa1ef52bda"></script>
   <script src="../scripts/fps.js?v=c2f92270878e"></script>
 </body>
 </html>

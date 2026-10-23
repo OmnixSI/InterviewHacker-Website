@@ -27,10 +27,8 @@
   const labelFor = el => {
     if (!el) return null;
     if (el.dataset.cursor) return words[el.dataset.cursor] || el.dataset.cursor;
+    // Small, self-explanatory controls get no word: a label would only cover them.
     if (el.matches('a[href*="releases"]')) return words.download;
-    if (el.matches('[role="tab"], [data-view], [data-index]')) return words.switch;
-    if (el.matches('[data-variant], [data-demo-now]')) return words.try;
-    if (el.matches('summary')) return words.read;
     if (el.matches('a[href^="http"]')) return words.open;
     return '';
   };
