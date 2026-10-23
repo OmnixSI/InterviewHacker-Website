@@ -1,10 +1,10 @@
-// Runs in <head> before first paint: script flag, theme and the saved motion choice, so nothing flashes.
+// Runs in <head> before first paint: script flag and the saved motion choice, so nothing flashes.
+// Final is a light design only; the theme attribute stays fixed so shared tokens never flip.
 (() => {
   const root = document.documentElement;
   root.classList.replace('no-js', 'js');
-  let theme = null, motion = null;
-  try { theme = localStorage.getItem('ih-final-theme'); motion = localStorage.getItem('ih-final-motion'); } catch { /* storage blocked */ }
-  if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  root.dataset.theme = theme;
+  root.dataset.theme = 'light';
+  let motion = null;
+  try { motion = localStorage.getItem('ih-final-motion'); } catch { /* storage blocked */ }
   if (motion === 'paused') root.classList.add('motion-paused');
 })();

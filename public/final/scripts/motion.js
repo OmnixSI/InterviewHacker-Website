@@ -45,78 +45,6 @@
     });
   }
 
-  // Privacy route switches (illustrative: show where data goes when an option is on).
-  for (const sw of $$('[data-route] .switch')) {
-    sw.addEventListener('click', () => {
-      const on = sw.getAttribute('aria-checked') !== 'true';
-      sw.setAttribute('aria-checked', String(on));
-      sw.closest('[data-route]').classList.toggle('is-on', on);
-    });
-  }
-
-  // Optional-components configurator: live download total.
-  const config = $('[data-config]');
-  if (config) {
-    const total = $('[data-config-total]', config);
-    const update = () => {
-      const mb = $$('input[data-size]', config).filter(i => i.checked).reduce((s, i) => s + Number(i.dataset.size), 0);
-      total.textContent = mb >= 1000 ? `${(mb / 1000).toFixed(2)} GB` : `${mb} MB`;
-    };
-    config.addEventListener('change', update);
-    update();
-  }
-
-  // Ambient loop helper: runs only while visible, unpaused and with motion allowed.
-  function ambient(el, ms, step) {
-    if (!el) return;
-    let visible = false;
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(el);
-    setInterval(() => { if (visible && !isPaused() && !reducedMQ.matches && !document.hidden) step(); }, ms);
-  }
-
-  // Import queue: each file walks parse → (OCR) → index → ready, staggered, then the queue starts over.
-  const queue = $('[data-queue]');
-  if (queue) {
-    const labels = queue.dataset.stages.split('|');
-    const rows = $$('[data-q]', queue);
-    let tick = 0;
-    const render = () => rows.forEach((row, i) => {
-      const plan = row.hasAttribute('data-ocr') ? [0, 1, 2, 3, 4] : [0, 1, 3, 4];
-      const s = plan[Math.max(0, Math.min(plan.length - 1, tick - i * 2))];
-      $('[data-q-stage]', row).textContent = labels[s];
-      row.style.setProperty('--p', [0, .3, .62, .86, 1][s]);
-      row.classList.toggle('is-ready', s === 4);
-    });
-    ambient(queue, 520, () => { tick = tick > rows.length * 2 + 10 ? 0 : tick + 1; render(); });
-    if (!reducedMQ.matches) render();
-  }
-
-  // Scene tabs (WAI-ARIA tabs) with an autoplay progress line until someone takes over.
-  const tabs = $$('[data-scene-tabs] [role="tab"]'), panels = $$('[data-scene]');
-  let sceneIndex = 0, sceneAuto = !reducedMQ.matches, sceneT = 0;
-  function showScene(i, { focus = false, user = false } = {}) {
-    if (user) { sceneAuto = false; tabs.forEach(t => t.style.removeProperty('--p')); }
-    const prev = sceneIndex;
-    sceneIndex = (i + tabs.length) % tabs.length;
-    tabs.forEach((t, k) => { const on = k === sceneIndex; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
-    panels.forEach((p, k) => { p.classList.toggle('is-active', k === sceneIndex); p.classList.toggle('is-before', k < sceneIndex && k !== prev); });
-    if (focus) tabs[sceneIndex].focus();
-    sceneT = 0;
-  }
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => showScene(i, { user: true }));
-    t.addEventListener('keydown', e => {
-      const map = { ArrowRight: sceneIndex + 1, ArrowLeft: sceneIndex - 1, Home: 0, End: tabs.length - 1 };
-      if (e.key in map) { e.preventDefault(); showScene(map[e.key], { focus: true, user: true }); }
-    });
-  });
-  ambient($('[data-scene-tabs]'), 70, () => {
-    if (!sceneAuto) return;
-    sceneT += 70 / 7000;
-    tabs[sceneIndex].style.setProperty('--p', Math.min(1, sceneT).toFixed(3));
-    if (sceneT >= 1) { tabs[sceneIndex].style.removeProperty('--p'); showScene(sceneIndex + 1); }
-  });
-
   if (!window.gsap || !window.ScrollTrigger) { root.classList.add('is-ready'); return; }
 
   /* ---------- GSAP ---------- */
@@ -260,20 +188,19 @@
     if (!motion) return;
     twoPass();
 
-    /* Hero → voiceprint → device, on one pinned stage. */
+    /* Hero → voiceprint → device → a scroll-guided conversation, on one pinned stage.
+       The first INTRO of the pin hands over from the headline to the device; the rest plays the demo. */
     const hero = $('[data-hero]'), pin = $('[data-hero-pin]');
-    const copy = $('[data-hero-copy]'), vp = $('[data-voiceprint]');
-    const vpWord = $('.lettering--lead', vp), stageEl = $('[data-stage]'), device = $('[data-device]');
-    const controls = $('[data-demo-controls]');
+    const copy = $('[data-hero-copy]'), vp = $('[data-voiceprint]'), hint = $('.hero__hint');
+    const vpWord = $('.lettering--lead', vp), device = $('[data-device]');
+    const guideEl = $('[data-guide]'), controls = $('[data-demo-controls]');
+    const demo = window.IHDemo;
     if (stage) {
       hero.classList.add('hero--stage');
-      const measure = () => {
-        const top = vp.offsetTop + vp.offsetHeight + 22;
-        pin.style.setProperty('--stage-top', `${top}px`);
-      };
+      if (guideEl) guideEl.hidden = false;
+      const STEPS = 6, INTRO = 1.5, PER = .75, TOTAL = INTRO + STEPS * PER, introEnd = INTRO / TOTAL;
+      const measure = () => pin.style.setProperty('--stage-top', `${vp.offsetTop + vp.offsetHeight + 22}px`);
       measure();
-      // Where the voices converge: the baseline of the lettering, in viewport fractions.
-      // Measured at refresh (not per frame) with the voiceprint's own tween offset removed.
       let baseline = .3;
       const measureBaseline = () => {
         const r = vpWord.getBoundingClientRect();
@@ -281,102 +208,85 @@
       };
       const peek = () => innerHeight * .835 - (vp.offsetTop + vp.offsetHeight + 22);
       gsap.set(strokes(vpWord), { drawSVG: '0%' });
+      let free = null;
       const tl = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
-          trigger: hero, pin, start: 'top top', end: '+=150%', scrub: .6, invalidateOnRefresh: true,
+          trigger: hero, pin, start: 'top top', end: `+=${TOTAL * 100}%`, scrub: .5, invalidateOnRefresh: true,
           onRefreshInit: measure,
           onRefresh: measureBaseline,
           onUpdate(self) {
-            const p = self.progress;
-            // Voices converge over the first third and settle on the lettering's baseline.
-            const c = gsap.utils.clamp(0, 1, p / .34);
+            const p = self.progress, intro = Math.min(1, p / introEnd);
+            const c = gsap.utils.clamp(0, 1, intro / .34);
             field?.set({ converge: c, base: gsap.utils.interpolate(.79, baseline, gsap.parseEase('ih.change')(c)) });
+            // The walkthrough owns the window from the moment the device has settled until the pin ends.
+            const g = (p - introEnd) / (1 - introEnd - .015);
+            const done = g >= 1;
+            if (done !== free) { free = done; hero.classList.toggle('is-free', done); }
+            demo?.guide(done ? null : Math.max(0, g));
           }
         }
       });
-      tl.to(copy, { y: -70, opacity: 0, duration: .26, ease: 'power2.in' }, 0)
+      // Intro, laid out on a 0–1 clock, then stretched to its share of the pin.
+      tl.to([copy, hint], { y: -70, opacity: 0, duration: .26, ease: 'power2.in' }, 0)
         .fromTo(vp, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .16, ease: 'ih.settle' }, .2)
         .add(pen(vpWord, .32, 'none'), .3)
         .to('.field', { opacity: 0, duration: .12 }, .5)
-        // With the voices gone, the lead-in retracts into the word so it doesn't linger as an underscore.
         .to(strokes(vpWord)[0], { drawSVG: '6.5% 100%', duration: .1, ease: 'ih.change' }, .56)
         .fromTo(device, { y: peek, rotationX: 24, scale: .9 }, { y: 0, rotationX: 0, scale: 1, duration: .55, ease: 'ih.change' }, .38)
-        .fromTo(controls, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .12, ease: 'ih.settle' }, .86);
+        .fromTo(guideEl, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .1, ease: 'ih.settle' }, .88)
+        .to({}, { duration: 1 / introEnd - 1 }, 1);
       measureBaseline();
       heroST = tl.scrollTrigger;
+      $('[data-guide-skip]')?.addEventListener('click', () => go('#demo', false));
     } else {
-      // Plain reading order: the voiceprint writes itself when it scrolls into view.
+      // Plain reading order: the voiceprint writes itself when it scrolls into view; the demo plays on its own.
       gsap.set(strokes(vpWord), { drawSVG: '0%' });
       ScrollTrigger.create({ trigger: vp, start: 'top 75%', once: true, onEnter: () => pen(vpWord, 2) });
       gsap.from(device, { y: 60, opacity: 0, duration: 1.2, scrollTrigger: { trigger: device, start: 'top 90%' } });
     }
 
-    /* Pipeline: two coloured voices travel the wire, merge at "question detection", and light each station. */
-    const pipe = $('[data-pipeline]'), track = $('[data-pipe-track]'), wire = $('[data-pipe-wire]');
-    const stations = $$('[data-station]'), counter = $('[data-pipe-index]'), fill = $('[data-pipe-fill]');
-    let lit = -2;
-    function light(i) {
-      if (i === lit) return;
-      lit = i;
-      stations.forEach((s, k) => { s.classList.toggle('is-lit', k <= i); s.classList.toggle('is-current', k === i); });
-      if (counter) counter.textContent = String(Math.max(0, i) + 1).padStart(2, '0');
-    }
-    light(-1);
-    if (wide) {
-      const base = $('.wire__base', wire), them = $('.wire__them', wire), me = $('.wire__me', wire), merged = $('.wire__merged', wire), pulse = $('.wire__pulse', wire);
-      let pts = [], mergeAt = .4, len = 1;
-      const curve = (p, dy = () => 0) => {
-        let d = `M${p[0][0] - 280} ${p[0][1] + dy(0)} L${p[0][0]} ${p[0][1] + dy(0)}`;
-        for (let i = 1; i < p.length; i++) { const [x0, y0] = p[i - 1], [x1, y1] = p[i], mx = (x0 + x1) / 2; d += ` C${mx} ${y0 + dy(i - 1)} ${mx} ${y1 + dy(i)} ${x1} ${y1 + dy(i)}`; }
-        return d;
-      };
-      function layout() {
-        pts = stations.map(s => [track.offsetLeft + s.offsetLeft + s.offsetWidth / 2, track.offsetTop + s.offsetTop + 40]);
-        const w = track.scrollWidth, h = track.offsetHeight, end = pts[pts.length - 1];
-        wire.setAttribute('width', w); wire.setAttribute('height', h); wire.setAttribute('viewBox', `0 0 ${w} ${h}`);
-        const lead = pts.slice(0, 3);
-        const spread = i => [10, 6, 0][i];
-        base.setAttribute('d', `${curve(pts)} L${end[0] + 320} ${end[1]}`);
-        them.setAttribute('d', curve(lead, i => -spread(i)));
-        me.setAttribute('d', curve(lead, i => spread(i)));
-        merged.setAttribute('d', `${curve(pts.slice(2))} L${end[0] + 320} ${end[1]}`);
-        mergeAt = (pts[2][0] - (pts[0][0] - 280)) / (end[0] + 320 - (pts[0][0] - 280));
-        len = base.getTotalLength();
-      }
-      layout();
-      const dist = () => Math.max(0, track.scrollWidth - innerWidth);
-      const tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: { trigger: pipe, pin: true, scrub: .8, start: 'top top', end: () => `+=${dist() * 1.15 + innerHeight * .3}`, invalidateOnRefresh: true, onRefreshInit: layout },
-        onUpdate() {
-          const pt = base.getPointAtLength(this.progress() * len);
-          let idx = -1;
-          pts.forEach(([px], k) => { if (pt.x >= px - 30) idx = k; });
-          light(idx);
-          if (fill) fill.style.transform = `scaleX(${this.progress().toFixed(4)})`;
-        }
-      });
-      tl.to([track, wire], { x: () => -dist() }, 0)
-        .fromTo([them, me], { drawSVG: '0%' }, { drawSVG: '100%', duration: mergeAt }, 0)
-        .fromTo(merged, { drawSVG: '0%' }, { drawSVG: '100%', duration: 1 - mergeAt }, mergeAt)
-        .to(pulse, { motionPath: { path: base, align: base, alignOrigin: [.5, .5] }, duration: 1 }, 0);
-    } else {
-      ScrollTrigger.create({
-        trigger: track, start: 'top 70%', end: 'bottom 60%', scrub: true,
-        onUpdate: s => { track.style.setProperty('--pipe-progress', s.progress.toFixed(3)); light(Math.floor(s.progress * stations.length * .999)); }
-      });
+    /* Interlude: each line surfaces from the paper as it reaches the middle of the screen. */
+    for (const line of $$('[data-line]')) {
+      gsap.fromTo(line, { opacity: .08, y: 18 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: line, start: 'top 85%', end: 'top 50%', scrub: .6 } });
     }
 
-    /* Screen awareness: draw the capture region, then tick off the points as you scroll. */
-    const crop = $('[data-crop]'), follow = $('[data-follow]'), items = $$('[data-follow-item]');
-    gsap.timeline({ scrollTrigger: { trigger: '[data-screen]', start: 'top 70%', end: 'bottom 70%', scrub: .6,
-      onUpdate: s => items.forEach((li, k) => li.classList.toggle('is-done', s.progress > .38 + k * .17)) } })
-      .fromTo(crop, { scaleX: .08, scaleY: .1, opacity: 0 }, { scaleX: 1, scaleY: 1, opacity: 1, duration: .35, ease: 'ih.change' }, 0)
-      .fromTo(follow, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .2 }, .25);
+    /* Moments: the chapter in the middle of the screen chooses the window floating on the pool. */
+    const cards = $$('[data-glass-card]'), moments = $$('[data-moment]'), index = $$('[data-index]');
+    let shown = 0;
+    const show = i => {
+      if (i === shown) return;
+      const from = cards[shown], to = cards[i], dir = i > shown ? 1 : -1;
+      shown = i;
+      gsap.to(from, { opacity: 0, y: -40 * dir, rotationX: 8 * dir, duration: .6, ease: 'ih.change', onComplete: () => from.classList.remove('is-active') });
+      to.classList.add('is-active');
+      gsap.fromTo(to, { opacity: 0, y: 50 * dir, rotationX: -10 * dir }, { opacity: 1, y: 0, rotationX: 0, duration: 1, ease: 'ih.settle', delay: .1 });
+      index.forEach((a, k) => a.classList.toggle('is-active', k === i));
+      field?.pool?.drop(.5, .5, .09, .08);
+    };
+    index[0]?.classList.add('is-active');
+    moments.forEach((m, i) => ScrollTrigger.create({ trigger: m, start: 'top 55%', end: 'bottom 55%', onToggle: s => s.isActive && show(i) }));
+    for (const m of moments) {
+      const parts = $$('.moment__kicker, .moment__title, .moment__echo, .moment__body, .moment__aside', m);
+      gsap.from(parts, { y: 36, opacity: 0, duration: 1.1, stagger: .07, scrollTrigger: { trigger: m, start: 'top 70%' } });
+    }
 
-    /* Review timeline bars grow when they arrive. */
-    gsap.from('[data-timeline] i', { scaleX: 0, duration: 1.2, stagger: .1, scrollTrigger: { trigger: '[data-timeline]', start: 'top 80%' } });
+    /* Section headings rise line by line behind a mask. refreshPriority -1: measured after the pins above. */
+    for (const h of $$('.section .display')) {
+      const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'line' });
+      gsap.from(split.lines, { yPercent: 105, duration: 1.1, stagger: .08, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
+    }
+    // Content reveals use IntersectionObserver, so pinned sections and hash jumps can't strand them hidden.
+    const reveal = $$('.caption-serif, .principles__list li, .sheet div, .faq__list details, .specs div, .index li')
+      .filter(el => el.getBoundingClientRect().top > innerHeight * .9);
+    gsap.set(reveal, { y: 28, opacity: 0 });
+    const pending = new Set(reveal);
+    const showEls = els => { els = els.filter(el => pending.delete(el)); if (els.length) gsap.to(els, { y: 0, opacity: 1, duration: 1, stagger: .06, overwrite: true }); };
+    revealIO = new IntersectionObserver(entries => {
+      showEls(entries.filter(e => e.isIntersecting || e.boundingClientRect.top < 0).map(e => { revealIO.unobserve(e.target); return e.target; }));
+    }, { rootMargin: '0px 0px -8% 0px' });
+    reveal.forEach(el => revealIO.observe(el));
+    ScrollTrigger.addEventListener('refresh', () => showEls([...pending].filter(el => el.getBoundingClientRect().top < innerHeight)));
 
     /* Download: the same voiceprint, short — two voices close into a line and the lettering writes. */
     const dl = $('[data-download]'), dlWord = $('.download__word .lettering', dl), dlLine = $('.download__line', dl);
@@ -387,30 +297,10 @@
       .to(dlLine, { scaleX: 1, duration: .3, ease: 'ih.change' }, .35)
       .add(pen(dlWord, .5, 'none'), .5);
 
-    /* Section headings rise line by line behind a mask. refreshPriority -1: measured after the pins above. */
-    for (const h of $$('.section .display')) {
-      const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'line' });
-      gsap.from(split.lines, { yPercent: 105, duration: 1.1, stagger: .08, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
-    }
-    // Content reveals use IntersectionObserver, so pinned sections and hash jumps can't strand them hidden:
-    // anything already above the viewport shows at once, anything below rises in as it arrives.
-    const reveal = $$('.section .lead, .points li, .ticks li, .view-card, .queue, .mdcard, .config, .flowmap, .faq__list details, .timeline li, .specs div, .index li, .scene__shot, .slide-stage')
-      .filter(el => el.getBoundingClientRect().top > innerHeight * .9);
-    gsap.set(reveal, { y: 28, opacity: 0 });
-    const pending = new Set(reveal);
-    const show = els => { els = els.filter(el => pending.delete(el)); if (els.length) gsap.to(els, { y: 0, opacity: 1, duration: 1, stagger: .06, overwrite: true }); };
-    revealIO = new IntersectionObserver(entries => {
-      show(entries.filter(e => e.isIntersecting || e.boundingClientRect.top < 0).map(e => { revealIO.unobserve(e.target); return e.target; }));
-    }, { rootMargin: '0px 0px -8% 0px' });
-    reveal.forEach(el => revealIO.observe(el));
-    // Belt and braces for jumps (hash links, restored scroll): after every layout pass, show what's already passed.
-    ScrollTrigger.addEventListener('refresh', () => show([...pending].filter(el => el.getBoundingClientRect().top < innerHeight)));
-
-    // Re-measure once fonts and images settle (the display face changes line breaks).
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
     // Pins add height after the browser already jumped to a #hash, so land there again once layout settles.
     addEventListener('load', () => { ScrollTrigger.refresh(); if (location.hash.length > 1) requestAnimationFrame(() => go(location.hash, true)); }, { once: true });
-    return () => hero.classList.remove('hero--stage');
+    return () => { hero.classList.remove('hero--stage', 'is-free'); demo?.guide(null); };
   });
   reducedMQ.addEventListener('change', () => location.reload());
 })();

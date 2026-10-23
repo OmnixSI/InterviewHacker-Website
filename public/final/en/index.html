@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f5f1">
   <title>InterviewHacker — Hear every question. Say your next line.</title>
   <meta name="description" content="InterviewHacker is a native macOS assistant for live conversations. It hears the other side and you on separate channels, detects the questions meant for you, and streams answers you can say out loud, grounded in your own material.">
   <meta property="og:title" content="InterviewHacker — Hear every question. Say your next line.">
@@ -20,10 +19,10 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/manifest/apple-touch-icon.png">
   <link rel="preload" href="../assets/fonts/serif/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/fonts/fonts.css?v=4ca7328ffc93">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="../assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="../style.css?v=3a0a980ae430">
-  <script src="../scripts/bootstrap.js?v=7d45a56b8ac2"></script>
+  <link rel="stylesheet" href="../style.css?v=fce79a1bf8db">
+  <script src="../scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -58,19 +57,15 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="Sections">
         <a href="#demo"><i>01</i>Demo</a>
-        <a href="#how"><i>02</i>How it works</a>
-        <a href="#screen"><i>03</i>Capabilities</a>
-        <a href="#scenes"><i>06</i>Scenes</a>
-        <a href="#privacy"><i>08</i>Privacy</a>
-        <a href="#faq"><i>09</i>FAQ</a>
+        <a href="#scenes"><i>02</i>Moments</a>
+        <a href="#privacy"><i>03</i>Privacy</a>
+        <a href="#specs"><i>04</i>Specs</a>
+        <a href="#faq"><i>05</i>FAQ</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="../" hreflang="zh-CN" lang="zh-CN" data-lang-switch aria-label="切换到中文">中</a>
         <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="Pause motion" data-label-on="Resume motion" data-label-off="Pause motion">
           <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
-        </button>
-        <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle dark mode">
-          <svg class="when-light" aria-hidden="true"><use href="#i-moon"/></svg><svg class="when-dark" aria-hidden="true"><use href="#i-sun"/></svg>
         </button>
         <a class="btn btn--ink btn--sm" href="#download">Download</a>
         <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu" data-label-open="Close menu" data-label-closed="Open menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -88,7 +83,7 @@
         </div>
 
         <div class="hero__copy" data-hero-copy>
-          <p class="eyebrow eyebrow--pill"><span class="live-dot" aria-hidden="true"></span>InterviewHacker v1.9.0 · Native macOS · On-device speech recognition by default</p>
+          <p class="eyebrow eyebrow--quiet mono">InterviewHacker <span>v1.9.0</span> <span>macOS</span></p>
           <h1 class="hero__title" id="hero-title" data-two-pass data-draft="Hear every |questoin>question|.¶Say your next |lion>line.">
             <span class="sr-only">Hear every question. Say your next line.</span>
             <span class="hero__final" aria-hidden="true">
@@ -96,16 +91,17 @@
               <span class="hero__line">Say your<span class="hero__lettering"><svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></span>
             </span>
           </h1>
-          <p class="hero__lead">In interviews, talks, meetings and classes, it hears the other side and you on separate channels, works out which sentence is a question for you, and streams an answer you can say out loud — grounded in what you prepared.</p>
+          <p class="hero__lead">A quiet companion for the conversations that matter.<br>It hears them, and you — and when the question lands, your next line is already there.</p>
           <div class="hero__actions">
             <a class="btn btn--ink" href="#download"><svg aria-hidden="true"><use href="#i-download"/></svg>Download for macOS</a>
             <a class="btn btn--ghost" href="#demo">See it work<svg aria-hidden="true"><use href="#i-down"/></svg></a>
           </div>
-          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>Download requires repository access</span></p>
+          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>Repository access required</span></p>
         </div>
+        <p class="hero__hint mono" aria-hidden="true"><i></i>Scroll to play a full interview, step by step</p>
 
         <div class="voiceprint" data-voiceprint>
-          <p class="eyebrow mono"><b>FIG 01</b>Live demo</p>
+          <p class="eyebrow mono"><b>№ 01</b>Live demo</p>
           <h2 class="voiceprint__title" id="demo-title"><span class="voiceprint__text">From their question to your</span><span class="voiceprint__word"><svg class="lettering lettering--lead" viewBox="20 20 690 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M20 200C25 200 39.8 200.7 50 200C60.2 199.3 71.3 204.7 80.9 196C90.6 187.3 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
         </div>
 
@@ -166,7 +162,18 @@
           </div>
         </div>
 
+        <div class="guide" data-guide hidden>
+          <div class="guide__now">
+            <span class="guide__no mono"><b data-guide-no>01</b> / 06</span>
+            <p class="guide__title" data-guide-title></p>
+            <p class="guide__desc" data-guide-desc></p>
+          </div>
+          <ol class="guide__bar" data-guide-bar role="list"></ol>
+          <button class="guide__skip mono" type="button" data-guide-skip>Skip<svg aria-hidden="true"><use href="#i-down"/></svg></button>
+        </div>
+
         <div class="demo-controls" id="demo" data-demo-controls>
+          <p class="demo-controls__hint mono"><i aria-hidden="true"></i>Your turn: switch scenes, try a rewrite, or press ⌘⇧↩</p>
           <div class="segmented" role="tablist" aria-label="Demo scene" data-demo-scenes>
             <button role="tab" type="button" aria-selected="true" data-scene-key="interview">Interview</button>
             <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="talk">Talk</button>
@@ -182,258 +189,153 @@
       </div>
     </section>
 
-    <section class="section demo-notes" aria-label="About the demo">
+    <!-- Interlude: the moments the product is for, one line at a time. -->
+    <section class="interlude" aria-label="Prologue" data-interlude>
+      <div class="container interlude__lines">
+        <p data-line style="--x:0">Conversations never wait for you to be ready.</p>
+        <p data-line style="--x:2">The two seconds after an interviewer’s question.</p>
+        <p data-line style="--x:5">A sudden question at lab meeting.</p>
+        <p data-line style="--x:1">Across the table: <em>“another eight percent off.”</em></p>
+        <p data-line style="--x:4" class="interlude__turn">It hears the question,</p>
+        <p data-line style="--x:6" class="interlude__turn">and quietly sets your next line before you.</p>
+      </div>
+    </section>
+
+    <!-- Moments: a still pool on one side, the scene's window floating on it; the moments scroll on the other. -->
+    <section class="moments" id="scenes" aria-labelledby="scenes-title" data-moments>
+      <h2 class="sr-only" id="scenes-title">Five moments</h2>
+      <div class="moments__stage" aria-hidden="true">
+        <div class="pool"><canvas data-pool></canvas></div>
+        <div class="glass" data-glass>
+          <div class="glass__card glass__card--prompter is-active" data-glass-card>
+            <span class="glass__cam"></span>
+            <div class="mini-prompter">
+              <p class="mini-prompter__status mono"><i class="live-dot"></i>Listening · follow-up</p>
+              <p class="mini-prompter__q">When the database and cache both change, how do you keep them consistent?</p>
+              <p class="mini-prompter__a">Write the database, then delete the cache; retry failed deletes, with a binlog subscriber as backstop.</p>
+              <p class="mini-prompter__src mono">resume.pdf · p.2</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-slide">
+              <div class="mini-slide__page"><span class="mono">Mamba · 4 / 18</span><b>Selective state spaces</b><i></i><i></i><i></i></div>
+              <ol class="mini-slide__points">
+                <li class="is-done">Input-dependent parameters</li>
+                <li class="is-done">Linear-time scan</li>
+                <li>Long-sequence cost vs. attention</li>
+              </ol>
+              <p class="mini-slide__next"><span class="mono">Next</span>“Next, throughput on long sequences.”</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-phone">
+              <p class="mini-phone__bar mono"><span>14:07</span><span>Companion</span></p>
+              <p class="mini-phone__q">“Could you take another 8% off?”</p>
+              <p class="mini-phone__a">Tier it by volume: 5% above 12,000 units, with terms extended to 90 days.</p>
+              <ul class="mini-phone__minutes"><li><b>Decision</b>Tiered pricing, confirm in writing</li><li><b>To-do</b>Finance to approve 90-day terms</li></ul>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-crop">
+              <div class="mini-crop__shot"><span class="mono">Lecture 9 · slide 23</span><b>What happens on a TLB miss?</b><i class="mini-crop__frame"></i></div>
+              <p class="mini-crop__a">Hardware walks the page table first; a valid entry refills the TLB, an invalid one faults to the OS.</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-review">
+              <p class="mini-review__head"><b>Round 2 · backend</b><span class="mono">17 questions</span></p>
+              <ul><li>Order system and stock deduction</li><li>Cache consistency · two follow-ups</li><li>Rate limiting and fallback</li></ul>
+              <p class="mini-review__weak"><span class="mono">Weak spot</span>Distributed-transaction trade-offs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="moments__chapters">
+        <nav class="moments__index mono" aria-label="Moments">
+          <a href="#moment-interview" data-index><span>01</span>Interview</a>
+          <a href="#moment-talk" data-index><span>02</span>Talk</a>
+          <a href="#moment-meeting" data-index><span>03</span>Meeting</a>
+          <a href="#moment-class" data-index><span>04</span>Class</a>
+          <a href="#moment-after" data-index><span>05</span>After</a>
+        </nav>
+        <article class="moment" id="moment-interview" data-moment>
+          <p class="moment__kicker mono">01 · Job interview</p>
+          <h3 class="moment__title">Two seconds of silence,<br>no longer blank.</h3>
+          <p class="moment__echo">两秒的停顿，不再空白。</p>
+          <p class="moment__body">When the interviewer drills into cache consistency, the answer is already in the bar under your camera — built from your own résumé, your own projects, your own numbers.</p>
+          <p class="moment__aside">Floating teleprompter · click-through · hide with ⌘⇧\</p>
+        </article>
+        <article class="moment" id="moment-talk" data-moment>
+          <p class="moment__kicker mono">02 · Academic talk</p>
+          <h3 class="moment__title">Wherever you are in the deck,<br>it’s on the same slide.</h3>
+          <p class="moment__echo">讲到哪一页，它就跟到哪一页。</p>
+          <p class="moment__body">Your script follows the current slide, ticks off what you’ve covered and offers the next transition. When your advisor cuts in, the explanation cites the paper’s page.</p>
+          <p class="moment__aside">Pick a window, display or region · each answer keeps its frame</p>
+        </article>
+        <article class="moment" id="moment-meeting" data-moment>
+          <p class="moment__kicker mono">03 · Negotiation</p>
+          <h3 class="moment__title">The floor stays in your head.<br>The words, in front of you.</h3>
+          <p class="moment__echo">底线在心里，措辞在眼前。</p>
+          <p class="moment__body">When they push for another eight percent, it phrases a tiered offer within the floor you set for this meeting — and keeps decisions, to-dos and disagreements as you go.</p>
+          <p class="moment__aside">Phone companion on the table · paired by QR, off by default</p>
+        </article>
+        <article class="moment" id="moment-class" data-moment>
+          <p class="moment__kicker mono">04 · Online class</p>
+          <h3 class="moment__title">Called on,<br>and calm.</h3>
+          <p class="moment__echo">被点名的时候，也不慌。</p>
+          <p class="moment__body">Asked what happens on a TLB miss, the answer lines up with lecture 9, slide 23. Anything on screen — a question, code, a chart — can be cropped and asked.</p>
+          <p class="moment__aside">Ask with a screenshot · aligned to the slides</p>
+        </article>
+        <article class="moment" id="moment-after" data-moment>
+          <p class="moment__kicker mono">05 · Afterwards</p>
+          <h3 class="moment__title">Every conversation<br>prepares the next.</h3>
+          <p class="moment__echo">每一场，都留给下一场。</p>
+          <p class="moment__body">Transcript, questions and the material used become a summary and a question list. Answers that worked stay in the scene’s library; recurring weak spots surface in a stage review.</p>
+          <p class="moment__aside">Searchable · export to Markdown · delete any time</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Principles: three quiet statements instead of a data sheet. -->
+    <section class="section principles" id="privacy" aria-labelledby="privacy-title">
       <div class="container">
-        <div class="ruler mono" aria-hidden="true" data-ruler><span>00:00</span><span>00:04</span><span>00:08</span><span>00:12</span><span>00:16</span><span>00:20</span><span>00:24</span><i data-ruler-head></i></div>
-        <ol class="points" role="list">
-          <li data-point="listen"><span class="mono">A</span><h3>Two channels</h3><p>The meeting window is them, the microphone is you. Each channel is recognised on its own, so crosstalk never blends; speaker echo is greyed out and can be restored in one click.</p></li>
-          <li data-point="detect"><span class="mono">B</span><h3>Question detection</h3><p>It tells statements, unfinished thoughts, questions, requests and follow-ups apart, filters filler and self-answered questions, and waits until you finish speaking.</p></li>
-          <li data-point="answer"><span class="mono">C</span><h3>Streaming answers</h3><p>The answer starts streaming as soon as the question ends, in short first-person sentences; if they add the second half, the answer updates.</p></li>
+        <p class="eyebrow mono"><b>№ 03</b>Privacy</p>
+        <h2 id="privacy-title" class="display">Quiet is<br>a form of respect.</h2>
+        <p class="caption-serif">安静，也是一种尊重。</p>
+        <ol class="principles__list" role="list">
+          <li><span class="mono">i.</span><h3>Your voice stays on this Mac.</h3><p>Speech is recognised offline on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it.</p></li>
+          <li><span class="mono">ii.</span><h3>Only the passages that matter.</h3><p>Answers use only the passages retrieved for the question at hand — never your whole library. Material and records stay on your Mac.</p></li>
+          <li><span class="mono">iii.</span><h3>You decide what leaves.</h3><p>You choose the answer engine and API keys live in the Keychain; web search and the phone companion are off by default.</p></li>
         </ol>
-        <p class="fine">Interactive illustration: a scripted replay that never uses your microphone, a model or the network. ⌘⇧↩ works here too.</p>
+        <p class="fine">No stealth promises: get consent before recording, and follow the rules of the room. <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">Full data notes</a></p>
       </div>
     </section>
 
-    <!-- 02 · How it works -->
-    <section class="section how band-night" id="how" aria-labelledby="how-title">
-      <div class="how__pin" data-pipeline>
-        <div class="container how__head">
-          <p class="eyebrow mono"><b>FIG 02</b>How it works</p>
-          <h2 id="how-title" class="display">One continuous path<br>from sound to sentence.</h2>
-          <p class="how__counter mono" aria-hidden="true"><span data-pipe-index>01</span> / 06</p>
-        </div>
-        <div class="how__viewport">
-          <svg class="wire" data-pipe-wire aria-hidden="true"><path class="wire__base"/><path class="wire__them"/><path class="wire__me"/><path class="wire__merged"/><circle class="wire__pulse" r="6"/></svg>
-          <ol class="how__track" data-pipe-track role="list">
-            <li class="station" data-station>
-              <span class="station__no mono">01</span>
-              <h3>Two channels</h3>
-              <div class="station__viz viz-lanes" aria-hidden="true"><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i></div>
-              <p>System audio is them, the microphone is you — captured and recognised separately. It follows your default mic and reconnects if AirPods drop.</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">02</span>
-              <h3>Two passes</h3>
-              <div class="station__viz viz-pass mono" aria-hidden="true"><span class="viz-pass__draft">how do you dedeuct stock</span><span class="viz-pass__final">how do you deduct stock</span></div>
-              <p>The on-device X-ASR streaming model writes as people speak; when a sentence ends, an offline model refines it. Audio is not uploaded by default, and raw recordings are never saved.</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">03</span>
-              <h3>Question detection</h3>
-              <div class="station__viz viz-tags" aria-hidden="true"><b>Statement</b><b>Unfinished</b><b class="on">Question</b><b>Request</b><b>Follow-up</b></div>
-              <p>It ignores “can you hear me”, filler and self-answered questions, and starts answering about 0.6 s after a question ends.</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">04</span>
-              <h3>Scene retrieval</h3>
-              <div class="station__viz viz-files" aria-hidden="true"><span>resume.pdf · p.2</span><span>order-system.md · §3</span><span>notes · cache consistency</span></div>
-              <p>Only the relevant passages from this scene's material, experience library and question bank are retrieved, with sources — never your whole library. Optional on-device semantic search waits at most 500 ms, then falls back to keyword results.</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">05</span>
-              <h3>Streaming answer</h3>
-              <div class="station__viz viz-stream" aria-hidden="true"><span>Update the database, then delete the cache</span><i></i></div>
-              <p>You choose the engine: Codex or any OpenAI-compatible API. Questions that need fresh facts are searched in the background and get a sourced [1] [2] revision you can apply.</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">06</span>
-              <h3>Anywhere you look</h3>
-              <div class="station__viz viz-devices" aria-hidden="true"><i class="lap"></i><i class="bar"></i><i class="phone"></i></div>
-              <p>The assistant window, a floating teleprompter under your camera, or a phone paired by QR code.</p>
-            </li>
-          </ol>
-        </div>
-        <div class="container how__rail" aria-hidden="true"><span data-pipe-fill></span></div>
-      </div>
-    </section>
-
-    <!-- 03 · Screen awareness -->
-    <section class="section screen" id="screen" aria-labelledby="screen-title" data-screen>
-      <div class="container screen__grid">
-        <div class="screen__copy">
-          <p class="eyebrow mono"><b>FIG 03</b>Screen awareness · v1.9</p>
-          <h2 id="screen-title" class="display">It also sees<br>the slide you’re on.</h2>
-          <p class="lead">Pick a window, a display or a region. System OCR gives quick context, changed areas get an on-device enhanced pass, and every answer freezes the frame and sources it used.</p>
-          <ul class="ticks" role="list">
-            <li>Talk mode follows the current slide with its points, transitions and likely questions</li>
-            <li>Points you have covered tick themselves off</li>
-            <li>Crop a question, code or a chart on screen and ask about it</li>
-          </ul>
-        </div>
-        <div class="slide-stage" aria-hidden="true">
-          <div class="slide">
-            <p class="slide__kicker mono">Mamba · 4 / 18</p>
-            <p class="slide__title">Selective state spaces</p>
-            <ul><li>Input-dependent parameters</li><li>Linear-time scan</li><li>Hardware-aware parallelism</li></ul>
-            <svg class="slide__chart" viewBox="0 0 200 90"><path d="M8 80 L8 8 M8 80 L192 80" /><path class="a" d="M12 76 C60 72 110 56 190 14"/><path class="b" d="M12 76 C60 74 120 70 190 60"/></svg>
-            <span class="crop" data-crop><i></i><i></i><i></i><i></i><b class="mono">Region · 1280×720</b></span>
-          </div>
-          <div class="follow" data-follow>
-            <p class="follow__head"><b>This slide</b><span class="mono">4 / 18</span></p>
-            <ol role="list">
-              <li data-follow-item>Why parameters depend on input</li>
-              <li data-follow-item>Why the scan stays linear-time</li>
-              <li data-follow-item>Long-sequence cost vs. attention</li>
-            </ol>
-            <p class="follow__next"><span class="mono">Transition</span>“Next, let’s look at throughput on long sequences.”</p>
-            <p class="follow__next"><span class="mono">Likely asked</span>“If parameters depend on input, how is training still parallel?”</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 · Materials -->
-    <section class="section materials" id="materials" aria-labelledby="materials-title" data-materials>
-      <div class="container">
-        <header class="section-head">
-          <p class="eyebrow mono"><b>FIG 04</b>Materials</p>
-          <h2 id="materials-title" class="display">Read it all ahead.<br>Use only what matters.</h2>
-          <p class="lead">PDFs (scans included), Word, PowerPoint, Excel, CSV, HTML and images become structured Markdown on your Mac, filed by category automatically; every retrieved passage cites its category, file and page.</p>
+    <!-- Specifications: every technical fact lives here, once. -->
+    <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
+      <div class="container specs-sheet__grid">
+        <header>
+          <p class="eyebrow mono"><b>№ 04</b>Specifications</p>
+          <h2 id="specs-title" class="display">Specifications</h2>
         </header>
-        <div class="materials__grid">
-          <div class="queue" data-queue data-stages="Queued|Parsing|OCR|Indexing|Ready">
-            <p class="queue__head"><b>Import queue</b><span class="mono">v1.9</span></p>
-            <ol role="list">
-              <li data-q><span class="ext">PDF</span><span class="name">order-system-design.pdf</span><span class="q-stage mono" data-q-stage>Ready</span><i></i></li>
-              <li data-q><span class="ext">PPTX</span><span class="name">group-meeting-mamba.pptx</span><span class="q-stage mono" data-q-stage>Ready</span><i></i></li>
-              <li data-q data-ocr><span class="ext">PDF</span><span class="name">lecture-09-virtual-memory (scan).pdf</span><span class="q-stage mono" data-q-stage>Ready</span><i></i></li>
-              <li data-q><span class="ext">XLSX</span><span class="name">annual-pricing.xlsx</span><span class="q-stage mono" data-q-stage>Ready</span><i></i></li>
-              <li data-q><span class="ext">DOCX</span><span class="name">resume-backend.docx</span><span class="q-stage mono" data-q-stage>Ready</span><i></i></li>
-            </ol>
-            <p class="queue__foot">Each file shows parsing, OCR and indexing progress, and can be cancelled or retried; up to 512 MiB per file and 2,000 pages per PDF.</p>
-          </div>
-          <div class="mdcard" aria-hidden="true">
-            <p class="mdcard__path mono">material / projects / order-system-design.md</p>
-            <pre class="mono"><b>## 3. Cache consistency</b>
-- Update the database, then delete the cache
-- Failed deletes go to a retry queue
-- Canal binlog subscriber as a backstop
-<span>&gt; source: order-system-design.pdf · p.12</span></pre>
-          </div>
-          <div class="config" data-config>
-            <p class="config__head"><b>Optional components</b><span class="mono">Works without them</span></p>
-            <label class="config__row"><input type="checkbox" data-size="649"><span><b>On-device semantic search</b><small>Qwen3-Embedding-0.6B Q8 · 1024-dim vectors</small></span><em class="mono">649 MB</em></label>
-            <label class="config__row"><input type="checkbox" data-size="1230"><span><b>Layout-aware OCR</b><small>Paddle Q8 · complex layouts and tables</small></span><em class="mono">1.23 GB</em></label>
-            <p class="config__total"><span>Extra download</span><b class="mono" data-config-total>0 MB</b></p>
-            <p class="config__foot">System OCR and keyword search are the default. The document runtime is a separate ~186 MB download, 632 MB installed.</p>
-          </div>
-        </div>
+        <dl class="sheet">
+          <div><dt>Version</dt><dd>v1.9.0</dd></div>
+          <div><dt>System</dt><dd>macOS 14 or later · Apple Silicon</dd></div>
+          <div><dt>To start</dt><dd>Speech recognition plus an answer engine. Speech runs on a local model by default (one-time ~270 MB download); answers use your own Codex or any OpenAI-compatible API.</dd></div>
+          <div><dt>Recognition</dt><dd>Them and you on separate channels; streaming text with a refinement pass at each sentence. Apple Speech (macOS 26) or cloud recognition are optional.</dd></div>
+          <div><dt>Material</dt><dd>PDF (incl. scans), Word, PowerPoint, Excel, CSV, HTML and images, converted to Markdown on your Mac; optional on-device semantic search (1024-dim vectors, waits at most 500 ms before falling back to keywords).</dd></div>
+          <div><dt>Views</dt><dd>Assistant window · floating teleprompter · phone companion (Android debug build; iOS not yet available)</dd></div>
+          <div><dt>Install</dt><dd>DMG, about 18 MB. Not notarised; on first launch choose “Open Anyway” in Privacy &amp; Security.</dd></div>
+          <div><dt>Access</dt><dd>Distributed through a private repository; download requires repository access.</dd></div>
+        </dl>
+        <p class="fine specs-sheet__note">The demo on this page is an interactive illustration: a scripted replay with no microphone, model or network access.</p>
       </div>
     </section>
 
-    <!-- 05 · Views -->
-    <section class="section views" id="views" aria-labelledby="views-title">
-      <div class="container">
-        <header class="section-head section-head--split">
-          <div>
-            <p class="eyebrow mono"><b>FIG 05</b>Anywhere you look</p>
-            <h2 id="views-title" class="display">Answers appear<br>where you already look.</h2>
-          </div>
-          <p class="lead">One answer, three ways to read it: the full workspace, a teleprompter under your camera, or a phone beside you.</p>
-        </header>
-        <div class="views__grid">
-          <article class="view-card">
-            <figure><img src="../assets/ih/teleprompter-light.webp" data-ih-light="../assets/ih/teleprompter-light.webp" data-ih-dark="../assets/ih/teleprompter-dark.webp" width="1600" height="800" alt="The floating teleprompter with the current question and answer" loading="lazy" decoding="async"></figure>
-            <h3>Floating teleprompter</h3>
-            <p>A translucent window under your camera. Clicks pass through while its own buttons still work; adjust size and opacity, and hide every window with ⌘⇧\.</p>
-          </article>
-          <article class="view-card">
-            <figure><img src="../assets/scenes/phone-light.svg" data-ih-light="../assets/scenes/phone-light.svg" data-ih-dark="../assets/scenes/phone-dark.svg" width="1600" height="1044" alt="The phone companion mirroring the question and answer" loading="lazy" decoding="async"></figure>
-            <h3>Phone companion</h3>
-            <p>Pair by QR code over your local network or a self-hosted end-to-end encrypted relay, to read and remote-control. Off by default; an Android debug build is available, iOS is not yet.</p>
-          </article>
-          <article class="view-card">
-            <figure><img src="../assets/ih/workspace-knowledge-light.webp" data-ih-light="../assets/ih/workspace-knowledge-light.webp" data-ih-dark="../assets/ih/workspace-knowledge-dark.webp" width="1600" height="1000" alt="Scene workspace with materials and knowledge" loading="lazy" decoding="async"></figure>
-            <h3>Scene workspace</h3>
-            <p>Full transcript, answer history, sources and rewrites in one window — for preparation and a closer look mid-session.</p>
-          </article>
-        </div>
-        <p class="fine">Hiding windows from a full-screen share is not guaranteed; a built-in share-visibility test lets you check before the call.</p>
-      </div>
-    </section>
-
-    <!-- 06 · Scenes -->
-    <section class="section scenes" id="scenes" aria-labelledby="scenes-title">
-      <div class="container">
-        <header class="section-head section-head--split">
-          <div>
-            <p class="eyebrow mono"><b>FIG 06</b>Scenes</p>
-            <h2 id="scenes-title" class="display">Each conversation<br>gets its own context.</h2>
-          </div>
-          <p class="lead">Five modes — interview, academic talk, business meeting, class and general. Each scene keeps its own fields, material categories, answer rules, experience library and question bank, and answers draw only on the active scene.</p>
-        </header>
-        <div class="scenes__tabs" role="tablist" aria-label="Scenes" data-scene-tabs>
-          <button role="tab" type="button" id="tab-interview" aria-controls="panel-interview" aria-selected="true"><span class="mono">01</span>Job interview<i></i></button>
-          <button role="tab" type="button" id="tab-talk" aria-controls="panel-talk" aria-selected="false" tabindex="-1"><span class="mono">02</span>Academic talk<i></i></button>
-          <button role="tab" type="button" id="tab-meeting" aria-controls="panel-meeting" aria-selected="false" tabindex="-1"><span class="mono">03</span>Business meeting<i></i></button>
-          <button role="tab" type="button" id="tab-class" aria-controls="panel-class" aria-selected="false" tabindex="-1"><span class="mono">04</span>Online class<i></i></button>
-        </div>
-        <div class="scenes__panels">
-          <article class="scene is-active" role="tabpanel" id="panel-interview" aria-labelledby="tab-interview" data-scene>
-            <div class="scene__copy"><h3>Backend engineer · round 2</h3><p>Bring your résumé, the job description and interview notes. When the interviewer drills from the order system into cache consistency, answers cite your own project’s design and numbers.</p><p class="tags"><b>Résumé</b><b>JD</b><b>Interview notes</b><b>Project docs</b></p></div>
-            <figure class="scene__shot"><img src="../assets/scenes/conversation-light.svg" data-ih-light="../assets/scenes/conversation-light.svg" data-ih-dark="../assets/scenes/conversation-dark.svg" width="1600" height="1044" alt="A suggested answer to a follow-up about cache consistency" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-talk" aria-labelledby="tab-talk" data-scene>
-            <div class="scene__copy"><h3>Lab meeting · presenting Mamba</h3><p>Your script follows the current slide, ticks off what you’ve covered and suggests the next transition. When your advisor asks a question, the explanation cites the paper’s page.</p><p class="tags"><b>Paper</b><b>Slides</b><b>Script</b><b>Likely questions</b></p></div>
-            <figure class="scene__shot"><img src="../assets/scenes/lecture-light.svg" data-ih-light="../assets/scenes/lecture-light.svg" data-ih-dark="../assets/scenes/lecture-dark.svg" width="1600" height="1044" alt="Paper talk: script following and an advisor’s question" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-meeting" aria-labelledby="tab-meeting" data-scene>
-            <div class="scene__copy"><h3>Distributor · annual renewal</h3><p>When they push for another 8% off, it suggests a tiered offer within the floor you set for this scene — while keeping live minutes of decisions, to-dos and disagreements.</p><p class="tags"><b>Agenda</b><b>Price sheet</b><b>Our floor</b><b>Minutes</b></p></div>
-            <figure class="scene__shot"><img src="../assets/scenes/meeting-light.svg" data-ih-light="../assets/scenes/meeting-light.svg" data-ih-dark="../assets/scenes/meeting-dark.svg" width="1600" height="1044" alt="Renewal negotiation: live minutes and pricing suggestions" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-class" aria-labelledby="tab-class" data-scene>
-            <div class="scene__copy"><h3>Operating systems · virtual memory</h3><p>Called on in class — “what happens on a TLB miss?” — the answer lines up with lecture 9, slide 23; afterwards, review the key points and what’s still unclear.</p><p class="tags"><b>Slides</b><b>Notes</b><b>Assignments</b><b>Textbook</b></p></div>
-            <figure class="scene__shot"><img src="../assets/scenes/course-light.svg" data-ih-light="../assets/scenes/course-light.svg" data-ih-dark="../assets/scenes/course-dark.svg" width="1600" height="1044" alt="Online class: slides aligned to the teacher’s question" loading="lazy" decoding="async"></figure>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 · Review loop -->
-    <section class="section review band-night" id="review" aria-labelledby="review-title" data-review>
-      <div class="container review__grid">
-        <div class="review__copy">
-          <p class="eyebrow mono"><b>FIG 07</b>Records and review</p>
-          <h2 id="review-title" class="display">Every session<br>informs the next.</h2>
-          <p class="lead">Each session keeps its transcript, questions, prompts and the material it used, then produces a summary, a full question list, to-dos and a review. What worked joins the scene’s experience library and question bank, with similar questions merged.</p>
-          <p class="fine">Records are searchable and export to Markdown; backups run after each session and before major changes, and recording can be turned off or deleted at any time.</p>
-        </div>
-        <ol class="timeline" role="list" data-timeline>
-          <li><span class="mono">10/14</span><b>Round 1 · backend</b><em>14 questions</em><i style="--w:.42"></i></li>
-          <li><span class="mono">10/17</span><b>Mock · system design</b><em>9 questions</em><i style="--w:.3"></i></li>
-          <li><span class="mono">10/21</span><b>Round 2 · backend</b><em>17 questions</em><i style="--w:.56"></i></li>
-          <li class="timeline__sum"><span class="mono">Stage review</span><b>Frequent: cache consistency ×3 · rate limiting ×2</b><em>Weak spot: distributed-transaction trade-offs</em></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- 08 · Privacy -->
-    <section class="section privacy" id="privacy" aria-labelledby="privacy-title">
-      <div class="container privacy__grid">
-        <div class="privacy__copy">
-          <p class="eyebrow mono"><b>FIG 08</b>Where your data goes</p>
-          <h2 id="privacy-title" class="display">You decide<br>where data goes.</h2>
-          <p class="lead">Speech is recognised offline on your Mac and raw audio is never saved. To answer, the transcript, question, retrieved passages, screenshots and enabled skills go to the engine you configured; scene material and records stay on your Mac, and API keys live in the Keychain.</p>
-          <a class="btn btn--ghost" href="https://github.com/OmnixSI/InterviewHacker#数据去向">Read the full data notes<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-        <div class="flowmap">
-          <div class="flowmap__local"><svg aria-hidden="true"><use href="#i-lock"/></svg><p><b>Stays on your Mac</b><span>Scene material · records · libraries · on-device speech</span></p></div>
-          <ul class="routes" role="list">
-            <li class="route is-on" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>Answer engine</b><small>when answering: text, passages, screenshots, skills</small></p><span class="route__fixed mono">always</span></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>Cloud speech</b><small>optional, with consent: audio</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Demo: data flow with cloud speech on"><span></span></button></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>Web search</b><small>when on: question text</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Demo: data flow with web search on"><span></span></button></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>Phone companion</b><small>off by default: current question and answer</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Demo: data flow with the phone companion on"><span></span></button></li>
-          </ul>
-          <p class="fine">No stealth promises: get consent before recording, and follow the rules of the room.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 09 · FAQ -->
     <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="container faq__grid">
         <header>
-          <p class="eyebrow mono"><b>FIG 09</b>FAQ</p>
+          <p class="eyebrow mono"><b>№ 05</b>FAQ</p>
           <h2 id="faq-title" class="display">Questions,<br>answered.</h2>
         </header>
         <div class="faq__list" data-faq>
@@ -447,20 +349,14 @@
     </section>
 
     <!-- 10 · Download -->
-    <section class="section download band-night" id="download" aria-labelledby="download-title" data-download>
+    <section class="section download" id="download" aria-labelledby="download-title" data-download>
       <div class="container download__inner">
         <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
         <h2 id="download-title" class="download__title">Your next big conversation,<span class="download__word">ready with your<svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
         <div class="download__actions">
-          <a class="btn btn--paper btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>Download InterviewHacker</a>
-          <a class="btn btn--ghost-night btn--lg" href="https://github.com/OmnixSI/InterviewHacker">Documentation<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>Download InterviewHacker</a>
+          <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">Documentation<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <dl class="specs mono">
-          <div><dt>Version</dt><dd>v1.9.0</dd></div>
-          <div><dt>System</dt><dd>macOS 14+ · Apple Silicon</dd></div>
-          <div><dt>Installer</dt><dd>DMG · ~18 MB</dd></div>
-          <div><dt>Access</dt><dd>Repository access required</dd></div>
-        </dl>
       </div>
     </section>
   </main>
@@ -469,23 +365,20 @@
     <div class="container">
       <ol class="index mono" role="list">
         <li><a href="#demo"><span>01</span>Live demo<i></i></a></li>
-        <li><a href="#how"><span>02</span>How it works<i></i></a></li>
-        <li><a href="#screen"><span>03</span>Screen awareness<i></i></a></li>
-        <li><a href="#materials"><span>04</span>Materials<i></i></a></li>
-        <li><a href="#views"><span>05</span>Anywhere you look<i></i></a></li>
-        <li><a href="#scenes"><span>06</span>Scenes<i></i></a></li>
-        <li><a href="#review"><span>07</span>Records and review<i></i></a></li>
-        <li><a href="#privacy"><span>08</span>Where your data goes<i></i></a></li>
-        <li><a href="#faq"><span>09</span>FAQ<i></i></a></li>
+        <li><a href="#scenes"><span>02</span>Five moments<i></i></a></li>
+        <li><a href="#privacy"><span>03</span>Privacy<i></i></a></li>
+        <li><a href="#specs"><span>04</span>Specifications<i></i></a></li>
+        <li><a href="#faq"><span>05</span>FAQ<i></i></a></li>
+        <li><a href="#download"><span>06</span>Download<i></i></a></li>
       </ol>
-      <p class="site-footer__fine">Requires speech recognition and an answer engine. Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering.</p>
-      <p class="wordmark" aria-hidden="true">InterviewHacker</p>
+      <p class="site-footer__fine">Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering.</p>
+      <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
       <p class="site-footer__meta mono"><span>© 2026 OmnixSI</span><a href="../" hreflang="zh-CN">中文</a><a href="/" target="_top">Style gallery</a></p>
     </div>
   </footer>
 
-  <script type="application/json" id="demo-data">{"ui":{"listening":"Listening","detected":"Question detected","generating":"Answering","speaking":"You’re speaking","ready":"On-device speech ready","waiting":"Waiting for a question","streaming":"Streaming","adjusted":{"short":"Made shorter","example":"Example added","translate":"Switched to Chinese"},"tags":{"ask":"Question","request":"Request","follow":"Follow-up"},"echo":"Echo · ignored","restore":"That was me","pause":"Pause demo","resume":"Resume demo","chars":"questiondetectfollowuprequestcontext"},"scenes":{"interview":{"name":"Backend · onsite round 2","sources":["order-system-design.md · §3","resume.pdf · p.2"],"q1":{"type":"ask","text":"Tell me about the order system on your résumé. How do you deduct stock during a flash sale?"},"a1":"Stock lives in Redis and a Lua script deducts it atomically, so we never oversell. After a successful deduction we publish a transactional message, and the consumer writes to the database idempotently by order ID. Before big sales we pre-warm stock and add rate limits.","me":"We deduct in Redis with Lua, atomically, then persist asynchronously.","q2":{"type":"follow","text":"And when the database and cache both change, how do you keep them consistent?"},"echo":"database and cache both change keep them consistent","a2":"We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete. Strongly consistent data like balances is read straight from the database.","variants":{"short":"Write the database, then delete the cache; retry failed deletes, back them up with binlog, double-delete hot keys.","example":"Say the cache delete times out right after an order deducts stock: the key goes into the retry queue, Canal deletes it again when the binlog arrives, and the next read reloads the fresh value.","translate":"我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。"}},"talk":{"name":"Lab meeting · Mamba","sources":["mamba.pdf · p.4","group-meeting.pptx · slide 6"],"q1":{"type":"ask","text":"Compared with attention, where do selective state spaces win on long sequences?"},"a1":"Attention grows quadratically with sequence length; Mamba’s selective scan is linear. Because its state-transition parameters depend on the input, it decides what to keep and what to forget by content — which gives higher inference throughput on long sequences.","me":"Mostly the linear-time scan, plus input-dependent parameters.","q2":{"type":"follow","text":"Doesn’t it lose out on tasks that need exact recall?"},"a2":"There is a gap. A fixed-size state can’t look back token by token like a KV cache, so recall-heavy tasks usually mix in a few attention layers. That’s exactly what we plan to test next.","variants":{"short":"Yes — a fixed state can’t look back exactly, so recall tasks usually add a few attention layers.","example":"Ask for the name next to a phone number buried in a long document: attention can look straight back at the text, while pure Mamba relies on a compressed state that degrades with length.","translate":"会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，关联回忆这类任务通常要混入少量注意力层来补。"}},"meeting":{"name":"Distributor · annual renewal","sources":["annual-pricing.xlsx · tiers","renewal-agenda.docx · floor"],"q1":{"type":"request","text":"Could you take another 8% off the unit price?"},"a1":"A flat 8% is hard for us. Here’s another way: at 12,000 units a year we can do 5%, and extend payment terms from 60 to 90 days, which also eases your cash flow.","me":"Eight points is tough — we can tier it by volume.","q2":{"type":"follow","text":"Terms matter more to us. What about 90 days and 6% off?"},"a2":"We can work towards that. Six percent assumes a minimum volume no lower than last year’s; the 90-day term needs our finance team’s sign-off, and I’ll confirm in writing after today’s meeting.","variants":{"short":"Possible: 6% with last year’s volume as the floor; 90 days confirmed in writing after the call.","example":"With last year’s 11,000 units as the floor: hit it and you get 6% off on 90-day terms; fall short and it’s back to 5% on 60 days.","translate":"可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。"}},"class":{"name":"Operating systems · lecture 9","sources":["lecture-09-virtual-memory.pdf · p.23","notes.md · TLB"],"q1":{"type":"ask","text":"On a TLB miss, what does the hardware do, and what does the OS do?"},"a1":"First the hardware page-table walker looks up the multi-level page table; if the entry is valid, it refills the TLB and retries the access. Only an invalid entry raises a page fault, and then the OS brings the page into memory and updates the table.","me":"Hardware walks the page table first; only a miss there faults.","q2":{"type":"follow","text":"And what happens to the TLB on a context switch?"},"a2":"Two options: flush the whole TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper.","variants":{"short":"Flush it on every switch, or tag entries with ASIDs so nothing needs flushing.","example":"Processes A and B both use virtual address 0x4000: with ASIDs, both entries stay in the TLB under their own tags, and switching back to A hits immediately.","translate":"两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时不需要全部清空，切换开销更小。"}}}}</script>
-  <script src="../scripts/theme.js?v=6bf91c50f4a0"></script>
+  <script type="application/json" id="demo-data">{"ui":{"listening":"Listening","detected":"Question detected","generating":"Answering","speaking":"You’re speaking","ready":"On-device speech ready","waiting":"Waiting for a question","streaming":"Streaming","adjusted":{"short":"Made shorter","example":"Example added","translate":"Switched to Chinese"},"tags":{"ask":"Question","request":"Request","follow":"Follow-up"},"echo":"Echo · ignored","restore":"That was me","pause":"Pause demo","resume":"Resume demo","chars":"questiondetectfollowuprequestcontext","guide":[{"title":"They start talking","desc":"The meeting window is its own channel, transcribed as they speak."},{"title":"It knows it's a question","desc":"Statements, requests and follow-ups are told apart the moment they end."},{"title":"The answer streams in","desc":"Only this scene's relevant material is used, with sources."},{"title":"You answer","desc":"Your microphone is a separate channel — never mixed with theirs."},{"title":"A follow-up, a new answer","desc":"Speaker echo is greyed out; the answer rewrites for the new question."},{"title":"One-tap rewrites","desc":"Shorter, an example, or another language — in one tap."}]},"scenes":{"interview":{"name":"Backend · onsite round 2","sources":["order-system-design.md · §3","resume.pdf · p.2"],"q1":{"type":"ask","text":"Tell me about the order system on your résumé. How do you deduct stock during a flash sale?"},"a1":"Stock lives in Redis and a Lua script deducts it atomically, so we never oversell. After a successful deduction we publish a transactional message, and the consumer writes to the database idempotently by order ID. Before big sales we pre-warm stock and add rate limits.","me":"We deduct in Redis with Lua, atomically, then persist asynchronously.","q2":{"type":"follow","text":"And when the database and cache both change, how do you keep them consistent?"},"echo":"database and cache both change keep them consistent","a2":"We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete. Strongly consistent data like balances is read straight from the database.","variants":{"short":"Write the database, then delete the cache; retry failed deletes, back them up with binlog, double-delete hot keys.","example":"Say the cache delete times out right after an order deducts stock: the key goes into the retry queue, Canal deletes it again when the binlog arrives, and the next read reloads the fresh value.","translate":"我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。"}},"talk":{"name":"Lab meeting · Mamba","sources":["mamba.pdf · p.4","group-meeting.pptx · slide 6"],"q1":{"type":"ask","text":"Compared with attention, where do selective state spaces win on long sequences?"},"a1":"Attention grows quadratically with sequence length; Mamba’s selective scan is linear. Because its state-transition parameters depend on the input, it decides what to keep and what to forget by content — which gives higher inference throughput on long sequences.","me":"Mostly the linear-time scan, plus input-dependent parameters.","q2":{"type":"follow","text":"Doesn’t it lose out on tasks that need exact recall?"},"a2":"There is a gap. A fixed-size state can’t look back token by token like a KV cache, so recall-heavy tasks usually mix in a few attention layers. That’s exactly what we plan to test next.","variants":{"short":"Yes — a fixed state can’t look back exactly, so recall tasks usually add a few attention layers.","example":"Ask for the name next to a phone number buried in a long document: attention can look straight back at the text, while pure Mamba relies on a compressed state that degrades with length.","translate":"会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，关联回忆这类任务通常要混入少量注意力层来补。"}},"meeting":{"name":"Distributor · annual renewal","sources":["annual-pricing.xlsx · tiers","renewal-agenda.docx · floor"],"q1":{"type":"request","text":"Could you take another 8% off the unit price?"},"a1":"A flat 8% is hard for us. Here’s another way: at 12,000 units a year we can do 5%, and extend payment terms from 60 to 90 days, which also eases your cash flow.","me":"Eight points is tough — we can tier it by volume.","q2":{"type":"follow","text":"Terms matter more to us. What about 90 days and 6% off?"},"a2":"We can work towards that. Six percent assumes a minimum volume no lower than last year’s; the 90-day term needs our finance team’s sign-off, and I’ll confirm in writing after today’s meeting.","variants":{"short":"Possible: 6% with last year’s volume as the floor; 90 days confirmed in writing after the call.","example":"With last year’s 11,000 units as the floor: hit it and you get 6% off on 90-day terms; fall short and it’s back to 5% on 60 days.","translate":"可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。"}},"class":{"name":"Operating systems · lecture 9","sources":["lecture-09-virtual-memory.pdf · p.23","notes.md · TLB"],"q1":{"type":"ask","text":"On a TLB miss, what does the hardware do, and what does the OS do?"},"a1":"First the hardware page-table walker looks up the multi-level page table; if the entry is valid, it refills the TLB and retries the access. Only an invalid entry raises a page fault, and then the OS brings the page into memory and updates the table.","me":"Hardware walks the page table first; only a miss there faults.","q2":{"type":"follow","text":"And what happens to the TLB on a context switch?"},"a2":"Two options: flush the whole TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper.","variants":{"short":"Flush it on every switch, or tag entries with ASIDs so nothing needs flushing.","example":"Processes A and B both use virtual address 0x4000: with ASIDs, both entries stay in the TLB under their own tags, and switching back to A hits immediately.","translate":"两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时不需要全部清空，切换开销更小。"}}}}</script>
+  <script src="../scripts/theme.js?v=f3abd4677691"></script>
   <script src="../assets/vendor/gsap.min.js?v=92bb9a96476f"></script>
   <script src="../assets/vendor/ScrollTrigger.min.js?v=b0b14d67b55b"></script>
   <script src="../assets/vendor/SplitText.min.js?v=419f7027a5f0"></script>
@@ -495,9 +388,10 @@
   <script src="../assets/vendor/Flip.min.js?v=cbe3ca726350"></script>
   <script src="../assets/vendor/CustomEase.min.js?v=466e426a5c60"></script>
   <script src="../assets/vendor/lenis.min.js?v=07020831fc52"></script>
-  <script src="../scripts/field.js?v=efec3402ef2a"></script>
-  <script src="../scripts/demo.js?v=1bd91ef61157"></script>
-  <script src="../scripts/motion.js?v=2229e9b068c0"></script>
+  <script src="../scripts/field.js?v=2e66d2726ee7"></script>
+  <script src="../scripts/demo.js?v=d85826925287"></script>
+  <script src="../scripts/motion.js?v=1d84124676a0"></script>
+  <script src="../scripts/cursor.js?v=478ae44ed0aa"></script>
   <script src="../scripts/fps.js?v=c2f92270878e"></script>
 </body>
 </html>

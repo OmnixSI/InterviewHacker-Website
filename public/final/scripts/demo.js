@@ -83,8 +83,8 @@
   }
 
   /* ---------- Script runner ---------- */
-  let sceneKey = 'interview', gen = 0, userPaused = false, started = false, seconds = 0, rush = false, userDriven = false, current = null;
-  const running = () => inView && !userPaused && !globalPaused() && !document.hidden;
+  let sceneKey = 'interview', gen = 0, userPaused = false, started = false, seconds = 0, rush = false, userDriven = false, current = null, guided = false;
+  const running = () => inView && !userPaused && !globalPaused() && !document.hidden && !guided;
   class Abort extends Error {}
   // Waits for `ms` of running time, so pausing freezes the demo mid-character.
   function wait(ms, g) {
@@ -285,7 +285,7 @@
     const pausedNow = userPaused || globalPaused();
     toggle?.setAttribute('aria-pressed', String(pausedNow));
     if (toggleLabel) toggleLabel.textContent = pausedNow ? ui.resume : ui.pause;
-    if (running() && !started && !reduced.matches) { started = true; loop(); }
+    if (running() && !started && !reduced.matches && !guided) { started = true; loop(); }
     wakeWaves();
   }
   toggle?.addEventListener('click', () => { userPaused = !userPaused; sync(); });
@@ -293,4 +293,95 @@
   document.addEventListener('visibilitychange', sync);
   document.addEventListener('ih:motion', sync);
   reduced.addEventListener('change', () => { if (reduced.matches) restart(); sync(); });
+
+  /* ---------- Scroll-guided walkthrough ----------
+     On the pinned hero the conversation is driven by scroll, not time: every scroll position maps to one
+     state, so it plays forwards and backwards with the reader and can't be missed by scrolling past.
+     A spotlight marks the part of the window each step is about; the bar below names the step. */
+  const guideEl = document.querySelector('[data-guide]');
+  const guideNo = guideEl?.querySelector('[data-guide-no]'), guideTitle = guideEl?.querySelector('[data-guide-title]'), guideDesc = guideEl?.querySelector('[data-guide-desc]');
+  const guideBar = guideEl?.querySelector('[data-guide-bar]');
+  const steps = ui.guide || [];
+  const segs = steps.map(st => { const li = document.createElement('li'); li.innerHTML = '<i><b></b></i>'; li.append(Object.assign(document.createElement('span'), { textContent: st.title })); guideBar?.append(li); return li; });
+  const esc = v => String(v).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const clamp01 = v => Math.max(0, Math.min(1, v));
+  const cut = (text, f) => { const chars = [...text]; return chars.slice(0, Math.round(chars.length * clamp01(f))).join(''); };
+  let lastKey = '', lastStep = -1;
+  function stateAt(p) {
+    const S = data.scenes.interview, n = steps.length || 6;
+    const step = Math.min(n - 1, Math.floor(p * n)), t = clamp01(p * n - step);
+    const q1 = { lane: 'them', text: S.q1.text, tag: ui.tags[S.q1.type] };
+    const me = { lane: 'me', text: S.me };
+    const st = { step, items: [], q: '', type: null, a: '', label: ui.waiting, streaming: false, sources: false, chip: null, focus: 'talk', them: .1, me: .08, status: ui.listening };
+    if (step === 0) { st.items = [{ ...q1, text: cut(S.q1.text, t / .85), tag: t >= .85 ? q1.tag : null, interim: t < .85 }]; st.them = t < .85 ? .95 : .15; return st; }
+    st.items = [q1];
+    if (step === 1) { Object.assign(st, { q: cut(S.q1.text, t / .5), type: t > .35 ? S.q1.type : null, focus: 'q', status: ui.detected }); return st; }
+    Object.assign(st, { q: S.q1.text, type: S.q1.type });
+    if (step === 2) { Object.assign(st, { a: cut(S.a1, t / .9), streaming: t < .9, label: ui.streaming, sources: t > .5, focus: 'a', status: ui.generating }); return st; }
+    Object.assign(st, { a: S.a1, label: ui.streaming, sources: true });
+    if (step === 3) { st.items = [q1, { ...me, text: cut(S.me, t / .8) }]; Object.assign(st, { me: t < .8 ? .95 : .12, focus: 'talk', status: ui.speaking }); return st; }
+    st.items = [q1, me];
+    if (step === 4) {
+      st.items.push({ lane: 'them', text: cut(S.q2.text, t / .45), tag: t >= .45 ? ui.tags[S.q2.type] : null, interim: t < .45 });
+      if (t > .5) st.items.push({ lane: 'echo', text: S.echo, tag: ui.echo });
+      Object.assign(st, { them: t < .45 ? .95 : .15, focus: t < .5 ? 'talk' : 'a', status: t < .5 ? ui.listening : ui.generating });
+      if (t > .55) Object.assign(st, { q: S.q2.text, type: S.q2.type, a: cut(S.a2, (t - .55) / .42), streaming: t < .97 });
+      return st;
+    }
+    st.items.push({ lane: 'them', text: S.q2.text, tag: ui.tags[S.q2.type] }, { lane: 'echo', text: S.echo, tag: ui.echo });
+    Object.assign(st, { q: S.q2.text, type: S.q2.type, chip: t > .15 ? 'short' : null, focus: t < .3 ? 'chips' : 'a', status: ui.ready });
+    if (t > .2) Object.assign(st, { a: cut(S.variants.short, (t - .2) / .65), label: ui.adjusted.short, streaming: t < .85 });
+    else Object.assign(st, { a: S.a2 });
+    return st;
+  }
+  function renderGuide(p) {
+    const st = stateAt(p);
+    const key = JSON.stringify(st);
+    if (key === lastKey) return;
+    lastKey = key;
+    transcript.innerHTML = st.items.map(it => {
+      const cls = `bubble bubble--${it.lane}${it.interim ? ' bubble--interim' : ''}${it.tag && it.lane === 'them' ? ' is-question' : ''}`;
+      return `<li class="${cls}">${it.tag ? `<span class="bubble__tag">${esc(it.tag)}</span>` : ''}${esc(it.text)}</li>`;
+    }).join('');
+    question.textContent = st.q;
+    setType(st.type);
+    answerState.textContent = st.label;
+    answer.innerHTML = esc(st.a) + (st.streaming ? '<span class="caret"></span>' : '');
+    acard.classList.toggle('is-streaming', st.streaming);
+    acard.style.setProperty('--stream', st.streaming ? '.6' : '0');
+    sources.style.visibility = st.sources ? '' : 'hidden';
+    chips.forEach(c => c.classList.toggle('is-on', c.dataset.variant === st.chip));
+    status.textContent = st.status;
+    // No spotlight until the walkthrough has actually begun (the device is still rising before that).
+    if (p > .002) app.dataset.focus = st.focus; else delete app.dataset.focus;
+    levels.them = st.them; levels.me = st.me;
+    wakeWaves();
+    if (st.step !== lastStep && guideEl) {
+      lastStep = st.step;
+      guideNo.textContent = String(st.step + 1).padStart(2, '0');
+      guideTitle.textContent = steps[st.step]?.title || '';
+      guideDesc.textContent = steps[st.step]?.desc || '';
+    }
+    const n = steps.length || 6;
+    segs.forEach((li, k) => { li.style.setProperty('--f', clamp01(p * n - k).toFixed(3)); li.classList.toggle('is-current', k === st.step); });
+  }
+  window.IHDemo = {
+    // p in 0–1 drives the walkthrough; null hands the window back to the visitor.
+    guide(p) {
+      if (p == null) {
+        if (!guided) return;
+        renderGuide(1); // settle on the finished conversation, never a half-streamed answer
+        guided = false;
+        delete app.dataset.focus;
+        sources.style.visibility = '';
+        acard.classList.remove('is-streaming');
+        answer.querySelector('.caret')?.remove();
+        started = true; // stay on the finished conversation until the visitor acts
+        sync();
+        return;
+      }
+      if (!guided) { guided = true; gen++; started = false; userDriven = false; sceneKey = 'interview'; sceneTabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === 0)); t.tabIndex = k === 0 ? 0 : -1; }); setSources(data.scenes.interview.sources); sceneName.textContent = data.scenes.interview.name; if (app.classList.contains('is-prompter')) viewBtns[0]?.click(); lastKey = ''; }
+      renderGuide(p);
+    }
+  };
 })();

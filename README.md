@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=610d6b887eb1)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:d80b28a90cfe8d5022e9f4edefeec462f38443b76d96c49be17086f87a039575 preview:610d6b887eb1b1ca84ed2b0bcde30f64b67ffbfff3114513fe6e3c1d45978794 -->
+<!-- gallery-source:9ee8e6f42987d95d4faa1508c38988522cfbb0a488757b5890ecd6e665cbac23 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -55,13 +55,13 @@
 
 ### Final · 专业 · 精致 · 最终版
 
-[![Final 首页](public/previews/final-home.png?v=578000c1cb5e)](https://interviewhacker.vercel.app/final/)
+[![Final 首页](public/previews/final-home.png?v=8b76712624c7)](https://interviewhacker.vercel.app/final/)
 
-得意黑与定制手写字形，两遍识别的标题、双声道声场汇成一句回答，可操作的实时演示与中英双语，集合此前各版的长处。
+以「时刻」叙事：得意黑与定制手写字形，鼠标可拨动的声波水面，随滚动逐步播放的完整面试演示，以及中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:2a9fc524579be614c9292734ce956a3053f858a55191b57ad60bf2a611715fca preview:578000c1cb5eed46abe653a2b975e2ee58b18c54f9dceee3fdb6b036869f6af7 -->
+<!-- style:final source:718c38335e0e11ee0f0ecd4bda2181636a58546f462ba9f921a7d93420ea3ad5 preview:8b76712624c7fe6abd5a1cb6bc060ff639a09dd25d6bfe6396dbe1a9d5abe0e9 -->
 <!-- STYLES:END -->
 
 ## 本地运行

@@ -7,7 +7,7 @@ Needs fontTools and brotli (pip install fonttools brotli). Run after `npm run fi
 The originals are not committed (Noto Sans SC alone is 17 MB). Fetch them from their OFL sources:
   SmileySans-Oblique.ttf       github.com/atelier-anchor/smiley-sans  (release v2.0.1)
   NotoSansSC[wght].ttf         github.com/google/fonts  ofl/notosanssc
-  InstrumentSerif-Regular.ttf  github.com/google/fonts  ofl/instrumentserif
+  InstrumentSerif-Regular.ttf, InstrumentSerif-Italic.ttf  github.com/google/fonts  ofl/instrumentserif
 
 Smiley Sans reserves the names "Smiley" and "得意黑", and Noto Sans SC reserves "Source", so the
 subsets are renamed IH Display and IH Sans as the SIL OFL requires for modified versions.
@@ -39,6 +39,11 @@ def display_text(html):
     chunks += re.findall(r'class="(?:wordmark|slide__title|download__title)"[^>]*>([\s\S]*?)</', html)
     chunks += re.findall(r'data-draft="([^"]*)"', html)
     chunks += re.findall(r'class="call__tile[^"]*"><b>([^<]*)<', html)
+    chunks += re.findall(r'<p data-line[^>]*>([\s\S]*?)</p>', html)
+    chunks += re.findall(r'class="mini-slide__page"><span[^>]*>[^<]*</span><b>([^<]*)<', html)
+    # Walkthrough step titles are set by script from the demo data.
+    demo = json.loads((ROOT / 'scripts' / 'final-i18n' / 'demo.json').read_text('utf-8'))
+    chunks += [step['title'] for lang in demo.values() for step in lang['ui'].get('guide', [])]
     return re.sub(r'<[^>]+>', '', ''.join(chunks))
 
 
@@ -88,7 +93,8 @@ def main():
     sizes = {
         'display/ih-display.woff2': build(args.src / 'SmileySans-Oblique.ttf', OUT / 'display/ih-display.woff2', display, 'IH Display'),
         'sans/ih-sans.woff2': build(args.src / 'NotoSansSC[wght].ttf', OUT / 'sans/ih-sans.woff2', every, 'IH Sans', (400, 500)),
-        'serif/instrument-serif.woff2': build(args.src / 'InstrumentSerif-Regular.ttf', OUT / 'serif/instrument-serif.woff2', ASCII + PUNCT + 'éèàçïô'),
+        'serif/instrument-serif.woff2': build(args.src / 'InstrumentSerif-Regular.ttf', OUT / 'serif/instrument-serif.woff2', ASCII + PUNCT + 'éèàçïô№'),
+        'serif/instrument-serif-italic.woff2': build(args.src / 'InstrumentSerif-Italic.ttf', OUT / 'serif/instrument-serif-italic.woff2', ASCII + PUNCT + 'éèàçïô№'),
     }
     (OUT / 'charset.json').write_text(json.dumps({'display': display, 'sans': every}, ensure_ascii=False, indent=0) + '\n', 'utf-8')
     for k, v in sizes.items():

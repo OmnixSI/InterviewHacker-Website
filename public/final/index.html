@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f5f1">
   <title>InterviewHacker — 听清每一个问题，说出你的下一句</title>
   <meta name="description" content="InterviewHacker 是原生 macOS 实时对话助手：双路收音分别识别对方与你，判断哪句是在问你，结合场景资料流式给出可以直接说出口的回答。适用于面试、学术报告、商务会议与课程。">
   <meta property="og:title" content="InterviewHacker — 听清每一个问题，说出你的下一句">
@@ -20,10 +19,10 @@
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./assets/manifest/apple-touch-icon.png">
   <link rel="preload" href="./assets/fonts/display/ih-display.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./assets/fonts/fonts.css?v=4ca7328ffc93">
+  <link rel="stylesheet" href="./assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="./assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="./style.css?v=3a0a980ae430">
-  <script src="./scripts/bootstrap.js?v=7d45a56b8ac2"></script>
+  <link rel="stylesheet" href="./style.css?v=fce79a1bf8db">
+  <script src="./scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -58,19 +57,15 @@
       </a>
       <nav class="site-nav" id="site-nav" aria-label="页面章节">
         <a href="#demo"><i>01</i>演示</a>
-        <a href="#how"><i>02</i>链路</a>
-        <a href="#screen"><i>03</i>能力</a>
-        <a href="#scenes"><i>06</i>场景</a>
-        <a href="#privacy"><i>08</i>隐私</a>
-        <a href="#faq"><i>09</i>问答</a>
+        <a href="#scenes"><i>02</i>时刻</a>
+        <a href="#privacy"><i>03</i>隐私</a>
+        <a href="#specs"><i>04</i>规格</a>
+        <a href="#faq"><i>05</i>问答</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="./en/" hreflang="en" lang="en" data-lang-switch aria-label="Switch to English">EN</a>
         <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="暂停动效" data-label-on="继续动效" data-label-off="暂停动效">
           <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
-        </button>
-        <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深浅色">
-          <svg class="when-light" aria-hidden="true"><use href="#i-moon"/></svg><svg class="when-dark" aria-hidden="true"><use href="#i-sun"/></svg>
         </button>
         <a class="btn btn--ink btn--sm" href="#download">下载</a>
         <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="打开菜单" data-label-open="关闭菜单" data-label-closed="打开菜单"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
@@ -88,7 +83,7 @@
         </div>
 
         <div class="hero__copy" data-hero-copy>
-          <p class="eyebrow eyebrow--pill"><span class="live-dot" aria-hidden="true"></span>InterviewHacker v1.9.0 · 原生 macOS · 默认本机离线语音识别</p>
+          <p class="eyebrow eyebrow--quiet mono">InterviewHacker <span>v1.9.0</span> <span>macOS</span></p>
           <h1 class="hero__title" id="hero-title" data-two-pass data-draft="听清每一个问|提>题|，¶说出你的 next |lion>line.">
             <span class="sr-only">听清每一个问题，说出你的下一句。</span>
             <span class="hero__final" aria-hidden="true">
@@ -96,16 +91,17 @@
               <span class="hero__line">说出你的<span class="hero__lettering"><svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></span>
             </span>
           </h1>
-          <p class="hero__lead">面试、学术报告、商务会议和课程里，它分别听清对方与你，判断哪一句是在问你，再结合你准备的资料，流式给出可以直接说出口的回答。</p>
+          <p class="hero__lead">在重要的对话里，安静地陪着你。<br>听清对方，也听清你；问题一落下，下一句已经在眼前。</p>
           <div class="hero__actions">
             <a class="btn btn--ink" href="#download"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 macOS 版</a>
             <a class="btn btn--ghost" href="#demo">看它如何工作<svg aria-hidden="true"><use href="#i-down"/></svg></a>
           </div>
-          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>下载需要仓库访问权</span></p>
+          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>需要仓库访问权</span></p>
         </div>
+        <p class="hero__hint mono" aria-hidden="true"><i></i>向下滚动，播放一段完整的面试对话</p>
 
         <div class="voiceprint" data-voiceprint>
-          <p class="eyebrow mono"><b>FIG 01</b>实时演示</p>
+          <p class="eyebrow mono"><b>№ 01</b>实时演示</p>
           <h2 class="voiceprint__title" id="demo-title"><span class="voiceprint__text">从对方开口，到你说出</span><span class="voiceprint__word"><svg class="lettering lettering--lead" viewBox="20 20 690 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M20 200C25 200 39.8 200.7 50 200C60.2 199.3 71.3 204.7 80.9 196C90.6 187.3 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
         </div>
 
@@ -166,7 +162,18 @@
           </div>
         </div>
 
+        <div class="guide" data-guide hidden>
+          <div class="guide__now">
+            <span class="guide__no mono"><b data-guide-no>01</b> / 06</span>
+            <p class="guide__title" data-guide-title></p>
+            <p class="guide__desc" data-guide-desc></p>
+          </div>
+          <ol class="guide__bar" data-guide-bar role="list"></ol>
+          <button class="guide__skip mono" type="button" data-guide-skip>跳过演示<svg aria-hidden="true"><use href="#i-down"/></svg></button>
+        </div>
+
         <div class="demo-controls" id="demo" data-demo-controls>
+          <p class="demo-controls__hint mono"><i aria-hidden="true"></i>轮到你了：换个场景、点改写按钮，或按 ⌘⇧↩</p>
           <div class="segmented" role="tablist" aria-label="演示场景" data-demo-scenes>
             <button role="tab" type="button" aria-selected="true" data-scene-key="interview">面试</button>
             <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="talk">学术报告</button>
@@ -182,258 +189,153 @@
       </div>
     </section>
 
-    <section class="section demo-notes" aria-label="演示说明">
+    <!-- Interlude: the moments the product is for, one line at a time. -->
+    <section class="interlude" aria-label="序" data-interlude>
+      <div class="container interlude__lines">
+        <p data-line style="--x:0">对话从不等你准备好。</p>
+        <p data-line style="--x:2">面试官停顿的那两秒，</p>
+        <p data-line style="--x:5">导师在组会上突然的追问，</p>
+        <p data-line style="--x:1">谈判桌对面那一句：<em>再降八个点。</em></p>
+        <p data-line style="--x:4" class="interlude__turn">它听清问题，</p>
+        <p data-line style="--x:6" class="interlude__turn">把下一句，轻轻放到你眼前。</p>
+      </div>
+    </section>
+
+    <!-- Moments: a still pool on one side, the scene's window floating on it; the moments scroll on the other. -->
+    <section class="moments" id="scenes" aria-labelledby="scenes-title" data-moments>
+      <h2 class="sr-only" id="scenes-title">五个时刻</h2>
+      <div class="moments__stage" aria-hidden="true">
+        <div class="pool"><canvas data-pool></canvas></div>
+        <div class="glass" data-glass>
+          <div class="glass__card glass__card--prompter is-active" data-glass-card>
+            <span class="glass__cam"></span>
+            <div class="mini-prompter">
+              <p class="mini-prompter__status mono"><i class="live-dot"></i>正在聆听 · 追问</p>
+              <p class="mini-prompter__q">那数据库和缓存同时更新，怎么保证一致性？</p>
+              <p class="mini-prompter__a">先更新数据库，再删除缓存；删除失败进重试队列，binlog 订阅兜底。</p>
+              <p class="mini-prompter__src mono">简历.pdf · 第 2 页</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-slide">
+              <div class="mini-slide__page"><span class="mono">Mamba · 4 / 18</span><b>选择性状态空间</b><i></i><i></i><i></i></div>
+              <ol class="mini-slide__points">
+                <li class="is-done">参数随输入变化</li>
+                <li class="is-done">线性时间扫描</li>
+                <li>对比注意力的长序列成本</li>
+              </ol>
+              <p class="mini-slide__next"><span class="mono">过渡</span>“接下来看它在长序列上的吞吐。”</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-phone">
+              <p class="mini-phone__bar mono"><span>14:07</span><span>手机伴侣</span></p>
+              <p class="mini-phone__q">“单价再降 8 个点，能接受吗？”</p>
+              <p class="mini-phone__a">可以按量做阶梯：1.2 万台以上给 5 个点，账期放宽到 90 天。</p>
+              <ul class="mini-phone__minutes"><li><b>决定</b>阶梯报价，会后书面确认</li><li><b>待办</b>财务确认 90 天账期</li></ul>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-crop">
+              <div class="mini-crop__shot"><span class="mono">第 9 讲 · 第 23 页</span><b>TLB 未命中时，发生了什么？</b><i class="mini-crop__frame"></i></div>
+              <p class="mini-crop__a">硬件先遍历页表；页表项有效就回填 TLB 重试，无效才触发缺页，交给操作系统。</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-review">
+              <p class="mini-review__head"><b>二面 · 后端</b><span class="mono">17 个问题</span></p>
+              <ul><li>订单系统与库存扣减</li><li>缓存一致性 · 追问两次</li><li>限流与降级</li></ul>
+              <p class="mini-review__weak"><span class="mono">薄弱</span>分布式事务的取舍</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="moments__chapters">
+        <nav class="moments__index mono" aria-label="时刻">
+          <a href="#moment-interview" data-index><span>01</span>面试</a>
+          <a href="#moment-talk" data-index><span>02</span>报告</a>
+          <a href="#moment-meeting" data-index><span>03</span>谈判</a>
+          <a href="#moment-class" data-index><span>04</span>网课</a>
+          <a href="#moment-after" data-index><span>05</span>会后</a>
+        </nav>
+        <article class="moment" id="moment-interview" data-moment>
+          <p class="moment__kicker mono">01 · 求职面试</p>
+          <h3 class="moment__title">两秒的停顿，<br>不再空白。</h3>
+          <p class="moment__echo">Two seconds of silence, no longer blank.</p>
+          <p class="moment__body">面试官追问到缓存一致性时，回答已经出现在摄像头下方的提词条里——用的是你简历里的项目，和你自己的数字。</p>
+          <p class="moment__aside">悬浮提词器 · 鼠标可穿透 · ⌘⇧\ 一键隐藏</p>
+        </article>
+        <article class="moment" id="moment-talk" data-moment>
+          <p class="moment__kicker mono">02 · 学术报告</p>
+          <h3 class="moment__title">讲到哪一页，<br>它就跟到哪一页。</h3>
+          <p class="moment__echo">It follows you, slide by slide.</p>
+          <p class="moment__body">讲稿跟随当前幻灯片，讲过的要点自动打勾，并提示下一句过渡。导师突然追问时，解释会注明论文的页码。</p>
+          <p class="moment__aside">可选窗口、显示器或区域 · 每次回答冻结当时画面</p>
+        </article>
+        <article class="moment" id="moment-meeting" data-moment>
+          <p class="moment__kicker mono">03 · 商务谈判</p>
+          <h3 class="moment__title">底线在心里，<br>措辞在眼前。</h3>
+          <p class="moment__echo">Keep the floor in mind, the words in sight.</p>
+          <p class="moment__body">对方要求再降八个点时，它按你为这场会设定的底线，给出阶梯报价的说法；决定事项、待办和分歧，同时记下。</p>
+          <p class="moment__aside">手机伴侣放在桌边 · 扫码配对，默认关闭</p>
+        </article>
+        <article class="moment" id="moment-class" data-moment>
+          <p class="moment__kicker mono">04 · 网课</p>
+          <h3 class="moment__title">被点名的时候，<br>也不慌。</h3>
+          <p class="moment__echo">Called on, and calm.</p>
+          <p class="moment__body">老师问 TLB 未命中时发生什么，答案对齐到第 9 讲第 23 页。屏幕上的题目、代码和图表，框选就能问。</p>
+          <p class="moment__aside">截图提问 · 对齐课件页码</p>
+        </article>
+        <article class="moment" id="moment-after" data-moment>
+          <p class="moment__kicker mono">05 · 会后</p>
+          <h3 class="moment__title">每一场，<br>都留给下一场。</h3>
+          <p class="moment__echo">Every conversation prepares the next.</p>
+          <p class="moment__body">转写、问题和当时用到的资料，自动整理成摘要与问题清单。说得好的回答，留进这个场景的经验库；反复出现的薄弱处，会在阶段复盘里被找出来。</p>
+          <p class="moment__aside">可搜索、可导出 Markdown、可随时删除</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Principles: three quiet statements instead of a data sheet. -->
+    <section class="section principles" id="privacy" aria-labelledby="privacy-title">
       <div class="container">
-        <div class="ruler mono" aria-hidden="true" data-ruler><span>00:00</span><span>00:04</span><span>00:08</span><span>00:12</span><span>00:16</span><span>00:20</span><span>00:24</span><i data-ruler-head></i></div>
-        <ol class="points" role="list">
-          <li data-point="listen"><span class="mono">A</span><h3>分开听</h3><p>会议窗口的声音是对方，麦克风是你。两路分开识别，说话重叠也不会混在一起；扬声器回声会被置灰，可一键恢复。</p></li>
-          <li data-point="detect"><span class="mono">B</span><h3>判断问题</h3><p>区分陈述、没说完、明确提问、请求和追问，过滤语气词与自问自答；你说完之前不会抢答。</p></li>
-          <li data-point="answer"><span class="mono">C</span><h3>流式回答</h3><p>问题一结束就开始输出第一人称的口语短句；对方补上后半句，回答会随之更新。</p></li>
+        <p class="eyebrow mono"><b>№ 03</b>隐私</p>
+        <h2 id="privacy-title" class="display">安静，<br>也是一种尊重。</h2>
+        <p class="caption-serif">Quiet is a form of respect.</p>
+        <ol class="principles__list" role="list">
+          <li><span class="mono">i.</span><h3>声音留在这台 Mac 上。</h3><p>默认本机离线识别，原始音频不保存。云端识别只有在你同意之后才会使用。</p></li>
+          <li><span class="mono">ii.</span><h3>只带上需要的那几段。</h3><p>回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。</p></li>
+          <li><span class="mono">iii.</span><h3>发什么出去，由你决定。</h3><p>回答引擎由你配置，API Key 存放在钥匙串；联网搜索、手机伴侣默认关闭。</p></li>
         </ol>
-        <p class="fine">交互示意：本页演示为预设脚本，不访问麦克风、不调用模型、不联网。快捷键 ⌘⇧↩ 在演示中同样可用。</p>
+        <p class="fine">不做“隐身”承诺：录音与使用前请取得对方同意，并遵守所在场合的规则。 <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">完整数据去向</a></p>
       </div>
     </section>
 
-    <!-- 02 · How it works -->
-    <section class="section how band-night" id="how" aria-labelledby="how-title">
-      <div class="how__pin" data-pipeline>
-        <div class="container how__head">
-          <p class="eyebrow mono"><b>FIG 02</b>工作链路</p>
-          <h2 id="how-title" class="display">从声音到下一句，<br>一条连续的链路。</h2>
-          <p class="how__counter mono" aria-hidden="true"><span data-pipe-index>01</span> / 06</p>
-        </div>
-        <div class="how__viewport">
-          <svg class="wire" data-pipe-wire aria-hidden="true"><path class="wire__base"/><path class="wire__them"/><path class="wire__me"/><path class="wire__merged"/><circle class="wire__pulse" r="6"/></svg>
-          <ol class="how__track" data-pipe-track role="list">
-            <li class="station" data-station>
-              <span class="station__no mono">01</span>
-              <h3>双路收音</h3>
-              <div class="station__viz viz-lanes" aria-hidden="true"><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="t"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i><i class="m"></i></div>
-              <p>系统声音归对方，麦克风归你，分开采集、分开识别。默认跟随系统麦克风，AirPods 断开后自动重连。</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">02</span>
-              <h3>两遍识别</h3>
-              <div class="station__viz viz-pass mono" aria-hidden="true"><span class="viz-pass__draft">大出时库存怎么口</span><span class="viz-pass__final">大促时库存怎么扣</span></div>
-              <p>本机 X-ASR 流式模型边说边出字，句子结束后由离线模型整句精修。默认不上传音频，也不保存原始录音。</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">03</span>
-              <h3>问题识别</h3>
-              <div class="station__viz viz-tags" aria-hidden="true"><b>陈述</b><b>没说完</b><b class="on">明确提问</b><b>请求</b><b>追问</b></div>
-              <p>过滤“能听到吗”、语气词和自问自答；问题结束约 0.6 秒内开始回答。</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">04</span>
-              <h3>场景检索</h3>
-              <div class="station__viz viz-files" aria-hidden="true"><span>简历.pdf · p.2</span><span>订单系统设计.md · §3</span><span>面经 · 缓存一致性</span></div>
-              <p>只从当前场景的资料、经验库和题库里取相关片段并注明出处，不会把所有资料塞入上下文。可选的本机语义检索最多等待 500 ms，超时回退关键词结果。</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">05</span>
-              <h3>流式回答</h3>
-              <div class="station__viz viz-stream" aria-hidden="true"><span>先更新数据库，再删除缓存</span><i></i></div>
-              <p>回答引擎由你配置：Codex，或任意 OpenAI 兼容服务。需要新信息的问题会在后台联网，生成带 [1] [2] 来源的版本，由你决定是否替换。</p>
-            </li>
-            <li class="station" data-station>
-              <span class="station__no mono">06</span>
-              <h3>随处查看</h3>
-              <div class="station__viz viz-devices" aria-hidden="true"><i class="lap"></i><i class="bar"></i><i class="phone"></i></div>
-              <p>助手窗口、摄像头下方的悬浮提词器，或扫码连接的手机伴侣。</p>
-            </li>
-          </ol>
-        </div>
-        <div class="container how__rail" aria-hidden="true"><span data-pipe-fill></span></div>
-      </div>
-    </section>
-
-    <!-- 03 · Screen awareness -->
-    <section class="section screen" id="screen" aria-labelledby="screen-title" data-screen>
-      <div class="container screen__grid">
-        <div class="screen__copy">
-          <p class="eyebrow mono"><b>FIG 03</b>屏幕感知 · v1.9</p>
-          <h2 id="screen-title" class="display">它也看得见<br>你讲到哪一页。</h2>
-          <p class="lead">选择一个窗口、显示器或区域。系统 OCR 先给出快速上下文，变化的区域再由本机增强识别；每次回答都会冻结当时的画面与来源。</p>
-          <ul class="ticks" role="list">
-            <li>学术报告模式跟随当前幻灯片，给出要点、过渡语和可能被问到的问题</li>
-            <li>讲过的要点自动打勾</li>
-            <li>屏幕上的题目、代码和图表，可以框选后直接提问</li>
-          </ul>
-        </div>
-        <div class="slide-stage" aria-hidden="true">
-          <div class="slide">
-            <p class="slide__kicker mono">Mamba · 4 / 18</p>
-            <p class="slide__title">选择性状态空间</p>
-            <ul><li>参数随输入变化</li><li>线性时间扫描</li><li>硬件感知并行</li></ul>
-            <svg class="slide__chart" viewBox="0 0 200 90"><path d="M8 80 L8 8 M8 80 L192 80" /><path class="a" d="M12 76 C60 72 110 56 190 14"/><path class="b" d="M12 76 C60 74 120 70 190 60"/></svg>
-            <span class="crop" data-crop><i></i><i></i><i></i><i></i><b class="mono">区域 · 1280×720</b></span>
-          </div>
-          <div class="follow" data-follow>
-            <p class="follow__head"><b>本页要点</b><span class="mono">4 / 18</span></p>
-            <ol role="list">
-              <li data-follow-item>为什么参数要随输入变化</li>
-              <li data-follow-item>扫描为何仍是线性时间</li>
-              <li data-follow-item>对比注意力的长序列成本</li>
-            </ol>
-            <p class="follow__next"><span class="mono">过渡</span>“接下来看它在长序列上的吞吐。”</p>
-            <p class="follow__next"><span class="mono">可能被问</span>“参数随输入变化，为什么还能并行训练？”</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 · Materials -->
-    <section class="section materials" id="materials" aria-labelledby="materials-title" data-materials>
-      <div class="container">
-        <header class="section-head">
-          <p class="eyebrow mono"><b>FIG 04</b>资料与知识库</p>
-          <h2 id="materials-title" class="display">资料提前读懂，<br>用的时候只取那几段。</h2>
-          <p class="lead">PDF（含扫描件）、Word、PPT、Excel、CSV、HTML 和图片都在本机转换成结构化 Markdown，按类别自动归档；检索结果注明类别、文件和页码。</p>
+    <!-- Specifications: every technical fact lives here, once. -->
+    <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
+      <div class="container specs-sheet__grid">
+        <header>
+          <p class="eyebrow mono"><b>№ 04</b>规格</p>
+          <h2 id="specs-title" class="display">规格</h2>
         </header>
-        <div class="materials__grid">
-          <div class="queue" data-queue data-stages="排队|解析|OCR|索引|就绪">
-            <p class="queue__head"><b>导入队列</b><span class="mono">v1.9</span></p>
-            <ol role="list">
-              <li data-q><span class="ext">PDF</span><span class="name">订单系统设计.pdf</span><span class="q-stage mono" data-q-stage>就绪</span><i></i></li>
-              <li data-q><span class="ext">PPTX</span><span class="name">组会-Mamba.pptx</span><span class="q-stage mono" data-q-stage>就绪</span><i></i></li>
-              <li data-q data-ocr><span class="ext">PDF</span><span class="name">第9讲-虚拟内存（扫描）.pdf</span><span class="q-stage mono" data-q-stage>就绪</span><i></i></li>
-              <li data-q><span class="ext">XLSX</span><span class="name">年度报价表.xlsx</span><span class="q-stage mono" data-q-stage>就绪</span><i></i></li>
-              <li data-q><span class="ext">DOCX</span><span class="name">简历-后端.docx</span><span class="q-stage mono" data-q-stage>就绪</span><i></i></li>
-            </ol>
-            <p class="queue__foot">逐个文件显示解析、OCR、索引进度，可取消与重试；单个文件最大 512 MiB，PDF 最多 2000 页。</p>
-          </div>
-          <div class="mdcard" aria-hidden="true">
-            <p class="mdcard__path mono">资料 / 项目 / 订单系统设计.md</p>
-            <pre class="mono"><b>## 3. 缓存一致性</b>
-- 先更新数据库，再删除缓存
-- 删除失败进入重试队列
-- Canal 订阅 binlog 兜底
-<span>&gt; 来源：订单系统设计.pdf · 第 12 页</span></pre>
-          </div>
-          <div class="config" data-config>
-            <p class="config__head"><b>可选组件</b><span class="mono">不装也能用</span></p>
-            <label class="config__row"><input type="checkbox" data-size="649"><span><b>本机语义检索</b><small>Qwen3-Embedding-0.6B Q8 · 1024 维向量</small></span><em class="mono">649 MB</em></label>
-            <label class="config__row"><input type="checkbox" data-size="1230"><span><b>版面分析 OCR</b><small>Paddle Q8 · 复杂版面与表格</small></span><em class="mono">1.23 GB</em></label>
-            <p class="config__total"><span>额外下载</span><b class="mono" data-config-total>0 MB</b></p>
-            <p class="config__foot">默认使用系统 OCR 和关键词检索。文档运行环境单独下载约 186 MB，安装后 632 MB。</p>
-          </div>
-        </div>
+        <dl class="sheet">
+          <div><dt>版本</dt><dd>v1.9.0</dd></div>
+          <div><dt>系统</dt><dd>macOS 14 及以上 · Apple Silicon</dd></div>
+          <div><dt>开始使用</dt><dd>语音识别 + 对话服务。语音默认使用本机模型（首次下载约 270 MB）；回答使用你自己的 Codex 或任意 OpenAI 兼容服务。</dd></div>
+          <div><dt>识别</dt><dd>对方与你两路分别识别；边说边出字，句末整句精修。可选 Apple Speech（macOS 26）或云端识别。</dd></div>
+          <div><dt>资料</dt><dd>PDF（含扫描件）、Word、PPT、Excel、CSV、HTML、图片，在本机转换为 Markdown；可选本机语义检索（1024 维向量，最多等待 500 ms 后回退关键词）。</dd></div>
+          <div><dt>查看</dt><dd>助手窗口 · 悬浮提词器 · 手机伴侣（Android 调试版；iOS 暂未提供）</dd></div>
+          <div><dt>安装</dt><dd>DMG 约 18 MB。未经 Apple 公证，首次打开需在“隐私与安全性”中选择“仍要打开”。</dd></div>
+          <div><dt>访问</dt><dd>通过私有仓库分发，下载需要仓库访问权。</dd></div>
+        </dl>
+        <p class="fine specs-sheet__note">页面中的演示为交互示意：预设脚本，不访问麦克风、模型或网络。</p>
       </div>
     </section>
 
-    <!-- 05 · Views -->
-    <section class="section views" id="views" aria-labelledby="views-title">
-      <div class="container">
-        <header class="section-head section-head--split">
-          <div>
-            <p class="eyebrow mono"><b>FIG 05</b>随处查看</p>
-            <h2 id="views-title" class="display">回答出现在<br>你视线所在的地方。</h2>
-          </div>
-          <p class="lead">同一个回答，三种看法：完整的工作台、摄像头下方的提词器，或放在桌边的手机。</p>
-        </header>
-        <div class="views__grid">
-          <article class="view-card">
-            <figure><img src="./assets/ih/teleprompter-light.webp" data-ih-light="./assets/ih/teleprompter-light.webp" data-ih-dark="./assets/ih/teleprompter-dark.webp" width="1600" height="800" alt="悬浮提词器显示当前问题和建议回答" loading="lazy" decoding="async"></figure>
-            <h3>悬浮提词器</h3>
-            <p>半透明窗口放在摄像头下方。鼠标可以穿透，按钮仍然可点；可调字号与透明度，⌘⇧\ 一键隐藏全部窗口。</p>
-          </article>
-          <article class="view-card">
-            <figure><img src="./assets/scenes/phone-light.svg" data-ih-light="./assets/scenes/phone-light.svg" data-ih-dark="./assets/scenes/phone-dark.svg" width="1600" height="1044" alt="手机伴侣同步显示问题和回答" loading="lazy" decoding="async"></figure>
-            <h3>手机伴侣</h3>
-            <p>扫码配对，局域网直连或自建端到端加密中转，可查看并遥控。默认关闭；目前提供 Android 调试版，iOS 安装版尚未提供。</p>
-          </article>
-          <article class="view-card">
-            <figure><img src="./assets/ih/workspace-knowledge-light.webp" data-ih-light="./assets/ih/workspace-knowledge-light.webp" data-ih-dark="./assets/ih/workspace-knowledge-dark.webp" width="1600" height="1000" alt="场景工作台中的资料与知识库" loading="lazy" decoding="async"></figure>
-            <h3>场景工作台</h3>
-            <p>完整转写、回答记录、来源与改写都在一个窗口里，适合会前准备与会中细看。</p>
-          </article>
-        </div>
-        <p class="fine">不承诺在屏幕共享中完全隐藏窗口；应用内提供共享可见性测试，开会前可以先确认。</p>
-      </div>
-    </section>
-
-    <!-- 06 · Scenes -->
-    <section class="section scenes" id="scenes" aria-labelledby="scenes-title">
-      <div class="container">
-        <header class="section-head section-head--split">
-          <div>
-            <p class="eyebrow mono"><b>FIG 06</b>使用场景</p>
-            <h2 id="scenes-title" class="display">一场对话，<br>一套合适的背景。</h2>
-          </div>
-          <p class="lead">面试、学术报告、商务会议、课程和通用五种模式。每个场景各有字段、资料分类、回答要求、经验库和题库，回答只用当前场景的内容。</p>
-        </header>
-        <div class="scenes__tabs" role="tablist" aria-label="使用场景" data-scene-tabs>
-          <button role="tab" type="button" id="tab-interview" aria-controls="panel-interview" aria-selected="true"><span class="mono">01</span>求职面试<i></i></button>
-          <button role="tab" type="button" id="tab-talk" aria-controls="panel-talk" aria-selected="false" tabindex="-1"><span class="mono">02</span>学术报告<i></i></button>
-          <button role="tab" type="button" id="tab-meeting" aria-controls="panel-meeting" aria-selected="false" tabindex="-1"><span class="mono">03</span>商务会议<i></i></button>
-          <button role="tab" type="button" id="tab-class" aria-controls="panel-class" aria-selected="false" tabindex="-1"><span class="mono">04</span>课程学习<i></i></button>
-        </div>
-        <div class="scenes__panels">
-          <article class="scene is-active" role="tabpanel" id="panel-interview" aria-labelledby="tab-interview" data-scene>
-            <div class="scene__copy"><h3>字节后端二面</h3><p>带入简历、岗位 JD 和面经。面试官从订单系统追问到缓存一致性，回答直接引用你项目里的方案与数字。</p><p class="tags"><b>简历</b><b>JD</b><b>面经</b><b>项目资料</b></p></div>
-            <figure class="scene__shot"><img src="./assets/scenes/conversation-light.svg" data-ih-light="./assets/scenes/conversation-light.svg" data-ih-dark="./assets/scenes/conversation-dark.svg" width="1600" height="1044" alt="面试中追问缓存一致性时的建议回答" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-talk" aria-labelledby="tab-talk" data-scene>
-            <div class="scene__copy"><h3>组会 · Mamba 论文报告</h3><p>讲稿跟随当前幻灯片，讲过的要点自动打勾并提示过渡句。导师追问时，解释会注明论文页码。</p><p class="tags"><b>论文</b><b>幻灯片</b><b>讲稿</b><b>可能被问</b></p></div>
-            <figure class="scene__shot"><img src="./assets/scenes/lecture-light.svg" data-ih-light="./assets/scenes/lecture-light.svg" data-ih-dark="./assets/scenes/lecture-dark.svg" width="1600" height="1044" alt="论文报告：讲稿跟随与导师追问" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-meeting" aria-labelledby="tab-meeting" data-scene>
-            <div class="scene__copy"><h3>华东代理商 · 年度续约</h3><p>对方要求单价再降 8 个点时，按场景里设定的底线给出阶梯报价思路，同时实时记下决定事项、待办与分歧。</p><p class="tags"><b>议程</b><b>报价表</b><b>我方底线</b><b>会议纪要</b></p></div>
-            <figure class="scene__shot"><img src="./assets/scenes/meeting-light.svg" data-ih-light="./assets/scenes/meeting-light.svg" data-ih-dark="./assets/scenes/meeting-dark.svg" width="1600" height="1044" alt="续约谈判：实时纪要与报价建议" loading="lazy" decoding="async"></figure>
-          </article>
-          <article class="scene" role="tabpanel" id="panel-class" aria-labelledby="tab-class" data-scene>
-            <div class="scene__copy"><h3>操作系统 · 虚拟内存</h3><p>网课上老师点名提问“TLB 未命中时发生什么”，答案对齐到课件第 9 讲第 23 页；课后回看重点和还没弄懂的地方。</p><p class="tags"><b>课件</b><b>笔记</b><b>作业</b><b>教材</b></p></div>
-            <figure class="scene__shot"><img src="./assets/scenes/course-light.svg" data-ih-light="./assets/scenes/course-light.svg" data-ih-dark="./assets/scenes/course-dark.svg" width="1600" height="1044" alt="网课：课件对齐与老师提问" loading="lazy" decoding="async"></figure>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 · Review loop -->
-    <section class="section review band-night" id="review" aria-labelledby="review-title" data-review>
-      <div class="container review__grid">
-        <div class="review__copy">
-          <p class="eyebrow mono"><b>FIG 07</b>记录与复盘</p>
-          <h2 id="review-title" class="display">每一场，<br>都留给下一场。</h2>
-          <p class="lead">每次会话自动保存转写、问题、提词和当时用到的资料，生成摘要、完整问题清单、待办与复盘。有效的经验进入当前场景的经验库和题库，相近的问题合并去重。</p>
-          <p class="fine">记录可搜索，可导出 Markdown；会议结束和重要变更前自动备份，也可以关闭记录或随时删除。</p>
-        </div>
-        <ol class="timeline" role="list" data-timeline>
-          <li><span class="mono">10/14</span><b>一面 · 后端</b><em>14 个问题</em><i style="--w:.42"></i></li>
-          <li><span class="mono">10/17</span><b>模拟面 · 系统设计</b><em>9 个问题</em><i style="--w:.3"></i></li>
-          <li><span class="mono">10/21</span><b>二面 · 后端</b><em>17 个问题</em><i style="--w:.56"></i></li>
-          <li class="timeline__sum"><span class="mono">阶段复盘</span><b>高频：缓存一致性 ×3 · 限流 ×2</b><em>薄弱：分布式事务的取舍</em></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- 08 · Privacy -->
-    <section class="section privacy" id="privacy" aria-labelledby="privacy-title">
-      <div class="container privacy__grid">
-        <div class="privacy__copy">
-          <p class="eyebrow mono"><b>FIG 08</b>数据去向</p>
-          <h2 id="privacy-title" class="display">数据去向，<br>由你决定。</h2>
-          <p class="lead">默认本机离线识别，原始音频不保存。生成回答时，转录、问题、相关资料片段、截图与启用的技能会发送到你配置的回答引擎；场景资料与会话记录保存在你的 Mac 上，API Key 存放在钥匙串。</p>
-          <a class="btn btn--ghost" href="https://github.com/OmnixSI/InterviewHacker#数据去向">查看完整数据去向<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-        <div class="flowmap">
-          <div class="flowmap__local"><svg aria-hidden="true"><use href="#i-lock"/></svg><p><b>保存在你的 Mac</b><span>场景资料 · 会话记录 · 经验库与题库 · 本机语音识别</span></p></div>
-          <ul class="routes" role="list">
-            <li class="route is-on" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>回答引擎</b><small>生成回答时：文本、资料片段、截图、技能</small></p><span class="route__fixed mono">始终</span></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>云端识别</b><small>可选，需同意：音频</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="演示：开启云端识别时的数据去向"><span></span></button></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>联网搜索</b><small>开启后：问题文本</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="演示：开启联网搜索时的数据去向"><span></span></button></li>
-            <li class="route" data-route><span class="route__wire" aria-hidden="true"><i></i></span><p><b>手机伴侣</b><small>默认关闭：当前问题与回答</small></p><button class="switch" type="button" role="switch" aria-checked="false" aria-label="演示：开启手机伴侣时的数据去向"><span></span></button></li>
-          </ul>
-          <p class="fine">不做“隐身”承诺：录音与使用前请取得对方同意，并遵守所在场合的规则。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 09 · FAQ -->
     <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="container faq__grid">
         <header>
-          <p class="eyebrow mono"><b>FIG 09</b>常见问题</p>
+          <p class="eyebrow mono"><b>№ 05</b>常见问题</p>
           <h2 id="faq-title" class="display">常见问题</h2>
         </header>
         <div class="faq__list" data-faq>
@@ -447,20 +349,14 @@
     </section>
 
     <!-- 10 · Download -->
-    <section class="section download band-night" id="download" aria-labelledby="download-title" data-download>
+    <section class="section download" id="download" aria-labelledby="download-title" data-download>
       <div class="container download__inner">
         <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
         <h2 id="download-title" class="download__title">下一场重要对话，<span class="download__word">准备好你的<svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
         <div class="download__actions">
-          <a class="btn btn--paper btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 InterviewHacker</a>
-          <a class="btn btn--ghost-night btn--lg" href="https://github.com/OmnixSI/InterviewHacker">项目文档<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 InterviewHacker</a>
+          <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">项目文档<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <dl class="specs mono">
-          <div><dt>版本</dt><dd>v1.9.0</dd></div>
-          <div><dt>系统</dt><dd>macOS 14+ · Apple Silicon</dd></div>
-          <div><dt>安装包</dt><dd>DMG · ~18 MB</dd></div>
-          <div><dt>访问</dt><dd>下载需要仓库访问权</dd></div>
-        </dl>
       </div>
     </section>
   </main>
@@ -469,23 +365,20 @@
     <div class="container">
       <ol class="index mono" role="list">
         <li><a href="#demo"><span>01</span>实时演示<i></i></a></li>
-        <li><a href="#how"><span>02</span>工作链路<i></i></a></li>
-        <li><a href="#screen"><span>03</span>屏幕感知<i></i></a></li>
-        <li><a href="#materials"><span>04</span>资料与知识库<i></i></a></li>
-        <li><a href="#views"><span>05</span>随处查看<i></i></a></li>
-        <li><a href="#scenes"><span>06</span>使用场景<i></i></a></li>
-        <li><a href="#review"><span>07</span>记录与复盘<i></i></a></li>
-        <li><a href="#privacy"><span>08</span>数据去向<i></i></a></li>
-        <li><a href="#faq"><span>09</span>常见问题<i></i></a></li>
+        <li><a href="#scenes"><span>02</span>五个时刻<i></i></a></li>
+        <li><a href="#privacy"><span>03</span>隐私<i></i></a></li>
+        <li><a href="#specs"><span>04</span>规格<i></i></a></li>
+        <li><a href="#faq"><span>05</span>常见问题<i></i></a></li>
+        <li><a href="#download"><span>06</span>下载<i></i></a></li>
       </ol>
-      <p class="site-footer__fine">开始使用需要语音识别 + 对话服务。字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。</p>
-      <p class="wordmark" aria-hidden="true">InterviewHacker</p>
+      <p class="site-footer__fine">字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。</p>
+      <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
       <p class="site-footer__meta mono"><span>© 2026 OmnixSI</span><a href="./en/" hreflang="en">English</a><a href="/" target="_top">风格画廊</a></p>
     </div>
   </footer>
 
-  <script type="application/json" id="demo-data">{"ui":{"listening":"正在聆听","detected":"识别到问题","generating":"正在生成回答","speaking":"你在说话","ready":"本机语音已就绪","waiting":"等待问题","streaming":"流式输出","adjusted":{"short":"已改为更简短","example":"已补充例子","translate":"已改为英文版"},"tags":{"ask":"问题 · 明确提问","request":"问题 · 请求","follow":"问题 · 追问"},"echo":"回声 · 已忽略","restore":"是我说的","pause":"暂停演示","resume":"继续演示","chars":"问题识别追问请求明确提问上下文"},"scenes":{"interview":{"name":"字节后端二面","sources":["订单系统设计.md · §3","简历.pdf · 第 2 页"],"q1":{"type":"ask","text":"先聊聊你简历上的订单系统，大促时库存怎么扣？"},"a1":"库存先放在 Redis，用 Lua 脚本原子扣减，避免超卖；扣减成功后发事务消息，消费端按订单号幂等落库。大促前再做一轮库存预热和限流。","me":"库存先在 Redis 里用 Lua 原子扣减，再异步落库。","q2":{"type":"follow","text":"那数据库和缓存同时更新，怎么保证一致性？"},"echo":"数据库和缓存同时更新怎么保证一致性","a2":"我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。余额这类强一致数据直接读库。","variants":{"short":"先更新库再删缓存；删除失败进重试队列，binlog 订阅兜底，热点 key 延迟双删。","example":"比如下单扣完库存后删缓存时 Redis 超时：这个 key 进重试队列，Canal 收到 binlog 后再删一次，下一次读请求回源拿到的就是新值。","translate":"We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete."}},"talk":{"name":"组会 · Mamba 论文报告","sources":["Mamba.pdf · 第 4 页","组会-Mamba.pptx · 第 6 页"],"q1":{"type":"ask","text":"选择性状态空间和注意力比，长序列上优势在哪？"},"a1":"注意力的计算随序列长度平方增长，Mamba 的选择性扫描是线性的。它让状态转移参数随输入变化，所以能按内容决定记住什么、忘掉什么，长序列上推理吞吐更高。","me":"主要是线性时间扫描，加上参数随输入变化。","q2":{"type":"follow","text":"那在需要精确回看的任务上，它会不会吃亏？"},"a2":"会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，像关联回忆这类任务通常要混入少量注意力层来补。这也是我们下一步想验证的方向。","variants":{"short":"会。固定状态不能逐字回看，关联回忆类任务一般要混入少量注意力层。","example":"比如让模型在长文里找出某个电话号码后面的名字：注意力可以直接回看原文，纯 Mamba 只能依赖压缩后的状态，越长越容易丢。","translate":"Yes, there is a gap. A fixed-size state can’t look back token by token the way a KV cache can, so recall-heavy tasks usually mix in a few attention layers. That’s what we want to test next."}},"meeting":{"name":"华东代理商 · 年度续约","sources":["年度报价表.xlsx · 阶梯价","续约议程.docx · 底线"],"q1":{"type":"request","text":"如果单价再降 8 个点，你们能接受吗？"},"a1":"直接降 8 个点我们这边很难做。可以换个方式：年度采购量到 1.2 万台以上，我们给 5 个点，同时把账期从 60 天放宽到 90 天，你们的现金压力也小一些。","me":"8 个点很难，我们可以按量做阶梯价。","q2":{"type":"follow","text":"账期我们更看重，能不能只放账期，单价降 6 个点？"},"a2":"可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。","variants":{"short":"可以谈：6 个点以保底量不低于去年为前提，90 天账期会后书面确认。","example":"比如按去年 1.1 万台保底：达到就降 6 个点，账期 90 天；不到保底量就回到 5 个点和 60 天。","translate":"We can work towards that. Six points requires a minimum volume no lower than last year; the 90-day term needs sign-off from our finance team, and I’ll confirm in writing after today’s meeting."}},"class":{"name":"操作系统 · 第 9 讲","sources":["第9讲-虚拟内存.pdf · 第 23 页","课堂笔记.md · TLB"],"q1":{"type":"ask","text":"TLB 未命中的时候，硬件和操作系统分别做什么？"},"a1":"先由硬件的页表遍历器按多级页表查找；页表项有效，就把映射填回 TLB 再重试访问。只有页表项无效时才触发缺页异常，由操作系统把页调入内存并更新页表。","me":"硬件先查页表，查不到才缺页。","q2":{"type":"follow","text":"那进程切换的时候，TLB 怎么处理？"},"a2":"两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时旧表项不会被新进程误用，也不需要全部清空，切换开销更小。","variants":{"short":"要么切换时刷新 TLB，要么用 ASID 区分进程，后者不用清空。","example":"比如进程 A 和 B 都用虚拟地址 0x4000：有 ASID 时两条表项可以同时留在 TLB 里，各自带着自己的标签，切回 A 时直接命中。","translate":"Either flush the TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper."}}}}</script>
-  <script src="./scripts/theme.js?v=6bf91c50f4a0"></script>
+  <script type="application/json" id="demo-data">{"ui":{"listening":"正在聆听","detected":"识别到问题","generating":"正在生成回答","speaking":"你在说话","ready":"本机语音已就绪","waiting":"等待问题","streaming":"流式输出","adjusted":{"short":"已改为更简短","example":"已补充例子","translate":"已改为英文版"},"tags":{"ask":"问题 · 明确提问","request":"问题 · 请求","follow":"问题 · 追问"},"echo":"回声 · 已忽略","restore":"是我说的","pause":"暂停演示","resume":"继续演示","chars":"问题识别追问请求明确提问上下文","guide":[{"title":"对方开口","desc":"会议窗口的声音单独一路识别，边说边出字。"},{"title":"认出这是在问你","desc":"区分陈述、请求和追问，问题一结束就锁定。"},{"title":"流式给出回答","desc":"只取当前场景的相关资料，并注明出处。"},{"title":"你开口回答","desc":"你的麦克风是另一路，不会和对方混在一起。"},{"title":"追问到来，回答更新","desc":"扬声器回声被置灰；新问题出现，回答随之改写。"},{"title":"一键改写","desc":"更简短、举例或换语言，一下就好。"}]},"scenes":{"interview":{"name":"字节后端二面","sources":["订单系统设计.md · §3","简历.pdf · 第 2 页"],"q1":{"type":"ask","text":"先聊聊你简历上的订单系统，大促时库存怎么扣？"},"a1":"库存先放在 Redis，用 Lua 脚本原子扣减，避免超卖；扣减成功后发事务消息，消费端按订单号幂等落库。大促前再做一轮库存预热和限流。","me":"库存先在 Redis 里用 Lua 原子扣减，再异步落库。","q2":{"type":"follow","text":"那数据库和缓存同时更新，怎么保证一致性？"},"echo":"数据库和缓存同时更新怎么保证一致性","a2":"我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。余额这类强一致数据直接读库。","variants":{"short":"先更新库再删缓存；删除失败进重试队列，binlog 订阅兜底，热点 key 延迟双删。","example":"比如下单扣完库存后删缓存时 Redis 超时：这个 key 进重试队列，Canal 收到 binlog 后再删一次，下一次读请求回源拿到的就是新值。","translate":"We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete."}},"talk":{"name":"组会 · Mamba 论文报告","sources":["Mamba.pdf · 第 4 页","组会-Mamba.pptx · 第 6 页"],"q1":{"type":"ask","text":"选择性状态空间和注意力比，长序列上优势在哪？"},"a1":"注意力的计算随序列长度平方增长，Mamba 的选择性扫描是线性的。它让状态转移参数随输入变化，所以能按内容决定记住什么、忘掉什么，长序列上推理吞吐更高。","me":"主要是线性时间扫描，加上参数随输入变化。","q2":{"type":"follow","text":"那在需要精确回看的任务上，它会不会吃亏？"},"a2":"会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，像关联回忆这类任务通常要混入少量注意力层来补。这也是我们下一步想验证的方向。","variants":{"short":"会。固定状态不能逐字回看，关联回忆类任务一般要混入少量注意力层。","example":"比如让模型在长文里找出某个电话号码后面的名字：注意力可以直接回看原文，纯 Mamba 只能依赖压缩后的状态，越长越容易丢。","translate":"Yes, there is a gap. A fixed-size state can’t look back token by token the way a KV cache can, so recall-heavy tasks usually mix in a few attention layers. That’s what we want to test next."}},"meeting":{"name":"华东代理商 · 年度续约","sources":["年度报价表.xlsx · 阶梯价","续约议程.docx · 底线"],"q1":{"type":"request","text":"如果单价再降 8 个点，你们能接受吗？"},"a1":"直接降 8 个点我们这边很难做。可以换个方式：年度采购量到 1.2 万台以上，我们给 5 个点，同时把账期从 60 天放宽到 90 天，你们的现金压力也小一些。","me":"8 个点很难，我们可以按量做阶梯价。","q2":{"type":"follow","text":"账期我们更看重，能不能只放账期，单价降 6 个点？"},"a2":"可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。","variants":{"short":"可以谈：6 个点以保底量不低于去年为前提，90 天账期会后书面确认。","example":"比如按去年 1.1 万台保底：达到就降 6 个点，账期 90 天；不到保底量就回到 5 个点和 60 天。","translate":"We can work towards that. Six points requires a minimum volume no lower than last year; the 90-day term needs sign-off from our finance team, and I’ll confirm in writing after today’s meeting."}},"class":{"name":"操作系统 · 第 9 讲","sources":["第9讲-虚拟内存.pdf · 第 23 页","课堂笔记.md · TLB"],"q1":{"type":"ask","text":"TLB 未命中的时候，硬件和操作系统分别做什么？"},"a1":"先由硬件的页表遍历器按多级页表查找；页表项有效，就把映射填回 TLB 再重试访问。只有页表项无效时才触发缺页异常，由操作系统把页调入内存并更新页表。","me":"硬件先查页表，查不到才缺页。","q2":{"type":"follow","text":"那进程切换的时候，TLB 怎么处理？"},"a2":"两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时旧表项不会被新进程误用，也不需要全部清空，切换开销更小。","variants":{"short":"要么切换时刷新 TLB，要么用 ASID 区分进程，后者不用清空。","example":"比如进程 A 和 B 都用虚拟地址 0x4000：有 ASID 时两条表项可以同时留在 TLB 里，各自带着自己的标签，切回 A 时直接命中。","translate":"Either flush the TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper."}}}}</script>
+  <script src="./scripts/theme.js?v=f3abd4677691"></script>
   <script src="./assets/vendor/gsap.min.js?v=92bb9a96476f"></script>
   <script src="./assets/vendor/ScrollTrigger.min.js?v=b0b14d67b55b"></script>
   <script src="./assets/vendor/SplitText.min.js?v=419f7027a5f0"></script>
@@ -495,9 +388,10 @@
   <script src="./assets/vendor/Flip.min.js?v=cbe3ca726350"></script>
   <script src="./assets/vendor/CustomEase.min.js?v=466e426a5c60"></script>
   <script src="./assets/vendor/lenis.min.js?v=07020831fc52"></script>
-  <script src="./scripts/field.js?v=efec3402ef2a"></script>
-  <script src="./scripts/demo.js?v=1bd91ef61157"></script>
-  <script src="./scripts/motion.js?v=2229e9b068c0"></script>
+  <script src="./scripts/field.js?v=2e66d2726ee7"></script>
+  <script src="./scripts/demo.js?v=d85826925287"></script>
+  <script src="./scripts/motion.js?v=1d84124676a0"></script>
+  <script src="./scripts/cursor.js?v=478ae44ed0aa"></script>
   <script src="./scripts/fps.js?v=c2f92270878e"></script>
 </body>
 </html>
