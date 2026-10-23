@@ -43,7 +43,7 @@ function wrapRich(segments, size, max, firstIndent = 0) {
   return lines;
 }
 
-function drawing(p) {
+function drawing(p, cameraHousing = false) {
   const rect=(x,y,w,h,r=18,fill=p.panel,stroke='none',extra='')=>`<rect x="${n(x)}" y="${n(y)}" width="${n(w)}" height="${n(h)}" rx="${r}" fill="${fill}" stroke="${stroke==='none'&&fill===p.panel?p.line:stroke}" ${extra}/>`;
   const text=(x,y,s,size=22,fill=p.ink,weight=400,extra='')=>`<text x="${n(x)}" y="${n(y)}" font-size="${size}" font-weight="${weight}" fill="${fill}" ${extra}>${esc(s)}</text>`;
   const line=(x1,y1,x2,y2=y1,color=p.line)=>`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${color}"/>`;
@@ -112,8 +112,9 @@ function drawing(p) {
       rect(50,18,1500,966,34,'url(#metal)','#7b8498')+
       rect(53,21,1494,960,31,'none','url(#rim-light)')+
       rect(60,28,1480,946,28,'#0c0f16')+
-      `<circle cx="800" cy="34" r="3.2" fill="#090d15" stroke="#8491aa" stroke-width=".6"/><circle cx="799.3" cy="33.3" r=".8" fill="#7186a5"/>`+
-      `<g clip-path="url(#display)">`+(bare?'':chrome)+body+`</g>`+
+      (cameraHousing?'':`<circle cx="800" cy="34" r="3.2" fill="#090d15" stroke="#8491aa" stroke-width=".6"/><circle cx="799.3" cy="33.3" r=".8" fill="#7186a5"/>`)+
+      `<g clip-path="url(#display)">`+(bare?'':chrome)+body+
+      (cameraHousing?`<path d="M750 42H850V62C850 68.627 844.627 74 838 74H762C755.373 74 750 68.627 750 62V42Z" fill="#0c0f16"/><circle cx="800" cy="52" r="2.5" fill="#090d15" stroke="#182131" stroke-width="1"/><circle cx="799.2" cy="51.2" r=".7" fill="#354156" opacity=".7"/>`:'')+`</g>`+
       `<path d="M88 44H1511" stroke="#fff" stroke-opacity=".14"/>`+
       text(800,972,'I N T E R V I E W H A C K E R',9,'#98a3ba',500,'text-anchor="middle"')+
       `<path d="M18 988H1582L1546 1018Q1540 1026 1518 1026H82Q60 1026 54 1018Z" fill="url(#base)" stroke="#9ca6bb" stroke-width=".8"/>`+
@@ -473,12 +474,12 @@ const definitions = (p) => `<defs>
   <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#05070d" flood-opacity=".45"/></filter>
   <filter id="phone-shadow" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0d1426" flood-opacity=".18"/></filter>
 </defs>`.replace(/>\s+</g,'><');
-// Story and Classic share one product artwork set; each style keeps its own copy.
+// Each style keeps its own copy; Classic adds the display camera housing.
 const outs=['story','classic'].map(slug=>path.join(root,`public/${slug}/assets/product-scenes`));
 const check=process.argv.includes('--check');
 for (const out of outs) await mkdir(out,{recursive:true});
 for (const out of outs) for (const [theme,p] of Object.entries(palettes)) {
-  const screens=drawing(p);
+  const screens=drawing(p, out === path.join(root, 'public/classic/assets/product-scenes'));
   for(const [name,draw] of Object.entries(screens)) {
     const phone=name==='phone',w=phone?440:1600,h=phone?860:1044;
     const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none"><title>${titles[name]}</title>${definitions(p)}<g font-family="'HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',sans-serif" text-rendering="geometricPrecision">${draw()}</g></svg>\n`;

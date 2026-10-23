@@ -9,6 +9,17 @@
   const clamp = value => Math.max(0, Math.min(1, value));
   const settle = t => t * t * t * (t * (t * 6 - 15) + 10);
 
+  if ('IntersectionObserver' in window) {
+    const sections = document.querySelectorAll('main > [data-scroll-section]');
+    const visibility = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        entry.target.classList.toggle('ih-motion-active', entry.isIntersecting);
+      }
+    }, { rootMargin: '160px 0px' });
+    sections.forEach(section => visibility.observe(section));
+    document.documentElement.classList.add('ih-motion-visibility-ready');
+  }
+
   function updateDevices() {
     frame = 0;
     if (!stage || document.hidden) return;
