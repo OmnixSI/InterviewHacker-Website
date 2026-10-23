@@ -45,6 +45,19 @@
     });
   }
 
+  // Narrow screens have no room for the shared pool beside the text: each moment carries a copy of its window.
+  const glassCards = $$('[data-glass-card]');
+  $$('[data-moment]').forEach((m, i) => {
+    if (!glassCards[i]) return;
+    const visual = document.createElement('div');
+    visual.className = 'moment__visual';
+    visual.setAttribute('aria-hidden', 'true');
+    const card = glassCards[i].cloneNode(true);
+    card.removeAttribute('data-glass-card');
+    visual.append(card);
+    m.prepend(visual);
+  });
+
   if (!window.gsap || !window.ScrollTrigger) { root.classList.add('is-ready'); return; }
 
   /* ---------- GSAP ---------- */
@@ -321,7 +334,7 @@
     index[0]?.classList.add('is-active');
     moments.forEach((m, i) => ScrollTrigger.create({ trigger: m, start: 'top 55%', end: 'bottom 55%', onToggle: s => s.isActive && show(i) }));
     for (const m of moments) {
-      const parts = $$('.moment__kicker, .moment__title, .moment__echo, .moment__body, .moment__aside', m);
+      const parts = $$('.moment__visual, .moment__kicker, .moment__title, .moment__echo, .moment__body, .moment__aside', m);
       gsap.from(parts, { y: 36, opacity: 0, duration: 1.1, stagger: .07, scrollTrigger: { trigger: m, start: 'top 70%' } });
     }
 

@@ -46,7 +46,7 @@
         },
         {
           "title": "一键改写",
-          "desc": "更简短、举例或换语言，一下就好。"
+          "desc": "更简短、加个例子，或者换成英文。"
         }
       ]
     },
@@ -185,7 +185,7 @@
         },
         {
           "title": "You answer",
-          "desc": "Your microphone is a separate channel — never mixed with theirs."
+          "desc": "Your microphone is a separate channel, never mixed with theirs."
         },
         {
           "title": "A follow-up, a new answer",
@@ -193,7 +193,7 @@
         },
         {
           "title": "One-tap rewrites",
-          "desc": "Shorter, an example, or another language — in one tap."
+          "desc": "Shorter, with an example, or in Chinese."
         }
       ]
     },

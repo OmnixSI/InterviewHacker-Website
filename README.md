@@ -11,7 +11,7 @@
 
 [![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:6b95effc723fd1170586bd7e0f2f9f74150f9144d32594a2a526c545fca21db5 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:da38166686473ecbe6e2a0cbf2ef556a15041caf5931bea2bd3b28bfac36757c preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -55,13 +55,13 @@
 
 ### Final · 专业 · 精致 · 最终版
 
-[![Final 首页](public/previews/final-home.png?v=0c4f5b3de95b)](https://interviewhacker.vercel.app/final/)
+[![Final 首页](public/previews/final-home.png?v=4d8fe2120183)](https://interviewhacker.vercel.app/final/)
 
 以「时刻」叙事：得意黑与定制手写字形，鼠标可拨动的声波水面，随滚动逐步播放的完整面试演示，以及中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:8a76f0d3015abbefa2cee4e764fcd9414bda503cd4ad90a41f2598493a9c5142 preview:0c4f5b3de95b7f3d75856a4eb5fec486019821dea287ef72b67af79dceaea229 -->
+<!-- style:final source:7012681f382514fc26f8d6a583fd58e2a2a44fbd597e290a52a2793202cab96c preview:4d8fe21201836dbd7c2106365ef0835c6a534c342d0e971a794cb11b1aa43907 -->
 <!-- STYLES:END -->
 
 ## 本地运行

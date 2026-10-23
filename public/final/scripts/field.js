@@ -284,8 +284,9 @@ void main(){
   }
 
   /* ---------- Views: the pool behind the floating windows ---------- */
+  // Narrow screens give each moment its own still card instead (motion.js), so the pool never starts there.
   const poolCanvas = document.querySelector('[data-pool]');
-  if (poolCanvas) {
+  if (poolCanvas && !matchMedia('(max-width: 960px)').matches) {
     const pool = surface(poolCanvas, {
       frag: POOL, cell: 5, scale: 1, target: poolCanvas.closest('.pool') || poolCanvas,
       uniforms: () => ({ u_deep: [.62, .69, .7], u_shallow: [.86, .89, .88], u_light: [1, 1, .97] })

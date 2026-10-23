@@ -60,7 +60,7 @@
     phone.style.setProperty('--fs', size);
   }));
 
-  /* Pairing, once, when the stage is mostly in view. */
+  /* Pairing, once, when the stage is well in view (a third: on phones the stage is taller than the screen). */
   const connect = () => {
     stage.classList.add('is-paired');
     show(1, '');
@@ -80,5 +80,5 @@
       .call(() => { stage.classList.remove('is-scanning'); stage.classList.add('is-linking'); })
       .to(link, { drawSVG: '100%', duration: .9, ease: 'power2.inOut' })
       .call(connect);
-  }, { threshold: .55 }).observe(stage);
+  }, { threshold: .3 }).observe(stage);
 })();

@@ -36,6 +36,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+main { overflow-x: clip; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--header) + 12px); }
 body {
   margin: 0; background: var(--paper); color: var(--ink);
@@ -556,11 +557,33 @@ ol, ul { padding: 0; list-style: none; }
   .index { columns: 1; }
   .demo-controls { gap: 8px; }
   .segmented button { padding: 0 12px; font-size: 13px; }
-  .gallery-back { bottom: 12px; right: 12px; }
+  .gallery-back { display: none; }
+  /* The demo window becomes a tall phone-width window with type you can read. */
+  .device__lid { padding: 7px; border-radius: 22px; }
+  .device__cam { display: none; }
+  .device__screen { aspect-ratio: 4 / 5; border-radius: 16px; }
+  .device__base { display: none; }
+  /* The two voices sit under the copy, however tall the copy wraps: field and copy share one grid cell. */
+  .hero__pin { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .field, .hero__copy { grid-area: 1 / 1; }
+  .field { position: relative; height: auto; }
+  .hero__copy { min-height: calc(100svh - var(--header) - clamp(40px, 9vh, 96px)); padding-bottom: 15svh; }
+  .hero__title { font-size: clamp(30px, 10.4vw, 46px); line-height: 1.12; }
+  .hero__lead { text-wrap: balance; }
+  :lang(en) .hero__title { font-size: clamp(34px, 11.6vw, 48px); }
+  .voiceprint { margin-top: 56px; }
 }
 /* Phones: the rendered app keeps only the conversation that matters — question and answer. */
 @container (max-width: 560px) {
-  .app { font-size: 9.5px; padding: .9em; gap: .7em; }
+  .app { font-size: 12px; padding: 1em; gap: .8em; }
+  .app__status { padding: .35em .8em; }
+  .qcard__text { font-size: 1.08em; }
+  .app.is-prompter { inset: 4% 5% auto; }
+  .app.is-prompter .acard__text { font-size: 1.3em; max-height: 6.4em; }
+  .desk { padding: 34% 5% 5%; }
+  .call { grid-template-columns: 1fr; grid-template-rows: 1.4fr 1fr; }
+  .call__tile--me { align-self: stretch; height: auto; }
+  .call__tile small { font-size: 10px; left: 10px; bottom: 8px; }
   .app__tabs, .app__pane--talk, .app__foot, .app__input > span, .app__fast { display: none; }
   .app__body { grid-template-columns: 1fr; }
   .app__input { justify-content: flex-end; background: none; border: 0; padding: 0; }
@@ -693,6 +716,7 @@ ol, ul { padding: 0; list-style: none; }
 .moment__title { font: 400 clamp(36px, 4.4vw, 64px)/1.12 var(--f-display); letter-spacing: -.01em; font-synthesis: none; }
 :lang(en) .moment__title { font: 400 clamp(40px, 4.8vw, 70px)/1.02 var(--f-serif); }
 .moment__body { margin-top: 30px; font-size: 17px; line-height: 1.9; color: var(--ink-2); text-wrap: pretty; }
+.moment__visual { display: none; }
 .moment__aside { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 
 /* Phone companion */
@@ -700,7 +724,7 @@ ol, ul { padding: 0; list-style: none; }
 .companion__head .lead { margin-top: 24px; }
 .companion__stage { position: relative; display: grid; grid-template-columns: minmax(0, 1.55fr) 120px minmax(0, .8fr); align-items: center; gap: 0; }
 .cmac__screen { position: relative; aspect-ratio: 16 / 10; border-radius: 16px 16px 4px 4px; border: 10px solid #1b1c20; border-bottom-width: 14px; background: #1f2026; overflow: hidden; }
-.cmac__base { height: 12px; margin: 0 -5%; border-radius: 2px 2px 14px 14px / 2px 2px 100% 100%; background: linear-gradient(#e4e3df, #b5b4af); }
+.cmac__base { height: 12px; margin: 0 -3%; border-radius: 2px 2px 14px 14px / 2px 2px 100% 100%; background: linear-gradient(#e4e3df, #b5b4af); }
 .cmac__share { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 2; display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; background: rgba(20, 21, 25, .82); color: #f2f1ec; font-size: 11px; }
 .cmac__share i { width: 7px; height: 7px; border-radius: 50%; background: #e5484d; box-shadow: 0 0 0 3px rgba(229, 72, 77, .25); animation: beacon 1.8s infinite; }
 .cmac__call { position: absolute; inset: 14% 5% 6%; display: grid; grid-template-columns: 1.7fr 1fr; gap: 4%; }
@@ -811,13 +835,18 @@ ol, ul { padding: 0; list-style: none; }
 .hero__listen .ch, .wordmark .ch, .hero__text .hc { display: inline-block; transform-origin: 50% 100%; will-change: transform; }
 
 @media (max-width: 960px) {
-  .moments { grid-template-columns: 1fr; }
-  .moments__stage { position: sticky; top: var(--header); height: 44svh; z-index: 3; }
-  .moments__chapters { padding: 0 var(--gutter); position: relative; z-index: 1; }
-  .moments__index { top: calc(var(--header) + 44svh); z-index: 2; overflow-x: auto; padding: 12px 0 18px; }
-  .moment { min-height: 62svh; padding: 48px 0 72px; }
-  .glass__card { width: min(380px, 84%); padding: 16px 18px; font-size: 13px; }
-  .mini-prompter__a { font-size: 16px; }
+  /* Each moment carries its own window on a still pool; the shared stage is for wide screens. */
+  .moments { grid-template-columns: minmax(0, 1fr); }
+  .moments__stage { display: none; }
+  .moments__chapters { padding: 0 var(--gutter); }
+  .moments__index { position: static; overflow-x: auto; scrollbar-width: none; gap: 16px; padding: 28px 0 14px; background: none; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .moment { min-height: 0; max-width: 40em; padding: 40px 0 64px; }
+  .moment__visual { display: grid; place-items: center; margin-bottom: 36px; padding: clamp(28px, 8vw, 56px) 16px; border-radius: 20px; background: radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, .55), transparent 60%), linear-gradient(160deg, #dfe5e3, #b9c6c5); }
+  .moment__visual .glass__card { width: min(400px, 100%); padding: 18px 20px; font-size: 13.5px; opacity: 1; visibility: visible; }
+  .moment__visual .glass__card:has(.mini-phone) { width: min(280px, 86%); }
+  .moment__kicker { margin-bottom: 18px; }
+  .moment__body { margin-top: 22px; font-size: 16px; line-height: 1.85; }
+  .mini-prompter__a { font-size: 17px; }
   .principles__list { grid-template-columns: 1fr; }
   .specs-sheet__grid { grid-template-columns: 1fr; }
   .specs-sheet__note { grid-column: 1; }
