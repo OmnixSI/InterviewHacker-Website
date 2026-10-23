@@ -287,10 +287,17 @@
     light(-1);
     if (wide) {
       // Stagger comes from margin (not transform) so measurements never fight tweens.
-      const points = () => stations.map(s => [s.offsetLeft + s.offsetWidth / 2, s.offsetTop + s.offsetHeight / 2]);
+      // Measured once per refresh; reading layout inside onUpdate would force a reflow every frame.
+      let pts = [], spans = [];
+      const measure = () => {
+        pts = stations.map(s => [s.offsetLeft + s.offsetWidth / 2, s.offsetTop + s.offsetHeight / 2]);
+        spans = stations.map(s => [s.offsetLeft - 30, s.offsetLeft + s.offsetWidth + 30]);
+      };
+      const points = () => pts;
       const pathEl = $('#pipe-path');
       const grad = $('#wire-grad');
       function layoutWire() {
+        measure();
         const w = track.scrollWidth, h = track.offsetHeight;
         wire.setAttribute('width', w); wire.setAttribute('height', h);
         wire.setAttribute('viewBox', `0 0 ${w} ${h}`);
@@ -325,7 +332,7 @@
           light(idx);
           if (payload) {
             // Only label the signal in the gaps; over a card the card itself tells the story.
-            const behind = stations.some(st => pt.x > st.offsetLeft - 30 && pt.x < st.offsetLeft + st.offsetWidth + 30);
+            const behind = spans.some(([a, b]) => pt.x > a && pt.x < b);
             gsap.set(payload, {x: pt.x + tx, y: pt.y});
             if (behind !== payloadHidden) { payloadHidden = behind; gsap.to(payload, {autoAlpha: behind ? 0 : 1, scale: behind ? .85 : 1, duration: .3, overwrite: 'auto'}); }
           }
@@ -367,10 +374,10 @@
       gsap.killTweensOf([prev, next]);
       shots.forEach(s => s !== prev && s !== next && gsap.set(s, {opacity: 0, zIndex: 0}));
       gsap.set(prev, {zIndex: 1});
-      gsap.set(next, {zIndex: 2, opacity: 1});
-      gsap.fromTo(next, {clipPath: down ? 'inset(100% 0% 0% 0% round 28px)' : 'inset(0% 0% 100% 0% round 28px)', scale: 1.06, filter: 'brightness(1.4)'},
-        {clipPath: 'inset(0% 0% 0% 0% round 0px)', scale: 1, filter: 'brightness(1)', duration: 1.1, ease: 'expo.inOut'});
-      gsap.to(prev, {scale: .94, opacity: 0, duration: 1.1, ease: 'expo.inOut'});
+      gsap.set(next, {zIndex: 2});
+      // Transform + opacity only, so the swap stays on the compositor (no clip-path or filter repaints).
+      gsap.fromTo(next, {yPercent: down ? 9 : -9, scale: 1.04, opacity: 0}, {yPercent: 0, scale: 1, opacity: 1, duration: .95, ease: 'expo.out'});
+      gsap.to(prev, {yPercent: down ? -6 : 6, scale: .96, opacity: 0, duration: .8, ease: 'expo.out'});
       next.classList.add('is-active');
       prev.classList.remove('is-active');
     }

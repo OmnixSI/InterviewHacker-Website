@@ -12,5 +12,7 @@
   }
   root.dataset.theme = theme === 'light' ? 'light' : 'dark';
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) root.classList.add('reduced');
+  // Some effects (live backdrop blur) are only worth their cost on Apple compositors.
+  if (/Mac|iPhone|iPad/.test(navigator.userAgentData?.platform || navigator.platform || '')) root.classList.add('is-apple');
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f6f7fb' : '#07080c');
 })();

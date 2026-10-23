@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=9cfa1c89d922)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=a90f88eb42d1)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:8102ac2023ad34bb0ddc0ad613df01829d251bc0d0b7674ec017d72f6cf9f6e2 preview:9cfa1c89d9222b6e61c8b4fceb5238e4317a7c87fa3c05ce8ab8b85fb36774e0 -->
+<!-- gallery-source:f4103d4a820c8de00eeca8a25599c75326b90839ff43d0476ed01a3d9ef45b86 preview:a90f88eb42d197061266317b29f839533bb1d1cb09ca8ad85e0725fb0bbfe338 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -35,23 +35,23 @@
 
 ### Story · 产品 · 场景 · 精致
 
-[![Story 首页](public/previews/story-home.png?v=8e8115bd48ad)](https://interviewhacker.vercel.app/story/)
+[![Story 首页](public/previews/story-home.png?v=2ad31607e438)](https://interviewhacker.vercel.app/story/)
 
 鸿蒙字体与金属设备外框，配合可播放的实时演示、WebGL 声纹光场和滚动叙事，串联准备、实时辅助与复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/story/](https://interviewhacker.vercel.app/story/)**
 
-<!-- style:story source:4677a9d1f468a32c02a976a17a7f08ec62ec79bab626e59a0875f4775d47856b preview:8e8115bd48ad3d47ac856ddcebf272031aee74955933c1d88c7aa67d30a781b1 -->
+<!-- style:story source:7fb9c2c06e2ca75aa0070893b1990ce540f6faa584b20fc117218967ae6793d9 preview:2ad31607e438a2b61b68996edd12a587e109e70362decbb2ec10ceeba3e27dba -->
 
 ### Classic · 专业 · 严肃 · 设备叙事
 
-[![Classic 首页](public/previews/classic-home.png?v=2bc1f6b2e813)](https://interviewhacker.vercel.app/classic/)
+[![Classic 首页](public/previews/classic-home.png?v=f40d7e9c4785)](https://interviewhacker.vercel.app/classic/)
 
 Story 的原始版本：鸿蒙字体、金属设备外框与连续的设备交接，克制的明暗章节串联准备、实时辅助与复盘。
 
 **访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
 
-<!-- style:classic source:3f13c30715de9d9038ae7d33ead07648c38fcb030eba67d64405392d00031e8a preview:2bc1f6b2e813bad9f7626922b74ba0dd2d903d263d8f4bc03c84c5c0c555b70a -->
+<!-- style:classic source:13f4cfc797a1b3d7f17dd6fd71dc52ba2a76b8dae62096022702e34800e14bf8 preview:f40d7e9c4785b4aa782fbf39f4cf1521bdaeca6ca3d13f7c44d29d7497d724e9 -->
 <!-- STYLES:END -->
 
 ## 本地运行

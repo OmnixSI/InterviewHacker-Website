@@ -5,7 +5,12 @@
   const root = document.documentElement;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const paused = () => root.classList.contains('motion-paused');
-  const css = name => getComputedStyle(root).getPropertyValue(name).trim();
+  // Colours are read once per theme, not per frame: getComputedStyle in a draw loop forces style work.
+  let palette = {};
+  const readPalette = () => { const cs = getComputedStyle(root); palette = {'--mint': cs.getPropertyValue('--mint').trim(), '--violet': cs.getPropertyValue('--violet').trim()}; };
+  readPalette();
+  document.addEventListener('ih:theme', () => requestAnimationFrame(readPalette));
+  const css = name => palette[name];
 
   /* ---------- Waveforms ---------- */
   const waves = [];

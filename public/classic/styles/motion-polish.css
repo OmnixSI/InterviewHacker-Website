@@ -19,7 +19,7 @@
   scale: var(--ih-device-scale, 1);
   transform-origin: 50% 65%;
 }
-.ih-viewing-stage img { filter: drop-shadow(0 20px 24px rgba(10, 14, 30, .12)); }
+/* Device artwork carries its own shadow; a CSS drop-shadow here re-filters every scrolled frame. */
 .btn, .ih-scene-card { -webkit-tap-highlight-color: transparent; }
 .btn:focus-visible, .ih-scene-dot:focus-visible {
   outline: 2px solid var(--ih-accent); outline-offset: 5px;

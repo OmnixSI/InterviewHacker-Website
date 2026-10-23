@@ -63,3 +63,12 @@
   will-change: transform;
   backface-visibility: hidden;
 }
+
+/* Same rule for the rest of the page: any scroll-driven parallax element that carries
+   product artwork gets its own layer instead of repainting the SVG each frame. */
+[data-plugin~="parallax"]:has(img),
+.l-steps-images__list li,
+.ih-viewing-stage,
+.l-pdf__background {
+  will-change: transform;
+}
