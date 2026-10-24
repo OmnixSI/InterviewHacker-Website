@@ -777,10 +777,13 @@ ol, ul { padding: 0; list-style: none; }
 
 /* Cursor */
 .has-cursor, .has-cursor * { cursor: none !important; }
-.has-cursor input, .has-cursor textarea { cursor: text !important; }
+.has-cursor input:not([type="checkbox"]), .has-cursor textarea { cursor: text !important; }
 .cursor { position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; opacity: 0; transition: opacity .3s; }
 .cursor.is-on { opacity: 1; }
 .cursor.is-typing { opacity: 0; }
+.cursor.is-dark .cursor__dot { background: #f3f1ea; }
+.cursor.is-dark .cursor__ring::before { border-color: rgba(243, 241, 234, .55); }
+.cursor.is-dark .cursor__label { color: #16171b; }
 .cursor__dot, .cursor__ring { position: fixed; left: 0; top: 0; will-change: transform; }
 .cursor__dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--ink); transition: opacity .2s; }
 .cursor__ring { display: grid; place-items: center; width: 0; height: 0; }

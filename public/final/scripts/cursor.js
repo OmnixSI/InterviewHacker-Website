@@ -44,6 +44,10 @@
     if (e.pointerType !== 'mouse') return;
     x = e.clientX; y = e.clientY;
     if (!shown) { shown = true; rx = x; ry = y; cursor.classList.add('is-on'); }
+    // Over a text field the system caret takes over; over the dark water the cursor turns light.
+    const field = !!e.target.closest?.('input:not([type="checkbox"]), textarea');
+    cursor.classList.toggle('is-typing', field);
+    cursor.classList.toggle('is-dark', !!e.target.closest?.('.ending__panel') && !e.target.closest('.waitlist__form, .waitlist__done'));
     const target = e.target.closest?.('a, button, summary, label, [data-cursor]');
     if (target !== hot) {
       hot = target;
@@ -59,8 +63,6 @@
   addEventListener('pointerdown', () => cursor.classList.add('is-down'));
   addEventListener('pointerup', () => cursor.classList.remove('is-down'));
   document.addEventListener('pointerleave', () => { shown = false; cursor.classList.remove('is-on'); });
-  // Text fields keep the system caret.
-  document.addEventListener('focusin', e => cursor.classList.toggle('is-typing', e.target.matches('input[type="text"], textarea')));
 
   if (reduced.matches) return;
 
