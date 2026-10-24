@@ -121,4 +121,8 @@ const staticConfig=JSON.parse(await readFile(path.join(publicRoot,'vercel.json')
 const gitConfig=JSON.parse(await readFile(path.join(root,'vercel.json'),'utf8'));
 assert.deepEqual(gitConfig.headers,staticConfig.headers,'Git and static deployments must share headers');
 assert.equal(gitConfig.outputDirectory,'dist');assert.equal(gitConfig.trailingSlash,true);
+// EdgeOne Pages publishes the same build with the same security headers.
+const edgeConfig=JSON.parse(await readFile(path.join(root,'edgeone.json'),'utf8'));
+assert.equal(edgeConfig.outputDirectory,'./dist','EdgeOne must publish dist only');
+assert.deepEqual(edgeConfig.headers.find(h=>h.source==='/*')?.headers,gitConfig.headers.find(h=>h.source==='/(.*)').headers,'EdgeOne and Vercel must share security headers');
 console.log(`Gallery, ${catalog.styles.length} style pages, comparison, README synchronization and deployment checks passed.`);

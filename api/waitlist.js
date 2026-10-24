@@ -108,40 +108,56 @@ function limited(ip) {
   return list.length > 5;
 }
 
-async function readBody(req) {
-  if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) return req.body;
-  let raw = typeof req.body === 'string' ? req.body : Buffer.isBuffer(req.body) ? req.body.toString('utf8') : '';
-  if (!raw) for await (const chunk of req) { raw += chunk; if (raw.length > 20000) break; }
-  if (/json/.test(req.headers['content-type'] || '')) { try { return JSON.parse(raw); } catch { return {}; } }
+// One sign-up, whatever the platform: { status, error }. env holds SMTP_* (process.env on Vercel, context.env on EdgeOne).
+export async function submit(input, env, ip = 'unknown') {
+  if (limited(ip)) return { status: 429, error: 'busy' };
+  const { data, error } = validate(input);
+  if (error === 'spam') return { status: 200 }; // quietly accept bots
+  if (error) return { status: 400, error };
+  // Values pasted into the dashboard often carry a stray space or newline.
+  const user = (env.SMTP_USER || '').trim(), pass = (env.SMTP_PASS || '').replace(/\s+/g, '');
+  if (!user || !pass) return { status: 503, error: 'offline' };
+  const to = env.WAITLIST_TO || user;
+  try {
+    await sendMail({ host: env.SMTP_HOST || 'smtp.qq.com', port: Number(env.SMTP_PORT || 465), user, pass, from: user, to, message: compose(data, { from: user, to }) });
+    return { status: 200 };
+  } catch (e) {
+    // The shape of the code (never the code) tells a wrong value from a refused login.
+    console.error(`waitlist mail failed: ${e.message} (user ${/^[^@\s]+@[^@\s]+$/.test(user) ? 'ok' : 'malformed'}, code ${pass.length} chars${/^[a-z]+$/i.test(pass) ? ', letters only' : ''})`);
+    return { status: 502, error: 'mail' };
+  }
+}
+
+// A url-encoded form body as an object; repeated keys (the use checkboxes) become arrays.
+export function formFields(raw) {
   const form = new URLSearchParams(raw), out = {};
   for (const key of new Set(form.keys())) { const all = form.getAll(key); out[key] = all.length > 1 ? all : all[0]; }
   return out;
 }
 
+// JSON for the script, or — after a script-free post — back to the ending with the outcome in the hash.
+export function outcome({ status, error }, { json, referer }) {
+  if (json) return { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }, body: JSON.stringify(status < 300 ? { ok: true } : { ok: false, error }) };
+  const back = (referer || '/final/').split('#')[0];
+  return { status: 303, headers: { Location: `${back}#waitlist-${status < 300 ? 'ok' : error}` }, body: '' };
+}
+
+async function readBody(req) {
+  if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) return req.body;
+  let raw = typeof req.body === 'string' ? req.body : Buffer.isBuffer(req.body) ? req.body.toString('utf8') : '';
+  if (!raw) for await (const chunk of req) { raw += chunk; if (raw.length > 20000) break; }
+  if (/json/.test(req.headers['content-type'] || '')) { try { return JSON.parse(raw); } catch { return {}; } }
+  return formFields(raw);
+}
+
+// Vercel entry.
 export default async function handler(req, res) {
-  const wantsJson = /json/.test(req.headers.accept || '') || /json/.test(req.headers['content-type'] || '');
-  const reply = (status, key) => {
-    if (wantsJson) { res.statusCode = status; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.setHeader('Cache-Control', 'no-store'); return res.end(JSON.stringify(status < 300 ? { ok: true } : { ok: false, error: key })); }
-    // Without script the form posts normally; send the reader back to the ending with the outcome in the hash.
-    const back = (req.headers.referer || '/final/').split('#')[0];
-    res.statusCode = 303; res.setHeader('Location', `${back}#waitlist-${status < 300 ? 'ok' : key}`); return res.end();
-  };
-  if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return reply(405, 'method'); }
+  const json = /json/.test(req.headers.accept || '') || /json/.test(req.headers['content-type'] || '');
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
-  if (limited(ip)) return reply(429, 'busy');
-  const { data, error } = validate(await readBody(req));
-  if (error === 'spam') return reply(200); // quietly accept bots
-  if (error) return reply(400, error);
-  // Values pasted into the dashboard often carry a stray space or newline.
-  const user = (process.env.SMTP_USER || '').trim(), pass = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
-  if (!user || !pass) return reply(503, 'offline');
-  const to = process.env.WAITLIST_TO || user;
-  try {
-    await sendMail({ host: process.env.SMTP_HOST || 'smtp.qq.com', port: Number(process.env.SMTP_PORT || 465), user, pass, from: user, to, message: compose(data, { from: user, to }) });
-    return reply(200);
-  } catch (e) {
-    // The shape of the code (never the code) tells a wrong value from a refused login.
-    console.error(`waitlist mail failed: ${e.message} (user ${/^[^@\s]+@[^@\s]+$/.test(user) ? 'ok' : 'malformed'}, code ${pass.length} chars${/^[a-z]+$/i.test(pass) ? ', letters only' : ''})`);
-    return reply(502, 'mail');
-  }
+  const result = req.method === 'POST' ? await submit(await readBody(req), process.env, ip) : { status: 405, error: 'method' };
+  if (result.status === 405) res.setHeader('Allow', 'POST');
+  const out = outcome(result, { json, referer: req.headers.referer });
+  res.statusCode = out.status;
+  for (const [k, v] of Object.entries(out.headers)) res.setHeader(k, v);
+  res.end(out.body);
 }

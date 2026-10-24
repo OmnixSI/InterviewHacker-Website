@@ -74,3 +74,9 @@ npm run final:build
 ```sh
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-device-scale-factor=1 --blink-settings=preferredColorScheme=1 --window-size=1280,844 --virtual-time-budget=9000 --screenshot=public/previews/final-home.png http://127.0.0.1:4173/final/
 ```
+
+## 部署到 EdgeOne Pages（腾讯云海外站）
+
+- 仓库根目录的 `edgeone.json` 与 `vercel.json` 对应：同样运行 `npm run check && npm run build`，只发布 `dist`（否则会把整个仓库，包括 README 与 package.json，公开出去），安全响应头与 Vercel 一致（`scripts/check.mjs` 会校验）。
+- 试用名单在 EdgeOne 上由 `cloud-functions/api/waitlist.js` 处理，与 Vercel 的 `api/waitlist.js` 共用校验与发信代码；需在 EdgeOne 项目的环境变量里同样设置 `SMTP_USER`、`SMTP_PASS`（可选 `WAITLIST_TO`）。表单提交到 `/api/waitlist`：EdgeOne 直接路由到函数，Vercel 以 308 转到带斜杠的地址并保留 POST。
+- EdgeOne 自动分配的 `*.edgeone.dev` 地址在中国大陆只返回 401（需要控制台生成的临时预览链接），`*.vercel.app` 在中国大陆被屏蔽；面向国内用户必须绑定自有域名。
