@@ -132,14 +132,16 @@ export default async function handler(req, res) {
   const { data, error } = validate(await readBody(req));
   if (error === 'spam') return reply(200); // quietly accept bots
   if (error) return reply(400, error);
-  const { SMTP_USER: user, SMTP_PASS: pass } = process.env;
+  // Values pasted into the dashboard often carry a stray space or newline.
+  const user = (process.env.SMTP_USER || '').trim(), pass = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
   if (!user || !pass) return reply(503, 'offline');
   const to = process.env.WAITLIST_TO || user;
   try {
     await sendMail({ host: process.env.SMTP_HOST || 'smtp.qq.com', port: Number(process.env.SMTP_PORT || 465), user, pass, from: user, to, message: compose(data, { from: user, to }) });
     return reply(200);
   } catch (e) {
-    console.error('waitlist mail failed:', e.message);
+    // The shape of the code (never the code) tells a wrong value from a refused login.
+    console.error(`waitlist mail failed: ${e.message} (user ${/^[^@\s]+@[^@\s]+$/.test(user) ? 'ok' : 'malformed'}, code ${pass.length} chars${/^[a-z]+$/i.test(pass) ? ', letters only' : ''})`);
     return reply(502, 'mail');
   }
 }
