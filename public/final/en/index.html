@@ -21,7 +21,7 @@
   <link rel="preload" href="../assets/fonts/serif/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="../assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="../style.css?v=e514fa39f0ab">
+  <link rel="stylesheet" href="../style.css?v=371249cb7058">
   <script src="../scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
@@ -60,7 +60,6 @@
         <a href="#scenes"><i>02</i>Moments</a>
         <a href="#companion"><i>03</i>Companion</a>
         <a href="#privacy"><i>04</i>Privacy</a>
-        <a href="#specs"><i>05</i>Specs</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="../" hreflang="zh-CN" lang="zh-CN" data-lang-switch aria-label="切换到中文">中</a>
@@ -122,7 +121,7 @@
                   <div class="app__body">
                     <section class="app__pane app__pane--talk" aria-label="Live transcript">
                       <header class="app__head"><b>Live transcript</b><span class="app__chip" data-demo-scene-name>Backend · onsite round 2</span></header>
-                      <p class="app__meta mono" data-demo-asr>X-ASR · on-device · each sentence refined</p>
+                      <p class="app__meta mono" data-demo-asr>On this Mac · each sentence checked again</p>
                       <div class="lanes">
                         <div class="lane lane--them"><svg aria-hidden="true"><use href="#i-speaker"/></svg><span>Them</span><canvas data-wave="them"></canvas></div>
                         <div class="lane lane--me"><svg aria-hidden="true"><use href="#i-mic"/></svg><span>Me</span><canvas data-wave="me"></canvas></div>
@@ -151,10 +150,9 @@
                   </div>
                   <div class="app__input">
                     <span>Type a question, or ask with a screenshot</span>
-                    <b class="app__fast"><svg aria-hidden="true"><use href="#i-bolt"/></svg>Fast</b>
                     <button type="button" class="app__answer" data-demo-now><svg aria-hidden="true"><use href="#i-bolt"/></svg>Answer now<kbd>⌘⇧↩</kbd></button>
                   </div>
-                  <p class="app__foot">Audio is recognised on this Mac and not saved; only the text an answer needs goes to the engine you configured.</p>
+                  <p class="app__foot">Audio is recognised on this Mac and not saved; only the text an answer needs goes to the service you chose.</p>
                 </div>
               </div>
             </div>
@@ -313,7 +311,7 @@
               <div class="cmac__call"><span><b>A</b><small>Interviewer</small></span><span><b>Me</b></span></div>
               <div class="cmac__pair" data-pair>
                 <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
-                <p><b>Scan with your phone’s camera</b><span class="mono">One-time pairing code · 128-bit</span></p>
+                <p><b>Scan with your phone’s camera</b><span class="mono">One-time pairing code</span></p>
               </div>
               <p class="cmac__seen mono">What they see: just the call</p>
             </div>
@@ -347,9 +345,8 @@
         <ul class="companion__facts" role="list">
           <li><span class="mono">i.</span><h3>Scan and go</h3><p>Turn it on, scan with the camera, and the browser becomes your prompter.</p></li>
           <li><span class="mono">ii.</span><h3>Off the shared screen</h3><p>Your phone isn’t part of the shared screen, so it’s the safest place to read during a full-screen share.</p></li>
-          <li><span class="mono">iii.</span><h3>Only this moment syncs</h3><p>Off by default; a fresh pairing code each time, up to 4 devices; no transcripts, material or screenshots.</p></li>
+          <li><span class="mono">iii.</span><h3>Only this moment syncs</h3><p>Off by default, with a fresh pairing code each time; transcripts, material and screenshots never reach the phone.</p></li>
         </ul>
-        <p class="fine">Available today in the browser and as an Android debug build; an iOS app is not yet available.</p>
       </div>
     </section>
 
@@ -360,52 +357,15 @@
         <h2 id="privacy-title" class="display">What stays on your Mac,<br>and what leaves.</h2>
         <p class="caption-serif">哪些留在本机，哪些会发出去。</p>
         <ol class="principles__list" role="list">
-          <li><span class="mono">i.</span><h3>Your voice stays on this Mac.</h3><p>Speech is recognised offline on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it.</p></li>
+          <li><span class="mono">i.</span><h3>Your voice stays on this Mac.</h3><p>Speech is recognised on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it.</p></li>
           <li><span class="mono">ii.</span><h3>Only the passages that matter.</h3><p>Answers use only the passages retrieved for the question at hand, not your whole library. Material and records stay on your Mac.</p></li>
-          <li><span class="mono">iii.</span><h3>You decide what leaves.</h3><p>You choose the answer engine and API keys live in the Keychain; web search and the phone companion are off by default.</p></li>
+          <li><span class="mono">iii.</span><h3>You decide what leaves.</h3><p>Answers go through the service you choose, and its key stays in your Keychain; web search and the phone companion are off by default.</p></li>
         </ol>
         <p class="fine">No stealth promises: get consent before recording, and follow the rules of the room. <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">Full data notes</a></p>
       </div>
     </section>
 
-    <!-- Specifications: every technical fact lives here, once. -->
-    <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
-      <div class="container specs-sheet__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 05</b>Specifications</p>
-          <h2 id="specs-title" class="display">Specifications</h2>
-        </header>
-        <dl class="sheet">
-          <div><dt>Version</dt><dd>v1.9.0</dd></div>
-          <div><dt>System</dt><dd>macOS 14 or later · Apple Silicon</dd></div>
-          <div><dt>To start</dt><dd>Speech recognition plus an answer engine. Speech runs on a local model by default (one-time ~270 MB download); answers use your own Codex or any OpenAI-compatible API.</dd></div>
-          <div><dt>Recognition</dt><dd>Them and you on separate channels; streaming text with a refinement pass at each sentence. Apple Speech (macOS 26) or cloud recognition are optional.</dd></div>
-          <div><dt>Material</dt><dd>PDF (incl. scans), Word, PowerPoint, Excel, CSV, HTML and images, converted to Markdown on your Mac; optional on-device semantic search (1024-dim vectors, waits at most 500 ms before falling back to keywords).</dd></div>
-          <div><dt>Views</dt><dd>Assistant window · floating teleprompter · phone companion (Android debug build; iOS not yet available)</dd></div>
-          <div><dt>Install</dt><dd>DMG, about 18 MB. Not notarised; on first launch choose “Open Anyway” in Privacy &amp; Security.</dd></div>
-          <div><dt>Access</dt><dd>Distributed through a private repository; download requires repository access.</dd></div>
-        </dl>
-        <p class="fine specs-sheet__note">The demo on this page is an interactive illustration: a scripted replay with no microphone, model or network access.</p>
-      </div>
-    </section>
-
-    <section class="section faq" id="faq" aria-labelledby="faq-title">
-      <div class="container faq__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 06</b>FAQ</p>
-          <h2 id="faq-title" class="display">Questions,<br>answered.</h2>
-        </header>
-        <div class="faq__list" data-faq>
-          <details><summary>What do I need to start?</summary><div class="faq__answer"><p>An Apple Silicon Mac on macOS 14 or later, plus speech recognition and an answer engine. Speech runs on a local model by default (a one-time ~270 MB download); answers need your own Codex (ChatGPT account) or any OpenAI-compatible API, billed by that provider.</p></div></details>
-          <details><summary>Does speech recognition work offline?</summary><div class="faq__answer"><p>Yes. The default is on-device X-ASR streaming with an offline refinement pass. You can switch to Apple Speech (macOS 26) or cloud recognition, which sends audio only after you consent.</p></div></details>
-          <details><summary>Is all my material sent to the model?</summary><div class="faq__answer"><p>No. Answers use only the passages retrieved for the current question, not the whole library, and when nothing relevant turns up, unrelated passages don’t constrain the answer.</p></div></details>
-          <details><summary>Why does macOS say it can’t verify the developer?</summary><div class="faq__answer"><p>The current build isn’t notarised with an Apple Developer ID. On first launch choose “Open Anyway” in System Settings › Privacy &amp; Security; updates verify SHA-256 and signatures.</p></div></details>
-          <details><summary>Is there an Intel Mac or Windows version?</summary><div class="faq__answer"><p>Not at the moment. InterviewHacker is a native macOS app for Apple Silicon.</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 · Download -->
+    <!-- Download -->
     <section class="section download" id="download" aria-labelledby="download-title" data-download>
       <div class="container download__inner">
         <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
@@ -414,6 +374,7 @@
           <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>Download InterviewHacker</a>
           <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">Documentation<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
+        <p class="download__fine">For Apple Silicon Macs on macOS 14 or later; download requires repository access. You’ll need speech recognition and an answer service: speech is recognised on your Mac by default, and answers use your own account with an AI service. The demo on this page is an interactive illustration with no microphone or network access.</p>
       </div>
     </section>
   </main>
@@ -425,9 +386,7 @@
         <li><a href="#scenes"><span>02</span>Five moments<i></i></a></li>
         <li><a href="#companion"><span>03</span>Phone companion<i></i></a></li>
         <li><a href="#privacy"><span>04</span>Privacy<i></i></a></li>
-        <li><a href="#specs"><span>05</span>Specifications<i></i></a></li>
-        <li><a href="#faq"><span>06</span>FAQ<i></i></a></li>
-        <li><a href="#download"><span>07</span>Download<i></i></a></li>
+        <li><a href="#download"><span>05</span>Download<i></i></a></li>
       </ol>
       <p class="site-footer__fine">Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering.</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
@@ -449,8 +408,8 @@
   <script src="../scripts/field.js?v=5ed41bb5f728"></script>
   <script src="../scripts/demo.js?v=d85826925287"></script>
   <script src="../scripts/companion.js?v=666f4b4256f4"></script>
-  <script src="../scripts/motion.js?v=10b7b7e2388c"></script>
-  <script src="../scripts/cursor.js?v=95d76e2961e6"></script>
+  <script src="../scripts/motion.js?v=14366bfbc3c7"></script>
+  <script src="../scripts/cursor.js?v=a738daa046e4"></script>
   <script src="../scripts/fps.js?v=c2f92270878e"></script>
 </body>
 </html>

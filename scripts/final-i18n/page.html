@@ -59,7 +59,6 @@
         <a href="#scenes"><i>02</i>{{ 时刻 ‖ Moments }}</a>
         <a href="#companion"><i>03</i>{{ 伴侣 ‖ Companion }}</a>
         <a href="#privacy"><i>04</i>{{ 隐私 ‖ Privacy }}</a>
-        <a href="#specs"><i>05</i>{{ 规格 ‖ Specs }}</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="{{other}}" hreflang="{{ en ‖ zh-CN }}" lang="{{ en ‖ zh-CN }}" data-lang-switch aria-label="{{ Switch to English ‖ 切换到中文 }}">{{ EN ‖ 中 }}</a>
@@ -121,7 +120,7 @@
                   <div class="app__body">
                     <section class="app__pane app__pane--talk" aria-label="{{ 实时对话 ‖ Live transcript }}">
                       <header class="app__head"><b>{{ 实时对话 ‖ Live transcript }}</b><span class="app__chip" data-demo-scene-name>{{ 字节后端二面 ‖ Backend · onsite round 2 }}</span></header>
-                      <p class="app__meta mono" data-demo-asr>X-ASR · {{ 本机识别 · 每句整句精修 ‖ on-device · each sentence refined }}</p>
+                      <p class="app__meta mono" data-demo-asr>{{ 本机识别 · 每句说完再校对一遍 ‖ On this Mac · each sentence checked again }}</p>
                       <div class="lanes">
                         <div class="lane lane--them"><svg aria-hidden="true"><use href="#i-speaker"/></svg><span>{{ 对方 ‖ Them }}</span><canvas data-wave="them"></canvas></div>
                         <div class="lane lane--me"><svg aria-hidden="true"><use href="#i-mic"/></svg><span>{{ 我 ‖ Me }}</span><canvas data-wave="me"></canvas></div>
@@ -150,10 +149,9 @@
                   </div>
                   <div class="app__input">
                     <span>{{ 输入问题，或截图提问 ‖ Type a question, or ask with a screenshot }}</span>
-                    <b class="app__fast"><svg aria-hidden="true"><use href="#i-bolt"/></svg>Fast</b>
                     <button type="button" class="app__answer" data-demo-now><svg aria-hidden="true"><use href="#i-bolt"/></svg>{{ 立即回答 ‖ Answer now }}<kbd>⌘⇧↩</kbd></button>
                   </div>
-                  <p class="app__foot">{{ 音频仅在本机识别，不保存；回答所需文本发送给你配置的回答引擎。 ‖ Audio is recognised on this Mac and not saved; only the text an answer needs goes to the engine you configured. }}</p>
+                  <p class="app__foot">{{ 声音只在本机识别，不保存；只有回答需要的文字会发给你选择的对话服务。 ‖ Audio is recognised on this Mac and not saved; only the text an answer needs goes to the service you chose. }}</p>
                 </div>
               </div>
             </div>
@@ -312,7 +310,7 @@
               <div class="cmac__call"><span><b>{{ 王 ‖ A }}</b><small>{{ 面试官 ‖ Interviewer }}</small></span><span><b>{{ 我 ‖ Me }}</b></span></div>
               <div class="cmac__pair" data-pair>
                 <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
-                <p><b>{{ 用手机相机扫一扫 ‖ Scan with your phone’s camera }}</b><span class="mono">{{ 一次性配对码 · 128 位 ‖ One-time pairing code · 128-bit }}</span></p>
+                <p><b>{{ 用手机相机扫一扫 ‖ Scan with your phone’s camera }}</b><span class="mono">{{ 一次性配对码 ‖ One-time pairing code }}</span></p>
               </div>
               <p class="cmac__seen mono">{{ 对方看到的：只有会议画面 ‖ What they see: just the call }}</p>
             </div>
@@ -346,9 +344,8 @@
         <ul class="companion__facts" role="list">
           <li><span class="mono">i.</span><h3>{{ 扫码即用 ‖ Scan and go }}</h3><p>{{ 设置里打开，手机相机扫一下，浏览器里就是你的提词屏。 ‖ Turn it on, scan with the camera, and the browser becomes your prompter. }}</p></li>
           <li><span class="mono">ii.</span><h3>{{ 整屏共享也看不到 ‖ Off the shared screen }}</h3><p>{{ 手机不在被共享的屏幕里，整屏共享时在手机上看最稳妥。 ‖ Your phone isn’t part of the shared screen, so it’s the safest place to read during a full-screen share. }}</p></li>
-          <li><span class="mono">iii.</span><h3>{{ 只同步此刻的问答 ‖ Only this moment syncs }}</h3><p>{{ 默认关闭；每次开启生成新的配对码，最多 4 台设备；不同步转录、资料和截图。 ‖ Off by default; a fresh pairing code each time, up to 4 devices; no transcripts, material or screenshots. }}</p></li>
+          <li><span class="mono">iii.</span><h3>{{ 只同步此刻的问答 ‖ Only this moment syncs }}</h3><p>{{ 默认关闭，每次开启都换一个新的配对码；转录、资料和截图不会同步到手机。 ‖ Off by default, with a fresh pairing code each time; transcripts, material and screenshots never reach the phone. }}</p></li>
         </ul>
-        <p class="fine">{{ 目前提供 Android 调试版与网页端；iOS 安装版尚未提供。 ‖ Available today in the browser and as an Android debug build; an iOS app is not yet available. }}</p>
       </div>
     </section>
 
@@ -359,52 +356,15 @@
         <h2 id="privacy-title" class="display">{{ 哪些留在本机，<br>哪些会发出去。 ‖ What stays on your Mac,<br>and what leaves. }}</h2>
         <p class="caption-serif">{{ What stays on your Mac, and what leaves. ‖ 哪些留在本机，哪些会发出去。 }}</p>
         <ol class="principles__list" role="list">
-          <li><span class="mono">i.</span><h3>{{ 声音留在这台 Mac 上。 ‖ Your voice stays on this Mac. }}</h3><p>{{ 默认本机离线识别，原始音频不保存。云端识别只有在你同意之后才会使用。 ‖ Speech is recognised offline on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it. }}</p></li>
+          <li><span class="mono">i.</span><h3>{{ 声音留在这台 Mac 上。 ‖ Your voice stays on this Mac. }}</h3><p>{{ 默认在本机识别，原始音频不保存。只有你同意之后，才会用到云端识别。 ‖ Speech is recognised on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it. }}</p></li>
           <li><span class="mono">ii.</span><h3>{{ 只带上需要的那几段。 ‖ Only the passages that matter. }}</h3><p>{{ 回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。 ‖ Answers use only the passages retrieved for the question at hand, not your whole library. Material and records stay on your Mac. }}</p></li>
-          <li><span class="mono">iii.</span><h3>{{ 发什么出去，由你决定。 ‖ You decide what leaves. }}</h3><p>{{ 回答引擎由你配置，API Key 存放在钥匙串；联网搜索、手机伴侣默认关闭。 ‖ You choose the answer engine and API keys live in the Keychain; web search and the phone companion are off by default. }}</p></li>
+          <li><span class="mono">iii.</span><h3>{{ 发什么出去，由你决定。 ‖ You decide what leaves. }}</h3><p>{{ 回答走你自己选的对话服务，密钥只存在系统钥匙串里；联网搜索和手机伴侣默认关闭。 ‖ Answers go through the service you choose, and its key stays in your Keychain; web search and the phone companion are off by default. }}</p></li>
         </ol>
         <p class="fine">{{ 不做“隐身”承诺：录音与使用前请取得对方同意，并遵守所在场合的规则。 ‖ No stealth promises: get consent before recording, and follow the rules of the room. }} <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">{{ 完整数据去向 ‖ Full data notes }}</a></p>
       </div>
     </section>
 
-    <!-- Specifications: every technical fact lives here, once. -->
-    <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
-      <div class="container specs-sheet__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 05</b>{{ 规格 ‖ Specifications }}</p>
-          <h2 id="specs-title" class="display">{{ 规格 ‖ Specifications }}</h2>
-        </header>
-        <dl class="sheet">
-          <div><dt>{{ 版本 ‖ Version }}</dt><dd>v1.9.0</dd></div>
-          <div><dt>{{ 系统 ‖ System }}</dt><dd>{{ macOS 14 及以上 · Apple Silicon ‖ macOS 14 or later · Apple Silicon }}</dd></div>
-          <div><dt>{{ 开始使用 ‖ To start }}</dt><dd>{{ 语音识别 + 对话服务。语音默认使用本机模型（首次下载约 270 MB）；回答使用你自己的 Codex 或任意 OpenAI 兼容服务。 ‖ Speech recognition plus an answer engine. Speech runs on a local model by default (one-time ~270 MB download); answers use your own Codex or any OpenAI-compatible API. }}</dd></div>
-          <div><dt>{{ 识别 ‖ Recognition }}</dt><dd>{{ 对方与你两路分别识别；边说边出字，句末整句精修。可选 Apple Speech（macOS 26）或云端识别。 ‖ Them and you on separate channels; streaming text with a refinement pass at each sentence. Apple Speech (macOS 26) or cloud recognition are optional. }}</dd></div>
-          <div><dt>{{ 资料 ‖ Material }}</dt><dd>{{ PDF（含扫描件）、Word、PPT、Excel、CSV、HTML、图片，在本机转换为 Markdown；可选本机语义检索（1024 维向量，最多等待 500 ms 后回退关键词）。 ‖ PDF (incl. scans), Word, PowerPoint, Excel, CSV, HTML and images, converted to Markdown on your Mac; optional on-device semantic search (1024-dim vectors, waits at most 500 ms before falling back to keywords). }}</dd></div>
-          <div><dt>{{ 查看 ‖ Views }}</dt><dd>{{ 助手窗口 · 悬浮提词器 · 手机伴侣（Android 调试版；iOS 暂未提供） ‖ Assistant window · floating teleprompter · phone companion (Android debug build; iOS not yet available) }}</dd></div>
-          <div><dt>{{ 安装 ‖ Install }}</dt><dd>{{ DMG 约 18 MB。未经 Apple 公证，首次打开需在“隐私与安全性”中选择“仍要打开”。 ‖ DMG, about 18 MB. Not notarised; on first launch choose “Open Anyway” in Privacy &amp; Security. }}</dd></div>
-          <div><dt>{{ 访问 ‖ Access }}</dt><dd>{{ 通过私有仓库分发，下载需要仓库访问权。 ‖ Distributed through a private repository; download requires repository access. }}</dd></div>
-        </dl>
-        <p class="fine specs-sheet__note">{{ 页面中的演示为交互示意：预设脚本，不访问麦克风、模型或网络。 ‖ The demo on this page is an interactive illustration: a scripted replay with no microphone, model or network access. }}</p>
-      </div>
-    </section>
-
-    <section class="section faq" id="faq" aria-labelledby="faq-title">
-      <div class="container faq__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 06</b>{{ 常见问题 ‖ FAQ }}</p>
-          <h2 id="faq-title" class="display">{{ 常见问题 ‖ Questions,<br>answered. }}</h2>
-        </header>
-        <div class="faq__list" data-faq>
-          <details><summary>{{ 开始使用需要准备什么？ ‖ What do I need to start? }}</summary><div class="faq__answer"><p>{{ 一台 Apple Silicon、macOS 14 及以上的 Mac，以及语音识别 + 对话服务。语音识别默认用本机模型，首次使用下载约 270 MB；回答需要你自己的 Codex（ChatGPT 账户）或任意 OpenAI 兼容 API，按对应服务的规则计费。 ‖ An Apple Silicon Mac on macOS 14 or later, plus speech recognition and an answer engine. Speech runs on a local model by default (a one-time ~270 MB download); answers need your own Codex (ChatGPT account) or any OpenAI-compatible API, billed by that provider. }}</p></div></details>
-          <details><summary>{{ 语音识别可以离线吗？ ‖ Does speech recognition work offline? }}</summary><div class="faq__answer"><p>{{ 可以。默认使用本机 X-ASR 流式识别，再由离线模型整句精修。也可以改用 Apple Speech（需 macOS 26）或云端识别，云端识别需按提示同意后才发送音频。 ‖ Yes. The default is on-device X-ASR streaming with an offline refinement pass. You can switch to Apple Speech (macOS 26) or cloud recognition, which sends audio only after you consent. }}</p></div></details>
-          <details><summary>{{ 资料会全部发给模型吗？ ‖ Is all my material sent to the model? }}</summary><div class="faq__answer"><p>{{ 不会。回答只使用当前问题检索到的资料片段，不会把所有资料塞入上下文；检索不到相关内容时，回答也不会被无关片段限制。 ‖ No. Answers use only the passages retrieved for the current question, not the whole library, and when nothing relevant turns up, unrelated passages don’t constrain the answer. }}</p></div></details>
-          <details><summary>{{ 为什么首次打开提示无法验证开发者？ ‖ Why does macOS say it can’t verify the developer? }}</summary><div class="faq__answer"><p>{{ 当前版本没有 Apple Developer ID 公证。首次打开时在“系统设置 › 隐私与安全性”中选择“仍要打开”即可；更新会校验 SHA-256 与签名。 ‖ The current build isn’t notarised with an Apple Developer ID. On first launch choose “Open Anyway” in System Settings › Privacy &amp; Security; updates verify SHA-256 and signatures. }}</p></div></details>
-          <details><summary>{{ 支持 Intel Mac 或 Windows 吗？ ‖ Is there an Intel Mac or Windows version? }}</summary><div class="faq__answer"><p>{{ 暂不支持。InterviewHacker 是面向 Apple Silicon 的原生 macOS 应用。 ‖ Not at the moment. InterviewHacker is a native macOS app for Apple Silicon. }}</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 · Download -->
+    <!-- Download -->
     <section class="section download" id="download" aria-labelledby="download-title" data-download>
       <div class="container download__inner">
         <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
@@ -413,6 +373,7 @@
           <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>{{ 下载 InterviewHacker ‖ Download InterviewHacker }}</a>
           <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">{{ 项目文档 ‖ Documentation }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
+        <p class="download__fine">{{ 适用于 Apple Silicon Mac（macOS 14 及以上），下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。 ‖ For Apple Silicon Macs on macOS 14 or later; download requires repository access. You’ll need speech recognition and an answer service: speech is recognised on your Mac by default, and answers use your own account with an AI service. The demo on this page is an interactive illustration with no microphone or network access. }}</p>
       </div>
     </section>
   </main>
@@ -424,9 +385,7 @@
         <li><a href="#scenes"><span>02</span>{{ 五个时刻 ‖ Five moments }}<i></i></a></li>
         <li><a href="#companion"><span>03</span>{{ 手机伴侣 ‖ Phone companion }}<i></i></a></li>
         <li><a href="#privacy"><span>04</span>{{ 隐私 ‖ Privacy }}<i></i></a></li>
-        <li><a href="#specs"><span>05</span>{{ 规格 ‖ Specifications }}<i></i></a></li>
-        <li><a href="#faq"><span>06</span>{{ 常见问题 ‖ FAQ }}<i></i></a></li>
-        <li><a href="#download"><span>07</span>{{ 下载 ‖ Download }}<i></i></a></li>
+        <li><a href="#download"><span>05</span>{{ 下载 ‖ Download }}<i></i></a></li>
       </ol>
       <p class="site-footer__fine">{{ 字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。 ‖ Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering. }}</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>

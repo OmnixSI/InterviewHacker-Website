@@ -93,7 +93,7 @@ for(const style of catalog.styles){
    assert(page.includes('hreflang="zh-CN"')&&page.includes('hreflang="en"'),'Final pages must link their language alternates');
    assert(!/fonts\.googleapis|cdn\.|无法被检测|undetectable/i.test(page),'Final must stay self-hosted and avoid detection claims');
    for(const src of [...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]))assert(/^\.\.?\//.test(src),'Final scripts must be same-origin');
-   for(const id of ['hero-title','demo','scenes','privacy','specs','faq','download'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
+   for(const id of ['hero-title','demo','scenes','companion','privacy','download'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
    assert.equal((page.match(/data-demo-app/g)||[]).length,1,'Final must render exactly one product device');
   }
   for(const m of [...html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)]){

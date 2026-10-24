@@ -226,8 +226,7 @@ ol, ul { padding: 0; list-style: none; }
 .acard__chips button.is-on { background: var(--me-soft); color: var(--me-ink); border-color: transparent; }
 .app__input { display: flex; align-items: center; gap: .8em; padding: .55em .6em .55em 1.1em; border-radius: 99px; background: var(--app-pane); border: 1px solid var(--app-line); color: var(--muted); }
 .app__input > span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.app__fast { display: inline-flex; align-items: center; gap: .3em; font-weight: 500; color: var(--me-ink); padding: .3em .8em; border-radius: 99px; background: var(--me-soft); }
-.app__fast svg, .app__answer svg { width: 1.1em; height: 1.1em; }
+.app__answer svg { width: 1.1em; height: 1.1em; }
 .app__answer { display: inline-flex; align-items: center; gap: .45em; padding: .45em 1.1em; border-radius: 99px; background: var(--me); color: #fff; font-weight: 500; transition: transform .4s var(--e-settle); }
 .app__answer:active { transform: scale(.96); }
 .app__answer kbd { font: 400 .85em var(--f-mono); opacity: .75; }
@@ -462,15 +461,6 @@ ol, ul { padding: 0; list-style: none; }
 .switch[aria-checked="true"] span { transform: translateX(16px); }
 
 /* ---------- FAQ ---------- */
-.faq__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 88px); }
-.faq__list details { border-top: 1px solid var(--line-2); }
-.faq__list details:last-child { border-bottom: 1px solid var(--line-2); }
-.faq__list summary { position: relative; list-style: none; cursor: pointer; padding: 24px 44px 24px 0; font-size: 18px; font-weight: 500; }
-.faq__list summary::-webkit-details-marker { display: none; }
-.faq__list summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px; margin-top: -8px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: rotate(45deg); transition: transform .45s var(--e-settle); }
-.faq__list details[open] summary::after { transform: translateY(5px) rotate(-135deg); }
-.faq__answer { overflow: hidden; }
-.faq__answer p { padding: 0 44px 26px 0; color: var(--ink-2); }
 
 /* ---------- Download ---------- */
 .download { overflow: hidden; text-align: center; }
@@ -480,11 +470,8 @@ ol, ul { padding: 0; list-style: none; }
 .download__title { font: 400 clamp(36px, 5.8vw, 84px)/1.12 var(--f-display); letter-spacing: -.01em; font-synthesis: none; }
 .download__word { display: block; color: var(--ink); }
 .download__word .lettering { color: var(--me); margin-left: .2em; }
-.download__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 44px 0 56px; }
-.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); text-align: left; }
-.specs div { padding: 18px 18px 0 0; }
-.specs dt { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
-.specs dd { font-size: 13px; color: var(--ink-2); }
+.download__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 44px 0 0; }
+.download__fine { max-width: 40em; margin: 36px auto 0; font-size: 12.5px; line-height: 1.8; color: var(--muted); text-wrap: pretty; }
 
 /* ---------- Footer ---------- */
 .site-footer { padding: 80px 0 28px; overflow: hidden; }
@@ -530,7 +517,7 @@ ol, ul { padding: 0; list-style: none; }
   .site-nav a i { display: inline; }
   .site-nav a:hover, .site-nav a.is-active { background: none; }
   .site-header__actions .btn { display: none; }
-  .section-head--split, .screen__grid, .review__grid, .privacy__grid, .faq__grid { grid-template-columns: 1fr; }
+  .section-head--split, .screen__grid, .review__grid, .privacy__grid { grid-template-columns: 1fr; }
   .section-head--split .lead { justify-self: start; }
   .materials__grid { grid-template-columns: 1fr; grid-template-areas: "queue" "md" "config"; }
   .scene { grid-template-columns: 1fr; }
@@ -553,7 +540,6 @@ ol, ul { padding: 0; list-style: none; }
   .views__grid { grid-template-columns: 1fr; }
   .scenes__tabs { display: flex; overflow-x: auto; scrollbar-width: none; gap: 20px; }
   .scenes__tabs button { flex: none; }
-  .specs { grid-template-columns: 1fr 1fr; gap: 0 12px; }
   .index { columns: 1; }
   .demo-controls { gap: 8px; }
   .segmented button { padding: 0 12px; font-size: 13px; }
@@ -584,7 +570,7 @@ ol, ul { padding: 0; list-style: none; }
   .call { grid-template-columns: 1fr; grid-template-rows: 1.4fr 1fr; }
   .call__tile--me { align-self: stretch; height: auto; }
   .call__tile small { font-size: 10px; left: 10px; bottom: 8px; }
-  .app__tabs, .app__pane--talk, .app__foot, .app__input > span, .app__fast { display: none; }
+  .app__tabs, .app__pane--talk, .app__foot, .app__input > span { display: none; }
   .app__body { grid-template-columns: 1fr; }
   .app__input { justify-content: flex-end; background: none; border: 0; padding: 0; }
   .acard__text { font-size: 1.25em; }
@@ -791,14 +777,6 @@ ol, ul { padding: 0; list-style: none; }
 :lang(en) .principles__list h3 { font: 400 clamp(26px, 2.3vw, 32px)/1.15 var(--f-serif); }
 .principles__list p { font-size: 15px; color: var(--ink-2); }
 
-/* Specifications */
-.specs-sheet { background: var(--paper-2); }
-.specs-sheet__grid { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(32px, 6vw, 88px); }
-.sheet div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 24px; padding: 20px 0; border-top: 1px solid var(--line-2); }
-.sheet div:last-child { border-bottom: 1px solid var(--line-2); }
-.sheet dt { font: 400 12px/1.8 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.sheet dd { font-size: 15px; color: var(--ink); }
-.specs-sheet__note { grid-column: 2; }
 
 /* Cursor */
 .has-cursor, .has-cursor * { cursor: none !important; }
@@ -848,9 +826,6 @@ ol, ul { padding: 0; list-style: none; }
   .moment__body { margin-top: 22px; font-size: 16px; line-height: 1.85; }
   .mini-prompter__a { font-size: 17px; }
   .principles__list { grid-template-columns: 1fr; }
-  .specs-sheet__grid { grid-template-columns: 1fr; }
-  .specs-sheet__note { grid-column: 1; }
-  .sheet div { grid-template-columns: 1fr; gap: 6px; }
   .interlude__lines p { margin-left: calc(var(--x) * 2%); }
 }
 

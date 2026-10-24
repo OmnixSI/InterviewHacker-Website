@@ -21,7 +21,7 @@
   <link rel="preload" href="./assets/fonts/display/ih-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="./assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="./style.css?v=e514fa39f0ab">
+  <link rel="stylesheet" href="./style.css?v=371249cb7058">
   <script src="./scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
@@ -60,7 +60,6 @@
         <a href="#scenes"><i>02</i>时刻</a>
         <a href="#companion"><i>03</i>伴侣</a>
         <a href="#privacy"><i>04</i>隐私</a>
-        <a href="#specs"><i>05</i>规格</a>
       </nav>
       <div class="site-header__actions">
         <a class="icon-btn lang-switch" href="./en/" hreflang="en" lang="en" data-lang-switch aria-label="Switch to English">EN</a>
@@ -122,7 +121,7 @@
                   <div class="app__body">
                     <section class="app__pane app__pane--talk" aria-label="实时对话">
                       <header class="app__head"><b>实时对话</b><span class="app__chip" data-demo-scene-name>字节后端二面</span></header>
-                      <p class="app__meta mono" data-demo-asr>X-ASR · 本机识别 · 每句整句精修</p>
+                      <p class="app__meta mono" data-demo-asr>本机识别 · 每句说完再校对一遍</p>
                       <div class="lanes">
                         <div class="lane lane--them"><svg aria-hidden="true"><use href="#i-speaker"/></svg><span>对方</span><canvas data-wave="them"></canvas></div>
                         <div class="lane lane--me"><svg aria-hidden="true"><use href="#i-mic"/></svg><span>我</span><canvas data-wave="me"></canvas></div>
@@ -151,10 +150,9 @@
                   </div>
                   <div class="app__input">
                     <span>输入问题，或截图提问</span>
-                    <b class="app__fast"><svg aria-hidden="true"><use href="#i-bolt"/></svg>Fast</b>
                     <button type="button" class="app__answer" data-demo-now><svg aria-hidden="true"><use href="#i-bolt"/></svg>立即回答<kbd>⌘⇧↩</kbd></button>
                   </div>
-                  <p class="app__foot">音频仅在本机识别，不保存；回答所需文本发送给你配置的回答引擎。</p>
+                  <p class="app__foot">声音只在本机识别，不保存；只有回答需要的文字会发给你选择的对话服务。</p>
                 </div>
               </div>
             </div>
@@ -313,7 +311,7 @@
               <div class="cmac__call"><span><b>王</b><small>面试官</small></span><span><b>我</b></span></div>
               <div class="cmac__pair" data-pair>
                 <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
-                <p><b>用手机相机扫一扫</b><span class="mono">一次性配对码 · 128 位</span></p>
+                <p><b>用手机相机扫一扫</b><span class="mono">一次性配对码</span></p>
               </div>
               <p class="cmac__seen mono">对方看到的：只有会议画面</p>
             </div>
@@ -347,9 +345,8 @@
         <ul class="companion__facts" role="list">
           <li><span class="mono">i.</span><h3>扫码即用</h3><p>设置里打开，手机相机扫一下，浏览器里就是你的提词屏。</p></li>
           <li><span class="mono">ii.</span><h3>整屏共享也看不到</h3><p>手机不在被共享的屏幕里，整屏共享时在手机上看最稳妥。</p></li>
-          <li><span class="mono">iii.</span><h3>只同步此刻的问答</h3><p>默认关闭；每次开启生成新的配对码，最多 4 台设备；不同步转录、资料和截图。</p></li>
+          <li><span class="mono">iii.</span><h3>只同步此刻的问答</h3><p>默认关闭，每次开启都换一个新的配对码；转录、资料和截图不会同步到手机。</p></li>
         </ul>
-        <p class="fine">目前提供 Android 调试版与网页端；iOS 安装版尚未提供。</p>
       </div>
     </section>
 
@@ -360,52 +357,15 @@
         <h2 id="privacy-title" class="display">哪些留在本机，<br>哪些会发出去。</h2>
         <p class="caption-serif">What stays on your Mac, and what leaves.</p>
         <ol class="principles__list" role="list">
-          <li><span class="mono">i.</span><h3>声音留在这台 Mac 上。</h3><p>默认本机离线识别，原始音频不保存。云端识别只有在你同意之后才会使用。</p></li>
+          <li><span class="mono">i.</span><h3>声音留在这台 Mac 上。</h3><p>默认在本机识别，原始音频不保存。只有你同意之后，才会用到云端识别。</p></li>
           <li><span class="mono">ii.</span><h3>只带上需要的那几段。</h3><p>回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。</p></li>
-          <li><span class="mono">iii.</span><h3>发什么出去，由你决定。</h3><p>回答引擎由你配置，API Key 存放在钥匙串；联网搜索、手机伴侣默认关闭。</p></li>
+          <li><span class="mono">iii.</span><h3>发什么出去，由你决定。</h3><p>回答走你自己选的对话服务，密钥只存在系统钥匙串里；联网搜索和手机伴侣默认关闭。</p></li>
         </ol>
         <p class="fine">不做“隐身”承诺：录音与使用前请取得对方同意，并遵守所在场合的规则。 <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">完整数据去向</a></p>
       </div>
     </section>
 
-    <!-- Specifications: every technical fact lives here, once. -->
-    <section class="section specs-sheet" id="specs" aria-labelledby="specs-title">
-      <div class="container specs-sheet__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 05</b>规格</p>
-          <h2 id="specs-title" class="display">规格</h2>
-        </header>
-        <dl class="sheet">
-          <div><dt>版本</dt><dd>v1.9.0</dd></div>
-          <div><dt>系统</dt><dd>macOS 14 及以上 · Apple Silicon</dd></div>
-          <div><dt>开始使用</dt><dd>语音识别 + 对话服务。语音默认使用本机模型（首次下载约 270 MB）；回答使用你自己的 Codex 或任意 OpenAI 兼容服务。</dd></div>
-          <div><dt>识别</dt><dd>对方与你两路分别识别；边说边出字，句末整句精修。可选 Apple Speech（macOS 26）或云端识别。</dd></div>
-          <div><dt>资料</dt><dd>PDF（含扫描件）、Word、PPT、Excel、CSV、HTML、图片，在本机转换为 Markdown；可选本机语义检索（1024 维向量，最多等待 500 ms 后回退关键词）。</dd></div>
-          <div><dt>查看</dt><dd>助手窗口 · 悬浮提词器 · 手机伴侣（Android 调试版；iOS 暂未提供）</dd></div>
-          <div><dt>安装</dt><dd>DMG 约 18 MB。未经 Apple 公证，首次打开需在“隐私与安全性”中选择“仍要打开”。</dd></div>
-          <div><dt>访问</dt><dd>通过私有仓库分发，下载需要仓库访问权。</dd></div>
-        </dl>
-        <p class="fine specs-sheet__note">页面中的演示为交互示意：预设脚本，不访问麦克风、模型或网络。</p>
-      </div>
-    </section>
-
-    <section class="section faq" id="faq" aria-labelledby="faq-title">
-      <div class="container faq__grid">
-        <header>
-          <p class="eyebrow mono"><b>№ 06</b>常见问题</p>
-          <h2 id="faq-title" class="display">常见问题</h2>
-        </header>
-        <div class="faq__list" data-faq>
-          <details><summary>开始使用需要准备什么？</summary><div class="faq__answer"><p>一台 Apple Silicon、macOS 14 及以上的 Mac，以及语音识别 + 对话服务。语音识别默认用本机模型，首次使用下载约 270 MB；回答需要你自己的 Codex（ChatGPT 账户）或任意 OpenAI 兼容 API，按对应服务的规则计费。</p></div></details>
-          <details><summary>语音识别可以离线吗？</summary><div class="faq__answer"><p>可以。默认使用本机 X-ASR 流式识别，再由离线模型整句精修。也可以改用 Apple Speech（需 macOS 26）或云端识别，云端识别需按提示同意后才发送音频。</p></div></details>
-          <details><summary>资料会全部发给模型吗？</summary><div class="faq__answer"><p>不会。回答只使用当前问题检索到的资料片段，不会把所有资料塞入上下文；检索不到相关内容时，回答也不会被无关片段限制。</p></div></details>
-          <details><summary>为什么首次打开提示无法验证开发者？</summary><div class="faq__answer"><p>当前版本没有 Apple Developer ID 公证。首次打开时在“系统设置 › 隐私与安全性”中选择“仍要打开”即可；更新会校验 SHA-256 与签名。</p></div></details>
-          <details><summary>支持 Intel Mac 或 Windows 吗？</summary><div class="faq__answer"><p>暂不支持。InterviewHacker 是面向 Apple Silicon 的原生 macOS 应用。</p></div></details>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 · Download -->
+    <!-- Download -->
     <section class="section download" id="download" aria-labelledby="download-title" data-download>
       <div class="container download__inner">
         <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
@@ -414,6 +374,7 @@
           <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 InterviewHacker</a>
           <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">项目文档<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
+        <p class="download__fine">适用于 Apple Silicon Mac（macOS 14 及以上），下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。</p>
       </div>
     </section>
   </main>
@@ -425,9 +386,7 @@
         <li><a href="#scenes"><span>02</span>五个时刻<i></i></a></li>
         <li><a href="#companion"><span>03</span>手机伴侣<i></i></a></li>
         <li><a href="#privacy"><span>04</span>隐私<i></i></a></li>
-        <li><a href="#specs"><span>05</span>规格<i></i></a></li>
-        <li><a href="#faq"><span>06</span>常见问题<i></i></a></li>
-        <li><a href="#download"><span>07</span>下载<i></i></a></li>
+        <li><a href="#download"><span>05</span>下载<i></i></a></li>
       </ol>
       <p class="site-footer__fine">字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
@@ -449,8 +408,8 @@
   <script src="./scripts/field.js?v=5ed41bb5f728"></script>
   <script src="./scripts/demo.js?v=d85826925287"></script>
   <script src="./scripts/companion.js?v=666f4b4256f4"></script>
-  <script src="./scripts/motion.js?v=10b7b7e2388c"></script>
-  <script src="./scripts/cursor.js?v=95d76e2961e6"></script>
+  <script src="./scripts/motion.js?v=14366bfbc3c7"></script>
+  <script src="./scripts/cursor.js?v=a738daa046e4"></script>
   <script src="./scripts/fps.js?v=c2f92270878e"></script>
 </body>
 </html>

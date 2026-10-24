@@ -122,7 +122,7 @@
   }
 
   /* ---------- Edge light and directional fills ---------- */
-  for (const el of $$('.glass__card, .principles__list li, .faq__list details, .moment, .segmented, .chip-btn')) {
+  for (const el of $$('.glass__card, .principles__list li, .moment, .segmented, .chip-btn')) {
     el.classList.add('glow');
     el.addEventListener('pointermove', e => {
       const r = el.getBoundingClientRect();

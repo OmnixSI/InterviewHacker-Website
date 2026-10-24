@@ -94,17 +94,6 @@
     });
   }
 
-  // FAQ: animated disclosure on top of native <details>.
-  for (const d of $$('[data-faq] details')) {
-    const summary = $('summary', d), body = $('.faq__answer', d);
-    summary.addEventListener('click', e => {
-      if (reducedMQ.matches) return;
-      e.preventDefault();
-      if (d.open) gsap.to(body, { height: 0, duration: .45, ease: 'ih.change', onComplete: () => { d.open = false; gsap.set(body, { clearProps: 'height' }); } });
-      else { d.open = true; gsap.fromTo(body, { height: 0 }, { height: 'auto', duration: .6, clearProps: 'height' }); }
-    });
-  }
-
   // Header state, scroll progress and the active section.
   const progress = $('.scroll-progress span');
   let lastY = 0;
@@ -344,7 +333,7 @@
       gsap.from(split.lines, { yPercent: 105, duration: 1.1, stagger: .08, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
     }
     // Content reveals use IntersectionObserver, so pinned sections and hash jumps can't strand them hidden.
-    const reveal = $$('.caption-serif, .principles__list li, .sheet div, .faq__list details, .specs div, .index li')
+    const reveal = $$('.caption-serif, .principles__list li, .index li')
       .filter(el => el.getBoundingClientRect().top > innerHeight * .9);
     gsap.set(reveal, { y: 28, opacity: 0 });
     const pending = new Set(reveal);
