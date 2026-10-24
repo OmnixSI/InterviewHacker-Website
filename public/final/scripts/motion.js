@@ -34,6 +34,13 @@
   menuBtn?.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
   addEventListener('keydown', e => { if (e.key === 'Escape' && nav?.classList.contains('is-open')) { setMenu(false); menuBtn.focus(); } });
 
+  // Language menu: a small popover listing both languages, the current one marked.
+  const langBox = $('[data-lang]'), langBtn = $('[data-lang-toggle]');
+  const setLang = open => { langBox?.classList.toggle('is-open', open); langBtn?.setAttribute('aria-expanded', String(open)); };
+  langBtn?.addEventListener('click', e => { e.stopPropagation(); setLang(!langBox.classList.contains('is-open')); });
+  document.addEventListener('click', e => { if (langBox?.classList.contains('is-open') && !langBox.contains(e.target)) setLang(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && langBox?.classList.contains('is-open')) { setLang(false); langBtn.focus(); } });
+
   // Language switch keeps your place: it carries the section you are reading.
   for (const link of $$('[data-lang-switch], .site-footer__meta a[hreflang]')) {
     link.addEventListener('click', e => {
@@ -302,9 +309,48 @@
       gsap.from(device, { y: 60, opacity: 0, duration: 1.2, scrollTrigger: { trigger: device, start: 'top 90%' } });
     }
 
-    /* Interlude: each line surfaces from the paper as it reaches the middle of the screen. */
-    for (const line of $$('[data-line]')) {
-      gsap.fromTo(line, { opacity: .08, y: 18 }, { opacity: 1, y: 0, ease: 'none', scrollTrigger: { trigger: line, start: 'top 85%', end: 'top 50%', scrub: .6 } });
+    /* Swirl: the lines rise past the turning voice, bending around it as they pass the middle of the
+       screen, and surface and leave through a blur. The column is pinned while it plays. */
+    const swirl = $('[data-swirl]'), swirlCol = $('[data-swirl-col]'), orb = $('.swirl__orb'), swirlLines = $$('.sl', swirl || document);
+    if (swirl && stage) {
+      swirl.classList.add('is-pinned');
+      const SWAY = .17, gutter = 24;
+      // Sideways offset by height on screen: left at the bottom, right at the top, fastest past the middle.
+      const bend = y => Math.sin((.5 - Math.max(-.2, Math.min(1.2, y))) * Math.PI) * .5;
+      const setY = gsap.quickSetter(swirlCol, 'y', 'px'), setters = swirlLines.map(l => ({ x: gsap.quickSetter(l, 'x', 'px'), o: gsap.quickSetter(l, 'opacity') }));
+      let H = 1, W = 1, from = 0, travel = 1, mids = [], room = [];
+      const measure = () => {
+        gsap.set(swirlCol, { y: 0 }); gsap.set(swirlLines, { x: 0, opacity: 1, filter: 'none' });
+        H = innerHeight; W = swirlCol.offsetWidth;
+        const c = swirlCol.getBoundingClientRect();
+        const rects = swirlLines.map(l => l.getBoundingClientRect());
+        mids = rects.map(r => r.top - c.top + r.height / 2);
+        room = rects.map(r => [Math.min(0, gutter - r.left), Math.max(0, innerWidth - gutter - r.right)]);
+        from = H * 1.04 - mids[0];
+        // It ends with the closing lines resting just under the voice.
+        const closing = swirlLines.length - $$('.swirl__stanza--end .sl', swirl).length;
+        const to = H * .6 - mids[closing];
+        travel = Math.max(1, from - to);
+        // The lines move slower than the page, so the passage reads as a slow drift.
+        swirl.style.height = `${Math.round(travel * 1.7 + H)}px`;
+      };
+      const render = p => {
+        const y = from - p * travel;
+        setY(y);
+        swirlLines.forEach((l, i) => {
+          const sy = (y + mids[i]) / H, k = Math.max(0, Math.min(1, (1 - sy) / .2, (sy - .03) / .22));
+          setters[i].x(Math.max(room[i][0], Math.min(room[i][1], bend(sy) * SWAY * W)));
+          setters[i].o(k);
+          l.style.filter = k > .98 ? '' : `blur(${((1 - k) * 7).toFixed(1)}px)`;
+        });
+        gsap.set(orb, { rotation: p * 160, scale: 1 + Math.sin(p * Math.PI) * .12 });
+      };
+      measure();
+      ScrollTrigger.addEventListener('refreshInit', measure);
+      ScrollTrigger.create({ trigger: swirl, start: 'top top', end: 'bottom bottom', onUpdate: s => render(s.progress), onRefresh: s => render(s.progress) });
+      render(0);
+    } else if (swirl) {
+      for (const l of swirlLines) gsap.fromTo(l, { opacity: 0, y: 18, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, clearProps: 'filter', scrollTrigger: { trigger: l, start: 'top 90%' } });
     }
 
     /* Moments: the chapter in the middle of the screen chooses the window floating on the pool. */
@@ -323,7 +369,7 @@
     index[0]?.classList.add('is-active');
     moments.forEach((m, i) => ScrollTrigger.create({ trigger: m, start: 'top 55%', end: 'bottom 55%', onToggle: s => s.isActive && show(i) }));
     for (const m of moments) {
-      const parts = $$('.moment__visual, .moment__kicker, .moment__title, .moment__echo, .moment__body, .moment__aside', m);
+      const parts = $$('.moment__visual, .moment__kicker, .moment__title span, .moment__body, .moment__aside', m);
       gsap.from(parts, { y: 36, opacity: 0, duration: 1.1, stagger: .07, scrollTrigger: { trigger: m, start: 'top 70%' } });
     }
 
@@ -333,7 +379,7 @@
       gsap.from(split.lines, { yPercent: 105, duration: 1.1, stagger: .08, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
     }
     // Content reveals use IntersectionObserver, so pinned sections and hash jumps can't strand them hidden.
-    const reveal = $$('.caption-serif, .principles__list li, .index li')
+    const reveal = $$('.principles__list li, .companion__facts li, .index li')
       .filter(el => el.getBoundingClientRect().top > innerHeight * .9);
     gsap.set(reveal, { y: 28, opacity: 0 });
     const pending = new Set(reveal);
@@ -344,19 +390,14 @@
     reveal.forEach(el => revealIO.observe(el));
     ScrollTrigger.addEventListener('refresh', () => showEls([...pending].filter(el => el.getBoundingClientRect().top < innerHeight)));
 
-    /* Download: the same voiceprint, short — two voices close into a line and the lettering writes. */
-    const dl = $('[data-download]'), dlWord = $('.download__word .lettering', dl), dlLine = $('.download__line', dl);
-    gsap.set(strokes(dlWord), { drawSVG: '0%' });
-    const mini = field?.mini;
-    gsap.timeline({ scrollTrigger: { trigger: dl, start: 'top 75%', end: 'top 15%', scrub: .6,
-      onUpdate: s => { if (mini) { mini.converge = Math.min(1, s.progress / .5); mini.wake?.(); } } } })
-      .to(dlLine, { scaleX: 1, duration: .3, ease: 'ih.change' }, .35)
-      .add(pen(dlWord, .5, 'none'), .5);
+    /* Ending: the words surface from the water, through a blur. */
+    const ending = $('[data-ending]');
+    if (ending) gsap.from($$('.ending__title span, .ending__sub, .ending__btn', ending), { opacity: 0, y: 34, filter: 'blur(10px)', duration: 1.6, stagger: .14, clearProps: 'filter', scrollTrigger: { trigger: ending, start: 'top 45%' } });
 
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
     // Pins add height after the browser already jumped to a #hash, so land there again once layout settles.
     addEventListener('load', () => { ScrollTrigger.refresh(); if (location.hash.length > 1) requestAnimationFrame(() => go(location.hash, true)); }, { once: true });
-    return () => { hero.classList.remove('hero--stage', 'is-free'); demo?.guide(null); };
+    return () => { hero.classList.remove('hero--stage', 'is-free'); swirl?.classList.remove('is-pinned'); if (swirl) swirl.style.height = ''; demo?.guide(null); };
   });
   reducedMQ.addEventListener('change', () => location.reload());
 })();

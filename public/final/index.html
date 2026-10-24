@@ -21,7 +21,7 @@
   <link rel="preload" href="./assets/fonts/display/ih-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./assets/fonts/fonts.css?v=acf24d5a1c3a">
   <link rel="stylesheet" href="./assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="./style.css?v=371249cb7058">
+  <link rel="stylesheet" href="./style.css?v=f6a0f050eeaa">
   <script src="./scripts/bootstrap.js?v=25810ca2bdeb"></script>
 </head>
 <body>
@@ -43,6 +43,12 @@
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="i-crop" viewBox="0 0 24 24"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <filter id="f-dissolve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="noise"/>
+      <feComposite in="SourceAlpha" in2="noise" operator="arithmetic" k2="1" k3=".9" k4="-.45" result="sum"/>
+      <feComponentTransfer in="sum" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+    </filter>
   </svg>
 
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -62,11 +68,17 @@
         <a href="#privacy"><i>04</i>隐私</a>
       </nav>
       <div class="site-header__actions">
-        <a class="icon-btn lang-switch" href="./en/" hreflang="en" lang="en" data-lang-switch aria-label="Switch to English">EN</a>
+        <div class="lang" data-lang>
+          <button class="lang__toggle" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="语言：中文" data-lang-toggle><span>ZH</span><i class="lang__plus" aria-hidden="true"></i></button>
+          <ul class="lang__menu" id="lang-menu" role="list" aria-label="语言">
+            <li style="--i:0"><a href="./" hreflang="zh-CN" lang="zh-CN" aria-current="page"><span class="mono">ZH</span>中文</a></li>
+            <li style="--i:1"><a href="./en/" hreflang="en" lang="en" data-lang-switch><span class="mono">EN</span>English</a></li>
+          </ul>
+        </div>
         <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="暂停动效" data-label-on="继续动效" data-label-off="暂停动效">
           <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
         </button>
-        <a class="btn btn--ink btn--sm" href="#download">下载</a>
+        <a class="btn btn--ink btn--sm" href="#download">早期试用</a>
         <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="打开菜单" data-label-open="关闭菜单" data-label-closed="打开菜单"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
       </div>
     </div>
@@ -92,7 +104,7 @@
           </h1>
           <p class="hero__lead">面试、组会、谈判、网课，对方一问完，回答就开始出现在屏幕上。<br>语音在本机识别，回答用的是你自己的资料。</p>
           <div class="hero__actions">
-            <a class="btn btn--ink" href="#download"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 macOS 版</a>
+            <a class="btn btn--ink" href="#download">申请早期试用<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="btn btn--ghost" href="#demo">看它如何工作<svg aria-hidden="true"><use href="#i-down"/></svg></a>
           </div>
           <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>需要仓库访问权</span></p>
@@ -187,15 +199,18 @@
       </div>
     </section>
 
-    <!-- Interlude: the moments the product is for, one line at a time. -->
-    <section class="interlude" aria-label="序" data-interlude>
-      <div class="container interlude__lines">
-        <p data-line style="--x:0">面试官问完，等你开口。</p>
-        <p data-line style="--x:2">组会上，导师突然追问一句。</p>
-        <p data-line style="--x:5">网课上，老师点到你的名字。</p>
-        <p data-line style="--x:1">谈判桌对面那一句：<em>再降八个点。</em></p>
-        <p data-line style="--x:4" class="interlude__turn">问题说完的那一刻，</p>
-        <p data-line style="--x:6" class="interlude__turn">回答已经在屏幕上了。</p>
+    <!-- Swirl: the moments the product is for rise past a slowly turning voice. -->
+    <section class="swirl" aria-labelledby="swirl-title" data-swirl>
+      <div class="swirl__pin">
+        <div class="swirl__orb" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="swirl__col" data-swirl-col>
+          <h2 class="swirl__stanza swirl__stanza--head" id="swirl-title"><span class="sl">对话，</span><span class="sl">从不等你准备好。</span></h2>
+          <p class="swirl__stanza swirl__stanza--a"><span class="sl">面试官的追问，</span><span class="sl">停在半空。</span></p>
+          <p class="swirl__stanza swirl__stanza--b"><span class="sl">组会上，</span><span class="sl">导师一句</span><span class="sl">“为什么这样设计？”</span></p>
+          <p class="swirl__stanza swirl__stanza--c"><span class="sl">谈判桌对面：</span><span class="sl"><em>再降八个点。</em></span></p>
+          <p class="swirl__stanza swirl__stanza--d"><span class="sl">网课里，</span><span class="sl">突然被点到名字。</span></p>
+          <p class="swirl__stanza swirl__stanza--end"><span class="sl">InterviewHacker 在听。</span><span class="sl">问题落下，</span><span class="sl">回答随即出现。</span></p>
+        </div>
       </div>
     </section>
 
@@ -258,37 +273,32 @@
         </nav>
         <article class="moment" id="moment-interview" data-moment>
           <p class="moment__kicker mono">01 · 求职面试</p>
-          <h3 class="moment__title">两秒的停顿，<br>不再空白。</h3>
-          <p class="moment__echo">Two seconds of silence, no longer blank.</p>
-          <p class="moment__body">面试官追问缓存一致性，摄像头下方的提词条里已经有了回答，例子取自你简历上的订单系统项目。</p>
+          <h3 class="moment__title"><span>追问，</span><span>也接得住。</span></h3>
+          <p class="moment__body">面试官追问缓存一致性。摄像头下方的提词条里，回答已经开始出现，例子取自你简历上的项目。</p>
           <p class="moment__aside">悬浮提词器 · 鼠标可穿透 · ⌘⇧\ 一键隐藏</p>
         </article>
         <article class="moment" id="moment-talk" data-moment>
           <p class="moment__kicker mono">02 · 学术报告</p>
-          <h3 class="moment__title">讲到哪一页，<br>它就跟到哪一页。</h3>
-          <p class="moment__echo">It follows you, slide by slide.</p>
-          <p class="moment__body">讲稿跟随当前幻灯片，讲过的要点自动打勾，并提示下一句过渡。导师突然追问时，解释会注明论文的页码。</p>
+          <h3 class="moment__title"><span>幻灯片翻到哪，</span><span>讲稿跟到哪。</span></h3>
+          <p class="moment__body">讲过的要点逐条勾掉，下一句过渡提前备好。被追问时，解释会注明出处页码。</p>
           <p class="moment__aside">可选窗口、显示器或区域 · 每次回答冻结当时画面</p>
         </article>
         <article class="moment" id="moment-meeting" data-moment>
           <p class="moment__kicker mono">03 · 商务谈判</p>
-          <h3 class="moment__title">对方压价，<br>你按底线还价。</h3>
-          <p class="moment__echo">They push on price. You answer within your floor.</p>
-          <p class="moment__body">对方要求再降八个点，它按你为这场会设定的底线，给出阶梯报价的说法；决定、待办和分歧也一并记下。</p>
+          <h3 class="moment__title"><span>对方压价，</span><span>你守住底线。</span></h3>
+          <p class="moment__body">对方要求再降八个点。它按你为这场会设定的底线，给出阶梯报价的说法，并记下决定与待办。</p>
           <p class="moment__aside">手机伴侣放在桌边 · 扫码配对，默认关闭</p>
         </article>
         <article class="moment" id="moment-class" data-moment>
           <p class="moment__kicker mono">04 · 网课</p>
-          <h3 class="moment__title">被点名的时候，<br>也不慌。</h3>
-          <p class="moment__echo">Called on, and calm.</p>
-          <p class="moment__body">老师问 TLB 未命中时发生什么，回答对照的是第 9 讲第 23 页。屏幕上的题目、代码和图表，框选下来就能问。</p>
+          <h3 class="moment__title"><span>被点到名字，</span><span>也从容。</span></h3>
+          <p class="moment__body">老师问 TLB 未命中时发生什么，回答对照第 9 讲第 23 页。屏幕上的题目和代码，框选即可提问。</p>
           <p class="moment__aside">截图提问 · 对齐课件页码</p>
         </article>
         <article class="moment" id="moment-after" data-moment>
           <p class="moment__kicker mono">05 · 会后</p>
-          <h3 class="moment__title">散会后，<br>纪要已经写好。</h3>
-          <p class="moment__echo">After the call, the notes are done.</p>
-          <p class="moment__body">转写、问题和用到的资料，整理成摘要和问题清单。答得好的回答存进这个场景的经验库，总答不好的问题会在阶段复盘里列出来。</p>
+          <h3 class="moment__title"><span>散会后，</span><span>纪要已经写好。</span></h3>
+          <p class="moment__body">摘要、问题清单和用到的资料，归档到这个场景。答得好的留作经验，答得不好的进入下次复盘。</p>
           <p class="moment__aside">可搜索、可导出 Markdown、可随时删除</p>
         </article>
       </div>
@@ -301,7 +311,6 @@
         <header class="companion__head">
           <p class="eyebrow mono"><b>№ 03</b>手机伴侣</p>
           <h2 id="companion-title" class="display">共享整个屏幕时，<br>看手机。</h2>
-          <p class="caption-serif">Sharing your screen? Read your phone.</p>
           <p class="lead">共享整个屏幕时，回答改到手机上看。相机扫码就能连上，不用装 App；问题和回答实时同步，手机还能当遥控器。</p>
         </header>
         <div class="companion__stage" data-companion-stage>
@@ -355,7 +364,6 @@
       <div class="container">
         <p class="eyebrow mono"><b>№ 04</b>隐私</p>
         <h2 id="privacy-title" class="display">哪些留在本机，<br>哪些会发出去。</h2>
-        <p class="caption-serif">What stays on your Mac, and what leaves.</p>
         <ol class="principles__list" role="list">
           <li><span class="mono">i.</span><h3>声音留在这台 Mac 上。</h3><p>默认在本机识别，原始音频不保存。只有你同意之后，才会用到云端识别。</p></li>
           <li><span class="mono">ii.</span><h3>只带上需要的那几段。</h3><p>回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。</p></li>
@@ -365,17 +373,17 @@
       </div>
     </section>
 
-    <!-- Download -->
-    <section class="section download" id="download" aria-labelledby="download-title" data-download>
-      <div class="container download__inner">
-        <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
-        <h2 id="download-title" class="download__title">下次被问住之前，<span class="download__word">先备好你的<svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
-        <div class="download__actions">
-          <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>下载 InterviewHacker</a>
-          <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">项目文档<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <!-- Ending: early access, on a slow water where two voices meet. -->
+    <section class="ending" id="download" aria-labelledby="download-title" data-ending>
+      <div class="ending__panel">
+        <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
+        <div class="ending__copy">
+          <h2 class="ending__title" id="download-title"><span>InterviewHacker</span><span>即将开放试用。</span></h2>
+          <p class="ending__sub">目前在小范围内测，名额会陆续开放。</p>
+          <a class="ending__btn" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">已获邀请？前往下载</a>
         </div>
-        <p class="download__fine">适用于 Apple Silicon Mac（macOS 14 及以上），下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。</p>
       </div>
+      <p class="ending__fine">适用于 Apple Silicon Mac（macOS 14 及以上）。内测期间下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。</p>
     </section>
   </main>
 
@@ -386,7 +394,7 @@
         <li><a href="#scenes"><span>02</span>五个时刻<i></i></a></li>
         <li><a href="#companion"><span>03</span>手机伴侣<i></i></a></li>
         <li><a href="#privacy"><span>04</span>隐私<i></i></a></li>
-        <li><a href="#download"><span>05</span>下载<i></i></a></li>
+        <li><a href="#download"><span>05</span>早期试用<i></i></a></li>
       </ol>
       <p class="site-footer__fine">字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
@@ -405,10 +413,10 @@
   <script src="./assets/vendor/Flip.min.js?v=cbe3ca726350"></script>
   <script src="./assets/vendor/CustomEase.min.js?v=466e426a5c60"></script>
   <script src="./assets/vendor/lenis.min.js?v=07020831fc52"></script>
-  <script src="./scripts/field.js?v=5ed41bb5f728"></script>
+  <script src="./scripts/field.js?v=8fd6328875f1"></script>
   <script src="./scripts/demo.js?v=d85826925287"></script>
   <script src="./scripts/companion.js?v=666f4b4256f4"></script>
-  <script src="./scripts/motion.js?v=14366bfbc3c7"></script>
+  <script src="./scripts/motion.js?v=cd78c22d8e8b"></script>
   <script src="./scripts/cursor.js?v=a738daa046e4"></script>
   <script src="./scripts/fps.js?v=c2f92270878e"></script>
 </body>

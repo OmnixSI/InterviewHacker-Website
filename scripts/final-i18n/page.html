@@ -42,6 +42,12 @@
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
     <symbol id="i-crop" viewBox="0 0 24 24"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <filter id="f-dissolve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="noise"/>
+      <feComposite in="SourceAlpha" in2="noise" operator="arithmetic" k2="1" k3=".9" k4="-.45" result="sum"/>
+      <feComponentTransfer in="sum" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+    </filter>
   </svg>
 
   <a class="skip-link" href="#main">{{ 跳到主要内容 ‖ Skip to content }}</a>
@@ -61,11 +67,17 @@
         <a href="#privacy"><i>04</i>{{ 隐私 ‖ Privacy }}</a>
       </nav>
       <div class="site-header__actions">
-        <a class="icon-btn lang-switch" href="{{other}}" hreflang="{{ en ‖ zh-CN }}" lang="{{ en ‖ zh-CN }}" data-lang-switch aria-label="{{ Switch to English ‖ 切换到中文 }}">{{ EN ‖ 中 }}</a>
+        <div class="lang" data-lang>
+          <button class="lang__toggle" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="{{ 语言：中文 ‖ Language: English }}" data-lang-toggle><span>{{ ZH ‖ EN }}</span><i class="lang__plus" aria-hidden="true"></i></button>
+          <ul class="lang__menu" id="lang-menu" role="list" aria-label="{{ 语言 ‖ Language }}">
+            <li style="--i:0"><a href="{{href-zh}}" hreflang="zh-CN" lang="zh-CN"{{attr-zh}}><span class="mono">ZH</span>中文</a></li>
+            <li style="--i:1"><a href="{{href-en}}" hreflang="en" lang="en"{{attr-en}}><span class="mono">EN</span>English</a></li>
+          </ul>
+        </div>
         <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="{{ 暂停动效 ‖ Pause motion }}" data-label-on="{{ 继续动效 ‖ Resume motion }}" data-label-off="{{ 暂停动效 ‖ Pause motion }}">
           <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
         </button>
-        <a class="btn btn--ink btn--sm" href="#download">{{ 下载 ‖ Download }}</a>
+        <a class="btn btn--ink btn--sm" href="#download">{{ 早期试用 ‖ Early access }}</a>
         <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="{{ 打开菜单 ‖ Open menu }}" data-label-open="{{ 关闭菜单 ‖ Close menu }}" data-label-closed="{{ 打开菜单 ‖ Open menu }}"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
       </div>
     </div>
@@ -91,7 +103,7 @@
           </h1>
           <p class="hero__lead">{{ 面试、组会、谈判、网课，对方一问完，回答就开始出现在屏幕上。<br>语音在本机识别，回答用的是你自己的资料。 ‖ In interviews, meetings and classes, the answer starts arriving as soon as the question ends.<br>Speech stays on your Mac; answers draw on your own notes. }}</p>
           <div class="hero__actions">
-            <a class="btn btn--ink" href="#download"><svg aria-hidden="true"><use href="#i-download"/></svg>{{ 下载 macOS 版 ‖ Download for macOS }}</a>
+            <a class="btn btn--ink" href="#download">{{ 申请早期试用 ‖ Get early access }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="btn btn--ghost" href="#demo">{{ 看它如何工作 ‖ See it work }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
           </div>
           <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>{{ 需要仓库访问权 ‖ Repository access required }}</span></p>
@@ -186,15 +198,18 @@
       </div>
     </section>
 
-    <!-- Interlude: the moments the product is for, one line at a time. -->
-    <section class="interlude" aria-label="{{ 序 ‖ Prologue }}" data-interlude>
-      <div class="container interlude__lines">
-        <p data-line style="--x:0">{{ 面试官问完，等你开口。 ‖ The interviewer finishes, and waits. }}</p>
-        <p data-line style="--x:2">{{ 组会上，导师突然追问一句。 ‖ Your advisor cuts in at lab meeting. }}</p>
-        <p data-line style="--x:5">{{ 网课上，老师点到你的名字。 ‖ Your name, called in an online class. }}</p>
-        <p data-line style="--x:1">{{ 谈判桌对面那一句：<em>再降八个点。</em> ‖ Across the table: <em>“another eight percent off.”</em> }}</p>
-        <p data-line style="--x:4" class="interlude__turn">{{ 问题说完的那一刻， ‖ By the time the question ends, }}</p>
-        <p data-line style="--x:6" class="interlude__turn">{{ 回答已经在屏幕上了。 ‖ an answer is already on its way. }}</p>
+    <!-- Swirl: the moments the product is for rise past a slowly turning voice. -->
+    <section class="swirl" aria-labelledby="swirl-title" data-swirl>
+      <div class="swirl__pin">
+        <div class="swirl__orb" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="swirl__col" data-swirl-col>
+          <h2 class="swirl__stanza swirl__stanza--head" id="swirl-title"><span class="sl">{{ 对话， ‖ Conversations }}</span><span class="sl">{{ 从不等你准备好。 ‖ don’t wait for you. }}</span></h2>
+          <p class="swirl__stanza swirl__stanza--a"><span class="sl">{{ 面试官的追问， ‖ An interviewer’s follow-up, }}</span><span class="sl">{{ 停在半空。 ‖ left hanging. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--b"><span class="sl">{{ 组会上， ‖ At lab meeting, }}</span><span class="sl">{{ 导师一句 ‖ a quiet }}</span><span class="sl">{{ “为什么这样设计？” ‖ “why this design?” }}</span></p>
+          <p class="swirl__stanza swirl__stanza--c"><span class="sl">{{ 谈判桌对面： ‖ Across the table: }}</span><span class="sl"><em>{{ 再降八个点。 ‖ “another eight percent.” }}</em></span></p>
+          <p class="swirl__stanza swirl__stanza--d"><span class="sl">{{ 网课里， ‖ In class, }}</span><span class="sl">{{ 突然被点到名字。 ‖ your name, called. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--end"><span class="sl">{{ InterviewHacker 在听。 ‖ InterviewHacker is listening. }}</span><span class="sl">{{ 问题落下， ‖ The question ends; }}</span><span class="sl">{{ 回答随即出现。 ‖ the answer follows. }}</span></p>
+        </div>
       </div>
     </section>
 
@@ -257,37 +272,32 @@
         </nav>
         <article class="moment" id="moment-interview" data-moment>
           <p class="moment__kicker mono">01 · {{ 求职面试 ‖ Job interview }}</p>
-          <h3 class="moment__title">{{ 两秒的停顿，<br>不再空白。 ‖ Two seconds of silence,<br>no longer blank. }}</h3>
-          <p class="moment__echo">{{ Two seconds of silence, no longer blank. ‖ 两秒的停顿，不再空白。 }}</p>
-          <p class="moment__body">{{ 面试官追问缓存一致性，摄像头下方的提词条里已经有了回答，例子取自你简历上的订单系统项目。 ‖ The interviewer asks about cache consistency. The answer is already in the bar under your camera, using the order-system project from your résumé. }}</p>
+          <h3 class="moment__title"><span>{{ 追问， ‖ The follow-up, }}</span><span>{{ 也接得住。 ‖ handled. }}</span></h3>
+          <p class="moment__body">{{ 面试官追问缓存一致性。摄像头下方的提词条里，回答已经开始出现，例子取自你简历上的项目。 ‖ The interviewer presses on cache consistency. In the bar under your camera, the answer is already forming, built on a project from your résumé. }}</p>
           <p class="moment__aside">{{ 悬浮提词器 · 鼠标可穿透 · ⌘⇧\ 一键隐藏 ‖ Floating teleprompter · click-through · hide with ⌘⇧\ }}</p>
         </article>
         <article class="moment" id="moment-talk" data-moment>
           <p class="moment__kicker mono">02 · {{ 学术报告 ‖ Academic talk }}</p>
-          <h3 class="moment__title">{{ 讲到哪一页，<br>它就跟到哪一页。 ‖ Wherever you are in the deck,<br>it’s on the same slide. }}</h3>
-          <p class="moment__echo">{{ It follows you, slide by slide. ‖ 讲到哪一页，它就跟到哪一页。 }}</p>
-          <p class="moment__body">{{ 讲稿跟随当前幻灯片，讲过的要点自动打勾，并提示下一句过渡。导师突然追问时，解释会注明论文的页码。 ‖ Your script follows the current slide, ticks off what you’ve covered and offers the next transition. When your advisor cuts in, the explanation cites the paper’s page. }}</p>
+          <h3 class="moment__title"><span>{{ 幻灯片翻到哪， ‖ Your notes turn }}</span><span>{{ 讲稿跟到哪。 ‖ with the slides. }}</span></h3>
+          <p class="moment__body">{{ 讲过的要点逐条勾掉，下一句过渡提前备好。被追问时，解释会注明出处页码。 ‖ Points tick off as you cover them, and the next transition is ready. When someone cuts in, the explanation cites its page. }}</p>
           <p class="moment__aside">{{ 可选窗口、显示器或区域 · 每次回答冻结当时画面 ‖ Pick a window, display or region · each answer keeps its frame }}</p>
         </article>
         <article class="moment" id="moment-meeting" data-moment>
           <p class="moment__kicker mono">03 · {{ 商务谈判 ‖ Negotiation }}</p>
-          <h3 class="moment__title">{{ 对方压价，<br>你按底线还价。 ‖ They push on price.<br>You answer within your floor. }}</h3>
-          <p class="moment__echo">{{ They push on price. You answer within your floor. ‖ 对方压价，你按底线还价。 }}</p>
-          <p class="moment__body">{{ 对方要求再降八个点，它按你为这场会设定的底线，给出阶梯报价的说法；决定、待办和分歧也一并记下。 ‖ When they push for another eight percent, it suggests a tiered offer within the floor you set for this meeting, and notes decisions, to-dos and disagreements. }}</p>
+          <h3 class="moment__title"><span>{{ 对方压价， ‖ They push on price. }}</span><span>{{ 你守住底线。 ‖ You hold your floor. }}</span></h3>
+          <p class="moment__body">{{ 对方要求再降八个点。它按你为这场会设定的底线，给出阶梯报价的说法，并记下决定与待办。 ‖ They ask for another eight percent. It suggests a tiered offer within the floor you set for this meeting, and notes decisions and to-dos. }}</p>
           <p class="moment__aside">{{ 手机伴侣放在桌边 · 扫码配对，默认关闭 ‖ Phone companion on the table · paired by QR, off by default }}</p>
         </article>
         <article class="moment" id="moment-class" data-moment>
           <p class="moment__kicker mono">04 · {{ 网课 ‖ Online class }}</p>
-          <h3 class="moment__title">{{ 被点名的时候，<br>也不慌。 ‖ Called on,<br>and calm. }}</h3>
-          <p class="moment__echo">{{ Called on, and calm. ‖ 被点名的时候，也不慌。 }}</p>
-          <p class="moment__body">{{ 老师问 TLB 未命中时发生什么，回答对照的是第 9 讲第 23 页。屏幕上的题目、代码和图表，框选下来就能问。 ‖ Asked what happens on a TLB miss, the answer follows lecture 9, slide 23. A question, some code or a chart on screen can be cropped and asked. }}</p>
+          <h3 class="moment__title"><span>{{ 被点到名字， ‖ Called on, }}</span><span>{{ 也从容。 ‖ and composed. }}</span></h3>
+          <p class="moment__body">{{ 老师问 TLB 未命中时发生什么，回答对照第 9 讲第 23 页。屏幕上的题目和代码，框选即可提问。 ‖ Asked what happens on a TLB miss, the answer follows lecture 9, slide 23. A question or code on screen can be cropped and asked. }}</p>
           <p class="moment__aside">{{ 截图提问 · 对齐课件页码 ‖ Ask with a screenshot · aligned to the slides }}</p>
         </article>
         <article class="moment" id="moment-after" data-moment>
           <p class="moment__kicker mono">05 · {{ 会后 ‖ Afterwards }}</p>
-          <h3 class="moment__title">{{ 散会后，<br>纪要已经写好。 ‖ After the call,<br>the notes are done. }}</h3>
-          <p class="moment__echo">{{ After the call, the notes are done. ‖ 散会后，纪要已经写好。 }}</p>
-          <p class="moment__body">{{ 转写、问题和用到的资料，整理成摘要和问题清单。答得好的回答存进这个场景的经验库，总答不好的问题会在阶段复盘里列出来。 ‖ Transcript, questions and the material used become a summary and a question list. Good answers go into the scene’s library; questions you keep struggling with show up in a stage review. }}</p>
+          <h3 class="moment__title"><span>{{ 散会后， ‖ After the call, }}</span><span>{{ 纪要已经写好。 ‖ the notes are done. }}</span></h3>
+          <p class="moment__body">{{ 摘要、问题清单和用到的资料，归档到这个场景。答得好的留作经验，答得不好的进入下次复盘。 ‖ A summary, the questions and the material used are filed under the scene. Good answers are kept; weak ones return in the next review. }}</p>
           <p class="moment__aside">{{ 可搜索、可导出 Markdown、可随时删除 ‖ Searchable · export to Markdown · delete any time }}</p>
         </article>
       </div>
@@ -300,7 +310,6 @@
         <header class="companion__head">
           <p class="eyebrow mono"><b>№ 03</b>{{ 手机伴侣 ‖ Phone companion }}</p>
           <h2 id="companion-title" class="display">{{ 共享整个屏幕时，<br>看手机。 ‖ Sharing your screen?<br>Read your phone. }}</h2>
-          <p class="caption-serif">{{ Sharing your screen? Read your phone. ‖ 共享整个屏幕时，看手机。 }}</p>
           <p class="lead">{{ 共享整个屏幕时，回答改到手机上看。相机扫码就能连上，不用装 App；问题和回答实时同步，手机还能当遥控器。 ‖ When you share your whole screen, read the answers on your phone instead. Scan the code with the camera, no app needed. Questions and answers stay in sync, and the phone doubles as a remote. }}</p>
         </header>
         <div class="companion__stage" data-companion-stage>
@@ -354,7 +363,6 @@
       <div class="container">
         <p class="eyebrow mono"><b>№ 04</b>{{ 隐私 ‖ Privacy }}</p>
         <h2 id="privacy-title" class="display">{{ 哪些留在本机，<br>哪些会发出去。 ‖ What stays on your Mac,<br>and what leaves. }}</h2>
-        <p class="caption-serif">{{ What stays on your Mac, and what leaves. ‖ 哪些留在本机，哪些会发出去。 }}</p>
         <ol class="principles__list" role="list">
           <li><span class="mono">i.</span><h3>{{ 声音留在这台 Mac 上。 ‖ Your voice stays on this Mac. }}</h3><p>{{ 默认在本机识别，原始音频不保存。只有你同意之后，才会用到云端识别。 ‖ Speech is recognised on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it. }}</p></li>
           <li><span class="mono">ii.</span><h3>{{ 只带上需要的那几段。 ‖ Only the passages that matter. }}</h3><p>{{ 回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。 ‖ Answers use only the passages retrieved for the question at hand, not your whole library. Material and records stay on your Mac. }}</p></li>
@@ -364,17 +372,17 @@
       </div>
     </section>
 
-    <!-- Download -->
-    <section class="section download" id="download" aria-labelledby="download-title" data-download>
-      <div class="container download__inner">
-        <div class="download__print" aria-hidden="true"><canvas data-mini-field></canvas><span class="download__line"></span></div>
-        <h2 id="download-title" class="download__title">{{ 下次被问住之前， ‖ Before the next hard question, }}<span class="download__word">{{ 先备好你的 ‖ have your }}{{@lettering}}</span></h2>
-        <div class="download__actions">
-          <a class="btn btn--ink btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest"><svg aria-hidden="true"><use href="#i-download"/></svg>{{ 下载 InterviewHacker ‖ Download InterviewHacker }}</a>
-          <a class="btn btn--ghost btn--lg" href="https://github.com/OmnixSI/InterviewHacker">{{ 项目文档 ‖ Documentation }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <!-- Ending: early access, on a slow water where two voices meet. -->
+    <section class="ending" id="download" aria-labelledby="download-title" data-ending>
+      <div class="ending__panel">
+        <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
+        <div class="ending__copy">
+          <h2 class="ending__title" id="download-title"><span>InterviewHacker</span><span>{{ 即将开放试用。 ‖ is opening early access. }}</span></h2>
+          <p class="ending__sub">{{ 目前在小范围内测，名额会陆续开放。 ‖ A small private beta is running now. More seats open soon. }}</p>
+          <a class="ending__btn" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">{{ 已获邀请？前往下载 ‖ Invited? Download }}</a>
         </div>
-        <p class="download__fine">{{ 适用于 Apple Silicon Mac（macOS 14 及以上），下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。 ‖ For Apple Silicon Macs on macOS 14 or later; download requires repository access. You’ll need speech recognition and an answer service: speech is recognised on your Mac by default, and answers use your own account with an AI service. The demo on this page is an interactive illustration with no microphone or network access. }}</p>
       </div>
+      <p class="ending__fine">{{ 适用于 Apple Silicon Mac（macOS 14 及以上）。内测期间下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。 ‖ For Apple Silicon Macs on macOS 14 or later. During the beta, download requires repository access. You’ll need speech recognition and an answer service: speech is recognised on your Mac by default, and answers use your own account with an AI service. The demo on this page is an interactive illustration with no microphone or network access. }}</p>
     </section>
   </main>
 
@@ -385,7 +393,7 @@
         <li><a href="#scenes"><span>02</span>{{ 五个时刻 ‖ Five moments }}<i></i></a></li>
         <li><a href="#companion"><span>03</span>{{ 手机伴侣 ‖ Phone companion }}<i></i></a></li>
         <li><a href="#privacy"><span>04</span>{{ 隐私 ‖ Privacy }}<i></i></a></li>
-        <li><a href="#download"><span>05</span>{{ 下载 ‖ Download }}<i></i></a></li>
+        <li><a href="#download"><span>05</span>{{ 早期试用 ‖ Early access }}<i></i></a></li>
       </ol>
       <p class="site-footer__fine">{{ 字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。 ‖ Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering. }}</p>
       <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>

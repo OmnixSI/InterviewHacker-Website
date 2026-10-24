@@ -36,11 +36,11 @@ def display_text(html):
     """Text set in the display face: headings, the wordmark and a few display-styled labels."""
     picks = re.findall(r'<(h[1-3])\b[^>]*>([\s\S]*?)</\1>', html)
     chunks = [body for _, body in picks]
-    chunks += re.findall(r'class="(?:wordmark|slide__title|download__title)"[^>]*>([\s\S]*?)</', html)
+    chunks += re.findall(r'class="(?:wordmark|slide__title)"[^>]*>([\s\S]*?)</', html)
     chunks += re.findall(r'data-draft="([^"]*)"', html)
     chunks += re.findall(r'class="call__tile[^"]*"><b>([^<]*)<', html)
     chunks += re.findall(r'class="cmac__call"><span><b>([^<]*)<', html)
-    chunks += re.findall(r'<p data-line[^>]*>([\s\S]*?)</p>', html)
+    chunks += re.findall(r'<p class="swirl__stanza[^"]*">([\s\S]*?)</p>', html)
     chunks += re.findall(r'class="mini-slide__page"><span[^>]*>[^<]*</span><b>([^<]*)<', html)
     # Walkthrough step titles are set by script from the demo data.
     demo = json.loads((ROOT / 'scripts' / 'final-i18n' / 'demo.json').read_text('utf-8'))

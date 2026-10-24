@@ -13,8 +13,8 @@ const src = path.join(root, 'scripts/final-i18n');
 const out = path.join(root, 'public/final');
 const origin = 'https://interviewhacker.vercel.app';
 const langs = {
-  zh: { file: 'index.html', base: './', html: 'zh-CN', url: `${origin}/final/`, other: './en/' },
-  en: { file: 'en/index.html', base: '../', html: 'en', url: `${origin}/final/en/`, other: '../' }
+  zh: { file: 'index.html', base: './', html: 'zh-CN', url: `${origin}/final/`, other: './en/', hrefZh: './', hrefEn: './en/' },
+  en: { file: 'en/index.html', base: '../', html: 'en', url: `${origin}/final/en/`, other: '../', hrefZh: '../', hrefEn: './' }
 };
 
 const template = await readFile(path.join(src, 'page.html'), 'utf8');
@@ -33,7 +33,12 @@ async function render(lang) {
     .replaceAll('{{url}}', L.url)
     .replaceAll('{{url-zh}}', langs.zh.url)
     .replaceAll('{{url-en}}', langs.en.url)
-    .replaceAll('{{other}}', L.other);
+    .replaceAll('{{other}}', L.other)
+    .replaceAll('{{href-zh}}', L.hrefZh)
+    .replaceAll('{{href-en}}', L.hrefEn)
+    // The current language is marked; the other one carries the section you are reading (motion.js).
+    .replaceAll('{{attr-zh}}', lang === 'zh' ? ' aria-current="page"' : ' data-lang-switch')
+    .replaceAll('{{attr-en}}', lang === 'en' ? ' aria-current="page"' : ' data-lang-switch');
   const left = html.match(/\{\{[^}]*\}\}/);
   if (left) throw new Error(`Unresolved template token in ${lang}: ${left[0]}`);
   for (const m of [...html.matchAll(/((?:href|src)=")(\.\.?\/)([^"?#]+\.(?:css|js))"/g)]) {
