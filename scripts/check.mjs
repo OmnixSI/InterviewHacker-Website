@@ -36,7 +36,8 @@ await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/co
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
  const version={final:'v1.9.0'}[style.slug]||'v1.8.0';
- for(const text of [version,'需要仓库访问权','不会把所有资料塞入上下文','语音识别 + 对话服务',...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
+ // Final is an early-access page with a waitlist instead of a download, so it carries no download prerequisites.
+ for(const text of [version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
  const js=(await Promise.all(scripts.map(src=>readFile(path.resolve(base,src.split('?')[0]),'utf8')))).join('\n');

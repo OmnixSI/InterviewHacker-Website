@@ -337,9 +337,10 @@ void main(){
     let shore = null, clock = 0;
     shore = surface(shoreCanvas, {
       frag: SHORE, cell: 7, scale: 1, alpha: true, target: panel, host: shoreCanvas,
+      // Only the top edge dissolves into the paper: the water runs to the end of the page.
       uniforms: () => {
-        const k = shore ? shore.ratio() : 1, side = Math.min(innerWidth * .04, 56) * k;
-        return { u_a: voices.a, u_b: voices.b, u_deep: [.15, .22, .23], u_mid: [.34, .44, .43], u_them: colors.them, u_me: colors.me, u_edge: [side, side, 110 * k, 110 * k] };
+        const k = shore ? shore.ratio() : 1;
+        return { u_a: voices.a, u_b: voices.b, u_deep: [.15, .22, .23], u_mid: [.34, .44, .43], u_them: colors.them, u_me: colors.me, u_edge: [0, 0, 0, 150 * k] };
       },
       // The two voices drift slowly; with a pointer over the water, "you" follow it.
       onFrame(dt) {

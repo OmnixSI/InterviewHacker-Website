@@ -1,6 +1,7 @@
-// Phone companion section. When it comes into view the phone "scans" the pairing code on the shared Mac,
-// the link between them draws, and the answer streams onto the phone. Every key on the phone works:
-// answer, shorter, example, other language, previous/next, cancel, and text size. Local script only.
+// Phone companion. On wide screens the section is pinned and the scroll plays three beats: you are sharing your
+// whole screen; the phone scans the pairing code; the question and answer arrive on the phone only. motion.js drives
+// that through IHCompanion.scene(p) and hands the phone over with IHCompanion.release(). Elsewhere the same beats
+// play once when the stage comes into view. Afterwards every key works, and a small hint suggests what to try.
 (() => {
   const root = document.documentElement;
   const section = document.querySelector('[data-companion]');
@@ -9,10 +10,12 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const paused = () => root.classList.contains('motion-paused');
   const $ = s => section.querySelector(s);
+  const zh = root.lang.startsWith('zh');
   const S = JSON.parse(dataEl.textContent).scenes.interview;
   const items = [{ q: S.q1.text, a: S.a1 }, { q: S.q2.text, a: S.a2, variants: S.variants }];
-  const stage = $('[data-companion-stage]'), qEl = $('[data-phone-q]'), aEl = $('[data-phone-a]'), count = $('[data-phone-count]');
-  const phone = $('[data-phone]');
+  const stage = $('[data-companion-stage]'), phone = $('[data-phone]');
+  const qEl = $('[data-phone-q]'), aEl = $('[data-phone-a]'), count = $('[data-phone-count]');
+  const beats = [...section.querySelectorAll('.beat')], beatList = $('[data-beats]');
 
   /* A decorative pairing code: finder squares in three corners, a seeded scatter elsewhere. */
   const qr = $('[data-qr]');
@@ -25,8 +28,17 @@
     qr.innerHTML = `${finder(0, 0)}${finder(22, 0)}${finder(0, 22)}<path d="${cells}"/>`;
   }
 
+  /* Beats and pairing state. */
+  const setBeat = i => {
+    beats.forEach((b, k) => b.classList.toggle('is-on', k === i));
+    beatList?.style.setProperty('--beat-p', String((i + 1) / beats.length));
+  };
+  const setPhase = phase => {
+    for (const c of ['is-pairing', 'is-linking', 'is-paired']) stage.classList.toggle(c, c === `is-${phase}`);
+  };
+
   /* Streaming onto the phone, cancellable. */
-  let index = 1, run = 0, size = 0;
+  let index = 1, run = 0, size = 0, free = false;
   const show = (i, text = items[i].a) => { index = i; count.textContent = `${i + 1} / ${items.length}`; qEl.textContent = items[i].q; aEl.textContent = text; };
   async function stream(text) {
     const id = ++run;
@@ -45,9 +57,33 @@
   }
   const stop = () => { run++; aEl.querySelector('.caret')?.remove(); phone.classList.remove('is-streaming'); };
 
+  /* Hints: one key at a time, moving on once you've pressed it. */
+  const coach = $('[data-coach]'), coachText = $('[data-coach-text]');
+  const steps = [
+    { key: 'short', text: zh ? '点一下，让回答更简短' : 'Tap to make it shorter' },
+    { key: 'translate', text: zh ? '换成英文版看看' : 'Try it in Chinese' },
+    { key: 'prev', text: zh ? '翻回上一个问题' : 'Go back a question' }
+  ];
+  let step = 0;
+  const placeCoach = () => {
+    section.querySelectorAll('.is-hinted').forEach(b => b.classList.remove('is-hinted'));
+    const s = steps[step];
+    if (!coach || !free || !s) { coach?.classList.remove('is-on'); return; }
+    const btn = $(`[data-remote="${s.key}"]`), p = phone.getBoundingClientRect(), r = btn.getBoundingClientRect();
+    coachText.textContent = s.text;
+    coach.style.setProperty('--cx', `${r.left - p.left + r.width / 2}px`);
+    coach.style.setProperty('--cy', `${r.top - p.top}px`);
+    btn.classList.add('is-hinted');
+    coach.classList.add('is-on');
+  };
+  const advanceCoach = key => { if (steps[step]?.key === key) { step++; setTimeout(placeCoach, 500); } };
+  addEventListener('resize', () => free && placeCoach());
+
   section.querySelectorAll('[data-remote]').forEach(btn => btn.addEventListener('click', () => {
     const key = btn.dataset.remote;
+    if (!free) release();
     btn.animate?.([{ transform: 'scale(.94)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.16,1,.3,1)' });
+    advanceCoach(key);
     if (key === 'cancel') return stop();
     if (key === 'prev' || key === 'next') { stop(); const i = Math.max(0, Math.min(items.length - 1, index + (key === 'next' ? 1 : -1))); show(i); return; }
     if (key === 'answer') { show(index, ''); return stream(items[index].a); }
@@ -60,25 +96,40 @@
     phone.style.setProperty('--fs', size);
   }));
 
-  /* Pairing, once, when the stage is well in view (a third: on phones the stage is taller than the screen). */
-  const connect = () => {
-    stage.classList.add('is-paired');
-    show(1, '');
-    stream(items[1].a);
-  };
-  if (reduced.matches || !window.gsap) { stage.classList.add('is-paired', 'is-instant'); show(1); return; }
+  /* The scroll-driven scene, p from 0 to 1. Deterministic, so it plays the same backwards. */
+  const answer = items[1].a;
+  function scene(p) {
+    if (free) { free = false; stop(); placeCoach(); }
+    const clamp = v => Math.max(0, Math.min(1, v));
+    setBeat(p < .3 ? 0 : p < .58 ? 1 : 2);
+    phone.style.setProperty('--enter', clamp((p - .16) / .16).toFixed(3));
+    setPhase(p < .3 ? 'sharing' : p < .5 ? 'pairing' : p < .58 ? 'linking' : 'paired');
+    const typed = Math.round(answer.length * clamp((p - .64) / .3));
+    show(1, answer.slice(0, typed));
+  }
+  // Hand the phone over: the full answer, every key live, and the first hint.
+  function release() {
+    if (free) return;
+    free = true;
+    phone.style.setProperty('--enter', '1');
+    setBeat(2);
+    setPhase('paired');
+    if (aEl.textContent.length < answer.length && !phone.classList.contains('is-streaming')) show(1);
+    requestAnimationFrame(placeCoach);
+  }
+  window.IHCompanion = { scene, release };
+
+  /* Without the pinned scene: the beats play once, a third of the stage in view. */
   show(1, '');
-  if (window.DrawSVGPlugin) gsap.registerPlugin(DrawSVGPlugin);
-  const link = $('[data-link]');
-  gsap.set(link, { drawSVG: '0%' });
+  if (reduced.matches || !window.gsap) { stage.classList.add('is-instant'); setBeat(2); setPhase('paired'); show(1); free = true; return; }
+  if (matchMedia('(min-width: 961px) and (min-height: 640px)').matches) { scene(0); return; }
+  setBeat(0);
   new IntersectionObserver((entries, io) => {
     if (!entries[0].isIntersecting) return;
     io.disconnect();
-    stage.classList.add('is-scanning');
-    gsap.timeline({ delay: .3 })
-      .to({}, { duration: 1.6 })
-      .call(() => { stage.classList.remove('is-scanning'); stage.classList.add('is-linking'); })
-      .to(link, { drawSVG: '100%', duration: .9, ease: 'power2.inOut' })
-      .call(connect);
+    const later = (ms, fn) => setTimeout(fn, ms);
+    later(400, () => { setBeat(1); setPhase('pairing'); });
+    later(2200, () => setPhase('linking'));
+    later(2900, () => { setBeat(2); setPhase('paired'); stream(answer).then(() => { if (!free) release(); }); });
   }, { threshold: .3 }).observe(stage);
 })();

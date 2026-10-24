@@ -106,7 +106,7 @@
             <a class="btn btn--ink" href="#download">{{ 申请早期试用 ‖ Get early access }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="btn btn--ghost" href="#demo">{{ 看它如何工作 ‖ See it work }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
           </div>
-          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>{{ 需要仓库访问权 ‖ Repository access required }}</span></p>
+          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>{{ 即将开放试用 ‖ Early access soon }}</span></p>
           <p class="hero__hint mono" aria-hidden="true"><i></i>{{ 向下滚动，播放一段完整的面试对话 ‖ Scroll to play a full interview, step by step }}</p>
         </div>
 
@@ -183,6 +183,7 @@
 
         <div class="demo-controls" id="demo" data-demo-controls>
           <p class="demo-controls__hint mono"><i aria-hidden="true"></i>{{ 轮到你了：换个场景、点改写按钮，或按 ⌘⇧↩ ‖ Your turn: switch scenes, try a rewrite, or press ⌘⇧↩ }}</p>
+          <p class="demo-controls__note mono">{{ 交互示意：预设脚本，不访问麦克风或网络 ‖ Interactive illustration: a scripted replay, no microphone or network }}</p>
           <div class="segmented" role="tablist" aria-label="{{ 演示场景 ‖ Demo scene }}" data-demo-scenes>
             <button role="tab" type="button" aria-selected="true" data-scene-key="interview">{{ 面试 ‖ Interview }}</button>
             <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="talk">{{ 学术报告 ‖ Talk }}</button>
@@ -304,16 +305,21 @@
     </section>
 
 
-    <!-- Phone companion: the screen beside you, paired by a scan, invisible to a full-screen share. -->
+    <!-- Phone companion: a pinned scene in three beats — sharing, pairing, the answer on the phone — then the phone is yours. -->
     <section class="section companion" id="companion" aria-labelledby="companion-title" data-companion>
-      <div class="container">
-        <header class="companion__head">
-          <p class="eyebrow mono"><b>№ 03</b>{{ 手机伴侣 ‖ Phone companion }}</p>
-          <h2 id="companion-title" class="display">{{ 共享整个屏幕时，<br>看手机。 ‖ Sharing your screen?<br>Read your phone. }}</h2>
-          <p class="lead">{{ 共享整个屏幕时，回答改到手机上看。相机扫码就能连上，不用装 App；问题和回答实时同步，手机还能当遥控器。 ‖ When you share your whole screen, read the answers on your phone instead. Scan the code with the camera, no app needed. Questions and answers stay in sync, and the phone doubles as a remote. }}</p>
-        </header>
-        <div class="companion__stage" data-companion-stage>
-          <div class="cmac" aria-hidden="true">
+      <div class="companion__pin" data-companion-pin>
+        <div class="container companion__grid">
+          <div class="companion__text">
+            <p class="eyebrow mono"><b>№ 03</b>{{ 手机伴侣 ‖ Phone companion }}</p>
+            <h2 id="companion-title" class="display">{{ 共享整个屏幕时，<br>看手机。 ‖ Sharing your screen?<br>Read your phone. }}</h2>
+            <ol class="beats" role="list" data-beats>
+              <li class="beat is-on"><span class="mono">i.</span><b>{{ 你在共享整个屏幕。 ‖ You’re sharing your whole screen. }}</b><p>{{ 对方看到的，就是你电脑上的一切。 ‖ Whatever is on your Mac, they see. }}</p></li>
+              <li class="beat"><span class="mono">ii.</span><b>{{ 扫一下，手机就连上。 ‖ One scan, and the phone is in. }}</b><p>{{ 相机扫配对码，浏览器里就是提词屏，不用装 App。 ‖ The camera reads the code; the browser becomes your prompter. No app. }}</p></li>
+              <li class="beat"><span class="mono">iii.</span><b>{{ 问题和回答，只在手机上。 ‖ Questions and answers, on the phone only. }}</b><p>{{ 电脑屏幕上什么也不多。只同步此刻的问答，转录与资料留在 Mac。 ‖ Nothing new on the shared screen. Only this moment syncs; transcripts and material stay on the Mac. }}</p></li>
+            </ol>
+          </div>
+          <div class="companion__stage" data-companion-stage>
+            <div class="cmac" aria-hidden="true">
             <div class="cmac__screen">
               <p class="cmac__share mono"><i></i>{{ 正在共享整个屏幕 ‖ Sharing entire screen }}</p>
               <div class="cmac__call"><span><b>{{ 王 ‖ A }}</b><small>{{ 面试官 ‖ Interviewer }}</small></span><span><b>{{ 我 ‖ Me }}</b></span></div>
@@ -321,12 +327,10 @@
                 <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
                 <p><b>{{ 用手机相机扫一扫 ‖ Scan with your phone’s camera }}</b><span class="mono">{{ 一次性配对码 ‖ One-time pairing code }}</span></p>
               </div>
-              <p class="cmac__seen mono">{{ 对方看到的：只有会议画面 ‖ What they see: just the call }}</p>
             </div>
             <div class="cmac__base"></div>
           </div>
-          <svg class="clink" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 C60 20 70 6 100 6 S140 20 200 20" data-link/></svg>
-          <p class="clink__label mono" aria-hidden="true" data-link-label>{{ 局域网直连 · 或自建端到端加密中转 ‖ Local network · or your own end-to-end encrypted relay }}</p>
+            <p class="companion__tag companion__tag--them mono" aria-hidden="true">{{ 对方看到的 ‖ What they see }}</p>
           <div class="phone" data-phone>
             <span class="phone__island" aria-hidden="true"></span>
             <div class="phone__screen">
@@ -348,13 +352,11 @@
                 </div>
               </div>
             </div>
+            <p class="coach" data-coach role="status" aria-live="polite"><span data-coach-text></span></p>
+          </div>
+            <p class="companion__tag companion__tag--me mono" aria-hidden="true">{{ 只有你看到的 ‖ Only you see }}</p>
           </div>
         </div>
-        <ul class="companion__facts" role="list">
-          <li><span class="mono">i.</span><h3>{{ 扫码即用 ‖ Scan and go }}</h3><p>{{ 设置里打开，手机相机扫一下，浏览器里就是你的提词屏。 ‖ Turn it on, scan with the camera, and the browser becomes your prompter. }}</p></li>
-          <li><span class="mono">ii.</span><h3>{{ 整屏共享也看不到 ‖ Off the shared screen }}</h3><p>{{ 手机不在被共享的屏幕里，整屏共享时在手机上看最稳妥。 ‖ Your phone isn’t part of the shared screen, so it’s the safest place to read during a full-screen share. }}</p></li>
-          <li><span class="mono">iii.</span><h3>{{ 只同步此刻的问答 ‖ Only this moment syncs }}</h3><p>{{ 默认关闭，每次开启都换一个新的配对码；转录、资料和截图不会同步到手机。 ‖ Off by default, with a fresh pairing code each time; transcripts, material and screenshots never reach the phone. }}</p></li>
-        </ul>
       </div>
     </section>
 
@@ -372,34 +374,57 @@
       </div>
     </section>
 
-    <!-- Ending: early access, on a slow water where two voices meet. -->
+    <!-- Ending: early access on slow water where two voices meet; the waitlist opens as a sheet of glass on it. -->
     <section class="ending" id="download" aria-labelledby="download-title" data-ending>
       <div class="ending__panel">
         <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
-        <div class="ending__copy">
+        <div class="ending__copy" data-ending-copy>
           <h2 class="ending__title" id="download-title"><span>InterviewHacker</span><span>{{ 即将开放试用。 ‖ is opening early access. }}</span></h2>
-          <p class="ending__sub">{{ 目前在小范围内测，名额会陆续开放。 ‖ A small private beta is running now. More seats open soon. }}</p>
-          <a class="ending__btn" href="https://github.com/OmnixSI/InterviewHacker/releases/latest">{{ 已获邀请？前往下载 ‖ Invited? Download }}</a>
+          <p class="ending__sub">{{ 首批试用正在小范围进行，名额会陆续开放。 ‖ The first beta is running now. More places open soon. }}</p>
+          <button class="ending__btn" type="button" aria-controls="waitlist" aria-expanded="false" data-waitlist-open>{{ 加入试用名单 ‖ Join the waitlist }}</button>
         </div>
+
+        <div class="waitlist" id="waitlist" data-waitlist role="dialog" aria-modal="false" aria-labelledby="waitlist-title">
+          <form class="waitlist__form" action="/api/waitlist/" method="post" data-waitlist-form novalidate>
+            <button class="waitlist__close" type="button" aria-label="{{ 关闭 ‖ Close }}" data-waitlist-close><i></i></button>
+            <header class="waitlist__head">
+              <p class="waitlist__kicker mono">InterviewHacker · Early access</p>
+              <h3 class="waitlist__title" id="waitlist-title">{{ 加入试用名单 ‖ Join the waitlist }}</h3>
+              <p class="waitlist__lead">{{ 开放试用时，我们会第一时间写信给你。 ‖ When places open, you’ll be the first to hear. }}</p>
+            </header>
+            <div class="waitlist__row">
+              <label class="wl-field"><span class="wl-field__label">{{ 称呼 ‖ Name }}</span><input name="name" type="text" autocomplete="name" maxlength="60" required placeholder="{{ 怎么称呼你 ‖ What should we call you }}"></label>
+              <label class="wl-field"><span class="wl-field__label">{{ 邮箱 ‖ Email }}</span><input name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="name@example.com"></label>
+            </div>
+            <fieldset class="uses">
+              <legend class="wl-field__label">{{ 打算用在哪里？可多选 ‖ Where will you use it? Pick any }}</legend>
+              <label class="use"><input type="checkbox" name="uses" value="interview"><span>{{ 求职面试 ‖ Job interviews }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="talk"><span>{{ 组会与学术报告 ‖ Lab meetings &amp; talks }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="meeting"><span>{{ 商务会议与谈判 ‖ Meetings &amp; negotiations }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="class"><span>{{ 网课 ‖ Online classes }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="other"><span>{{ 其他 ‖ Something else }}</span></label>
+            </fieldset>
+            <label class="wl-field wl-field--more"><span class="wl-field__label">{{ 更多（可选） ‖ Anything else (optional) }}</span><textarea name="more" rows="2" maxlength="1000" placeholder="{{ 比如：下个月有一场技术面试 ‖ e.g. a technical interview next month }}"></textarea></label>
+            <label class="waitlist__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            <input type="hidden" name="lang" value="{{ zh ‖ en }}">
+            <div class="waitlist__foot">
+              <p class="waitlist__note">{{ 只用于联系试用，不会公开或转给他人。 ‖ Used only to reach you about early access. Never shared. }}</p>
+              <button class="waitlist__submit" type="submit" data-waitlist-submit><span>{{ 提交申请 ‖ Request access }}</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p class="waitlist__error" role="alert" data-waitlist-error></p>
+          </form>
+          <div class="waitlist__done" data-waitlist-done tabindex="-1">
+            <svg class="waitlist__tick" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="m15 27 7.5 7.5L37.5 19"/></svg>
+            <h3 class="waitlist__title">{{ 已加入名单。 ‖ You’re on the list. }}</h3>
+            <p class="waitlist__lead" data-waitlist-done-text data-template="{{ 开放试用时，我们会写信到 %email%。 ‖ We’ll write to %email% when your place opens. }}">{{ 开放试用时，我们会写信给你。 ‖ We’ll write to you when your place opens. }}</p>
+            <button class="waitlist__back" type="button" data-waitlist-close>{{ 好的 ‖ Done }}</button>
+          </div>
+        </div>
+
+        <p class="ending__meta mono"><span>© 2026 OmnixSI</span><a href="{{other}}" hreflang="{{ en ‖ zh-CN }}">{{ English ‖ 中文 }}</a><a href="/" target="_top">{{ 风格画廊 ‖ Style gallery }}</a></p>
       </div>
-      <p class="ending__fine">{{ 适用于 Apple Silicon Mac（macOS 14 及以上）。内测期间下载需要仓库访问权。开始使用需要语音识别 + 对话服务：声音默认在本机识别，回答用你自己的对话服务账号。页面中的演示为交互示意，不访问麦克风或网络。 ‖ For Apple Silicon Macs on macOS 14 or later. During the beta, download requires repository access. You’ll need speech recognition and an answer service: speech is recognised on your Mac by default, and answers use your own account with an AI service. The demo on this page is an interactive illustration with no microphone or network access. }}</p>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <ol class="index mono" role="list">
-        <li><a href="#demo"><span>01</span>{{ 实时演示 ‖ Live demo }}<i></i></a></li>
-        <li><a href="#scenes"><span>02</span>{{ 五个时刻 ‖ Five moments }}<i></i></a></li>
-        <li><a href="#companion"><span>03</span>{{ 手机伴侣 ‖ Phone companion }}<i></i></a></li>
-        <li><a href="#privacy"><span>04</span>{{ 隐私 ‖ Privacy }}<i></i></a></li>
-        <li><a href="#download"><span>05</span>{{ 早期试用 ‖ Early access }}<i></i></a></li>
-      </ol>
-      <p class="site-footer__fine">{{ 字体：得意黑（atelierAnchor）、思源黑体（Noto Sans SC）、Instrument Serif、Geist 与 Geist Mono，均为 SIL OFL 1.1；“next line.” 为本站定制字形。 ‖ Type: Smiley Sans (atelierAnchor), Noto Sans SC, Instrument Serif, Geist and Geist Mono, all SIL OFL 1.1; “next line.” is custom lettering. }}</p>
-      <p class="wordmark" aria-hidden="true" data-wordmark>InterviewHacker</p>
-      <p class="site-footer__meta mono"><span>© 2026 OmnixSI</span><a href="{{other}}" hreflang="{{ en ‖ zh-CN }}">{{ English ‖ 中文 }}</a><a href="/" target="_top">{{ 风格画廊 ‖ Style gallery }}</a></p>
-    </div>
-  </footer>
 
   <script type="application/json" id="demo-data">{{@demo}}</script>
   <script src="{{base}}scripts/theme.js"></script>
@@ -415,6 +440,7 @@
   <script src="{{base}}scripts/field.js"></script>
   <script src="{{base}}scripts/demo.js"></script>
   <script src="{{base}}scripts/companion.js"></script>
+  <script src="{{base}}scripts/waitlist.js"></script>
   <script src="{{base}}scripts/motion.js"></script>
   <script src="{{base}}scripts/cursor.js"></script>
   <script src="{{base}}scripts/fps.js"></script>

@@ -42,7 +42,7 @@
   addEventListener('keydown', e => { if (e.key === 'Escape' && langBox?.classList.contains('is-open')) { setLang(false); langBtn.focus(); } });
 
   // Language switch keeps your place: it carries the section you are reading.
-  for (const link of $$('[data-lang-switch], .site-footer__meta a[hreflang]')) {
+  for (const link of $$('[data-lang-switch], .ending__meta a[hreflang]')) {
     link.addEventListener('click', e => {
       const sections = $$('main > section[id]');
       const mid = innerHeight * .4;
@@ -379,7 +379,7 @@
       gsap.from(split.lines, { yPercent: 105, duration: 1.1, stagger: .08, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
     }
     // Content reveals use IntersectionObserver, so pinned sections and hash jumps can't strand them hidden.
-    const reveal = $$('.principles__list li, .companion__facts li, .index li')
+    const reveal = $$('.principles__list li')
       .filter(el => el.getBoundingClientRect().top > innerHeight * .9);
     gsap.set(reveal, { y: 28, opacity: 0 });
     const pending = new Set(reveal);
@@ -390,6 +390,13 @@
     reveal.forEach(el => revealIO.observe(el));
     ScrollTrigger.addEventListener('refresh', () => showEls([...pending].filter(el => el.getBoundingClientRect().top < innerHeight)));
 
+    /* Companion: pinned for three beats — sharing, pairing, the answer on the phone — then the phone is handed over. */
+    const comp = $('[data-companion]');
+    if (comp && stage && window.IHCompanion) {
+      comp.classList.add('is-pinned');
+      ScrollTrigger.create({ trigger: comp, pin: '[data-companion-pin]', start: 'top top', end: '+=200%', onUpdate: s => (s.progress > .985 ? IHCompanion.release() : IHCompanion.scene(s.progress)) });
+    }
+
     /* Ending: the words surface from the water, through a blur. */
     const ending = $('[data-ending]');
     if (ending) gsap.from($$('.ending__title span, .ending__sub, .ending__btn', ending), { opacity: 0, y: 34, filter: 'blur(10px)', duration: 1.6, stagger: .14, clearProps: 'filter', scrollTrigger: { trigger: ending, start: 'top 45%' } });
@@ -397,7 +404,7 @@
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
     // Pins add height after the browser already jumped to a #hash, so land there again once layout settles.
     addEventListener('load', () => { ScrollTrigger.refresh(); if (location.hash.length > 1) requestAnimationFrame(() => go(location.hash, true)); }, { once: true });
-    return () => { hero.classList.remove('hero--stage', 'is-free'); swirl?.classList.remove('is-pinned'); if (swirl) swirl.style.height = ''; demo?.guide(null); };
+    return () => { hero.classList.remove('hero--stage', 'is-free'); swirl?.classList.remove('is-pinned'); if (swirl) swirl.style.height = ''; $('[data-companion]')?.classList.remove('is-pinned'); demo?.guide(null); };
   });
   reducedMQ.addEventListener('change', () => location.reload());
 })();
