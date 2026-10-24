@@ -35,7 +35,9 @@ await inspectHtml(path.join(publicRoot,'index.html'),catalog.origin+'/');
 await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/compare/');
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
- for(const text of ['v1.8.0','需要仓库访问权','不会把所有资料塞入上下文','语音识别 + 对话服务',...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
+ const version={final:'v1.9.0'}[style.slug]||'v1.8.0';
+ // Final is an early-access page with a waitlist instead of a download, so it carries no download prerequisites.
+ for(const text of [version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
  const js=(await Promise.all(scripts.map(src=>readFile(path.resolve(base,src.split('?')[0]),'utf8')))).join('\n');
@@ -84,6 +86,30 @@ for(const style of catalog.styles){
   }
   assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Classic theme must initialize before reference measurements');
  }
+ if(style.slug==='final'){
+  // Final ships two generated language pages, subset fonts and its own vendor copies.
+  const en=await inspectHtml(path.join(base,'en/index.html'),catalog.origin+'/final/en/');
+  for(const page of [html,en]){
+   assert(page.includes('v1.9.0'),'Final must state the current release');
+   assert(page.includes('hreflang="zh-CN"')&&page.includes('hreflang="en"'),'Final pages must link their language alternates');
+   assert(!/fonts\.googleapis|cdn\.|无法被检测|undetectable/i.test(page),'Final must stay self-hosted and avoid detection claims');
+   for(const src of [...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]))assert(/^\.\.?\//.test(src),'Final scripts must be same-origin');
+   for(const id of ['hero-title','demo','scenes','companion','privacy','download'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
+   assert.equal((page.match(/data-demo-app/g)||[]).length,1,'Final must render exactly one product device');
+  }
+  for(const m of [...html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)]){
+   assert.equal(m[2],createHash('sha256').update(await readFile(path.join(base,m[1]))).digest('hex').slice(0,12),'Final resource version is stale: run npm run final:build');
+  }
+  const fontFiles=[];
+  async function walkFonts(dir){for(const e of await readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name);if(e.isDirectory())await walkFonts(p);else fontFiles.push(p);}}
+  await walkFonts(path.join(base,'assets/fonts'));
+  assert(!fontFiles.some(f=>/\.(?:ttf|otf)$/i.test(f)),'Final fonts must be subset woff2, not full TTF/OTF');
+  const charset=JSON.parse(await readFile(path.join(base,'assets/fonts/charset.json'),'utf8'));
+  const covered=new Set(charset.sans);
+  const text=(html+en).replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,'');
+  const missing=[...new Set(text)].filter(ch=>/[\u3000-\u9fff\uff00-\uffef]/.test(ch)&&!covered.has(ch));
+  assert.equal(missing.join(''),'','Final font subset is missing characters: run npm run fonts:final -- <source dir>');
+ }
  if(['story','classic'].includes(style.slug)){
   for(const m of html.matchAll(/(?:href|src|data-ih-light|data-ih-dark)="(\.\/[^"?#]+\.(?:css|js|svg))\?v=([a-f0-9]{12})(?:#[^"]*)?"/g)){
    const bytes=await readFile(path.join(base,m[1]));
@@ -95,4 +121,8 @@ const staticConfig=JSON.parse(await readFile(path.join(publicRoot,'vercel.json')
 const gitConfig=JSON.parse(await readFile(path.join(root,'vercel.json'),'utf8'));
 assert.deepEqual(gitConfig.headers,staticConfig.headers,'Git and static deployments must share headers');
 assert.equal(gitConfig.outputDirectory,'dist');assert.equal(gitConfig.trailingSlash,true);
+// EdgeOne Pages publishes the same build with the same security headers.
+const edgeConfig=JSON.parse(await readFile(path.join(root,'edgeone.json'),'utf8'));
+assert.equal(edgeConfig.outputDirectory,'./dist','EdgeOne must publish dist only');
+assert.deepEqual(edgeConfig.headers.find(h=>h.source==='/*')?.headers,gitConfig.headers.find(h=>h.source==='/(.*)').headers,'EdgeOne and Vercel must share security headers');
 console.log(`Gallery, ${catalog.styles.length} style pages, comparison, README synchronization and deployment checks passed.`);

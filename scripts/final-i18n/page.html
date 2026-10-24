@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="{{lang}}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f5f1">
+  <title>{{ InterviewHacker — 听清每一个问题，说出你的下一句 ‖ InterviewHacker — Hear every question. Say your next line. }}</title>
+  <meta name="description" content="{{ InterviewHacker 是原生 macOS 实时对话助手：双路收音分别识别对方与你，判断哪句是在问你，结合场景资料流式给出可以直接说出口的回答。适用于面试、学术报告、商务会议与课程。 ‖ InterviewHacker is a native macOS assistant for live conversations. It hears the other side and you on separate channels, detects the questions meant for you, and streams answers you can say out loud, grounded in your own material. }}">
+  <meta property="og:title" content="{{ InterviewHacker — 听清每一个问题，说出你的下一句 ‖ InterviewHacker — Hear every question. Say your next line. }}">
+  <meta property="og:description" content="{{ 面试、学术报告、商务会议与课程中的实时对话助手。默认本机离线语音识别。 ‖ A live conversation assistant for interviews, talks, meetings and classes. On-device speech recognition by default. }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="https://interviewhacker.vercel.app/previews/final-home.png">
+  <link rel="canonical" href="{{url}}">
+  <link rel="alternate" hreflang="zh-CN" href="{{url-zh}}">
+  <link rel="alternate" hreflang="en" href="{{url-en}}">
+  <link rel="alternate" hreflang="x-default" href="{{url-zh}}">
+  <link rel="icon" href="{{base}}assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{base}}assets/manifest/apple-touch-icon.png">
+  <link rel="preload" href="{{base}}assets/fonts/{{ display/ih-display.woff2 ‖ serif/instrument-serif.woff2 }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{base}}assets/fonts/fonts.css">
+  <link rel="stylesheet" href="{{base}}assets/vendor/lenis.css">
+  <link rel="stylesheet" href="{{base}}style.css">
+  <script src="{{base}}scripts/bootstrap.js"></script>
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-logo" viewBox="0 0 48 48"><path d="M7 25h5l3-10 6 20 6-27 6 21 4-10h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8.5a5 5 0 0 1 0 7M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M9 6a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <symbol id="i-crop" viewBox="0 0 24 24"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+    <filter id="f-dissolve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="noise"/>
+      <feComposite in="SourceAlpha" in2="noise" operator="arithmetic" k2="1" k3=".9" k4="-.45" result="sum"/>
+      <feComponentTransfer in="sum" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+      <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+    </filter>
+  </svg>
+
+  <a class="skip-link" href="#main">{{ 跳到主要内容 ‖ Skip to content }}</a>
+  <a class="gallery-back" href="/" target="_top">{{ ← 风格画廊 ‖ ← Style gallery }}</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header" data-header>
+    <div class="site-header__inner">
+      <a class="brand" href="#top" aria-label="{{ InterviewHacker 首页 ‖ InterviewHacker home }}">
+        <svg class="brand__mark" aria-hidden="true"><use href="#i-logo"/></svg>
+        <span class="brand__name">InterviewHacker</span>
+      </a>
+      <nav class="site-nav" id="site-nav" aria-label="{{ 页面章节 ‖ Sections }}">
+        <a href="#demo"><i>01</i>{{ 演示 ‖ Demo }}</a>
+        <a href="#scenes"><i>02</i>{{ 时刻 ‖ Moments }}</a>
+        <a href="#companion"><i>03</i>{{ 伴侣 ‖ Companion }}</a>
+        <a href="#privacy"><i>04</i>{{ 隐私 ‖ Privacy }}</a>
+      </nav>
+      <div class="site-header__actions">
+        <div class="lang" data-lang>
+          <button class="lang__toggle" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="{{ 语言：中文 ‖ Language: English }}" data-lang-toggle><span>{{ ZH ‖ EN }}</span><i class="lang__plus" aria-hidden="true"></i></button>
+          <ul class="lang__menu" id="lang-menu" role="list" aria-label="{{ 语言 ‖ Language }}">
+            <li style="--i:0"><a href="{{href-zh}}" hreflang="zh-CN" lang="zh-CN"{{attr-zh}}><span class="mono">ZH</span>中文</a></li>
+            <li style="--i:1"><a href="{{href-en}}" hreflang="en" lang="en"{{attr-en}}><span class="mono">EN</span>English</a></li>
+          </ul>
+        </div>
+        <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="{{ 暂停动效 ‖ Pause motion }}" data-label-on="{{ 继续动效 ‖ Resume motion }}" data-label-off="{{ 暂停动效 ‖ Pause motion }}">
+          <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
+        </button>
+        <a class="btn btn--ink btn--sm" href="#download">{{ 早期试用 ‖ Early access }}</a>
+        <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="{{ 打开菜单 ‖ Open menu }}" data-label-open="{{ 关闭菜单 ‖ Close menu }}" data-label-closed="{{ 打开菜单 ‖ Open menu }}"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero → voiceprint → device. One pinned stage on wide screens; plain reading order elsewhere. -->
+    <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
+      <div class="hero__pin" data-hero-pin>
+        <div class="field" aria-hidden="true">
+          <canvas class="field__canvas" data-field></canvas>
+          <svg class="field__fallback" viewBox="0 0 1200 400" preserveAspectRatio="none"><path class="field__them" d="M0 190 C120 120 200 260 320 180 S520 110 640 190 S860 270 980 170 S1140 150 1200 190"/><path class="field__me" d="M0 214 C140 250 240 170 360 220 S560 270 700 214 S900 160 1020 226 S1150 240 1200 214"/></svg>
+        </div>
+
+        <div class="hero__copy" data-hero-copy>
+          <p class="eyebrow eyebrow--quiet mono">InterviewHacker <span>v1.9.0</span> <span>macOS</span></p>
+          <h1 class="hero__title" id="hero-title" data-two-pass data-draft="{{ 听清每一个问提， ‖ Hear every questoin. }}" data-draft-word="next lion">
+            <span class="sr-only">{{ 听清每一个问题，说出你的下一句。 ‖ Hear every question. Say your next line. }}</span>
+            <span class="hero__final" aria-hidden="true">
+              <span class="hero__line">{{ 听清每一个问题， ‖ Hear every question. }}</span>
+              <span class="hero__line">{{ 说出你的 ‖ Say your }}<span class="hero__lettering">{{@lettering}}</span></span>
+            </span>
+          </h1>
+          <p class="hero__lead">{{ 面试、组会、谈判、网课，对方一问完，回答就开始出现在屏幕上。<br>语音在本机识别，回答用的是你自己的资料。 ‖ In interviews, meetings and classes, the answer starts arriving as soon as the question ends.<br>Speech stays on your Mac; answers draw on your own notes. }}</p>
+          <div class="hero__actions">
+            <a class="btn btn--ink" href="#download">{{ 申请早期试用 ‖ Get early access }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--ghost" href="#demo">{{ 看它如何工作 ‖ See it work }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
+          </div>
+          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>{{ 即将开放试用 ‖ Early access soon }}</span></p>
+          <p class="hero__hint mono" aria-hidden="true"><i></i>{{ 向下滚动，播放一段完整的面试对话 ‖ Scroll to play a full interview, step by step }}</p>
+        </div>
+
+        <div class="voiceprint" data-voiceprint>
+          <p class="eyebrow mono"><b>№ 01</b>{{ 实时演示 ‖ Live demo }}</p>
+          <h2 class="voiceprint__title" id="demo-title"><span class="voiceprint__text">{{ 从对方开口，到你说出 ‖ From their question to your }}</span><span class="voiceprint__word">{{@lettering-lead}}</span></h2>
+        </div>
+
+        <div class="stage" data-stage>
+          <div class="device" data-device>
+            <div class="device__lid">
+              <span class="device__cam" aria-hidden="true"></span>
+              <div class="device__screen">
+                <div class="desk" aria-hidden="true">
+                  <div class="call"><span class="call__tile"><b>{{ 王 ‖ A }}</b><small>{{ 面试官 · Zoom ‖ Interviewer · Zoom }}</small></span><span class="call__tile call__tile--me"><b>{{ 我 ‖ Me }}</b><small>{{ 摄像头 ‖ Camera }}</small></span></div>
+                </div>
+                <div class="app" data-demo-app aria-label="{{ InterviewHacker 助手窗口演示 ‖ InterviewHacker assistant window, demo }}" role="group">
+                  <div class="app__bar">
+                    <span class="app__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="app__tabs" aria-hidden="true"><b class="is-on">{{ 助手 ‖ Assistant }}</b><b>{{ 场景 ‖ Scenes }}</b><b>{{ 记录 ‖ History }}</b><b>{{ 设置 ‖ Settings }}</b></span>
+                    <span class="app__status"><i class="live-dot" aria-hidden="true"></i><span data-demo-status>{{ 正在聆听 ‖ Listening }}</span><span class="mono" data-demo-clock>00:00</span></span>
+                  </div>
+                  <div class="app__body">
+                    <section class="app__pane app__pane--talk" aria-label="{{ 实时对话 ‖ Live transcript }}">
+                      <header class="app__head"><b>{{ 实时对话 ‖ Live transcript }}</b><span class="app__chip" data-demo-scene-name>{{ 字节后端二面 ‖ Backend · onsite round 2 }}</span></header>
+                      <p class="app__meta mono" data-demo-asr>{{ 本机识别 · 每句说完再校对一遍 ‖ On this Mac · each sentence checked again }}</p>
+                      <div class="lanes">
+                        <div class="lane lane--them"><svg aria-hidden="true"><use href="#i-speaker"/></svg><span>{{ 对方 ‖ Them }}</span><canvas data-wave="them"></canvas></div>
+                        <div class="lane lane--me"><svg aria-hidden="true"><use href="#i-mic"/></svg><span>{{ 我 ‖ Me }}</span><canvas data-wave="me"></canvas></div>
+                      </div>
+                      <ol class="transcript" data-transcript aria-live="off">
+                        <li class="bubble bubble--them is-question"><span class="bubble__tag">{{ 追问 ‖ Follow-up }}</span>{{ 那数据库和缓存同时更新，怎么保证一致性？ ‖ When the database and cache both change, how do you keep them consistent? }}</li>
+                        <li class="bubble bubble--echo"><span class="bubble__tag">{{ 回声 · 已忽略 ‖ Echo · ignored }}</span>{{ 数据库和缓存同时更新怎么保证一致性 ‖ database and cache both change keep them consistent }}<button type="button" class="bubble__restore" tabindex="-1">{{ 是我说的 ‖ That was me }}</button></li>
+                      </ol>
+                    </section>
+                    <section class="app__pane app__pane--answer" aria-label="{{ 建议回答 ‖ Suggested answer }}">
+                      <div class="qcard">
+                        <span class="qcard__types" aria-label="{{ 问题类型 ‖ Question type }}"><b data-qtype="ask">{{ 明确提问 ‖ Question }}</b><b data-qtype="request">{{ 请求 ‖ Request }}</b><b data-qtype="follow" class="is-on">{{ 追问 ‖ Follow-up }}</b></span>
+                        <p class="qcard__text" data-demo-question>{{ 那数据库和缓存同时更新，怎么保证一致性？ ‖ When the database and cache both change, how do you keep them consistent? }}</p>
+                      </div>
+                      <div class="acard" data-acard>
+                        <p class="acard__head"><svg aria-hidden="true"><use href="#i-spark"/></svg><b>{{ 建议回答 ‖ Suggested answer }}</b><span data-demo-answer-state>{{ 流式输出 ‖ Streaming }}</span></p>
+                        <p class="acard__text" data-demo-answer>{{ 我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。 ‖ We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a safety net; hot keys get a delayed double delete. }}</p>
+                        <p class="acard__sources" data-demo-sources><span><svg aria-hidden="true"><use href="#i-file"/></svg>{{ 订单系统设计.md · §3 ‖ order-system-design.md · §3 }}</span><span><svg aria-hidden="true"><use href="#i-file"/></svg>{{ 简历.pdf · 第 2 页 ‖ resume.pdf · p.2 }}</span></p>
+                        <div class="acard__chips" role="group" aria-label="{{ 一键调整 ‖ Adjust }}" data-demo-chips>
+                          <button type="button" data-variant="short">{{ 更简短 ‖ Shorter }}</button>
+                          <button type="button" data-variant="example">{{ 举例 ‖ Example }}</button>
+                          <button type="button" data-variant="translate">{{ 英文版 ‖ 中文版 }}</button>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="app__input">
+                    <span>{{ 输入问题，或截图提问 ‖ Type a question, or ask with a screenshot }}</span>
+                    <button type="button" class="app__answer" data-demo-now><svg aria-hidden="true"><use href="#i-bolt"/></svg>{{ 立即回答 ‖ Answer now }}<kbd>⌘⇧↩</kbd></button>
+                  </div>
+                  <p class="app__foot">{{ 声音只在本机识别，不保存；只有回答需要的文字会发给你选择的对话服务。 ‖ Audio is recognised on this Mac and not saved; only the text an answer needs goes to the service you chose. }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="device__base" aria-hidden="true"><span></span></div>
+          </div>
+        </div>
+
+        <div class="guide" data-guide hidden>
+          <div class="guide__now">
+            <span class="guide__no mono"><b data-guide-no>01</b> / 06</span>
+            <p class="guide__title" data-guide-title></p>
+            <p class="guide__desc" data-guide-desc></p>
+          </div>
+          <ol class="guide__bar" data-guide-bar role="list"></ol>
+          <button class="guide__skip mono" type="button" data-guide-skip>{{ 跳过演示 ‖ Skip }}<svg aria-hidden="true"><use href="#i-down"/></svg></button>
+        </div>
+
+        <div class="demo-controls" id="demo" data-demo-controls>
+          <p class="demo-controls__hint mono"><i aria-hidden="true"></i>{{ 轮到你了：换个场景、点改写按钮，或按 ⌘⇧↩ ‖ Your turn: switch scenes, try a rewrite, or press ⌘⇧↩ }}</p>
+          <p class="demo-controls__note mono">{{ 交互示意：预设脚本，不访问麦克风或网络 ‖ Interactive illustration: a scripted replay, no microphone or network }}</p>
+          <div class="segmented" role="tablist" aria-label="{{ 演示场景 ‖ Demo scene }}" data-demo-scenes>
+            <button role="tab" type="button" aria-selected="true" data-scene-key="interview">{{ 面试 ‖ Interview }}</button>
+            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="talk">{{ 学术报告 ‖ Talk }}</button>
+            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="meeting">{{ 商务会议 ‖ Meeting }}</button>
+            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="class">{{ 课程 ‖ Class }}</button>
+          </div>
+          <div class="segmented segmented--view" role="group" aria-label="{{ 查看方式 ‖ View }}">
+            <button type="button" aria-pressed="true" data-view="workspace">{{ 工作台 ‖ Workspace }}</button>
+            <button type="button" aria-pressed="false" data-view="prompter">{{ 提词器 ‖ Teleprompter }}</button>
+          </div>
+          <button class="chip-btn" type="button" data-demo-toggle aria-pressed="false"><svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg><span data-demo-toggle-label>{{ 暂停演示 ‖ Pause demo }}</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Swirl: the moments the product is for rise past a slowly turning voice. -->
+    <section class="swirl" aria-labelledby="swirl-title" data-swirl>
+      <div class="swirl__pin">
+        <div class="swirl__orb" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="swirl__col" data-swirl-col>
+          <h2 class="swirl__stanza swirl__stanza--head" id="swirl-title"><span class="sl">{{ 对话， ‖ Conversations }}</span><span class="sl">{{ 从不等你准备好。 ‖ don’t wait for you. }}</span></h2>
+          <p class="swirl__stanza swirl__stanza--a"><span class="sl">{{ 面试官的追问， ‖ An interviewer’s follow-up, }}</span><span class="sl">{{ 停在半空。 ‖ left hanging. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--b"><span class="sl">{{ 组会上， ‖ At lab meeting, }}</span><span class="sl">{{ 导师一句 ‖ a quiet }}</span><span class="sl">{{ “为什么这样设计？” ‖ “why this design?” }}</span></p>
+          <p class="swirl__stanza swirl__stanza--c"><span class="sl">{{ 谈判桌对面： ‖ Across the table: }}</span><span class="sl"><em>{{ 再降八个点。 ‖ “another eight percent.” }}</em></span></p>
+          <p class="swirl__stanza swirl__stanza--d"><span class="sl">{{ 网课里， ‖ In class, }}</span><span class="sl">{{ 突然被点到名字。 ‖ your name, called. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--end"><span class="sl">{{ InterviewHacker 在听。 ‖ InterviewHacker is listening. }}</span><span class="sl">{{ 问题落下， ‖ The question ends; }}</span><span class="sl">{{ 回答随即出现。 ‖ the answer follows. }}</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Moments: a still pool on one side, the scene's window floating on it; the moments scroll on the other. -->
+    <section class="moments" id="scenes" aria-labelledby="scenes-title" data-moments>
+      <h2 class="sr-only" id="scenes-title">{{ 五个时刻 ‖ Five moments }}</h2>
+      <div class="moments__stage" aria-hidden="true">
+        <div class="pool"><canvas data-pool></canvas></div>
+        <div class="glass" data-glass>
+          <div class="glass__card glass__card--prompter is-active" data-glass-card>
+            <span class="glass__cam"></span>
+            <div class="mini-prompter">
+              <p class="mini-prompter__status mono"><i class="live-dot"></i>{{ 正在聆听 · 追问 ‖ Listening · follow-up }}</p>
+              <p class="mini-prompter__q">{{ 那数据库和缓存同时更新，怎么保证一致性？ ‖ When the database and cache both change, how do you keep them consistent? }}</p>
+              <p class="mini-prompter__a">{{ 先更新数据库，再删除缓存；删除失败进重试队列，binlog 订阅兜底。 ‖ Write the database, then delete the cache; retry failed deletes, with a binlog subscriber as backstop. }}</p>
+              <p class="mini-prompter__src mono">{{ 简历.pdf · 第 2 页 ‖ resume.pdf · p.2 }}</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-slide">
+              <div class="mini-slide__page"><span class="mono">Mamba · 4 / 18</span><b>{{ 选择性状态空间 ‖ Selective state spaces }}</b><i></i><i></i><i></i></div>
+              <ol class="mini-slide__points">
+                <li class="is-done">{{ 参数随输入变化 ‖ Input-dependent parameters }}</li>
+                <li class="is-done">{{ 线性时间扫描 ‖ Linear-time scan }}</li>
+                <li>{{ 对比注意力的长序列成本 ‖ Long-sequence cost vs. attention }}</li>
+              </ol>
+              <p class="mini-slide__next"><span class="mono">{{ 过渡 ‖ Next }}</span>{{ “接下来看它在长序列上的吞吐。” ‖ “Next, throughput on long sequences.” }}</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-phone">
+              <p class="mini-phone__bar mono"><span>14:07</span><span>{{ 手机伴侣 ‖ Companion }}</span></p>
+              <p class="mini-phone__q">{{ “单价再降 8 个点，能接受吗？” ‖ “Could you take another 8% off?” }}</p>
+              <p class="mini-phone__a">{{ 可以按量做阶梯：1.2 万台以上给 5 个点，账期放宽到 90 天。 ‖ Tier it by volume: 5% above 12,000 units, with terms extended to 90 days. }}</p>
+              <ul class="mini-phone__minutes"><li><b>{{ 决定 ‖ Decision }}</b>{{ 阶梯报价，会后书面确认 ‖ Tiered pricing, confirm in writing }}</li><li><b>{{ 待办 ‖ To-do }}</b>{{ 财务确认 90 天账期 ‖ Finance to approve 90-day terms }}</li></ul>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-crop">
+              <div class="mini-crop__shot"><span class="mono">{{ 第 9 讲 · 第 23 页 ‖ Lecture 9 · slide 23 }}</span><b>{{ TLB 未命中时，发生了什么？ ‖ What happens on a TLB miss? }}</b><i class="mini-crop__frame"></i></div>
+              <p class="mini-crop__a">{{ 硬件先遍历页表；页表项有效就回填 TLB 重试，无效才触发缺页，交给操作系统。 ‖ Hardware walks the page table first; a valid entry refills the TLB, an invalid one faults to the OS. }}</p>
+            </div>
+          </div>
+          <div class="glass__card" data-glass-card>
+            <div class="mini-review">
+              <p class="mini-review__head"><b>{{ 二面 · 后端 ‖ Round 2 · backend }}</b><span class="mono">{{ 17 个问题 ‖ 17 questions }}</span></p>
+              <ul><li>{{ 订单系统与库存扣减 ‖ Order system and stock deduction }}</li><li>{{ 缓存一致性 · 追问两次 ‖ Cache consistency · two follow-ups }}</li><li>{{ 限流与降级 ‖ Rate limiting and fallback }}</li></ul>
+              <p class="mini-review__weak"><span class="mono">{{ 薄弱 ‖ Weak spot }}</span>{{ 分布式事务的取舍 ‖ Distributed-transaction trade-offs }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="moments__chapters">
+        <nav class="moments__index mono" aria-label="{{ 时刻 ‖ Moments }}">
+          <a href="#moment-interview" data-index><span>01</span>{{ 面试 ‖ Interview }}</a>
+          <a href="#moment-talk" data-index><span>02</span>{{ 报告 ‖ Talk }}</a>
+          <a href="#moment-meeting" data-index><span>03</span>{{ 谈判 ‖ Meeting }}</a>
+          <a href="#moment-class" data-index><span>04</span>{{ 网课 ‖ Class }}</a>
+          <a href="#moment-after" data-index><span>05</span>{{ 会后 ‖ After }}</a>
+        </nav>
+        <article class="moment" id="moment-interview" data-moment>
+          <p class="moment__kicker mono">01 · {{ 求职面试 ‖ Job interview }}</p>
+          <h3 class="moment__title"><span>{{ 追问， ‖ The follow-up, }}</span><span>{{ 也接得住。 ‖ handled. }}</span></h3>
+          <p class="moment__body">{{ 面试官追问缓存一致性。摄像头下方的提词条里，回答已经开始出现，例子取自你简历上的项目。 ‖ The interviewer presses on cache consistency. In the bar under your camera, the answer is already forming, built on a project from your résumé. }}</p>
+          <p class="moment__aside">{{ 悬浮提词器 · 鼠标可穿透 · ⌘⇧\ 一键隐藏 ‖ Floating teleprompter · click-through · hide with ⌘⇧\ }}</p>
+        </article>
+        <article class="moment" id="moment-talk" data-moment>
+          <p class="moment__kicker mono">02 · {{ 学术报告 ‖ Academic talk }}</p>
+          <h3 class="moment__title"><span>{{ 幻灯片翻到哪， ‖ Your notes turn }}</span><span>{{ 讲稿跟到哪。 ‖ with the slides. }}</span></h3>
+          <p class="moment__body">{{ 讲过的要点逐条勾掉，下一句过渡提前备好。被追问时，解释会注明出处页码。 ‖ Points tick off as you cover them, and the next transition is ready. When someone cuts in, the explanation cites its page. }}</p>
+          <p class="moment__aside">{{ 可选窗口、显示器或区域 · 每次回答冻结当时画面 ‖ Pick a window, display or region · each answer keeps its frame }}</p>
+        </article>
+        <article class="moment" id="moment-meeting" data-moment>
+          <p class="moment__kicker mono">03 · {{ 商务谈判 ‖ Negotiation }}</p>
+          <h3 class="moment__title"><span>{{ 对方压价， ‖ They push on price. }}</span><span>{{ 你守住底线。 ‖ You hold your floor. }}</span></h3>
+          <p class="moment__body">{{ 对方要求再降八个点。它按你为这场会设定的底线，给出阶梯报价的说法，并记下决定与待办。 ‖ They ask for another eight percent. It suggests a tiered offer within the floor you set for this meeting, and notes decisions and to-dos. }}</p>
+          <p class="moment__aside">{{ 手机伴侣放在桌边 · 扫码配对，默认关闭 ‖ Phone companion on the table · paired by QR, off by default }}</p>
+        </article>
+        <article class="moment" id="moment-class" data-moment>
+          <p class="moment__kicker mono">04 · {{ 网课 ‖ Online class }}</p>
+          <h3 class="moment__title"><span>{{ 被点到名字， ‖ Called on, }}</span><span>{{ 也从容。 ‖ and composed. }}</span></h3>
+          <p class="moment__body">{{ 老师问 TLB 未命中时发生什么，回答对照第 9 讲第 23 页。屏幕上的题目和代码，框选即可提问。 ‖ Asked what happens on a TLB miss, the answer follows lecture 9, slide 23. A question or code on screen can be cropped and asked. }}</p>
+          <p class="moment__aside">{{ 截图提问 · 对齐课件页码 ‖ Ask with a screenshot · aligned to the slides }}</p>
+        </article>
+        <article class="moment" id="moment-after" data-moment>
+          <p class="moment__kicker mono">05 · {{ 会后 ‖ Afterwards }}</p>
+          <h3 class="moment__title"><span>{{ 散会后， ‖ After the call, }}</span><span>{{ 纪要已经写好。 ‖ the notes are done. }}</span></h3>
+          <p class="moment__body">{{ 摘要、问题清单和用到的资料，归档到这个场景。答得好的留作经验，答得不好的进入下次复盘。 ‖ A summary, the questions and the material used are filed under the scene. Good answers are kept; weak ones return in the next review. }}</p>
+          <p class="moment__aside">{{ 可搜索、可导出 Markdown、可随时删除 ‖ Searchable · export to Markdown · delete any time }}</p>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- Phone companion: a pinned scene in three beats — sharing, pairing, the answer on the phone — then the phone is yours. -->
+    <section class="section companion" id="companion" aria-labelledby="companion-title" data-companion>
+      <div class="companion__pin" data-companion-pin>
+        <div class="container companion__grid">
+          <div class="companion__text">
+            <p class="eyebrow mono"><b>№ 03</b>{{ 手机伴侣 ‖ Phone companion }}</p>
+            <h2 id="companion-title" class="display">{{ 共享整个屏幕时，<br>看手机。 ‖ Sharing your screen?<br>Read your phone. }}</h2>
+            <ol class="beats" role="list" data-beats>
+              <li class="beat is-on"><span class="mono">i.</span><b>{{ 你在共享整个屏幕。 ‖ You’re sharing your whole screen. }}</b><p>{{ 对方看到的，就是你电脑上的一切。 ‖ Whatever is on your Mac, they see. }}</p></li>
+              <li class="beat"><span class="mono">ii.</span><b>{{ 扫一下，手机就连上。 ‖ One scan, and the phone is in. }}</b><p>{{ 相机扫配对码，浏览器里就是提词屏，不用装 App。 ‖ The camera reads the code; the browser becomes your prompter. No app. }}</p></li>
+              <li class="beat"><span class="mono">iii.</span><b>{{ 问题和回答，只在手机上。 ‖ Questions and answers, on the phone only. }}</b><p>{{ 电脑屏幕上什么也不多。只同步此刻的问答，转录与资料留在 Mac。 ‖ Nothing new on the shared screen. Only this moment syncs; transcripts and material stay on the Mac. }}</p></li>
+            </ol>
+          </div>
+          <div class="companion__stage" data-companion-stage>
+            <div class="cmac" aria-hidden="true">
+            <div class="cmac__screen">
+              <p class="cmac__share mono"><i></i>{{ 正在共享整个屏幕 ‖ Sharing entire screen }}</p>
+              <div class="cmac__call"><span><b>{{ 王 ‖ A }}</b><small>{{ 面试官 ‖ Interviewer }}</small></span><span><b>{{ 我 ‖ Me }}</b></span></div>
+              <div class="cmac__pair" data-pair>
+                <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
+                <p><b>{{ 用手机相机扫一扫 ‖ Scan with your phone’s camera }}</b><span class="mono">{{ 一次性配对码 ‖ One-time pairing code }}</span></p>
+              </div>
+            </div>
+            <div class="cmac__base"></div>
+          </div>
+            <p class="companion__tag companion__tag--them mono" aria-hidden="true">{{ 对方看到的 ‖ What they see }}</p>
+          <div class="phone" data-phone>
+            <span class="phone__island" aria-hidden="true"></span>
+            <div class="phone__screen">
+              <div class="phone__scan" data-scan aria-hidden="true"><i class="phone__finder"></i><i class="phone__beam"></i><span class="mono">{{ 正在识别二维码 ‖ Reading the code }}</span></div>
+              <div class="phone__live" data-live>
+                <p class="phone__bar mono"><span>14:07</span><span class="phone__ok"><i class="live-dot"></i>{{ 已连接 MacBook ‖ Connected to MacBook }}</span></p>
+                <p class="phone__count mono" data-phone-count>2 / 2</p>
+                <p class="phone__q" data-phone-q></p>
+                <p class="phone__a" data-phone-a aria-live="polite"></p>
+                <div class="phone__size" role="group" aria-label="{{ 字号 ‖ Text size }}"><button type="button" data-size="-1" aria-label="{{ 缩小字号 ‖ Smaller text }}">A−</button><button type="button" data-size="1" aria-label="{{ 放大字号 ‖ Larger text }}">A+</button></div>
+                <div class="phone__keys" role="group" aria-label="{{ 遥控 ‖ Remote }}">
+                  <button type="button" data-remote="answer" class="is-primary">{{ 回答 ‖ Answer }}</button>
+                  <button type="button" data-remote="short">{{ 更简短 ‖ Shorter }}</button>
+                  <button type="button" data-remote="example">{{ 举例 ‖ Example }}</button>
+                  <button type="button" data-remote="translate">{{ 英文版 ‖ 中文版 }}</button>
+                  <button type="button" data-remote="prev" aria-label="{{ 上一条 ‖ Previous }}">‹ {{ 上一条 ‖ Prev }}</button>
+                  <button type="button" data-remote="next" aria-label="{{ 下一条 ‖ Next }}">{{ 下一条 ‖ Next }} ›</button>
+                  <button type="button" data-remote="cancel">{{ 取消 ‖ Cancel }}</button>
+                </div>
+              </div>
+            </div>
+            <p class="coach" data-coach role="status" aria-live="polite"><span data-coach-text></span></p>
+          </div>
+            <p class="companion__tag companion__tag--me mono" aria-hidden="true">{{ 只有你看到的 ‖ Only you see }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Principles: three quiet statements instead of a data sheet. -->
+    <section class="section principles" id="privacy" aria-labelledby="privacy-title">
+      <div class="container">
+        <p class="eyebrow mono"><b>№ 04</b>{{ 隐私 ‖ Privacy }}</p>
+        <h2 id="privacy-title" class="display">{{ 哪些留在本机，<br>哪些会发出去。 ‖ What stays on your Mac,<br>and what leaves. }}</h2>
+        <ol class="principles__list" role="list">
+          <li><span class="mono">i.</span><h3>{{ 声音留在这台 Mac 上。 ‖ Your voice stays on this Mac. }}</h3><p>{{ 默认在本机识别，原始音频不保存。只有你同意之后，才会用到云端识别。 ‖ Speech is recognised on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it. }}</p></li>
+          <li><span class="mono">ii.</span><h3>{{ 只带上需要的那几段。 ‖ Only the passages that matter. }}</h3><p>{{ 回答只使用当前问题检索到的相关片段，不会把所有资料塞入上下文。资料与会话记录保存在本机。 ‖ Answers use only the passages retrieved for the question at hand, not your whole library. Material and records stay on your Mac. }}</p></li>
+          <li><span class="mono">iii.</span><h3>{{ 发什么出去，由你决定。 ‖ You decide what leaves. }}</h3><p>{{ 回答走你自己选的对话服务，密钥只存在系统钥匙串里；联网搜索和手机伴侣默认关闭。 ‖ Answers go through the service you choose, and its key stays in your Keychain; web search and the phone companion are off by default. }}</p></li>
+        </ol>
+        <p class="fine">{{ 不做“隐身”承诺：录音与使用前请取得对方同意，并遵守所在场合的规则。 ‖ No stealth promises: get consent before recording, and follow the rules of the room. }} <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">{{ 完整数据去向 ‖ Full data notes }}</a></p>
+      </div>
+    </section>
+
+    <!-- Ending: early access on slow water where two voices meet; the waitlist opens as a sheet of glass on it. -->
+    <section class="ending" id="download" aria-labelledby="download-title" data-ending>
+      <div class="ending__panel">
+        <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
+        <div class="ending__copy" data-ending-copy>
+          <h2 class="ending__title" id="download-title"><span>InterviewHacker</span><span>{{ 即将开放试用。 ‖ is opening early access. }}</span></h2>
+          <p class="ending__sub">{{ 首批试用正在小范围进行，名额会陆续开放。 ‖ The first beta is running now. More places open soon. }}</p>
+          <button class="ending__btn" type="button" aria-controls="waitlist" aria-expanded="false" data-waitlist-open>{{ 加入试用名单 ‖ Join the waitlist }}</button>
+        </div>
+
+        <div class="waitlist" id="waitlist" data-waitlist role="dialog" aria-modal="false" aria-labelledby="waitlist-title">
+          <form class="waitlist__form" action="/api/waitlist" method="post" data-waitlist-form novalidate>
+            <button class="waitlist__close" type="button" aria-label="{{ 关闭 ‖ Close }}" data-waitlist-close><i></i></button>
+            <header class="waitlist__head">
+              <p class="waitlist__kicker mono">InterviewHacker · Early access</p>
+              <h3 class="waitlist__title" id="waitlist-title">{{ 加入试用名单 ‖ Join the waitlist }}</h3>
+              <p class="waitlist__lead">{{ 开放试用时，我们会第一时间写信给你。 ‖ When places open, you’ll be the first to hear. }}</p>
+            </header>
+            <div class="waitlist__row">
+              <label class="wl-field"><span class="wl-field__label">{{ 称呼 ‖ Name }}</span><input name="name" type="text" autocomplete="name" maxlength="60" required placeholder="{{ 怎么称呼你 ‖ What should we call you }}"></label>
+              <label class="wl-field"><span class="wl-field__label">{{ 邮箱 ‖ Email }}</span><input name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="name@example.com"></label>
+            </div>
+            <fieldset class="uses">
+              <legend class="wl-field__label">{{ 打算用在哪里？可多选 ‖ Where will you use it? Pick any }}</legend>
+              <label class="use"><input type="checkbox" name="uses" value="interview"><span>{{ 求职面试 ‖ Job interviews }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="talk"><span>{{ 组会与学术报告 ‖ Lab meetings &amp; talks }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="meeting"><span>{{ 商务会议与谈判 ‖ Meetings &amp; negotiations }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="class"><span>{{ 网课 ‖ Online classes }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="other"><span>{{ 其他 ‖ Something else }}</span></label>
+            </fieldset>
+            <label class="wl-field wl-field--more"><span class="wl-field__label">{{ 更多（可选） ‖ Anything else (optional) }}</span><textarea name="more" rows="2" maxlength="1000" placeholder="{{ 比如：下个月有一场技术面试 ‖ e.g. a technical interview next month }}"></textarea></label>
+            <label class="waitlist__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+            <input type="hidden" name="lang" value="{{ zh ‖ en }}">
+            <div class="waitlist__foot">
+              <p class="waitlist__note">{{ 只用于联系试用，不会公开或转给他人。 ‖ Used only to reach you about early access. Never shared. }}</p>
+              <button class="waitlist__submit" type="submit" data-waitlist-submit><span>{{ 提交申请 ‖ Request access }}</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+            <p class="waitlist__error" role="alert" data-waitlist-error></p>
+          </form>
+          <div class="waitlist__done" data-waitlist-done tabindex="-1">
+            <svg class="waitlist__tick" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="m15 27 7.5 7.5L37.5 19"/></svg>
+            <h3 class="waitlist__title">{{ 已加入名单。 ‖ You’re on the list. }}</h3>
+            <p class="waitlist__lead" data-waitlist-done-text data-template="{{ 开放试用时，我们会写信到 %email%。 ‖ We’ll write to %email% when your place opens. }}">{{ 开放试用时，我们会写信给你。 ‖ We’ll write to you when your place opens. }}</p>
+            <button class="waitlist__back" type="button" data-waitlist-close>{{ 好的 ‖ Done }}</button>
+          </div>
+        </div>
+
+        <p class="ending__meta mono"><span>© 2026 OmnixSI</span><a href="{{other}}" hreflang="{{ en ‖ zh-CN }}">{{ English ‖ 中文 }}</a><a href="/" target="_top">{{ 风格画廊 ‖ Style gallery }}</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script type="application/json" id="demo-data">{{@demo}}</script>
+  <script src="{{base}}scripts/theme.js"></script>
+  <script src="{{base}}assets/vendor/gsap.min.js"></script>
+  <script src="{{base}}assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="{{base}}assets/vendor/SplitText.min.js"></script>
+  <script src="{{base}}assets/vendor/DrawSVGPlugin.min.js"></script>
+  <script src="{{base}}assets/vendor/MotionPathPlugin.min.js"></script>
+  <script src="{{base}}assets/vendor/ScrambleTextPlugin.min.js"></script>
+  <script src="{{base}}assets/vendor/Flip.min.js"></script>
+  <script src="{{base}}assets/vendor/CustomEase.min.js"></script>
+  <script src="{{base}}assets/vendor/lenis.min.js"></script>
+  <script src="{{base}}scripts/field.js"></script>
+  <script src="{{base}}scripts/demo.js"></script>
+  <script src="{{base}}scripts/companion.js"></script>
+  <script src="{{base}}scripts/waitlist.js"></script>
+  <script src="{{base}}scripts/motion.js"></script>
+  <script src="{{base}}scripts/cursor.js"></script>
+  <script src="{{base}}scripts/fps.js"></script>
+</body>
+</html>

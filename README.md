@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=475338da0bbb)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:8964e154145ebd001f7c81e950e4fe0f034e6459c486e3ce55488c7c458f9d34 preview:475338da0bbbe7d53d7cdac556f86a75a8faedc47d5abd12b1336e501a004f50 -->
+<!-- gallery-source:b8e235d9cf2caeae37dba1265c7a4cbbaf1f15f0a859d262a4ef2a58201ec691 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -52,6 +52,16 @@
 **访问页面：[https://interviewhacker.vercel.app/classic/](https://interviewhacker.vercel.app/classic/)**
 
 <!-- style:classic source:56d7aa0c00aff7b7a5d8fedeb44f7cebf52f02819b9f9c0744af326bf533b9ca preview:78c018f29149273cbc5158edd36187b451f7d9c6e3852d986f5ff5f193ba817c -->
+
+### Final · 专业 · 精致 · 最终版
+
+[![Final 首页](public/previews/final-home.png?v=2f66aed59500)](https://interviewhacker.vercel.app/final/)
+
+以「时刻」叙事：得意黑与定制手写字形，鼠标可拨动的声波水面，随滚动播放的完整面试演示，回旋的序与颗粒消融的边缘，以早期试用收尾，中英双语。
+
+**访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
+
+<!-- style:final source:8d784e6fa3a9c198e5a337e32aa8d93dcddb91d057e0ba147bfd9441565694f1 preview:2f66aed59500470a5ce3f72bd88464ec84502c7770114927a273c03f7432f4f5 -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -64,7 +74,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/` 和 `/classic/` 是四种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/` 和 `/final/`（英文版 `/final/en/`）是五种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -76,6 +86,7 @@ npm run dev
 | Technology 全部页面代码和素材 | `public/technology/` |
 | Story 全部页面代码和素材 | `public/story/` |
 | Classic 全部页面代码和素材 | `public/classic/` |
+| Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |
