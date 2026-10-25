@@ -46,14 +46,21 @@
 
   /* ---------- Header, progress, active section ---------- */
   const bar = $('.progress span');
-  let lastY = 0;
+  // The header hides after a deliberate scroll down and returns after a deliberate
+  // scroll up. Smooth scrolling moves a pixel or two on some frames, so the state
+  // only changes once the travel in one direction passes a threshold; small or
+  // reversed frames never flip it back and forth.
+  let lastY = 0, anchorY = 0, headerHidden = false;
+  const setHidden = hide => { if (hide !== headerHidden) { headerHidden = hide; header?.classList.toggle('is-hidden', hide); } };
   ScrollTrigger.create({
     start: 0, end: 'max',
     onUpdate(self) {
       const y = self.scroll();
-      header?.classList.toggle('is-scrolled', y > 24);
-      header?.classList.toggle('is-hidden', y > 900 && y > lastY + 2);
-      if (y < lastY - 2) header?.classList.remove('is-hidden');
+      header?.classList.toggle('is-scrolled', y > 8);
+      if (y < 160) { setHidden(false); anchorY = y; }
+      else if ((y - lastY) * (lastY - anchorY) < 0) anchorY = lastY; // direction changed
+      else if (!headerHidden && y > 900 && y - anchorY > 80) setHidden(true);
+      else if (headerHidden && anchorY - y > 48) setHidden(false);
       lastY = y;
       if (bar) bar.style.transform = `scaleX(${self.progress.toFixed(4)})`;
     }
