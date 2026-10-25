@@ -5,7 +5,7 @@ No build step and no runtime npm dependency.
 
 | File | Package | License |
 | --- | --- | --- |
-| gsap.min.js, ScrollTrigger.min.js, SplitText.min.js, DrawSVGPlugin.min.js, MotionPathPlugin.min.js, ScrambleTextPlugin.min.js, Flip.min.js, CustomEase.min.js | `gsap@3.15.0` (`dist/`) | GreenSock Standard "No Charge" License — https://gsap.com/standard-license (header kept in every file) |
+| gsap.min.js, ScrollTrigger.min.js, SplitText.min.js, DrawSVGPlugin.min.js, CustomEase.min.js | `gsap@3.15.0` (`dist/`) | GreenSock Standard "No Charge" License — https://gsap.com/standard-license (header kept in every file) |
 | lenis.min.js, lenis.css | `lenis@1.3.27` (`dist/`) | MIT — see LICENSE-lenis.txt |
 
 Only trailing `sourceMappingURL` comments are removed, because the map files are not shipped.

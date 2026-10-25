@@ -1,296 +1,1449 @@
 {
   "zh": {
-    "ui": {
-      "listening": "正在聆听",
-      "detected": "识别到问题",
-      "generating": "正在生成回答",
-      "speaking": "你在说话",
-      "ready": "本机语音已就绪",
-      "waiting": "等待问题",
-      "streaming": "流式输出",
-      "adjusted": {
-        "short": "已改为更简短",
-        "example": "已补充例子",
-        "translate": "已改为英文版"
-      },
-      "tags": {
-        "ask": "问题 · 明确提问",
-        "request": "问题 · 请求",
-        "follow": "问题 · 追问"
-      },
-      "echo": "回声 · 已忽略",
-      "restore": "是我说的",
-      "pause": "暂停演示",
-      "resume": "继续演示",
-      "chars": "问题识别追问请求明确提问上下文",
-      "guide": [
+    "nav": {
+      "home": "首页",
+      "meetings": "所有会议",
+      "library": "资料夹",
+      "settings": "设置"
+    },
+    "home": {
+      "date": "10 月 27 日 星期二",
+      "greeting": "下午好",
+      "over": "开始一场会议",
+      "title": "要开会了？",
+      "body": "新会议：放进资料、检查设备，再开始。立即记录：马上开始，结束后自动整理纪要。",
+      "new": "新会议",
+      "record": "立即记录",
+      "recordKey": "⇧⌘N",
+      "recentLabel": "最近",
+      "recent": [
         {
-          "title": "对方开口",
-          "desc": "会议窗口的声音单独一路识别，边说边出字。"
+          "title": "周一产品例会",
+          "result": "3 个待办",
+          "when": "昨天 上午 10:00"
         },
         {
-          "title": "认出这是在问你",
-          "desc": "区分陈述、请求和追问，问题一结束就锁定。"
-        },
-        {
-          "title": "流式给出回答",
-          "desc": "只取当前场景的相关资料，并注明出处。"
-        },
-        {
-          "title": "你开口回答",
-          "desc": "你的麦克风是另一路，不会和对方混在一起。"
-        },
-        {
-          "title": "追问到来，回答更新",
-          "desc": "扬声器回声被置灰；新问题出现，回答随之改写。"
-        },
-        {
-          "title": "一键改写",
-          "desc": "更简短、加个例子，或者换成英文。"
+          "title": "云杉科技 · 后端一面",
+          "result": "2 道题待改进",
+          "when": "10 月 22 日 下午 3:00"
         }
       ]
     },
-    "scenes": {
-      "interview": {
-        "name": "字节后端二面",
-        "sources": [
-          "订单系统设计.md · §3",
-          "简历.pdf · 第 2 页"
+    "prepare": {
+      "crumbs": [
+        "首页",
+        "准备"
+      ],
+      "title": "云杉科技 · 后端二面",
+      "where": "线上会议",
+      "s1": {
+        "label": "这是什么会",
+        "hint": "根据标题选好了，可以改"
+      },
+      "custom": "自定义…",
+      "s2": {
+        "label": "接着上一场",
+        "series": "这是「云杉科技 · 后端」的第 2 场",
+        "last": "上一场：一面 · 10 月 22 日（周四）",
+        "notSame": "不是同一个系列",
+        "items": [
+          {
+            "id": "materials",
+            "label": "资料 · 简历-2026.pdf、岗位描述-后端.md…",
+            "count": "4 份",
+            "on": true
+          },
+          {
+            "id": "review",
+            "label": "复盘 · 改进后的答法",
+            "count": "3 题",
+            "on": true
+          },
+          {
+            "id": "lessons",
+            "label": "经验 · “项目先报规模和结果”“先说结论”",
+            "count": "3 条",
+            "on": true
+          },
+          {
+            "id": "transcript",
+            "label": "上一场完整转写",
+            "count": "42 分钟",
+            "on": false
+          }
+        ]
+      },
+      "s3": {
+        "label": "这次新加的资料",
+        "optional": "可跳过",
+        "bringIn": "从以前的会议带入…",
+        "add": "添加",
+        "files": [
+          {
+            "ext": "PDF",
+            "name": "订单系统架构.pdf",
+            "reading": "读取中",
+            "done": "已读懂"
+          },
+          {
+            "ext": "PNG",
+            "name": "团队介绍截图.png",
+            "reading": "读取中",
+            "done": "已读懂"
+          }
         ],
-        "q1": {
-          "type": "ask",
-          "text": "先聊聊你简历上的订单系统，大促时库存怎么扣？"
+        "ai": "AI 读到的重点",
+        "highlights": [
+          {
+            "text": "一面卡在缓存击穿的追问，这次先把方案讲完整",
+            "needs": "review"
+          },
+          {
+            "text": "被问项目时先报规模和结果，再讲做法",
+            "needs": "lessons"
+          },
+          {
+            "text": "岗位偏重高并发和缓存一致性，架构图里的订单链路分三段",
+            "needs": ""
+          }
+        ],
+        "likely": "看看可能会问的 5 道题"
+      },
+      "s4": {
+        "label": "开始前检查",
+        "audio": "声音",
+        "online": "线上",
+        "offline": "线下",
+        "them": "对方",
+        "me": "我",
+        "room": "现场",
+        "answers": "回答",
+        "model": "已就绪",
+        "phone": "手机",
+        "phoneState": "已连接手机"
+      },
+      "start": "开始",
+      "startReading": "开始（资料还在读取 1/2）"
+    },
+    "live": {
+      "timer": "12:37",
+      "paused": "已暂停",
+      "prompt": "提词",
+      "notesOnly": "只记录",
+      "model": "回答设置",
+      "end": "结束",
+      "transcript": "实时对话",
+      "question": "问题",
+      "lines": [
+        {
+          "who": "them",
+          "text": "好，我们先聊聊你最近做的项目吧，简单介绍一下你负责的部分。",
+          "q": true
         },
-        "a1": "库存先放在 Redis，用 Lua 脚本原子扣减，避免超卖；扣减成功后发事务消息，消费端按订单号幂等落库。大促前再做一轮库存预热和限流。",
-        "me": "库存先在 Redis 里用 Lua 原子扣减，再异步落库。",
-        "q2": {
-          "type": "follow",
-          "text": "那数据库和缓存同时更新，怎么保证一致性？"
+        {
+          "who": "me",
+          "text": "我主要负责订单服务的缓存层，把核心查询从数据库迁到了 Redis。"
         },
-        "echo": "数据库和缓存同时更新怎么保证一致性",
-        "a2": "我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。余额这类强一致数据直接读库。",
-        "variants": {
-          "short": "先更新库再删缓存；删除失败进重试队列，binlog 订阅兜底，热点 key 延迟双删。",
-          "example": "比如下单扣完库存后删缓存时 Redis 超时：这个 key 进重试队列，Canal 收到 binlog 后再删一次，下一次读请求回源拿到的就是新值。",
-          "translate": "We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete."
+        {
+          "who": "them",
+          "text": "嗯，这个挺关键的。"
+        },
+        {
+          "who": "them",
+          "text": "那数据库和缓存同时更新的时候，你们是怎么保证一致性的？",
+          "q": true
+        },
+        {
+          "who": "me",
+          "text": "我们用的是先更新数据库、再删除缓存的方式……"
+        },
+        {
+          "who": "them",
+          "text": "如果删除缓存失败了怎么办？",
+          "q": true,
+          "partial": true
+        }
+      ],
+      "whoName": {
+        "them": "对方",
+        "me": "我",
+        "room": "现场"
+      },
+      "echo": "只在这台 Mac 上听",
+      "suggested": "建议回答",
+      "pager": "2/2",
+      "answerFor": "那数据库和缓存同时更新的时候，你们是怎么保证一致性的？",
+      "answers": {
+        "base": {
+          "lead": "我们用的是先更新数据库、再删除缓存，再用 binlog 订阅兜底，保证最终一致。",
+          "points": [
+            "写库成功后删缓存；读的时候没命中，就回源再回填。",
+            "删缓存失败的 key 进重试队列，同时订阅 binlog 异步再删一次。",
+            "热点 key 做延迟双删，把旧值被回填的窗口压得很小。",
+            "余额这类要强一致的场景，直接读库或者加分布式锁。"
+          ]
+        },
+        "shorter": {
+          "lead": "先写库再删缓存，删失败就进重试队列，再用 binlog 补删一次，保证最终一致。",
+          "points": []
+        },
+        "example": {
+          "lead": "举个例子：用户改了收货地址。",
+          "points": [
+            "我们先写库，再删掉这个用户的地址缓存。",
+            "删失败的话，这个 key 进重试队列；binlog 那边也会再删一次。",
+            "下一次读没命中，就从库里拿到新地址并回填。"
+          ]
+        },
+        "english": {
+          "lead": "We write to the database first, then delete the cache entry, with a binlog subscriber as a backstop.",
+          "points": [
+            "If the delete fails, the key goes to a retry queue and is deleted again asynchronously.",
+            "Hot keys get a delayed double delete, which keeps the stale window very short.",
+            "Where we need strong consistency, like balances, we read from the database or take a distributed lock."
+          ]
+        },
+        "latest": {
+          "lead": "删失败的 key 进重试队列，后台继续重试；同时订阅 binlog，再异步删一次，两道保险。",
+          "points": [
+            "重试有上限，超过就告警，人工介入。",
+            "这期间读到的旧值，靠缓存的过期时间兜底。"
+          ]
         }
       },
-      "talk": {
-        "name": "组会 · Mamba 论文报告",
-        "sources": [
-          "Mamba.pdf · 第 4 页",
-          "组会-Mamba.pptx · 第 6 页"
-        ],
-        "q1": {
-          "type": "ask",
-          "text": "选择性状态空间和注意力比，长序列上优势在哪？"
+      "rewrites": [
+        {
+          "id": "shorter",
+          "label": "更简短"
         },
-        "a1": "注意力的计算随序列长度平方增长，Mamba 的选择性扫描是线性的。它让状态转移参数随输入变化，所以能按内容决定记住什么、忘掉什么，长序列上推理吞吐更高。",
-        "me": "主要是线性时间扫描，加上参数随输入变化。",
-        "q2": {
-          "type": "follow",
-          "text": "那在需要精确回看的任务上，它会不会吃亏？"
+        {
+          "id": "example",
+          "label": "举例"
         },
-        "a2": "会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，像关联回忆这类任务通常要混入少量注意力层来补。这也是我们下一步想验证的方向。",
-        "variants": {
-          "short": "会。固定状态不能逐字回看，关联回忆类任务一般要混入少量注意力层。",
-          "example": "比如让模型在长文里找出某个电话号码后面的名字：注意力可以直接回看原文，纯 Mamba 只能依赖压缩后的状态，越长越容易丢。",
-          "translate": "Yes, there is a gap. A fixed-size state can’t look back token by token the way a KV cache can, so recall-heavy tasks usually mix in a few attention layers. That’s what we want to test next."
+        {
+          "id": "english",
+          "label": "英文版"
         }
+      ],
+      "more": [
+        "展开",
+        "STAR",
+        "中文版",
+        "澄清问题",
+        "我可以反问",
+        "重新生成",
+        "复制回答"
+      ],
+      "basis": "依据：资料 2",
+      "input": "输入问题，回车发送",
+      "inputNotes": "需要帮忙？输入问题，或按 ⇧⌘↩ 回答对方刚问的",
+      "answerNow": "立即回答",
+      "answerKey": "⇧⌘↩",
+      "quiet": "只记录：不会自动回答。需要时按 ⇧⌘↩，或在下方输入问题。",
+      "settings": {
+        "title": "回答设置",
+        "model": "模型",
+        "models": [
+          "gpt-5.5",
+          "gpt-5.5-mini"
+        ],
+        "fast": "快速模式",
+        "fastNote": "约 1.5 倍速度 · 用量更多",
+        "web": "联网",
+        "webOptions": [
+          "不联网",
+          "自动判断",
+          "每次都查"
+        ],
+        "length": "回答长度",
+        "lengthOptions": [
+          "要点",
+          "详细"
+        ],
+        "foot": "从下一个回答开始生效"
       },
-      "meeting": {
-        "name": "华东代理商 · 年度续约",
-        "sources": [
-          "年度报价表.xlsx · 阶梯价",
-          "续约议程.docx · 底线"
-        ],
-        "q1": {
-          "type": "request",
-          "text": "如果单价再降 8 个点，你们能接受吗？"
-        },
-        "a1": "直接降 8 个点我们这边很难做。可以换个方式：年度采购量到 1.2 万台以上，我们给 5 个点，同时把账期从 60 天放宽到 90 天，你们的现金压力也小一些。",
-        "me": "8 个点很难，我们可以按量做阶梯价。",
-        "q2": {
-          "type": "follow",
-          "text": "账期我们更看重，能不能只放账期，单价降 6 个点？"
-        },
-        "a2": "可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。",
-        "variants": {
-          "short": "可以谈：6 个点以保底量不低于去年为前提，90 天账期会后书面确认。",
-          "example": "比如按去年 1.1 万台保底：达到就降 6 个点，账期 90 天；不到保底量就回到 5 个点和 60 天。",
-          "translate": "We can work towards that. Six points requires a minimum volume no lower than last year; the 90-day term needs sign-off from our finance team, and I’ll confirm in writing after today’s meeting."
-        }
+      "phoneTip": "已连接手机",
+      "teleprompter": "提词器",
+      "latestFor": "如果删除缓存失败了怎么办？",
+      "pagerLatest": "3/3"
+    },
+    "notes": {
+      "crumbs": [
+        "所有会议",
+        "云杉科技 · 后端二面",
+        "复盘"
+      ],
+      "template": "模板：面试复盘",
+      "save": "存进题库 · 2 题",
+      "saved": "已存进题库",
+      "title": "云杉科技 · 后端二面",
+      "meta": "10 月 27 日（周二）下午 2:30 · 44 分钟 · 线上 · 改正了 3 处听错的词",
+      "tabs": [
+        "复盘",
+        "转写",
+        "会中提词"
+      ],
+      "progress": "正在整理纪要 · 通常 1–3 分钟",
+      "steps": [
+        "校对转写",
+        "按模板整理",
+        "核对"
+      ]
+    },
+    "templates": [
+      {
+        "id": "interview",
+        "name": "面试复盘",
+        "for": "每一轮面试",
+        "meeting": "云杉科技 · 后端二面",
+        "meta": "10 月 27 日（周二）· 44 分钟 · 线上",
+        "primary": "存进题库 · 2 题",
+        "sections": [
+          {
+            "title": "一句话印象",
+            "ai": true,
+            "items": [
+              {
+                "text": "项目部分讲得扎实、有数字；系统设计追问时结论来得太慢，缓存击穿的方案还是没讲完整。"
+              }
+            ]
+          },
+          {
+            "title": "逐题回放",
+            "kind": "questions",
+            "items": [
+              {
+                "text": "如果删除缓存失败了怎么办？",
+                "t": "18:22",
+                "verdict": "good",
+                "mine": "重试队列 + binlog 异步删除，两道保险。"
+              },
+              {
+                "text": "热点 key 过期的一瞬间，大量请求打到数据库，怎么办？",
+                "t": "27:05",
+                "verdict": "improve",
+                "mine": "加锁……（停顿 8 秒）……可能用布隆过滤器。",
+                "better": "先给结论：互斥锁重建加逻辑过期，二选一看一致性要求。布隆过滤器解决的是穿透，不是击穿，别混用。"
+              }
+            ]
+          },
+          {
+            "title": "我说得不好的地方",
+            "gap": true,
+            "items": [
+              {
+                "text": "把“击穿”和“穿透”混在一起讲",
+                "t": "27:40"
+              }
+            ]
+          },
+          {
+            "title": "没讲到的点",
+            "gap": true,
+            "items": [
+              {
+                "text": "简历里“大促 8 万 QPS 零故障”一次也没提到",
+                "t": "31:40"
+              }
+            ]
+          },
+          {
+            "title": "下次改进",
+            "items": [
+              {
+                "text": "系统设计题先说结论，再展开"
+              },
+              {
+                "text": "准备好击穿、穿透、雪崩三者的对照"
+              },
+              {
+                "text": "讲项目时主动带上量级和结果"
+              }
+            ]
+          }
+        ]
       },
-      "class": {
-        "name": "操作系统 · 第 9 讲",
-        "sources": [
-          "第9讲-虚拟内存.pdf · 第 23 页",
-          "课堂笔记.md · TLB"
-        ],
-        "q1": {
-          "type": "ask",
-          "text": "TLB 未命中的时候，硬件和操作系统分别做什么？"
-        },
-        "a1": "先由硬件的页表遍历器按多级页表查找；页表项有效，就把映射填回 TLB 再重试访问。只有页表项无效时才触发缺页异常，由操作系统把页调入内存并更新页表。",
-        "me": "硬件先查页表，查不到才缺页。",
-        "q2": {
-          "type": "follow",
-          "text": "那进程切换的时候，TLB 怎么处理？"
-        },
-        "a2": "两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时旧表项不会被新进程误用，也不需要全部清空，切换开销更小。",
-        "variants": {
-          "short": "要么切换时刷新 TLB，要么用 ASID 区分进程，后者不用清空。",
-          "example": "比如进程 A 和 B 都用虚拟地址 0x4000：有 ASID 时两条表项可以同时留在 TLB 里，各自带着自己的标签，切回 A 时直接命中。",
-          "translate": "Either flush the TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper."
-        }
+      {
+        "id": "academic",
+        "name": "学术",
+        "for": "组会 · 汇报 / 答辩",
+        "meeting": "周三组会",
+        "meta": "10 月 28 日（周三）· 56 分钟 · 线下",
+        "primary": "复制纪要",
+        "sections": [
+          {
+            "title": "一句话总结",
+            "ai": true,
+            "items": [
+              {
+                "text": "消融实验的方向认可，但对照组不够，结论暂时不能写进论文。"
+              }
+            ]
+          },
+          {
+            "title": "讨论得不够透彻的问题",
+            "gap": true,
+            "items": [
+              {
+                "text": "数据增强带来的提升，是不是只来自更大的训练集？缺一组等量数据的对照",
+                "t": "14:10"
+              },
+              {
+                "text": "误差条从哪几次运行算出来，没说清",
+                "t": "22:48",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "导师或评委的意见与要求",
+            "items": [
+              {
+                "text": "第 4 节先写局限，再写结论",
+                "t": "31:02"
+              }
+            ]
+          },
+          {
+            "title": "下一步：实验",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "补一组等量数据、不做增强的对照",
+                "who": "我",
+                "due": "11 月 3 日（周二）",
+                "t": "15:20"
+              }
+            ]
+          },
+          {
+            "title": "下一步：论文",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "重写 4.2 节，加上失败的两组设置",
+                "who": "我",
+                "due": "11 月 5 日（周四）",
+                "t": "33:15"
+              }
+            ]
+          },
+          {
+            "title": "要查的文献",
+            "items": [
+              {
+                "text": "导师提到的 2025 年那篇关于数据量与增强的对照研究，标题没听清",
+                "t": "17:30",
+                "unsure": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "work",
+        "name": "工作会议",
+        "for": "例会、对齐会、项目会",
+        "meeting": "周一产品例会",
+        "meta": "10 月 26 日（周一）上午 10:00 · 38 分钟 · 线上",
+        "primary": "复制纪要",
+        "sections": [
+          {
+            "title": "一句话总结",
+            "ai": true,
+            "items": [
+              {
+                "text": "新版本下周三前上线；支付 bug 今天修，回归测试周二出结果。"
+              }
+            ]
+          },
+          {
+            "title": "决定",
+            "items": [
+              {
+                "text": "新版本下周三前上线",
+                "t": "03:12"
+              }
+            ]
+          },
+          {
+            "title": "待办 · 谁 · 哪天交付",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "回归测试并给出结果",
+                "who": "我",
+                "due": "10 月 27 日（周二）",
+                "t": "05:40"
+              },
+              {
+                "text": "修复支付相关的 2 个 bug",
+                "who": "对方",
+                "due": "10 月 26 日（周一）",
+                "t": "04:55"
+              },
+              {
+                "text": "设计稿复审",
+                "who": "—",
+                "due": "10 月 29 日（周四）",
+                "t": "12:30",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "风险和未决问题",
+            "gap": true,
+            "items": [
+              {
+                "text": "客户要的导出功能没人认领",
+                "t": "21:08"
+              },
+              {
+                "text": "设计稿复审是周四还是周五，两种说法",
+                "t": "12:30",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "下次会议",
+            "items": [
+              {
+                "text": "11 月 2 日（周一）上午 10:00，看上线结果",
+                "t": "36:40"
+              }
+            ]
+          }
+        ]
       }
-    }
+    ],
+    "verdict": {
+      "good": "答得好",
+      "improve": "待改进"
+    },
+    "better": "更好的答法",
+    "mineLabel": "我答：",
+    "unsure": "待确认",
+    "gapLabel": "不足",
+    "types": [
+      {
+        "id": "general",
+        "name": "通用",
+        "mode": "notes",
+        "live": "只记录，需要时 ⇧⌘↩",
+        "length": "要点",
+        "template": "通用：一句话总结 · 要点 · 决定 · 待办 · 未决问题",
+        "bring": "—",
+        "line": "只记录，需要时 ⇧⌘↩ 回答 · 回答简短 · 纪要：总结、决定、待办"
+      },
+      {
+        "id": "interview",
+        "name": "面试",
+        "mode": "prompt",
+        "live": "提词：对方一提问就给出回答",
+        "length": "要点",
+        "template": "面试复盘：逐题回放 · 我说得不好的地方 · 没讲到的点 · 下次改进",
+        "bring": "简历、职位描述、公司信息",
+        "line": "会中自动给出回答 · 回答简短 · 会后复盘并存进题库"
+      },
+      {
+        "id": "presentation",
+        "name": "汇报 / 答辩",
+        "mode": "prompt",
+        "live": "提词，跟着讲稿",
+        "length": "要点",
+        "template": "学术：讨论了哪些问题 · 讨论得不够透彻的问题 · 下一步",
+        "bring": "讲稿、PPT、论文",
+        "line": "会中自动给出回答，跟着讲稿 · 回答简短 · 纪要：听众问了什么、怎么答更好"
+      },
+      {
+        "id": "lab",
+        "name": "组会",
+        "mode": "notes",
+        "live": "只记录，被问到时 ⇧⌘↩",
+        "length": "详细",
+        "template": "学术：导师的意见 · 下一步：论文 / 实验 · 截止时间",
+        "bring": "本周进展、相关论文",
+        "line": "只记录，被问到时 ⇧⌘↩ · 回答详细 · 纪要：进展、导师意见、下一步"
+      },
+      {
+        "id": "work",
+        "name": "工作会议",
+        "mode": "notes",
+        "live": "只记录",
+        "length": "要点",
+        "template": "工作会议：决定 · 待办（谁 · 哪天交付）· 风险和未决问题",
+        "bring": "议程",
+        "line": "只记录 · 回答简短 · 纪要：决定、待办、风险"
+      },
+      {
+        "id": "client",
+        "name": "客户沟通",
+        "mode": "prompt",
+        "live": "提词",
+        "length": "要点",
+        "template": "客户沟通：需求 · 顾虑与回应 · 我们答应的事 · 下一步",
+        "bring": "产品资料、报价",
+        "line": "会中自动给出回答 · 回答简短 · 纪要：需求、顾虑、我们答应的、下一步"
+      },
+      {
+        "id": "lecture",
+        "name": "讲座 / 课程",
+        "mode": "notes",
+        "live": "只记录",
+        "length": "详细",
+        "template": "讲座 / 课程：要点大纲 · 关键概念 · 我的疑问",
+        "bring": "课件",
+        "line": "只记录 · 回答详细 · 笔记：要点、概念、我的疑问"
+      },
+      {
+        "id": "discussion",
+        "name": "小组讨论",
+        "mode": "notes",
+        "live": "只记录",
+        "length": "要点",
+        "template": "小组讨论：各方观点 · 结论与分歧 · 分工",
+        "bring": "讨论题目",
+        "line": "只记录 · 回答简短 · 纪要：各方观点、结论、分工"
+      }
+    ],
+    "guess": {
+      "examples": [
+        "云杉科技 · 后端二面",
+        "周三组会",
+        "毕业设计中期答辩",
+        "和华东区客户谈续约",
+        "周一产品例会",
+        "机器学习 第 7 讲"
+      ],
+      "rules": [
+        {
+          "type": "interview",
+          "words": [
+            "面试",
+            "一面",
+            "二面",
+            "三面",
+            "终面",
+            "interview",
+            "onsite"
+          ]
+        },
+        {
+          "type": "presentation",
+          "words": [
+            "答辩",
+            "汇报",
+            "报告",
+            "defense",
+            "presentation"
+          ]
+        },
+        {
+          "type": "lab",
+          "words": [
+            "组会",
+            "lab meeting",
+            "group meeting"
+          ]
+        },
+        {
+          "type": "client",
+          "words": [
+            "客户",
+            "续约",
+            "client",
+            "customer"
+          ]
+        },
+        {
+          "type": "lecture",
+          "words": [
+            "讲座",
+            "课程",
+            "第",
+            "讲",
+            "lecture",
+            "class",
+            "seminar"
+          ]
+        },
+        {
+          "type": "discussion",
+          "words": [
+            "讨论",
+            "小组",
+            "discussion",
+            "workshop"
+          ]
+        },
+        {
+          "type": "work",
+          "words": [
+            "例会",
+            "周会",
+            "对齐",
+            "评审",
+            "standup",
+            "sync",
+            "review"
+          ]
+        }
+      ]
+    },
+    "audio": {
+      "online": {
+        "them": "这台 Mac 播放的全部声音",
+        "themSub": "腾讯会议、飞书、Zoom、浏览器里的会议，都从这里出来",
+        "me": "麦克风",
+        "lines": [
+          {
+            "who": "them",
+            "text": "下一页讲一下你们的灰度方案。"
+          },
+          {
+            "who": "me",
+            "text": "好，我们分三批放量。"
+          }
+        ]
+      },
+      "offline": {
+        "room": "麦克风",
+        "roomSub": "房间里所有人的声音都在这一路",
+        "lines": [
+          {
+            "who": "room",
+            "text": "小王你负责周四之前把数据补齐。"
+          },
+          {
+            "who": "room",
+            "text": "那评审就放到下周一。"
+          }
+        ]
+      }
+    },
+    "bringLabel": "建议放："
   },
   "en": {
-    "ui": {
-      "listening": "Listening",
-      "detected": "Question detected",
-      "generating": "Answering",
-      "speaking": "You’re speaking",
-      "ready": "On-device speech ready",
-      "waiting": "Waiting for a question",
-      "streaming": "Streaming",
-      "adjusted": {
-        "short": "Made shorter",
-        "example": "Example added",
-        "translate": "Switched to Chinese"
-      },
-      "tags": {
-        "ask": "Question",
-        "request": "Request",
-        "follow": "Follow-up"
-      },
-      "echo": "Echo · ignored",
-      "restore": "That was me",
-      "pause": "Pause demo",
-      "resume": "Resume demo",
-      "chars": "questiondetectfollowuprequestcontext",
-      "guide": [
+    "nav": {
+      "home": "Home",
+      "meetings": "Meetings",
+      "library": "Library",
+      "settings": "Settings"
+    },
+    "home": {
+      "date": "Tuesday, 27 October",
+      "greeting": "Good afternoon",
+      "over": "Start a meeting",
+      "title": "Meeting coming up?",
+      "body": "New meeting: add materials, check your setup, then start. Record now: start right away; notes are written when you end.",
+      "new": "New meeting",
+      "record": "Record now",
+      "recordKey": "⇧⌘N",
+      "recentLabel": "Recent",
+      "recent": [
         {
-          "title": "They start talking",
-          "desc": "The meeting window is its own channel, transcribed as they speak."
+          "title": "Monday product sync",
+          "result": "3 action items",
+          "when": "Yesterday 10:00 AM"
         },
         {
-          "title": "It knows it's a question",
-          "desc": "Statements, requests and follow-ups are told apart the moment they end."
-        },
-        {
-          "title": "The answer streams in",
-          "desc": "Only this scene's relevant material is used, with sources."
-        },
-        {
-          "title": "You answer",
-          "desc": "Your microphone is a separate channel, never mixed with theirs."
-        },
-        {
-          "title": "A follow-up, a new answer",
-          "desc": "Speaker echo is greyed out; the answer rewrites for the new question."
-        },
-        {
-          "title": "One-tap rewrites",
-          "desc": "Shorter, with an example, or in Chinese."
+          "title": "Fernway · Backend, round 1",
+          "result": "2 questions to improve",
+          "when": "22 Oct 3:00 PM"
         }
       ]
     },
-    "scenes": {
-      "interview": {
-        "name": "Backend · onsite round 2",
-        "sources": [
-          "order-system-design.md · §3",
-          "resume.pdf · p.2"
+    "prepare": {
+      "crumbs": [
+        "Home",
+        "Prepare"
+      ],
+      "title": "Fernway · Backend, round 2",
+      "where": "Online meeting",
+      "s1": {
+        "label": "What kind of meeting",
+        "hint": "Picked from the title; you can change it"
+      },
+      "custom": "Custom…",
+      "s2": {
+        "label": "Continue from last time",
+        "series": "Meeting 2 of “Fernway · Backend”",
+        "last": "Last time: Round 1 · Thu 22 Oct",
+        "notSame": "Not the same series",
+        "items": [
+          {
+            "id": "materials",
+            "label": "Materials · resume-2026.pdf, backend-role.md…",
+            "count": "4 files",
+            "on": true
+          },
+          {
+            "id": "review",
+            "label": "Review · improved answers",
+            "count": "3 questions",
+            "on": true
+          },
+          {
+            "id": "lessons",
+            "label": "Lessons · “Lead with scale and results”, “Answer first”",
+            "count": "3 lessons",
+            "on": true
+          },
+          {
+            "id": "transcript",
+            "label": "Full transcript of last time",
+            "count": "42 min",
+            "on": false
+          }
+        ]
+      },
+      "s3": {
+        "label": "New materials for this meeting",
+        "optional": "Optional",
+        "bringIn": "Bring in from a past meeting…",
+        "add": "Add",
+        "files": [
+          {
+            "ext": "PDF",
+            "name": "order-system-architecture.pdf",
+            "reading": "Reading",
+            "done": "Read"
+          },
+          {
+            "ext": "PNG",
+            "name": "team-page.png",
+            "reading": "Reading",
+            "done": "Read"
+          }
         ],
-        "q1": {
-          "type": "ask",
-          "text": "Tell me about the order system on your résumé. How do you deduct stock during a flash sale?"
+        "ai": "What AI took away",
+        "highlights": [
+          {
+            "text": "Round 1 stalled on the cache-breakdown follow-up. Have the full answer ready this time.",
+            "needs": "review"
+          },
+          {
+            "text": "When they ask about projects, give the scale and the result before the method.",
+            "needs": "lessons"
+          },
+          {
+            "text": "The role leans on high concurrency and cache consistency; the order flow in the diagram has three stages.",
+            "needs": ""
+          }
+        ],
+        "likely": "See 5 likely questions"
+      },
+      "s4": {
+        "label": "Before you start",
+        "audio": "Audio",
+        "online": "Online",
+        "offline": "In person",
+        "them": "Them",
+        "me": "Me",
+        "room": "Room",
+        "answers": "Answers",
+        "model": "Ready",
+        "phone": "Phone",
+        "phoneState": "Phone connected"
+      },
+      "start": "Start",
+      "startReading": "Start (reading materials 1/2)"
+    },
+    "live": {
+      "timer": "12:37",
+      "paused": "Paused",
+      "prompt": "Prompt",
+      "notesOnly": "Notes only",
+      "model": "Answers",
+      "end": "End",
+      "transcript": "Live transcript",
+      "question": "Question",
+      "lines": [
+        {
+          "who": "them",
+          "text": "Let's start with a recent project. Which part was yours?",
+          "q": true
         },
-        "a1": "Stock lives in Redis and a Lua script deducts it atomically, so we never oversell. After a successful deduction we publish a transactional message, and the consumer writes to the database idempotently by order ID. Before big sales we pre-warm stock and add rate limits.",
-        "me": "We deduct in Redis with Lua, atomically, then persist asynchronously.",
-        "q2": {
-          "type": "follow",
-          "text": "And when the database and cache both change, how do you keep them consistent?"
+        {
+          "who": "me",
+          "text": "I owned the caching layer of the order service. We moved the hot queries from the database to Redis."
         },
-        "echo": "database and cache both change keep them consistent",
-        "a2": "We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete. Strongly consistent data like balances is read straight from the database.",
-        "variants": {
-          "short": "Write the database, then delete the cache; retry failed deletes, back them up with binlog, double-delete hot keys.",
-          "example": "Say the cache delete times out right after an order deducts stock: the key goes into the retry queue, Canal deletes it again when the binlog arrives, and the next read reloads the fresh value.",
-          "translate": "我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。"
+        {
+          "who": "them",
+          "text": "Okay, that's a big piece."
+        },
+        {
+          "who": "them",
+          "text": "So when the database and the cache both change, how do you keep them consistent?",
+          "q": true
+        },
+        {
+          "who": "me",
+          "text": "We update the database first, then delete the cache…"
+        },
+        {
+          "who": "them",
+          "text": "And if deleting the cache fails?",
+          "q": true,
+          "partial": true
+        }
+      ],
+      "whoName": {
+        "them": "Them",
+        "me": "Me",
+        "room": "Room"
+      },
+      "echo": "Heard on this Mac only",
+      "suggested": "Suggested answer",
+      "pager": "2/2",
+      "answerFor": "So when the database and the cache both change, how do you keep them consistent?",
+      "answers": {
+        "base": {
+          "lead": "We write to the database first, then delete the cache entry, and a binlog subscriber backs that up. It's eventually consistent.",
+          "points": [
+            "After a successful write we delete the key; a read that misses goes to the database and refills the cache.",
+            "If the delete fails, the key goes to a retry queue, and the binlog subscriber deletes it again.",
+            "Hot keys get a delayed double delete, so a stale value has almost no time to sneak back in.",
+            "Where we need strong consistency, like balances, we read from the database or take a distributed lock."
+          ]
+        },
+        "shorter": {
+          "lead": "Write the database, delete the cache, retry failed deletes from a queue, and let the binlog subscriber delete once more. Eventually consistent.",
+          "points": []
+        },
+        "example": {
+          "lead": "Say a user changes their shipping address.",
+          "points": [
+            "We write the new address, then delete that user's address key.",
+            "If the delete fails, the key goes to the retry queue, and the binlog subscriber deletes it too.",
+            "The next read misses, fetches the new address and refills the cache."
+          ]
+        },
+        "english": {
+          "lead": "We write to the database first, then delete the cache entry, and a binlog subscriber backs that up. It's eventually consistent.",
+          "points": [
+            "After a successful write we delete the key; a read that misses goes to the database and refills the cache.",
+            "If the delete fails, the key goes to a retry queue, and the binlog subscriber deletes it again.",
+            "Hot keys get a delayed double delete, so a stale value has almost no time to sneak back in.",
+            "Where we need strong consistency, like balances, we read from the database or take a distributed lock."
+          ]
+        },
+        "latest": {
+          "lead": "A failed delete goes to a retry queue and keeps retrying in the background, and the binlog subscriber deletes it once more. Two safety nets.",
+          "points": [
+            "Retries are capped; past the cap it alerts someone.",
+            "Any stale read in between is bounded by the key's TTL."
+          ]
         }
       },
-      "talk": {
-        "name": "Lab meeting · Mamba",
-        "sources": [
-          "mamba.pdf · p.4",
-          "group-meeting.pptx · slide 6"
-        ],
-        "q1": {
-          "type": "ask",
-          "text": "Compared with attention, where do selective state spaces win on long sequences?"
+      "rewrites": [
+        {
+          "id": "shorter",
+          "label": "Shorter"
         },
-        "a1": "Attention grows quadratically with sequence length; Mamba’s selective scan is linear. Because its state-transition parameters depend on the input, it decides what to keep and what to forget by content — which gives higher inference throughput on long sequences.",
-        "me": "Mostly the linear-time scan, plus input-dependent parameters.",
-        "q2": {
-          "type": "follow",
-          "text": "Doesn’t it lose out on tasks that need exact recall?"
+        {
+          "id": "example",
+          "label": "Example"
         },
-        "a2": "There is a gap. A fixed-size state can’t look back token by token like a KV cache, so recall-heavy tasks usually mix in a few attention layers. That’s exactly what we plan to test next.",
-        "variants": {
-          "short": "Yes — a fixed state can’t look back exactly, so recall tasks usually add a few attention layers.",
-          "example": "Ask for the name next to a phone number buried in a long document: attention can look straight back at the text, while pure Mamba relies on a compressed state that degrades with length.",
-          "translate": "会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，关联回忆这类任务通常要混入少量注意力层来补。"
+        {
+          "id": "english",
+          "label": "In English"
         }
+      ],
+      "more": [
+        "Expand",
+        "STAR",
+        "In Chinese",
+        "Clarify",
+        "Questions to ask back",
+        "Regenerate",
+        "Copy answer"
+      ],
+      "basis": "Based on: Materials 2",
+      "input": "Type a question, press Return to send",
+      "inputNotes": "Need help? Type a question, or press ⇧⌘↩ to answer what they just asked",
+      "answerNow": "Answer now",
+      "answerKey": "⇧⌘↩",
+      "quiet": "Notes only: no automatic answers. Press ⇧⌘↩ when you need help, or type a question below.",
+      "settings": {
+        "title": "Answer settings",
+        "model": "Model",
+        "models": [
+          "gpt-5.5",
+          "gpt-5.5-mini"
+        ],
+        "fast": "Fast mode",
+        "fastNote": "About 1.5× faster · uses more quota",
+        "web": "Web search",
+        "webOptions": [
+          "Off",
+          "Automatic",
+          "Always"
+        ],
+        "length": "Length",
+        "lengthOptions": [
+          "Brief",
+          "Detailed"
+        ],
+        "foot": "Applies from the next answer"
       },
-      "meeting": {
-        "name": "Distributor · annual renewal",
-        "sources": [
-          "annual-pricing.xlsx · tiers",
-          "renewal-agenda.docx · floor"
-        ],
-        "q1": {
-          "type": "request",
-          "text": "Could you take another 8% off the unit price?"
-        },
-        "a1": "A flat 8% is hard for us. Here’s another way: at 12,000 units a year we can do 5%, and extend payment terms from 60 to 90 days, which also eases your cash flow.",
-        "me": "Eight points is tough — we can tier it by volume.",
-        "q2": {
-          "type": "follow",
-          "text": "Terms matter more to us. What about 90 days and 6% off?"
-        },
-        "a2": "We can work towards that. Six percent assumes a minimum volume no lower than last year’s; the 90-day term needs our finance team’s sign-off, and I’ll confirm in writing after today’s meeting.",
-        "variants": {
-          "short": "Possible: 6% with last year’s volume as the floor; 90 days confirmed in writing after the call.",
-          "example": "With last year’s 11,000 units as the floor: hit it and you get 6% off on 90-day terms; fall short and it’s back to 5% on 60 days.",
-          "translate": "可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。"
-        }
+      "phoneTip": "Phone connected",
+      "teleprompter": "Teleprompter",
+      "latestFor": "And if deleting the cache fails?",
+      "pagerLatest": "3/3"
+    },
+    "notes": {
+      "crumbs": [
+        "Meetings",
+        "Fernway · Backend, round 2",
+        "Review"
+      ],
+      "template": "Template: Interview review",
+      "save": "Save to question bank · 2",
+      "saved": "Saved · 2",
+      "title": "Fernway · Backend, round 2",
+      "meta": "Tue 27 Oct, 2:30 PM · 44 min · Online · 3 misheard words fixed",
+      "tabs": [
+        "Review",
+        "Transcript",
+        "Live answers"
+      ],
+      "progress": "Writing notes · usually 1–3 minutes",
+      "steps": [
+        "Proofread transcript",
+        "Organize by template",
+        "Check"
+      ]
+    },
+    "templates": [
+      {
+        "id": "interview",
+        "name": "Interview review",
+        "for": "Every interview round",
+        "meeting": "Fernway · Backend, round 2",
+        "meta": "Tue 27 Oct · 44 min · Online",
+        "primary": "Save to question bank · 2",
+        "sections": [
+          {
+            "title": "In one line",
+            "ai": true,
+            "items": [
+              {
+                "text": "The project story was solid and backed by numbers. On system design you got to the point too slowly, and the cache-breakdown answer was still incomplete."
+              }
+            ]
+          },
+          {
+            "title": "Question by question",
+            "kind": "questions",
+            "items": [
+              {
+                "text": "What if deleting the cache fails?",
+                "t": "18:22",
+                "verdict": "good",
+                "mine": "Retry queue plus an async delete from the binlog. Two safety nets."
+              },
+              {
+                "text": "A hot key expires and a flood of requests hits the database at once. What do you do?",
+                "t": "27:05",
+                "verdict": "improve",
+                "mine": "Add a lock… (8-second pause) …maybe a Bloom filter.",
+                "better": "Answer first: a mutex rebuild or logical expiry, chosen by how fresh the data must be. A Bloom filter stops penetration, not breakdown; keep them apart."
+              }
+            ]
+          },
+          {
+            "title": "Where I fell short",
+            "gap": true,
+            "items": [
+              {
+                "text": "Mixed up cache breakdown and cache penetration",
+                "t": "27:40"
+              }
+            ]
+          },
+          {
+            "title": "What I didn't mention",
+            "gap": true,
+            "items": [
+              {
+                "text": "Never brought up “80k QPS through the sale with zero incidents” from the résumé",
+                "t": "31:40"
+              }
+            ]
+          },
+          {
+            "title": "Next time",
+            "items": [
+              {
+                "text": "On design questions, state the answer, then unpack it"
+              },
+              {
+                "text": "Have breakdown, penetration and avalanche side by side"
+              },
+              {
+                "text": "Bring scale and results into every project story"
+              }
+            ]
+          }
+        ]
       },
-      "class": {
-        "name": "Operating systems · lecture 9",
-        "sources": [
-          "lecture-09-virtual-memory.pdf · p.23",
-          "notes.md · TLB"
-        ],
-        "q1": {
-          "type": "ask",
-          "text": "On a TLB miss, what does the hardware do, and what does the OS do?"
-        },
-        "a1": "First the hardware page-table walker looks up the multi-level page table; if the entry is valid, it refills the TLB and retries the access. Only an invalid entry raises a page fault, and then the OS brings the page into memory and updates the table.",
-        "me": "Hardware walks the page table first; only a miss there faults.",
-        "q2": {
-          "type": "follow",
-          "text": "And what happens to the TLB on a context switch?"
-        },
-        "a2": "Two options: flush the whole TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper.",
-        "variants": {
-          "short": "Flush it on every switch, or tag entries with ASIDs so nothing needs flushing.",
-          "example": "Processes A and B both use virtual address 0x4000: with ASIDs, both entries stay in the TLB under their own tags, and switching back to A hits immediately.",
-          "translate": "两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时不需要全部清空，切换开销更小。"
-        }
+      {
+        "id": "academic",
+        "name": "Academic",
+        "for": "Lab meeting · Presentation / Defense",
+        "meeting": "Wednesday lab meeting",
+        "meta": "Wed 28 Oct · 56 min · In person",
+        "primary": "Copy notes",
+        "sections": [
+          {
+            "title": "In one line",
+            "ai": true,
+            "items": [
+              {
+                "text": "The ablation direction is fine, but there aren't enough controls yet, so the claim stays out of the paper for now."
+              }
+            ]
+          },
+          {
+            "title": "Not settled yet",
+            "gap": true,
+            "items": [
+              {
+                "text": "Is the gain from augmentation, or just from a bigger training set? There's no equal-size control",
+                "t": "14:10"
+              },
+              {
+                "text": "Which runs the error bars come from was never stated",
+                "t": "22:48",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "Feedback and requests",
+            "items": [
+              {
+                "text": "In section 4, put the limitations before the conclusion",
+                "t": "31:02"
+              }
+            ]
+          },
+          {
+            "title": "Next: experiments",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "Add an equal-size control without augmentation",
+                "who": "Me",
+                "due": "Tue 3 Nov",
+                "t": "15:20"
+              }
+            ]
+          },
+          {
+            "title": "Next: the paper",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "Rewrite 4.2 and include the two settings that failed",
+                "who": "Me",
+                "due": "Thu 5 Nov",
+                "t": "33:15"
+              }
+            ]
+          },
+          {
+            "title": "Papers to look up",
+            "items": [
+              {
+                "text": "The 2025 study on data size versus augmentation the advisor mentioned; the title wasn't clear",
+                "t": "17:30",
+                "unsure": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "work",
+        "name": "Work meeting",
+        "for": "Weekly syncs and project check-ins",
+        "meeting": "Monday product sync",
+        "meta": "Mon 26 Oct, 10:00 AM · 38 min · Online",
+        "primary": "Copy notes",
+        "sections": [
+          {
+            "title": "In one line",
+            "ai": true,
+            "items": [
+              {
+                "text": "The new version ships before next Wednesday; the payment bugs are fixed today and regression results are due Tuesday."
+              }
+            ]
+          },
+          {
+            "title": "Decisions",
+            "items": [
+              {
+                "text": "Ship the new version before next Wednesday",
+                "t": "03:12"
+              }
+            ]
+          },
+          {
+            "title": "Action items · who · when",
+            "kind": "actions",
+            "items": [
+              {
+                "text": "Run regression tests and report results",
+                "who": "Me",
+                "due": "Tue 27 Oct",
+                "t": "05:40"
+              },
+              {
+                "text": "Fix the two payment bugs",
+                "who": "Them",
+                "due": "Mon 26 Oct",
+                "t": "04:55"
+              },
+              {
+                "text": "Design review",
+                "who": "—",
+                "due": "Thu 29 Oct",
+                "t": "12:30",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "Risks and open questions",
+            "gap": true,
+            "items": [
+              {
+                "text": "Nobody owns the export feature the client asked for",
+                "t": "21:08"
+              },
+              {
+                "text": "The design review was said to be Thursday and also Friday",
+                "t": "12:30",
+                "unsure": true
+              }
+            ]
+          },
+          {
+            "title": "Next meeting",
+            "items": [
+              {
+                "text": "Mon 2 Nov, 10:00 AM, to look at the release",
+                "t": "36:40"
+              }
+            ]
+          }
+        ]
       }
-    }
+    ],
+    "verdict": {
+      "good": "Good",
+      "improve": "To improve"
+    },
+    "better": "Better answer",
+    "mineLabel": "My answer: ",
+    "unsure": "To confirm",
+    "gapLabel": "Gaps",
+    "types": [
+      {
+        "id": "general",
+        "name": "General",
+        "mode": "notes",
+        "live": "Notes only, ⇧⌘↩ when needed",
+        "length": "Brief",
+        "template": "General: in one line · key points · decisions · action items · open questions",
+        "bring": "—",
+        "line": "Notes only, ⇧⌘↩ answers when needed · Brief answers · Notes: summary, decisions, action items"
+      },
+      {
+        "id": "interview",
+        "name": "Interview",
+        "mode": "prompt",
+        "live": "Prompt: an answer as soon as you're asked",
+        "length": "Brief",
+        "template": "Interview review: question by question · where I fell short · what I didn't mention · next time",
+        "bring": "Résumé, job description, company info",
+        "line": "Answers appear automatically · Brief answers · Review afterwards, saved to the question bank"
+      },
+      {
+        "id": "presentation",
+        "name": "Presentation / Defense",
+        "mode": "prompt",
+        "live": "Prompt, follows your slides",
+        "length": "Brief",
+        "template": "Academic: what was discussed · not settled yet · next steps",
+        "bring": "Script, slides, paper",
+        "line": "Answers appear automatically, follows your slides · Brief answers · Notes: what the audience asked and better answers"
+      },
+      {
+        "id": "lab",
+        "name": "Lab meeting",
+        "mode": "notes",
+        "live": "Notes only, ⇧⌘↩ when asked",
+        "length": "Detailed",
+        "template": "Academic: feedback · next: the paper / experiments · deadlines",
+        "bring": "This week's progress, related papers",
+        "line": "Notes only, ⇧⌘↩ when asked · Detailed answers · Notes: progress, advisor feedback, next steps"
+      },
+      {
+        "id": "work",
+        "name": "Work meeting",
+        "mode": "notes",
+        "live": "Notes only",
+        "length": "Brief",
+        "template": "Work meeting: decisions · action items (who · when) · risks and open questions",
+        "bring": "Agenda",
+        "line": "Notes only · Brief answers · Notes: decisions, action items, risks"
+      },
+      {
+        "id": "client",
+        "name": "Client call",
+        "mode": "prompt",
+        "live": "Prompt",
+        "length": "Brief",
+        "template": "Client call: needs · concerns and replies · what we promised · next steps",
+        "bring": "Product materials, pricing",
+        "line": "Answers appear automatically · Brief answers · Notes: needs, concerns, what we promised, next steps"
+      },
+      {
+        "id": "lecture",
+        "name": "Lecture / Class",
+        "mode": "notes",
+        "live": "Notes only",
+        "length": "Detailed",
+        "template": "Lecture / Class: outline · key concepts · my questions",
+        "bring": "Course slides",
+        "line": "Notes only · Detailed answers · Notes: key points, concepts, my questions"
+      },
+      {
+        "id": "discussion",
+        "name": "Group discussion",
+        "mode": "notes",
+        "live": "Notes only",
+        "length": "Brief",
+        "template": "Group discussion: viewpoints · conclusions and disagreements · who does what",
+        "bring": "Discussion topic",
+        "line": "Notes only · Brief answers · Notes: viewpoints, conclusions, who does what"
+      }
+    ],
+    "guess": {
+      "examples": [
+        "Fernway · Backend, round 2",
+        "Wednesday lab meeting",
+        "Thesis midterm defense",
+        "Renewal call with Northgate",
+        "Monday product sync",
+        "Machine Learning, lecture 7"
+      ],
+      "rules": [
+        {
+          "type": "interview",
+          "words": [
+            "interview",
+            "round 1",
+            "round 2",
+            "round 3",
+            "onsite",
+            "screen",
+            "面试"
+          ]
+        },
+        {
+          "type": "presentation",
+          "words": [
+            "defense",
+            "defence",
+            "presentation",
+            "talk",
+            "答辩"
+          ]
+        },
+        {
+          "type": "lab",
+          "words": [
+            "lab meeting",
+            "group meeting",
+            "组会"
+          ]
+        },
+        {
+          "type": "client",
+          "words": [
+            "client",
+            "customer",
+            "renewal"
+          ]
+        },
+        {
+          "type": "lecture",
+          "words": [
+            "lecture",
+            "class",
+            "seminar",
+            "course"
+          ]
+        },
+        {
+          "type": "discussion",
+          "words": [
+            "discussion",
+            "workshop",
+            "brainstorm"
+          ]
+        },
+        {
+          "type": "work",
+          "words": [
+            "sync",
+            "standup",
+            "stand-up",
+            "weekly",
+            "review",
+            "1:1"
+          ]
+        }
+      ]
+    },
+    "audio": {
+      "online": {
+        "them": "Everything this Mac plays",
+        "themSub": "Zoom, Teams, Google Meet, a call in the browser: it all comes out here",
+        "me": "Microphone",
+        "lines": [
+          {
+            "who": "them",
+            "text": "Walk me through your rollout plan on the next slide."
+          },
+          {
+            "who": "me",
+            "text": "Sure. We ramp up in three batches."
+          }
+        ]
+      },
+      "offline": {
+        "room": "Microphone",
+        "roomSub": "Everyone in the room comes through this one channel",
+        "lines": [
+          {
+            "who": "room",
+            "text": "Sam, can you have the data filled in by Thursday?"
+          },
+          {
+            "who": "room",
+            "text": "Then let's move the review to next Monday."
+          }
+        ]
+      }
+    },
+    "bringLabel": "Bring: "
   }
 }

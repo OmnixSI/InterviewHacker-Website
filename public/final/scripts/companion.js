@@ -1,7 +1,8 @@
 // Phone companion. On wide screens the section is pinned and the scroll plays three beats: you are sharing your
-// whole screen; the phone scans the pairing code; the question and answer arrive on the phone only. motion.js drives
+// whole screen; the phone scans the pairing code; the question and answer arrive on the phone. motion.js drives
 // that through IHCompanion.scene(p) and hands the phone over with IHCompanion.release(). Elsewhere the same beats
 // play once when the stage comes into view. Afterwards every key works, and a small hint suggests what to try.
+// The text comes from the walkthrough's sample answers (demo.json).
 (() => {
   const root = document.documentElement;
   const section = document.querySelector('[data-companion]');
@@ -11,8 +12,12 @@
   const paused = () => root.classList.contains('motion-paused');
   const $ = s => section.querySelector(s);
   const zh = root.lang.startsWith('zh');
-  const S = JSON.parse(dataEl.textContent).scenes.interview;
-  const items = [{ q: S.q1.text, a: S.a1 }, { q: S.q2.text, a: S.a2, variants: S.variants }];
+  const L = JSON.parse(dataEl.textContent).live;
+  const text = x => [x.lead, ...x.points].join(' ');
+  const items = [
+    { q: L.answerFor, a: text(L.answers.base), variants: { shorter: text(L.answers.shorter), example: text(L.answers.example), english: text(L.answers.english) } },
+    { q: L.latestFor, a: text(L.answers.latest) }
+  ];
   const stage = $('[data-companion-stage]'), phone = $('[data-phone]');
   const qEl = $('[data-phone-q]'), aEl = $('[data-phone-a]'), count = $('[data-phone-count]');
   const beats = [...section.querySelectorAll('.beat')], beatList = $('[data-beats]');
@@ -38,7 +43,7 @@
   };
 
   /* Streaming onto the phone, cancellable. */
-  let index = 1, run = 0, size = 0, free = false;
+  let index = 1, run = 0, free = false;
   const show = (i, text = items[i].a) => { index = i; count.textContent = `${i + 1} / ${items.length}`; qEl.textContent = items[i].q; aEl.textContent = text; };
   async function stream(text) {
     const id = ++run;
@@ -60,9 +65,9 @@
   /* Hints: one key at a time, moving on once you've pressed it. */
   const coach = $('[data-coach]'), coachText = $('[data-coach-text]');
   const steps = [
-    { key: 'short', text: zh ? '点一下，让回答更简短' : 'Tap to make it shorter' },
-    { key: 'translate', text: zh ? '换成英文版看看' : 'Try it in Chinese' },
-    { key: 'prev', text: zh ? '翻回上一个问题' : 'Go back a question' }
+    { key: 'prev', text: zh ? '翻回上一个问题' : 'Go back a question' },
+    { key: 'shorter', text: zh ? '点一下，让回答更简短' : 'Tap to make it shorter' },
+    { key: 'english', text: zh ? '换成英文版看看' : 'Try the English version' }
   ];
   let step = 0;
   const placeCoach = () => {
@@ -72,7 +77,7 @@
     const btn = $(`[data-remote="${s.key}"]`), p = phone.getBoundingClientRect(), r = btn.getBoundingClientRect();
     coachText.textContent = s.text;
     coach.style.setProperty('--cx', `${r.left - p.left + r.width / 2}px`);
-    coach.style.setProperty('--cy', `${r.top - p.top}px`);
+    coach.style.setProperty('--cy', `${r.bottom - p.top}px`);
     btn.classList.add('is-hinted');
     coach.classList.add('is-on');
   };
@@ -87,13 +92,10 @@
     if (key === 'cancel') return stop();
     if (key === 'prev' || key === 'next') { stop(); const i = Math.max(0, Math.min(items.length - 1, index + (key === 'next' ? 1 : -1))); show(i); return; }
     if (key === 'answer') { show(index, ''); return stream(items[index].a); }
-    // Rewrites apply to the latest question.
-    if (index !== items.length - 1) show(items.length - 1, '');
-    stream(items[items.length - 1].variants[key]);
-  }));
-  section.querySelectorAll('[data-size]').forEach(btn => btn.addEventListener('click', () => {
-    size = Math.max(-2, Math.min(3, size + Number(btn.dataset.size)));
-    phone.style.setProperty('--fs', size);
+    // Rewrites apply to the question that has them (the first one).
+    if (index !== 0) show(0, '');
+    else show(0, '');
+    stream(items[0].variants[key]);
   }));
 
   /* The scroll-driven scene, p from 0 to 1. Deterministic, so it plays the same backwards. */
@@ -121,8 +123,8 @@
 
   /* Without the pinned scene: the beats play once, a third of the stage in view. */
   show(1, '');
-  if (reduced.matches || !window.gsap) { stage.classList.add('is-instant'); setBeat(2); setPhase('paired'); show(1); free = true; return; }
-  if (matchMedia('(min-width: 961px) and (min-height: 640px)').matches) { scene(0); return; }
+  if (reduced.matches || paused()) { stage.classList.add('is-instant'); setBeat(2); setPhase('paired'); show(1); free = true; return; }
+  if (matchMedia('(min-width: 1061px) and (min-height: 640px)').matches) { scene(0); return; }
   setBeat(0);
   new IntersectionObserver((entries, io) => {
     if (!entries[0].isIntersecting) return;

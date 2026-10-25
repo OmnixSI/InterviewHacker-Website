@@ -1,13 +1,15 @@
 // Builds Final's two language pages from one bilingual source.
 //   scripts/final-i18n/page.html  — markup; bilingual text is written as {{ 中文 ‖ English }}
-//   scripts/final-i18n/demo.json  — the scripted demo, keyed by language
+//   scripts/final-i18n/demo.json  — the product mock-up's data, keyed by language
+//   scripts/final-app.mjs         — renders the window and the specimens from that data
 // Output: public/final/index.html (zh) and public/final/en/index.html (en), with ?v= content hashes on
 // every local CSS/JS reference. `--check` fails when the committed pages differ from a fresh build.
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { root } from './catalog.mjs';
-import { letteringSvg } from './final-lettering.mjs';
+import { onePageSvg, nextLineSvg, markSvg } from './final-lettering.mjs';
+import { renderApp, renderTypes, renderTemplates, renderAudioLines } from './final-app.mjs';
 
 const src = path.join(root, 'scripts/final-i18n');
 const out = path.join(root, 'public/final');
@@ -25,9 +27,15 @@ async function render(lang) {
   const L = langs[lang];
   let html = template
     .replace(/\{\{\s*([^{}‖]*?)\s*‖\s*([^{}‖]*?)\s*\}\}/g, (_, zh, en) => lang === 'zh' ? zh : en)
-    .replaceAll('{{@lettering}}', letteringSvg({ className: 'lettering lettering--inline' , lead: false }))
-    .replaceAll('{{@lettering-lead}}', letteringSvg({ className: 'lettering lettering--lead', lead: true }))
-    .replaceAll('{{@demo}}', JSON.stringify(demo[lang]).replaceAll('<', '\\u003c'))
+    .replaceAll('{{@app}}', () => renderApp({ ...demo[lang], lang }))
+    .replaceAll('{{@types}}', () => renderTypes({ ...demo[lang], lang }))
+    .replaceAll('{{@templates}}', () => renderTemplates({ ...demo[lang], lang }))
+    .replaceAll('{{@audio:online}}', () => renderAudioLines({ ...demo[lang], lang }, 'online'))
+    .replaceAll('{{@audio:offline}}', () => renderAudioLines({ ...demo[lang], lang }, 'offline'))
+    .replaceAll('{{@onepage}}', () => onePageSvg({ className: 'lettering lettering--onepage' }))
+    .replaceAll('{{@nextline-lead}}', () => nextLineSvg({ className: 'lettering lettering--lead', lead: true }))
+    .replace(/\{\{@pen:([a-z-]+)\}\}/g, (_, name) => markSvg(name))
+    .replaceAll('{{@demo}}', () => JSON.stringify({ ...demo[lang], lang }).replaceAll('<', '\\u003c'))
     .replaceAll('{{base}}', L.base)
     .replaceAll('{{lang}}', L.html)
     .replaceAll('{{url}}', L.url)
@@ -36,7 +44,7 @@ async function render(lang) {
     .replaceAll('{{other}}', L.other)
     .replaceAll('{{href-zh}}', L.hrefZh)
     .replaceAll('{{href-en}}', L.hrefEn)
-    // The current language is marked; the other one carries the section you are reading (motion.js).
+    // The current language is marked; the other one carries the section you are reading (page.js).
     .replaceAll('{{attr-zh}}', lang === 'zh' ? ' aria-current="page"' : ' data-lang-switch')
     .replaceAll('{{attr-en}}', lang === 'en' ? ' aria-current="page"' : ' data-lang-switch');
   const left = html.match(/\{\{[^}]*\}\}/);

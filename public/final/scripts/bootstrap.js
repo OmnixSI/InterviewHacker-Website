@@ -1,10 +1,10 @@
-// Runs in <head> before first paint: script flag and the saved motion choice, so nothing flashes.
-// Final is a light design only; the theme attribute stays fixed so shared tokens never flip.
+// Runs in <head> before first paint: script flag, the saved appearance and the saved motion choice.
+// Final is light by default (like the app's README); dark is an opt-in kept per browser.
 (() => {
   const root = document.documentElement;
   root.classList.replace('no-js', 'js');
-  root.dataset.theme = 'light';
-  let motion = null;
-  try { motion = localStorage.getItem('ih-final-motion'); } catch { /* storage blocked */ }
+  let theme = null, motion = null;
+  try { theme = localStorage.getItem('ih-final-theme'); motion = localStorage.getItem('ih-final-motion'); } catch { /* storage blocked */ }
+  root.dataset.theme = theme === 'dark' ? 'dark' : 'light';
   if (motion === 'paused') root.classList.add('motion-paused');
 })();

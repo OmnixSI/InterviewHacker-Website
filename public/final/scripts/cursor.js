@@ -12,8 +12,8 @@
   /* ---------- Cursor ---------- */
   const lang = root.lang.startsWith('zh') ? 'zh' : 'en';
   const words = {
-    zh: { download: '下载', switch: '切换', try: '试一试', play: '继续', write: '重写', read: '阅读', open: '打开', go: '前往', ripple: '拨动水面' },
-    en: { download: 'Download', switch: 'Switch', try: 'Try it', play: 'Resume', write: 'Rewrite', read: 'Read', open: 'Open', go: 'Go', ripple: 'Stir' }
+    zh: { download: '下载', switch: '切换', try: '试一试', play: '继续', write: '再写一遍', read: '阅读', open: '打开', go: '前往', ripple: '拨动水面' },
+    en: { download: 'Download', switch: 'Switch', try: 'Try it', play: 'Resume', write: 'Write again', read: 'Read', open: 'Open', go: 'Go', ripple: 'Stir' }
   }[lang];
   const cursor = document.createElement('div');
   cursor.className = 'cursor';
@@ -47,15 +47,16 @@
     // Over a text field the system caret takes over; over the dark water the cursor turns light.
     const field = !!e.target.closest?.('input:not([type="checkbox"]), textarea');
     cursor.classList.toggle('is-typing', field);
-    cursor.classList.toggle('is-dark', !!e.target.closest?.('.ending__panel') && !e.target.closest('.waitlist__form, .waitlist__done'));
+    cursor.classList.toggle('is-dark', !!e.target.closest?.('.ending__panel'));
     const target = e.target.closest?.('a, button, summary, label, [data-cursor]');
+    cursor.classList.toggle('is-text', !target && !!e.target.closest?.('p, li, dd, dt, h1, h2, h3, h4, h5, .tl, .sh-sec, .ai-note'));
     if (target !== hot) {
       hot = target;
       const text = labelFor(target);
       cursor.classList.toggle('is-hot', target != null);
       cursor.classList.toggle('has-label', !!text);
       label.textContent = text || '';
-      const over = e.target.closest?.('[data-hero], .pool, .moments__stage');
+      const over = e.target.closest?.('[data-hero], [data-demo-pin], .ending__panel');
       cursor.classList.toggle('is-water', !target && !!over);
     }
     if (!raf) raf = requestAnimationFrame(tick);
@@ -100,7 +101,6 @@
     const texts = $$('.hero__text');
     if (texts.length) for (const t of texts) listen(t, { reach: 120, lift: 14, cells: $$('.hc', t) });
     else for (const line of $$('.hero__line')) listen(line.firstChild?.nodeType === 3 ? wrapText(line) : line, { reach: 120, lift: 14 });
-    listen(document.querySelector('[data-wordmark]'), { reach: 220, lift: 30, scale: .12 });
   };
   // Only the text node of the second hero line is split; the lettering beside it stays one drawing.
   function wrapText(line) {
@@ -113,7 +113,7 @@
   document.fonts?.ready.then(() => setTimeout(start, 50)) ?? start();
 
   // Hovering the lettering writes it again.
-  for (const svg of $$('.hero__lettering svg, .voiceprint__word svg')) {
+  for (const svg of $$('.hero__lettering svg, .demo__word svg')) {
     svg.parentElement.dataset.cursor = 'write';
     svg.parentElement.addEventListener('pointerenter', () => {
       if (!window.gsap || paused()) return;
@@ -124,7 +124,7 @@
   }
 
   /* ---------- Edge light and directional fills ---------- */
-  for (const el of $$('.glass__card, .principles__list li, .moment, .segmented, .chip-btn')) {
+  for (const el of $$('.leaf, .ledger__col, .paper, .install li, .tsel__sheet, .audio__river')) {
     el.classList.add('glow');
     el.addEventListener('pointermove', e => {
       const r = el.getBoundingClientRect();
@@ -140,11 +140,11 @@
   }
 
   /* ---------- The device leans towards you ---------- */
-  const device = document.querySelector('[data-device] .device__lid');
+  const device = document.querySelector('[data-device] .device__tilt');
   if (device && window.gsap) {
     const rx = gsap.quickTo(device, 'rotationX', { duration: .9, ease: 'power3.out' });
     const ry = gsap.quickTo(device, 'rotationY', { duration: .9, ease: 'power3.out' });
-    const stage = device.closest('[data-hero-pin]') || device;
+    const stage = device.closest('[data-demo-pin]') || device;
     stage.addEventListener('pointermove', e => {
       if (paused()) return;
       const r = device.getBoundingClientRect();

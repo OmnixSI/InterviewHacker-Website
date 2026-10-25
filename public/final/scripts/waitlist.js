@@ -1,4 +1,4 @@
-// Early-access waitlist. The button sinks the headline into the water and raises a sheet of glass with the form;
+// Waitlist. The button sinks the headline into the water and raises a sheet of glass with the form;
 // the form posts to /api/waitlist/, which emails the maintainer. Without script the form is shown and posts normally.
 (() => {
   const ending = document.querySelector('[data-ending]');
@@ -25,6 +25,11 @@
     openBtn?.focus({ preventScroll: true });
   };
   openBtn?.addEventListener('click', () => open());
+  // "Join the waitlist" elsewhere on the page: travel to the water, then raise the form.
+  document.querySelectorAll('[data-waitlist-jump]').forEach(link => link.addEventListener('click', () => {
+    const wait = () => (ending.getBoundingClientRect().top < innerHeight * .3 ? open() : setTimeout(wait, 120));
+    setTimeout(wait, 200);
+  }));
   box.querySelectorAll('[data-waitlist-close]').forEach(b => b.addEventListener('click', close));
   addEventListener('keydown', e => { if (e.key === 'Escape' && ending.classList.contains('is-joining')) close(); });
 

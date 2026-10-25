@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=342e0697d8d6)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:b8e235d9cf2caeae37dba1265c7a4cbbaf1f15f0a859d262a4ef2a58201ec691 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:9392326b362db7b755ccd05bedfff918a01037395b440a23ba347381546c575d preview:342e0697d8d69651fb8c9832b89149ce0dd1b6bca2191bad81ce77c76620b9fb -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -55,13 +55,13 @@
 
 ### Final · 专业 · 精致 · 最终版
 
-[![Final 首页](public/previews/final-home.png?v=2f66aed59500)](https://interviewhacker.vercel.app/final/)
+[![Final 首页](public/previews/final-home.png?v=0fcee5e2b54d)](https://interviewhacker.vercel.app/final/)
 
-以「时刻」叙事：得意黑与定制手写字形，鼠标可拨动的声波水面，随滚动播放的完整面试演示，回旋的序与颗粒消融的边缘，以早期试用收尾，中英双语。
+“一场会议就是一页”：得意黑标题与紫色手写字形，安静的声波水面；滚动驱动的笔记本电脑里，可点击的产品窗口一步一个完整画面，走完准备、会中与纪要；间奏一次一句，草稿在原位改成定稿；大量留白、连续的纸色过渡，手绘批注精确指向界面，以渐入深色水面的等待名单收尾，中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:8d784e6fa3a9c198e5a337e32aa8d93dcddb91d057e0ba147bfd9441565694f1 preview:2f66aed59500470a5ce3f72bd88464ec84502c7770114927a273c03f7432f4f5 -->
+<!-- style:final source:9411b4687b3a14bc50e4f2e35adaf67bf02679bded22e0784dfe7a1f404a6fdd preview:0fcee5e2b54de8e86952bc183ba5395945973ae131b147faa9e86f47d746d941 -->
 <!-- STYLES:END -->
 
 ## 本地运行
