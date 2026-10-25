@@ -97,6 +97,81 @@
   window.IHApp?.onPhase(setRail);
   rail.forEach(b => b.addEventListener('click', () => window.IHApp?.go(b.dataset.rail)));
 
+  // ---- Hand annotations: a few words and a pen arrow that land on a real element --------------
+  // Positions come from layout offsets (not screen rects), so parallax and tilts never pull them apart;
+  // they are measured again on resize, after fonts load and as the title is edited.
+  const NS = 'http://www.w3.org/2000/svg';
+  const offsetIn = (el, box) => { let x = 0, y = 0, n = el; while (n && n !== box) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return n === box ? [x, y] : [0, 0]; };
+  function draw(anno, [sx, sy], [ex, ey], bow) {
+    let svg = anno.querySelector('.anno__arrow');
+    if (!svg) {
+      svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('class', 'anno__arrow');
+      svg.innerHTML = '<path class="anno__shaft" pathLength="1"/><path class="anno__head" pathLength="1"/>';
+      anno.append(svg);
+    }
+    const dx = ex - sx, dy = ey - sy, len = Math.hypot(dx, dy) || 1;
+    const cx = (sx + ex) / 2 - dy / len * len * bow, cy = (sy + ey) / 2 + dx / len * len * bow;
+    const a = Math.atan2(ey - cy, ex - cx), h = 11, spread = .5;
+    const p1 = [ex - h * Math.cos(a - spread), ey - h * Math.sin(a - spread)], p2 = [ex - h * Math.cos(a + spread), ey - h * Math.sin(a + spread)];
+    const f = n => n.toFixed(1);
+    svg.children[0].setAttribute('d', `M${f(sx)} ${f(sy)}Q${f(cx)} ${f(cy)} ${f(ex)} ${f(ey)}`);
+    svg.children[1].setAttribute('d', `M${f(p1[0])} ${f(p1[1])}L${f(ex)} ${f(ey)}L${f(p2[0])} ${f(p2[1])}`);
+  }
+  // Where the first line of an element's text ends (x) and its middle (y), relative to the element.
+  const textEnd = el => {
+    const range = document.createRange();
+    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.data.trim() && !n.parentElement.closest('svg') ? 1 : 3) });
+    const node = walk.nextNode();
+    if (node) range.selectNodeContents(node); else range.selectNodeContents(el);
+    const first = range.getClientRects()[0] || range.getBoundingClientRect(), e = el.getBoundingClientRect();
+    const line = [...range.getClientRects()].filter(r => Math.abs(r.top - first.top) < 4);
+    return [Math.max(...line.map(r => r.right)) - e.left, first.top + first.height / 2 - e.top];
+  };
+  const measureText = input => {
+    const c = measureText.c || (measureText.c = document.createElement('canvas').getContext('2d'));
+    const cs = getComputedStyle(input);
+    c.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    return c.measureText(input.value).width;
+  };
+  const annotators = {
+    // "Try another title": above the field, to the right of where the title ends; the arrow lands on its last letter.
+    title(anno) {
+      const box = anno.parentElement, input = box.querySelector('input');
+      const [ix, iy] = offsetIn(input, box), text = anno.querySelector('.anno__text');
+      const tw = text.offsetWidth, th = text.offsetHeight, cw = box.clientWidth;
+      const tx = ix + Math.min(input.clientWidth - 8, measureText(input) + 10), ty = iy + input.offsetHeight * .42;
+      let lx = Math.min(tx + 64, cw - tw), ly = iy - th - 26;
+      if (lx < tx + 16) lx = Math.max(0, Math.min(cw - tw, tx - tw * .2));
+      text.style.transform = `translate(${lx}px, ${ly}px)`;
+      const start = lx > tx + 30 ? [lx - 6, ly + th * .65] : [lx + tw * .3, ly + th + 4];
+      draw(anno, start, [tx + 6, ty - 10], lx > tx + 30 ? .28 : -.28);
+    },
+    // "Untick one": in the sheet's top-right corner, beside the title; the arrow lands where the first row ends.
+    carry(anno) {
+      const leaf = anno.parentElement, row = leaf.querySelector('.leaf__carry .check'), title = leaf.querySelector('.leaf__title');
+      const text = anno.querySelector('.anno__text');
+      const tw = text.offsetWidth, th = text.offsetHeight, cw = leaf.clientWidth;
+      const [rx, ry] = offsetIn(row, leaf), [, ty0] = offsetIn(title, leaf);
+      const lx = cw - tw - 26, ly = ty0 + 4;
+      const [endX, endY] = textEnd(row);
+      const ex = Math.min(rx + endX + 12, cw - 14), ey = ry + endY;
+      text.style.transform = `translate(${lx}px, ${ly}px)`;
+      draw(anno, [lx + tw * .45, ly + th + 6], [ex, ey - 2], ex > lx + tw * .45 ? .22 : -.22);
+    }
+  };
+  const annos = $$('[data-anno]');
+  const layoutAnnos = () => annos.forEach(a => { if (a.offsetParent) annotators[a.dataset.anno]?.(a); });
+  if (annos.length) {
+    layoutAnnos();
+    document.fonts?.ready.then(layoutAnnos);
+    addEventListener('resize', layoutAnnos, { passive: true });
+    if (window.ResizeObserver) { const ro = new ResizeObserver(layoutAnnos); annos.forEach(a => ro.observe(a.parentElement)); }
+    $('[data-tsel-input]')?.addEventListener('input', layoutAnnos);
+    const seen = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-drawn'); seen.unobserve(e.target); } }), { rootMargin: '0px 0px -20% 0px' });
+    annos.forEach(a => seen.observe(a.parentElement.closest('.leaf, .tsel') || a));
+  }
+
   // ---- Meeting types: guess from the title, then show the defaults --------------------------
   const tsel = $('[data-tsel-root]');
   if (tsel && D) {

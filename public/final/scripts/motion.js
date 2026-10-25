@@ -187,11 +187,12 @@
 
     /* Hero: as it scrolls away the two voices calm into one ink line and the copy lifts off. */
     const hero = $('[data-hero]'), copy = $('[data-hero-copy]');
+    const heroBase = matchMedia('(max-width: 640px)').matches ? .9 : .815;
     ScrollTrigger.create({
       trigger: hero, start: 'top top', end: 'bottom top', scrub: true,
       onUpdate(self) {
         const p = self.progress;
-        field?.set({ converge: Math.min(1, p * 1.6), base: gsap.utils.interpolate(.815, .55, Math.min(1, p * 1.3)) });
+        field?.set({ converge: Math.min(1, p * 1.6), base: gsap.utils.interpolate(heroBase, .55, Math.min(1, p * 1.3)) });
         gsap.set(copy, { y: -p * 120, opacity: 1 - Math.min(1, p * 1.5) });
       }
     });
@@ -207,48 +208,107 @@
       ScrollTrigger.create({ trigger: demo, start: stage ? 'top 30%' : 'top 75%', once: true, onEnter: () => pen(word, 1.6).add(() => gsap.to(strokes(word)[0], { drawSVG: '6.5% 100%', duration: .5 }), '+=.1') });
     }
 
-    /* Interlude: the lines rise past the drop, bending as they cross the middle, through a blur. */
-    const swirl = $('[data-swirl]'), col = $('[data-swirl-col]'), drop = $('.swirl__drop');
-    const swirlLines = $$('.sl', swirl || document);
-    if (swirl && stage) {
-      swirl.classList.add('is-pinned');
-      const SWAY = .16, gutter = 24;
-      const bend = y => Math.sin((.5 - Math.max(-.2, Math.min(1.2, y))) * Math.PI) * .5;
-      const setY = gsap.quickSetter(col, 'y', 'px'), setters = swirlLines.map(l => ({ x: gsap.quickSetter(l, 'x', 'px'), o: gsap.quickSetter(l, 'opacity') }));
-      let H = 1, W = 1, from = 0, travel = 1, mids = [], room = [], lastMid = -1;
-      const measure = () => {
-        gsap.set(col, { y: 0 }); gsap.set(swirlLines, { x: 0, opacity: 1, filter: 'none' });
-        H = innerHeight; W = col.offsetWidth;
-        const c = col.getBoundingClientRect();
-        const rects = swirlLines.map(l => l.getBoundingClientRect());
-        mids = rects.map(r => r.top - c.top + r.height / 2);
-        room = rects.map(r => [Math.min(0, gutter - r.left), Math.max(0, innerWidth - gutter - r.right)]);
-        from = H * 1.04 - mids[0];
-        const closing = swirlLines.length - $$('.swirl__stanza--end .sl', swirl).length;
-        const to = H * .62 - mids[closing];
-        travel = Math.max(1, from - to);
-        swirl.style.height = `${Math.round(travel * 1.6 + H)}px`;
-      };
-      const render = p => {
-        const y = from - p * travel;
-        setY(y);
-        let crossing = -1;
-        swirlLines.forEach((l, i) => {
-          const sy = (y + mids[i]) / H, k = Math.max(0, Math.min(1, (1 - sy) / .2, (sy - .03) / .22));
-          setters[i].x(Math.max(room[i][0], Math.min(room[i][1], bend(sy) * SWAY * W)));
-          setters[i].o(k);
-          l.style.filter = k > .98 ? '' : `blur(${((1 - k) * 7).toFixed(1)}px)`;
-          if (Math.abs(sy - .5) < .04) crossing = i;
-        });
-        // A line crossing the middle drops a ring on the water.
-        if (crossing >= 0 && crossing !== lastMid) { lastMid = crossing; drop?.classList.remove('is-drop'); void drop?.offsetWidth; drop?.classList.add('is-drop'); }
-      };
-      measure();
-      ScrollTrigger.addEventListener('refreshInit', measure);
-      ScrollTrigger.create({ trigger: swirl, start: 'top top', end: 'bottom bottom', onUpdate: s => render(s.progress), onRefresh: s => render(s.progress) });
-      render(0);
-    } else if (swirl) {
-      for (const l of swirlLines) gsap.fromTo(l, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1.1, scrollTrigger: { trigger: l, start: 'top 90%' } });
+    /* Interlude ("the tide"). Pinned on wide screens. The column of lines rises through the screen; below the
+       middle each line is a grey draft (what was first heard, typos and all), and as it crosses the middle a
+       refinement line turns it, letter by letter, into the final words, while a wave of sound pushes through
+       the letters and the line stirs the water in its speaker's colour. The page darkens into deep water and
+       comes back to paper; at the end a violet tide spreads and the answer rises word by word. */
+    const tideEl = $('[data-tide]'), tideCol = $('[data-tide-col]');
+    if (tideEl && tideCol) {
+      const tls = $$('.tl', tideEl);
+      // Build the two layers of every line: a draft (sans, grey) and the final words split into letters.
+      const split = text => text.match(/[\u3000-\u9fff\uff00-\uffef]|\s+|[^\s\u3000-\u9fff\uff00-\uffef]/g) || [];
+      const lines = tls.map(tl => {
+        const em = tl.querySelector('em');
+        const finalText = tl.textContent;
+        const draftText = tl.dataset.draft || finalText;
+        const fin = document.createElement('span'); fin.className = 'tl__f';
+        const chars = split(finalText).map(ch => { const c = document.createElement('span'); c.className = 'tc'; c.textContent = ch; fin.append(c); return c; });
+        const draft = document.createElement('span'); draft.className = 'tl__d'; draft.setAttribute('aria-hidden', 'true');
+        // Wrong letters in the draft are marked so the refinement can strike them first.
+        split(draftText).forEach((ch, i) => { const c = document.createElement('span'); c.textContent = ch; if (ch !== split(finalText)[i]) c.className = 'is-wrong'; draft.append(c); });
+        tl.textContent = '';
+        if (em) { const e = document.createElement('em'); e.append(fin); tl.append(e); } else tl.append(fin);
+        tl.append(draft);
+        const stanza = tl.closest('.tide__stanza');
+        return { tl, fin, draft, chars, who: stanza.dataset.who || 'ink', end: stanza.classList.contains('tide__stanza--end'), crossed: false };
+      });
+      tideEl.classList.add('is-split');
+      const answer = $('[data-tide-answer]'), words = $('[data-tide-words]');
+      const wordEls = (words.textContent.match(/[A-Za-z0-9.,'’%:;\-–—()?!/“”"]+\s*|[\u3000-\u303f\uff00-\uffef]|[\u4e00-\u9fff]{1,2}[\u3000-\u303f\uff00-\uffef]?|\s+|./g) || []).map(t => { const w = document.createElement('span'); w.className = 'tw'; w.textContent = t; return w; });
+      words.textContent = ''; words.append(...wordEls);
+
+      if (stage) {
+        tideEl.classList.add('is-pinned');
+        const tide = () => field?.tide;
+        const colourOf = who => ({ them: [.85, .55, .25], room: [.93, .91, .86], ai: [.66, .6, 1], ink: [.93, .91, .86] })[who];
+        let H = 1, from = 0, travel = 1, mids = [], lefts = [], widths = [], raf = 0, visible = false, t = 0, prog = 0, burst = false;
+        const STOP = .74; // share of the scroll spent moving the lines; the rest belongs to the answer
+        const measure = () => {
+          gsap.set(tideCol, { y: 0 });
+          H = innerHeight;
+          const c = tideCol.getBoundingClientRect();
+          const rects = lines.map(l => l.tl.getBoundingClientRect());
+          mids = rects.map(r => r.top - c.top + r.height / 2);
+          lefts = rects.map(r => r.left / innerWidth);
+          widths = rects.map(r => r.width / innerWidth);
+          from = H * 1.05 - mids[0];
+          const last = lines.findIndex(l => l.end);
+          travel = Math.max(1, from - (H * .26 - mids[last]));
+          tideEl.style.height = `${Math.round(travel * 1.9 / STOP + H)}px`;
+        };
+        const ease = x => x * x * (3 - 2 * x);
+        const render = () => {
+          const p = prog, q = Math.min(1, p / STOP);
+          const y = from - q * travel;
+          gsap.set(tideCol, { y });
+          // Paper → deep water → back to paper, then light again under the answer.
+          const dark = ease(Math.max(0, Math.min(1, (p - .04) / .14))) * (1 - ease(Math.max(0, Math.min(1, (p - .84) / .13))));
+          tideEl.style.setProperty('--dk', dark.toFixed(3));
+          tide()?.dark(dark);
+          lines.forEach((l, i) => {
+            const sy = (y + mids[i]) / H;
+            const k = Math.max(0, Math.min(1, (1.02 - sy) / .2, (sy + .02) / .16));
+            l.tl.style.opacity = k.toFixed(3);
+            l.tl.style.filter = k > .98 ? '' : `blur(${((1 - k) * 8).toFixed(1)}px)`;
+            // Refinement: letters flip from the left as the line passes the middle.
+            const r = (.535 - sy) / .07;
+            const n = l.chars.length;
+            const near = Math.exp(-Math.pow((sy - .5) / .07, 2));
+            l.chars.forEach((c, j) => {
+              const f = Math.max(0, Math.min(1, r * 1.6 - j / Math.max(1, n) * .6));
+              const wave = Math.sin(j * .75 - t * 7) * near * 10 * (1 - f * .4);
+              c.style.opacity = f.toFixed(3);
+              c.style.transform = `translate3d(0,${((1 - f) * 18 + wave).toFixed(1)}px,0)`;
+            });
+            l.draft.style.opacity = Math.max(0, 1 - r * 1.4).toFixed(3);
+            l.draft.style.setProperty('--strike', Math.max(0, Math.min(1, r * 3)).toFixed(3));
+            const crossed = sy < .5;
+            if (crossed && !l.crossed) tide()?.line(lefts[i], lefts[i] + widths[i], .5, colourOf(l.who));
+            l.crossed = crossed;
+          });
+          // The answer: a violet tide, then the words rise as they do in the app.
+          const a = Math.max(0, Math.min(1, (p - STOP) / (1 - STOP)));
+          const on = p > STOP - .02;
+          if (on !== burst) { burst = on; tide()?.burst(.5, .62, on); }
+          answer.style.opacity = Math.min(1, a * 4).toFixed(3);
+          answer.style.transform = `translate3d(-50%,${((1 - Math.min(1, a * 3)) * 30).toFixed(1)}px,0)`;
+          const shown = Math.round(Math.max(0, (a - .12) / .6) * wordEls.length);
+          wordEls.forEach((w, j) => w.classList.toggle('is-on', j < shown));
+        };
+        const loop = () => { raf = 0; if (!visible || paused()) return; t += 1 / 60; render(); raf = requestAnimationFrame(loop); };
+        new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); }).observe(tideEl);
+        document.addEventListener('ih:motion', () => { if (!raf && visible) raf = requestAnimationFrame(loop); render(); });
+        measure();
+        ScrollTrigger.addEventListener('refreshInit', measure);
+        ScrollTrigger.create({ trigger: tideEl, start: 'top top', end: 'bottom bottom', onUpdate: s => { prog = s.progress; render(); }, onRefresh: s => { prog = s.progress; render(); } });
+        render();
+      } else {
+        // Narrow screens: each line simply writes itself in when it comes into view; the answer follows.
+        tideEl.classList.add('is-flow');
+        lines.forEach(l => { l.draft.style.opacity = 0; gsap.from(l.chars, { opacity: 0, y: 14, duration: .7, stagger: .025, scrollTrigger: { trigger: l.tl, start: 'top 85%' } }); });
+        ScrollTrigger.create({ trigger: answer, start: 'top 80%', once: true, onEnter: () => wordEls.forEach((w, j) => setTimeout(() => w.classList.add('is-on'), 200 + j * 60)) });
+      }
     }
 
     /* Section headings rise line by line behind a mask. */
@@ -296,7 +356,7 @@
 
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
     addEventListener('load', () => { ScrollTrigger.refresh(); if (location.hash.length > 1) requestAnimationFrame(() => go(location.hash, true)); }, { once: true });
-    return () => { swirl?.classList.remove('is-pinned'); if (swirl) swirl.style.height = ''; comp?.classList.remove('is-pinned'); };
+    return () => { comp?.classList.remove('is-pinned'); };
   });
   reduced.addEventListener('change', () => location.reload());
 })();

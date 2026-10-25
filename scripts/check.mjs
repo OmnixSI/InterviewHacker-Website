@@ -35,9 +35,10 @@ await inspectHtml(path.join(publicRoot,'index.html'),catalog.origin+'/');
 await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/compare/');
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
- const version={final:'v2.0.0'}[style.slug]||'v1.8.0';
+ const version='v1.8.0';
  // Final states its own prerequisites (system, private repository) in its download section.
- for(const text of [version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
+ // Final is a coming-soon page about the experience: it carries no version, download or setup prerequisites.
+ for(const text of [...(style.slug==='final'?[]:[version,'不会把所有资料塞入上下文','需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
  const js=(await Promise.all(scripts.map(src=>readFile(path.resolve(base,src.split('?')[0]),'utf8')))).join('\n');
@@ -90,12 +91,12 @@ for(const style of catalog.styles){
   // Final ships two generated language pages, subset fonts and its own vendor copies (GSAP, Lenis).
   const en=await inspectHtml(path.join(base,'en/index.html'),catalog.origin+'/final/en/');
   for(const page of [html,en]){
-   assert(page.includes('v2.0.0'),'Final must state the current release');
-   assert(page.includes('https://github.com/OmnixSI/InterviewHacker/releases/latest'),'Final must link the latest GitHub release');
+   assert(page.includes('action="/api/waitlist"')&&page.includes('name="website"'),'Final must offer the waitlist form with its honeypot');
+   assert(!/releases\/latest|data-download/.test(page),'Final is coming soon: no download links');
    assert(page.includes('hreflang="zh-CN"')&&page.includes('hreflang="en"'),'Final pages must link their language alternates');
    assert(!/fonts\.googleapis|cdn\.|无法被检测|undetectable/i.test(page),'Final must stay self-hosted and avoid detection claims');
    for(const src of [...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]))assert(/^\.\.?\//.test(src),'Final scripts must be same-origin');
-   for(const id of ['hero-title','demo','scenes','companion','privacy','download','install','faq'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
+   for(const id of ['hero-title','demo','scenes','companion','privacy','download','waitlist','faq'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
    assert.equal((page.match(/data-demo-app/g)||[]).length,1,'Final must render exactly one product device');
   }
   for(const m of [...html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)]){

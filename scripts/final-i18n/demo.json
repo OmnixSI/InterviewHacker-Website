@@ -118,9 +118,9 @@
         "me": "我",
         "room": "现场",
         "answers": "回答",
-        "model": "gpt-5.5 · 快速",
+        "model": "已就绪",
         "phone": "手机",
-        "phoneState": "已连接 1 台手机 · 局域网"
+        "phoneState": "已连接手机"
       },
       "start": "开始",
       "startReading": "开始（资料还在读取 1/2）"
@@ -130,7 +130,7 @@
       "paused": "已暂停",
       "prompt": "提词",
       "notesOnly": "只记录",
-      "model": "gpt-5.5",
+      "model": "回答设置",
       "end": "结束",
       "transcript": "实时对话",
       "question": "问题",
@@ -169,7 +169,7 @@
         "me": "我",
         "room": "现场"
       },
-      "echo": "本机识别 · 1 句回声已忽略",
+      "echo": "只在这台 Mac 上听",
       "suggested": "建议回答",
       "pager": "2/2",
       "answerFor": "那数据库和缓存同时更新的时候，你们是怎么保证一致性的？",
@@ -232,7 +232,6 @@
         "澄清问题",
         "我可以反问",
         "重新生成",
-        "联网查一下",
         "复制回答"
       ],
       "basis": "依据：资料 2",
@@ -263,7 +262,7 @@
         ],
         "foot": "从下一个回答开始生效"
       },
-      "phoneTip": "已连接 1 台手机 · 局域网",
+      "phoneTip": "已连接手机",
       "teleprompter": "提词器",
       "latestFor": "如果删除缓存失败了怎么办？",
       "pagerLatest": "3/3"
@@ -278,7 +277,7 @@
       "save": "存进题库 · 2 题",
       "saved": "已存进题库",
       "title": "云杉科技 · 后端二面",
-      "meta": "10 月 27 日（周二）下午 2:30 · 44 分钟 · 线上 · 已校对 3 处识别错误",
+      "meta": "10 月 27 日（周二）下午 2:30 · 44 分钟 · 线上 · 改正了 3 处听错的词",
       "tabs": [
         "复盘",
         "转写",
@@ -845,9 +844,9 @@
         "me": "Me",
         "room": "Room",
         "answers": "Answers",
-        "model": "gpt-5.5 · Fast",
+        "model": "Ready",
         "phone": "Phone",
-        "phoneState": "1 phone connected · Local network"
+        "phoneState": "Phone connected"
       },
       "start": "Start",
       "startReading": "Start (reading materials 1/2)"
@@ -857,7 +856,7 @@
       "paused": "Paused",
       "prompt": "Prompt",
       "notesOnly": "Notes only",
-      "model": "gpt-5.5",
+      "model": "Answers",
       "end": "End",
       "transcript": "Live transcript",
       "question": "Question",
@@ -896,7 +895,7 @@
         "me": "Me",
         "room": "Room"
       },
-      "echo": "On-device recognition · 1 echo line ignored",
+      "echo": "Heard on this Mac only",
       "suggested": "Suggested answer",
       "pager": "2/2",
       "answerFor": "So when the database and the cache both change, how do you keep them consistent?",
@@ -960,7 +959,6 @@
         "Clarify",
         "Questions to ask back",
         "Regenerate",
-        "Check the web",
         "Copy answer"
       ],
       "basis": "Based on: Materials 2",
@@ -991,7 +989,7 @@
         ],
         "foot": "Applies from the next answer"
       },
-      "phoneTip": "1 phone connected · Local network",
+      "phoneTip": "Phone connected",
       "teleprompter": "Teleprompter",
       "latestFor": "And if deleting the cache fails?",
       "pagerLatest": "3/3"
@@ -1006,7 +1004,7 @@
       "save": "Save to question bank · 2",
       "saved": "Saved · 2",
       "title": "Fernway · Backend, round 2",
-      "meta": "Tue 27 Oct, 2:30 PM · 44 min · Online · 3 recognition errors fixed",
+      "meta": "Tue 27 Oct, 2:30 PM · 44 min · Online · 3 misheard words fixed",
       "tabs": [
         "Review",
         "Transcript",

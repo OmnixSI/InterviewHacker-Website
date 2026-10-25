@@ -49,6 +49,7 @@
     cursor.classList.toggle('is-typing', field);
     cursor.classList.toggle('is-dark', !!e.target.closest?.('.ending__panel'));
     const target = e.target.closest?.('a, button, summary, label, [data-cursor]');
+    cursor.classList.toggle('is-text', !target && !!e.target.closest?.('p, li, dd, dt, h1, h2, h3, h4, h5, .tl, .sh-sec, .ai-note'));
     if (target !== hot) {
       hot = target;
       const text = labelFor(target);

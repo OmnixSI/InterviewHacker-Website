@@ -77,7 +77,7 @@
     const btn = $(`[data-remote="${s.key}"]`), p = phone.getBoundingClientRect(), r = btn.getBoundingClientRect();
     coachText.textContent = s.text;
     coach.style.setProperty('--cx', `${r.left - p.left + r.width / 2}px`);
-    coach.style.setProperty('--cy', `${r.top - p.top}px`);
+    coach.style.setProperty('--cy', `${r.bottom - p.top}px`);
     btn.classList.add('is-hinted');
     coach.classList.add('is-on');
   };

@@ -83,8 +83,6 @@ export function renderApp(d) {
   const s = l.settings;
   const seg = (name, opts, on) => `<span class="a-seg a-seg--sm" role="group" aria-label="${esc(name)}">${opts.map((o, i) => `<button type="button" class="${i === on ? 'is-on' : ''}" aria-pressed="${i === on}">${esc(o)}</button>`).join('')}</span>`;
   const pop = `<div class="a-pop" data-pop role="dialog" aria-label="${esc(s.title)}" hidden><p class="a-pop__title">${esc(s.title)}</p>
-    <div class="a-prow"><span>${esc(s.model)}</span>${seg(s.model, s.models, 0)}</div>
-    <div class="a-prow"><span>${esc(s.fast)} ${icon('bolt')}<small>${esc(s.fastNote)}</small></span><button type="button" class="a-switch is-on" data-fast role="switch" aria-checked="true"><i></i></button></div>
     <div class="a-prow"><span>${esc(s.web)}</span>${seg(s.web, s.webOptions, 1)}</div>
     <div class="a-prow"><span>${esc(s.length)}</span>${seg(s.length, s.lengthOptions, 0)}</div>
     <p class="a-pop__foot">${esc(s.foot)}</p></div>`;
@@ -94,7 +92,7 @@ export function renderApp(d) {
       <span class="a-ttl">${esc(p.title)}</span><span class="a-grow"></span>
       <span class="a-seg" role="group" data-focus="mode"><button type="button" class="is-on" data-mode-btn="prompt" aria-pressed="true">${esc(l.prompt)}</button><button type="button" data-mode-btn="notes" aria-pressed="false">${esc(l.notesOnly)}</button></span>
       <span class="a-phone" title="${esc(l.phoneTip)}">${icon('phone')}<i class="dot dot--ready"></i></span>
-      <button type="button" class="a-model" data-model aria-expanded="false" data-focus="model">${esc(l.model)}<span data-fast-mark>${icon('bolt')}</span></button>
+      <button type="button" class="a-model" data-model aria-expanded="false" data-focus="model">${esc(l.model)}${icon('chev-d')}</button>
       <span class="a-icon" title="${esc(l.teleprompter)}">${icon('tele')}</span>
       <button type="button" class="a-secondary" data-go="notes" data-end>${esc(l.end)}</button>${pop}
     </header>

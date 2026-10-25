@@ -182,6 +182,47 @@ void main(){
   gl_FragColor=vec4(col*a,a);
 }`;
 
+  // Interlude: the page turns to deep water and back. Lines that cross the middle stir it, each in its
+  // speaker's colour (u_rg: x, y, age, on; u_rc: colour); the last one spreads a violet tide (u_burst).
+  const TIDE = COMMON + `
+uniform float u_dark;uniform vec3 u_paper;uniform vec3 u_deep;uniform vec3 u_mid;uniform vec3 u_ai;
+uniform vec4 u_rg[4];uniform vec3 u_rc[4];uniform vec4 u_burst;
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_res;vec2 asp=vec2(u_res.x/u_res.y,1.);
+  vec3 w=wake(vec2(uv.x,1.-uv.y));
+  vec3 sw=swell(uv,.004*u_dark);
+  vec2 p=(uv+vec2(w.x,-w.y)*2.5+sw.xy)*asp;
+  float n=fbm(p*1.3+vec2(u_t*.02,-u_t*.015));
+  float m=fbm(p*2.5-vec2(u_t*.03,0.)+n*1.3);
+  vec3 water=mix(u_deep,u_mid,smoothstep(.2,.95,n*.95+uv.y*.25));
+  water=mix(water,u_mid*1.3,smoothstep(.55,.95,m)*.35);
+  vec3 col=mix(u_paper,water,u_dark);
+  col*=1.+(w.z*1.8+sw.z*3.)*(.4+.6*u_dark);
+  for(int i=0;i<4;i++){
+    vec4 g=u_rg[i];
+    if(g.w>0.){
+      float d=length((uv-g.xy)*asp+vec2(w.x,-w.y)*.9);
+      float r=.03+g.z*.42,f=exp(-g.z*1.05)*g.w*.75;
+      float band=exp(-pow((d-r)/(.005+g.z*.006),2.))+.45*exp(-pow((d-r*.62)/(.004+g.z*.004),2.));
+      col=mix(col,u_rc[i],clamp(band*f,0.,.9));
+    }
+  }
+  if(u_burst.w>0.){
+    vec2 c=u_burst.xy;
+    float d=length((uv-c)*asp+vec2(w.x,-w.y)*1.2);
+    float r=u_burst.z*1.25,f=u_burst.w;
+    float front=exp(-pow((d-r)/(.012+u_burst.z*.03),2.));
+    float inner=smoothstep(r,r-.35,d)*exp(-u_burst.z*.7);
+    float echo=exp(-pow((d-r*.7)/(.008+u_burst.z*.015),2.))*.5+exp(-pow((d-r*.45)/(.006+u_burst.z*.01),2.))*.3;
+    col=mix(col,u_ai,clamp((front+echo)*f*.85,0.,.85));
+    col=mix(col,mix(col,u_ai,.55),inner*f*.45);
+  }
+  col+=(hash(floor(gl_FragCoord.xy))-.5)*mix(.02,.07,u_dark);
+  gl_FragColor=vec4(col,1.);
+}`;
+
   const rgbOf = value => {
     const probe = document.createElement('i');
     probe.style.color = value;
@@ -243,7 +284,8 @@ void main(){
       gl.uniform2f(u('u_cell'), 1 / sim.w, 1 / sim.h);
       gl.uniform1f(u('u_water'), water);
       for (const [name, value] of Object.entries(uniforms())) {
-        if (Array.isArray(value)) gl[`uniform${value.length}fv`](u(name), value); else gl.uniform1f(u(name), value);
+        if (value && value.n) gl[`uniform${value.n}fv`](u(name), value.v);
+        else if (Array.isArray(value)) gl[`uniform${value.length}fv`](u(name), value); else gl.uniform1f(u(name), value);
       }
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
@@ -284,14 +326,15 @@ void main(){
     addEventListener('resize', wake);
     canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true; cancelAnimationFrame(frame); frame = 0; host?.classList.remove('is-live'); });
     host?.classList.add('is-live');
-    return { wake, ratio: () => canvas.width / Math.max(1, canvas.clientWidth), drop(x, y, depth = .05, reach = .03) { sim.press(x, y, x, y, reach, depth); wake(); } };
+    return { wake, ratio: () => canvas.width / Math.max(1, canvas.clientWidth), drop(x, y, depth = .05, reach = .03) { sim.press(x, y, x, y, reach, depth); wake(); }, press(x0, y0, x1, y1, reach, depth) { sim.press(x0, y0, x1, y1, reach, depth); wake(); } };
   }
 
   /* ---------- Hero: two voices on the water ---------- */
   // On narrow screens the copy runs long, so the voices sit at the foot of the first screen instead.
-  const state = { them: .55, me: .35, converge: 0, base: matchMedia('(max-width: 960px)').matches ? .95 : .815 };
+  const state = { them: .55, me: .35, converge: 0, base: matchMedia('(max-width: 640px)').matches ? .9 : .815 };
   const target = { ...state };
-  let colors = null, hero = null, dropClock = 0, talk = 0;
+  let colors = null, hero = null, dropClock = 0, talk = 0, shownBase = -1;
+  const fieldEl = document.querySelector('.field');
   const readColors = () => {
     const cs = getComputedStyle(root);
     colors = { them: rgbOf(cs.getPropertyValue('--them')), me: rgbOf(cs.getPropertyValue('--me')), ink: rgbOf(cs.getPropertyValue('--ink')), paper: rgbOf(cs.getPropertyValue('--paper')), ai: rgbOf(cs.getPropertyValue('--ai')) };
@@ -319,6 +362,7 @@ void main(){
         state.me += (target.me - state.me) * k;
         state.converge += (target.converge - state.converge) * Math.min(1, dt * 14);
         state.base += (target.base - state.base) * Math.min(1, dt * 14);
+        if (Math.abs(state.base - shownBase) > .0008) { shownBase = state.base; fieldEl?.style.setProperty('--base', state.base.toFixed(4)); }
         // A voice speaking loudly drops small ripples onto the water beneath its line.
         dropClock += dt;
         if (!still() && state.converge < .2 && dropClock > .16) {
@@ -374,6 +418,49 @@ void main(){
         ring.x = x; ring.y = 1 - y; ring.age = 0;
         pool.drop(x, y, .05, .06);
       });
+    }
+  }
+
+  /* ---------- Interlude: the tide ---------- */
+  const tideCanvas = document.querySelector('[data-tide-canvas]');
+  if (tideCanvas && matchMedia('(min-width: 901px) and (min-height: 600px)').matches && !reduced.matches) {
+    const T = { dark: 0, rings: [0, 1, 2, 3].map(() => ({ x: .5, y: .5, age: 9, c: [0, 0, 0] })), next: 0, burst: { x: .5, y: .5, age: 9, on: 0 } };
+    let tide = null;
+    tide = surface(tideCanvas, {
+      frag: TIDE, cell: 7, scale: .8, target: tideCanvas.parentElement, host: tideCanvas.parentElement,
+      uniforms: () => {
+        const dark = root.dataset.theme === 'dark';
+        return {
+          u_dark: T.dark, u_paper: colors.paper, u_deep: dark ? [.06, .09, .1] : [.1, .15, .16], u_mid: dark ? [.17, .23, .24] : [.24, .33, .33], u_ai: [.6, .55, 1],
+          u_rg: { n: 4, v: T.rings.flatMap(r => [r.x, r.y, r.age, r.age < 3.5 ? 1 : 0]) },
+          u_rc: { n: 3, v: T.rings.flatMap(r => r.c) },
+          u_burst: [T.burst.x, T.burst.y, T.burst.age, T.burst.on]
+        };
+      },
+      onFrame(dt) {
+        let busy = false;
+        for (const r of T.rings) if (r.age < 3.5) { r.age += dt; busy = true; }
+        if (T.burst.on && T.burst.age < 4) { T.burst.age += dt; busy = true; }
+        return busy;
+      }
+    });
+    if (tide) {
+      api.tide = {
+        // Darkness of the water, 0 = paper.
+        dark(v) { if (Math.abs(v - T.dark) > .002) { T.dark = v; tide.wake(); } },
+        // A line crossed the middle: press the water along it and spread a ring in its colour.
+        line(x0, x1, y, colour) {
+          const r = T.rings[T.next++ % 4];
+          Object.assign(r, { x: (x0 + x1) / 2, y: 1 - y, age: 0, c: colour });
+          tide.press(x0, y, x1, y, .025, .05);
+          tide.drop((x0 + x1) / 2, y, .08, .05);
+        },
+        burst(x, y, on = true) {
+          if (on && !T.burst.on) { Object.assign(T.burst, { x, y: 1 - y, age: 0, on: 1 }); tide.drop(x, y, .2, .09); }
+          if (!on) T.burst.on = 0;
+          tide.wake();
+        }
+      };
     }
   }
 
