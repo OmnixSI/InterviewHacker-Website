@@ -1,8 +1,10 @@
-// Final's hand-drawn ink: a monoline script word ("one page.") and the pen marks an editor leaves on a
-// page — a loop around a phrase, an underline, a tick, a margin bracket and a curved arrow.
-// Every stroke is a list of skeleton points (y up). A Catmull-Rom pass turns them into cubic Béziers and
-// the strokes stay in writing order, so the page can reveal them the way a pen would (stroke-dashoffset).
-// Nothing here is a font: the shapes are drawn point by point for this site.
+// Final's hand-drawn ink. Two monoline script phrases written for this site — "next line." (the
+// demo) and "one page." (the hero and the ending) — and the marks an editor leaves on a page: a loop
+// around a phrase, an underline, a tick, a margin bracket and curved arrows.
+// Every stroke is a list of skeleton points (y up, x-height 100). A Catmull-Rom pass turns them into
+// cubic Béziers, a shear gives the slant, and the strokes stay in writing order so the page can write
+// them the way a pen would (DrawSVG, or stroke-dashoffset with pathLength=1 when scripts are off).
+// Nothing here is a font: the shapes are drawn point by point.
 const f = n => Number(n.toFixed(1));
 
 function catmullRom(points) {
@@ -36,10 +38,45 @@ const word = [
 const WORD_BASE = 120, WORD_OX = 36;
 const placeWord = ([x, y]) => [x + y * SLANT + WORD_OX, WORD_BASE - y];
 
-export function scriptSvg({ className = 'script', label = '' } = {}) {
+export function onePageSvg({ className = 'script', label = '' } = {}) {
   const paths = word.map(s => `<path data-stroke="${s.id}" pathLength="1" d="${catmullRom(s.points.map(placeWord))}"/>`).join('');
   const aria = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
   return `<svg class="${className}" viewBox="0 0 640 236" ${aria} focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
+}
+
+
+// ---- "next line." ------------------------------------------------------------------------------
+// Begins with a flat lead-in so a voice line can run straight into the pen.
+const nextLine = [
+  // n e x t — begins with a flat lead-in so the waveform's baseline can run straight into the pen.
+  { id: 'next', points: [[-60,0],[-30,0],[0,4],[16,52],[26,94],[29,70],[29,30],[29,0],
+    [31,34],[42,82],[58,98],[71,86],[73,46],[75,10],[88,0],[104,12],
+    [124,44],[134,64],[130,76],[118,74],[110,58],[110,28],[120,6],[140,0],[160,14],
+    [172,52],[178,72],[188,46],[202,10],[216,0],[230,10],
+    [244,56],[254,142],[250,96],[248,40],[254,8],[268,0],[286,12]] },
+  { id: 'x', points: [[212,72],[194,40],[170,0]] },
+  { id: 't', points: [[232,96],[256,100],[280,100]] },
+  // l i n e
+  { id: 'line', points: [[330,6],[352,58],[374,128],[376,160],[364,164],[356,140],[354,90],[356,36],[364,6],[378,0],[394,12],
+    [406,56],[412,94],[411,52],[414,10],[426,0],[442,12],
+    [452,56],[458,96],[459,50],[459,0],
+    [461,34],[472,84],[488,98],[501,86],[503,46],[505,10],[518,0],[532,12],
+    [552,44],[562,64],[558,76],[546,74],[538,58],[538,28],[548,6],[568,0],[592,16]] },
+  { id: 'dot', points: [[414,128],[418,136]] },
+  { id: 'stop', points: [[612,2],[615,6]] }
+];
+const NL_SLANT = Math.tan(13 * Math.PI / 180), NL_OX = 80, NL_BASE = 200;
+const placeNL = ([x, y]) => [x + y * NL_SLANT + NL_OX, NL_BASE - y];
+export const NEXTLINE_BASELINE = (NL_BASE - 20) / 196;
+
+// Inline use drops the lead-in (it would read as an underscore before the word) and crops to the word.
+export function nextLineSvg({ className = 'lettering', lead = false } = {}) {
+  const paths = nextLine.map(st => {
+    const points = !lead && st.id === 'next' ? st.points.slice(2) : st.points;
+    return `<path data-stroke="${st.id}" pathLength="1" d="${catmullRom(points.map(placeNL))}"/>`;
+  }).join('');
+  const viewBox = lead ? '20 20 690 196' : '72 20 638 196';
+  return `<svg class="${className}" viewBox="${viewBox}" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
 }
 
 // ---- Pen marks ---------------------------------------------------------------------------------
@@ -61,6 +98,8 @@ const marks = {
   tick: { viewBox: '0 0 28 24', strokes: [[[3,13],[7,16],[11,21],[17,11],[25,3]]] },
   bracket: { viewBox: '0 0 18 200', strokes: [[[4,3],[12,4],[13,30],[13,92],[16,100],[13,108],[13,170],[12,196],[4,197]]] },
   arrow: { viewBox: '0 0 120 60', strokes: [[[4,42],[30,22],[62,14],[92,20],[112,34]], [[96,38],[113,35],[108,18]]] },
+  'arrow-left': { viewBox: '0 0 60 24', strokes: [[[58,16],[40,8],[20,9],[4,14]], [[12,5],[4,14],[13,21]]] },
+  'arrow-up': { viewBox: '0 0 70 70', strokes: [[[60,66],[52,44],[36,24],[12,9]], [[13,25],[11,9],[27,6]]] },
   'arrow-down': { viewBox: '0 0 40 90', strokes: [[[20,3],[16,30],[17,58],[20,84]], [[9,70],[20,85],[31,71]]] }
 };
 

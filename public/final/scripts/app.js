@@ -118,10 +118,10 @@
       const body = $('[data-body]');
       body.replaceChildren();
       const plan = [0, 700, 1500, 2100];
-      plan.forEach((ms, i) => later(() => lines[i].classList.add('is-shown'), ms));
+      plan.forEach((ms, i) => later(() => showLine(i), ms));
       later(() => { if (state.mode === 'prompt') stream('base'); }, 2500);
-      later(() => lines[4].classList.add('is-shown'), 5200);
-      later(() => lines[5].classList.add('is-shown'), 6400);
+      later(() => showLine(4), 5200);
+      later(() => showLine(5), 6400);
     } else {
       lines.forEach(l => l.classList.add('is-shown'));
     }
@@ -134,6 +134,14 @@
       openPop(false);
       if (state.played && state.mode === 'notes' && !state.quick) setMode(D.types.find(t => t.id === state.type)?.mode || 'prompt', true);
     }
+  }
+
+  // Each new line tells the water who spoke; the walkthrough's pool answers with a ripple on that side.
+  function showLine(i) {
+    const line = lines[i];
+    if (!line || line.classList.contains('is-shown')) return;
+    line.classList.add('is-shown');
+    document.dispatchEvent(new CustomEvent('ih:voice', { detail: { who: state.audio === 'offline' ? 'them' : line.dataset.who } }));
   }
 
   function setMode(mode, fromUser) {
@@ -174,6 +182,7 @@
       for (const p of a.points) { const li = document.createElement('li'); li.className = 'tok'; li.style.animationDelay = `${(i + 2) * 34}ms`; i = tokenize(li, p, i + 2); ul.append(li); }
       body.append(ul);
     }
+    if (!instant && !still()) document.dispatchEvent(new CustomEvent('ih:ai'));
     const latest = key === 'latest';
     $('[data-q]').textContent = latest ? D.live.latestFor : D.live.answerFor;
     $('[data-pager]').textContent = latest ? D.live.pagerLatest : D.live.pager;

@@ -26,6 +26,7 @@
     root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
     store('ih-final-theme', root.dataset.theme === 'dark' ? 'dark' : null);
     syncTheme();
+    document.dispatchEvent(new CustomEvent('ih:theme', { detail: root.dataset.theme }));
   });
   syncTheme();
 
@@ -39,6 +40,7 @@
     root.classList.toggle('motion-paused');
     store('ih-final-motion', root.classList.contains('motion-paused') ? 'paused' : null);
     syncMotion();
+    document.dispatchEvent(new Event('ih:motion'));
   });
   syncMotion();
 
@@ -50,45 +52,47 @@
     });
   }
 
-  // ---- Reveal: opacity only, once, staggered a little ----------------------------------------
-  const reveal = new IntersectionObserver(entries => {
-    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); reveal.unobserve(e.target); }
-  }, { rootMargin: '0px 0px -12% 0px' });
-  for (const el of $$('[data-reveal], .sec__head, .process > li, .series .leaf, .ledger__col, .install > li, .faq details, .tpl, .tsel, .audio, .look, .ft__script')) {
-    el.setAttribute('data-reveal', '');
-    reveal.observe(el);
-  }
-  requestAnimationFrame(() => root.classList.add('is-ready'));
-
-  // ---- Scroll narrative: the step in the reading line drives the window ----------------------
+  // ---- Walkthrough: the scroll moves the meeting through its steps ----------------------------
+  // Wide screens pin the laptop and map the section's scroll progress onto the steps; narrow screens keep
+  // the window at the top and let each step's text scroll past a reading line.
+  const demo = $('[data-demo]');
   const steps = $$('.step[data-step]');
   const rail = $$('[data-rail]');
+  const bars = $$('[data-guide-bar] li');
   const setRail = phase => rail.forEach(b => b.setAttribute('aria-pressed', b.dataset.rail === phase));
   let active = null;
-  const activate = step => {
+  const activate = (step, progress = 0) => {
+    const i = steps.indexOf(step);
+    bars.forEach((b, k) => { b.classList.toggle('is-done', k < i); b.classList.toggle('is-on', k === i); });
+    if (i >= 0 && bars[i]) bars[i].style.setProperty('--p', progress.toFixed(3));
     if (step === active) return;
     active = step;
     steps.forEach(s => s.classList.toggle('is-active', s === step));
-    window.IHApp?.go(step.dataset.step, step.dataset.focus);
+    if (step) window.IHApp?.go(step.dataset.step, step.dataset.focus);
+    else window.IHApp?.go('home');
+  };
+  const stageMQ = matchMedia('(min-width: 901px) and (min-height: 600px)');
+  let io = null;
+  const onStageScroll = () => {
+    if (!stageMQ.matches || !demo) return;
+    const r = demo.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight);
+    const p = -r.top / span;
+    if (p < 0) { activate(steps[0], 0); return; }
+    const f = Math.min(.9999, p) * steps.length, i = Math.floor(f);
+    activate(steps[Math.min(steps.length - 1, i)], f - i);
+  };
+  const watch = () => {
+    io?.disconnect();
+    root.classList.toggle('has-stage', stageMQ.matches);
+    if (stageMQ.matches) { onStageScroll(); return; }
+    io = new IntersectionObserver(entries => { for (const e of entries) if (e.isIntersecting) activate(e.target); }, { rootMargin: '-64% 0px -20% 0px' });
+    steps.forEach(s => io.observe(s));
   };
   if (steps.length) {
-    const narrow = matchMedia('(max-width: 900px)');
-    let io;
-    const watch = () => {
-      io?.disconnect();
-      // On narrow screens the window sits at the top, so the reading line is lower.
-      io = new IntersectionObserver(entries => {
-        for (const e of entries) if (e.isIntersecting) activate(e.target);
-      }, { rootMargin: narrow.matches ? '-66% 0px -20% 0px' : '-46% 0px -46% 0px' });
-      steps.forEach(s => io.observe(s));
-    };
+    addEventListener('scroll', onStageScroll, { passive: true });
+    addEventListener('resize', onStageScroll, { passive: true });
+    stageMQ.addEventListener('change', watch);
     watch();
-    narrow.addEventListener('change', watch);
-    // Above the first step the window rests on Home.
-    const hero = $('#top');
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && e.intersectionRatio > .5) { active = null; steps.forEach(s => s.classList.remove('is-active')); window.IHApp?.go('home'); }
-    }, { threshold: [0, .5, 1] }).observe(hero);
   }
   window.IHApp?.onPhase(setRail);
   rail.forEach(b => b.addEventListener('click', () => window.IHApp?.go(b.dataset.rail)));
@@ -148,28 +152,57 @@
     update();
   }
 
-  // ---- Audio: online / in person -------------------------------------------------------------
+  // ---- Audio: two voices on one river, or one room ------------------------------------------
+  // A 2D canvas draws the two channels as live lines (amber: them, ink: you). In person they merge into one.
   const audio = $('[data-audio-root]');
   if (audio) {
     const btns = $$('[data-amode]', audio);
+    let target = 0, mix = 0, seen = false, t = 0, raf = 0;
+    const canvas = $('[data-awave]', audio), ctx = canvas?.getContext('2d');
+    const colour = name => getComputedStyle(root).getPropertyValue(name).trim();
+    const draw = () => {
+      raf = 0;
+      if (!ctx) return;
+      const w = canvas.clientWidth, h = canvas.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+      if (canvas.width !== Math.round(w * dpr)) { canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr); }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      mix += (target - mix) * .08;
+      const lanes = [
+        { c: colour('--them'), y: h * (.34 + .16 * mix), e: .55 + .45 * Math.max(0, Math.sin(t * .9)), s: 0 },
+        { c: colour('--me'), y: h * (.7 - .2 * mix), e: .4 + .45 * Math.max(0, -Math.sin(t * .9)), s: 2.1 }
+      ];
+      lanes.forEach((L, li) => {
+        for (let k = 0; k < 4; k++) {
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += 4) {
+            const u = x / w, env = Math.pow(Math.sin(Math.PI * u), 1.4);
+            const amp = (6 + 26 * L.e) * env * (1 - k * .18) * (mix > .5 ? .8 : 1);
+            const y = L.y + amp * (Math.sin(u * 14 + t * 1.3 + L.s + k * .5) * .55 + Math.sin(u * 31 - t * 1.9 + L.s * 1.7) * .3 + Math.sin(u * 63 + t * 2.7) * .15);
+            x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+          }
+          ctx.strokeStyle = mix > .5 && li === 1 ? colour('--ink') : L.c;
+          ctx.globalAlpha = (k ? .28 - k * .05 : .9) * (li === 0 ? 1 - mix * .6 : 1);
+          ctx.lineWidth = k ? 1 : 1.6;
+          ctx.stroke();
+        }
+      });
+      ctx.globalAlpha = 1;
+      if (seen && !still()) { t += 1 / 60; raf = requestAnimationFrame(draw); }
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(draw); };
     btns.forEach(b => b.addEventListener('click', () => {
       audio.dataset.audioMode = b.dataset.amode;
       btns.forEach(x => x.setAttribute('aria-pressed', x === b));
+      target = b.dataset.amode === 'offline' ? 1 : 0;
+      if (still()) mix = target;
+      kick();
     }));
-    let seen = false;
-    new IntersectionObserver(([e]) => { seen = e.isIntersecting; }).observe(audio);
-    const meters = $$('[data-ameter]', audio);
-    setInterval(() => {
-      if (!seen || still()) return;
-      for (const m of meters) {
-        if (!m.offsetParent) continue;
-        const loud = m.closest('.lane--me') ? .5 : .85;
-        m.querySelectorAll('i').forEach((bar, i) => {
-          const v = Math.max(.1, Math.min(1, (Math.random() * .75 + .25) * loud * (1 - Math.abs(i - 5.5) / 11)));
-          bar.style.transform = `scaleY(${v.toFixed(2)})`;
-        });
-      }
-    }, 125);
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; kick(); }).observe(audio);
+    document.addEventListener('ih:motion', kick);
+    document.addEventListener('ih:theme', kick);
+    addEventListener('resize', kick, { passive: true });
+    kick();
   }
 
   // ---- Notes templates: tabs with arrow keys, panels stacked so the height never jumps -------
@@ -181,6 +214,7 @@
     const pick = (i, focus) => {
       tabs.forEach((t, j) => { const on = i === j; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; t.classList.toggle('is-on', on); });
       panels.forEach((p, j) => { const on = i === j; p.classList.toggle('is-on', on); p.setAttribute('aria-hidden', !on); p.inert = !on; });
+      document.dispatchEvent(new CustomEvent('ih:tpl', { detail: panels[i] }));
       if (focus) tabs[i].focus();
     };
     tabs.forEach((t, i) => {

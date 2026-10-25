@@ -8,7 +8,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { root } from './catalog.mjs';
-import { scriptSvg, markSvg } from './final-lettering.mjs';
+import { onePageSvg, nextLineSvg, markSvg } from './final-lettering.mjs';
 import { renderApp, renderTypes, renderTemplates, renderAudioLines } from './final-app.mjs';
 
 const src = path.join(root, 'scripts/final-i18n');
@@ -32,7 +32,8 @@ async function render(lang) {
     .replaceAll('{{@templates}}', () => renderTemplates({ ...demo[lang], lang }))
     .replaceAll('{{@audio:online}}', () => renderAudioLines({ ...demo[lang], lang }, 'online'))
     .replaceAll('{{@audio:offline}}', () => renderAudioLines({ ...demo[lang], lang }, 'offline'))
-    .replaceAll('{{@script}}', () => scriptSvg({ className: 'script' }))
+    .replaceAll('{{@onepage}}', () => onePageSvg({ className: 'lettering lettering--onepage' }))
+    .replaceAll('{{@nextline-lead}}', () => nextLineSvg({ className: 'lettering lettering--lead', lead: true }))
     .replace(/\{\{@pen:([a-z-]+)\}\}/g, (_, name) => markSvg(name))
     .replaceAll('{{@demo}}', () => JSON.stringify({ ...demo[lang], lang }).replaceAll('<', '\\u003c'))
     .replaceAll('{{base}}', L.base)

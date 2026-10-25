@@ -15,27 +15,36 @@ function answerHtml(a) {
   return lead + pts;
 }
 
-function sheetSection(sec, d, { gapMark = false } = {}) {
+function sheetSection(sec, d, opts = {}) {
+  const gapMark = !!opts.gapMark;
+  // In the specimen sheets the first timestamp and the first "to confirm" carry a pen note in the margin.
+  const st = opts.state || {};
   const ts = t => t ? ` <span class="ts" title="${esc(d.lang === 'zh' ? '跳到转写里的这句话' : 'Jump to this moment in the transcript')}">[${esc(t)}]</span>` : '';
-  const unsure = it => it.unsure ? ` <span class="badge badge--caution">${esc(d.unsure)}</span>` : '';
+  const note = t => (t && opts.gapMark && !st.ts) ? (st.ts = true, `<span class="anno anno--ts" aria-hidden="true">{{@pen:arrow-left}}<b class="d">${d.lang === 'zh' ? '点一下，跳回原话' : 'click to jump back'}</b></span>`) : '';
+  const unsure = it => {
+    if (!it.unsure) return '';
+    const ring = opts.gapMark && !st.unsure ? (st.unsure = true, '{{@pen:loop}}') : '';
+    return ` <span class="badge badge--caution${ring ? ' badge--ringed' : ''}">${esc(d.unsure)}${ring}</span>`;
+  };
   let body;
   if (sec.ai) {
     body = `<div class="ai-note"><p class="ai-note__over">${icon('spark')}${esc(sec.title)}</p><p>${esc(sec.items[0].text)}</p></div>`;
     return `<section class="sh-sec sh-sec--ai">${body}</section>`;
   }
   if (sec.kind === 'questions') {
-    body = `<ol class="sh-qs">${sec.items.map((it, i) => `<li><span class="sh-n">${i + 1}</span><div><p class="sh-q">${esc(it.text)}${ts(it.t)} <span class="badge badge--${it.verdict === 'good' ? 'ready' : 'caution'}">${esc(d.verdict[it.verdict])}</span></p><p class="sh-mine">${esc(d.mineLabel)}${esc(it.mine)}</p>${it.better ? `<div class="ai-note ai-note--sm"><p class="ai-note__over">${icon('spark')}${esc(d.better)}</p><p>${esc(it.better)}</p></div>` : ''}</div></li>`).join('')}</ol>`;
+    body = `<ol class="sh-qs">${sec.items.map((it, i) => `<li><span class="sh-n">${i + 1}</span><div><p class="sh-q">${esc(it.text)}${ts(it.t)} <span class="badge badge--${it.verdict === 'good' ? 'ready' : 'caution'}">${esc(d.verdict[it.verdict])}</span>${note(it.t)}</p><p class="sh-mine">${esc(d.mineLabel)}${esc(it.mine)}</p>${it.better ? `<div class="ai-note ai-note--sm"><p class="ai-note__over">${icon('spark')}${esc(d.better)}</p><p>${esc(it.better)}</p></div>` : ''}</div></li>`).join('')}</ol>`;
   } else if (sec.kind === 'actions') {
-    body = `<div class="sh-table">${sec.items.map(it => `<div class="sh-row"><span class="sh-what">${esc(it.text)}${ts(it.t)}</span><span class="sh-who">${esc(it.who)}</span><span class="sh-due">${esc(it.due)}${unsure(it)}</span></div>`).join('')}</div>`;
+    body = `<div class="sh-table">${sec.items.map(it => `<div class="sh-row"><span class="sh-what">${esc(it.text)}${ts(it.t)}${note(it.t)}</span><span class="sh-who">${esc(it.who)}</span><span class="sh-due">${esc(it.due)}${unsure(it)}</span></div>`).join('')}</div>`;
   } else {
-    body = `<ul class="sh-list">${sec.items.map(it => `<li>${esc(it.text)}${ts(it.t)}${unsure(it)}</li>`).join('')}</ul>`;
+    body = `<ul class="sh-list">${sec.items.map(it => `<li>${esc(it.text)}${ts(it.t)}${unsure(it)}${note(it.t)}</li>`).join('')}</ul>`;
   }
-  const mark = sec.gap && gapMark ? `<span class="gap-mark" aria-hidden="true">{{@pen:bracket}}<span class="gap-mark__label">${esc(d.gapLabel)}</span></span>` : '';
+  const mark = sec.gap && gapMark ? `<span class="gap-mark" aria-hidden="true">{{@pen:bracket}}<span class="gap-mark__label d">${esc(d.gapLabel)}</span></span>` : '';
   return `<section class="sh-sec${sec.gap ? ' is-gap' : ''}">${mark}<h5 class="sh-title">${esc(sec.title)}${sec.gap && !gapMark ? '' : ''}</h5>${body}</section>`;
 }
 
 export function renderSheet(tpl, d, opts = {}) {
-  return tpl.sections.map(s => sheetSection(s, d, opts)).join('');
+  const state = {};
+  return tpl.sections.map(s => sheetSection(s, d, { ...opts, state })).join('');
 }
 
 export function renderApp(d) {

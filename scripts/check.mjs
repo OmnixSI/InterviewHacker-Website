@@ -87,7 +87,7 @@ for(const style of catalog.styles){
   assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Classic theme must initialize before reference measurements');
  }
  if(style.slug==='final'){
-  // Final ships two generated language pages and subset fonts.
+  // Final ships two generated language pages, subset fonts and its own vendor copies (GSAP, Lenis).
   const en=await inspectHtml(path.join(base,'en/index.html'),catalog.origin+'/final/en/');
   for(const page of [html,en]){
    assert(page.includes('v2.0.0'),'Final must state the current release');
@@ -95,7 +95,7 @@ for(const style of catalog.styles){
    assert(page.includes('hreflang="zh-CN"')&&page.includes('hreflang="en"'),'Final pages must link their language alternates');
    assert(!/fonts\.googleapis|cdn\.|无法被检测|undetectable/i.test(page),'Final must stay self-hosted and avoid detection claims');
    for(const src of [...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]))assert(/^\.\.?\//.test(src),'Final scripts must be same-origin');
-   for(const id of ['hero-title','demo','scenes','companion','privacy','download'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
+   for(const id of ['hero-title','demo','scenes','companion','privacy','download','install','faq'])assert(page.includes(`id="${id}"`),`Final is missing #${id}`);
    assert.equal((page.match(/data-demo-app/g)||[]).length,1,'Final must render exactly one product device');
   }
   for(const m of [...html.matchAll(/(?:href|src)="(\.\/[^"?#]+\.(?:css|js))\?v=([a-f0-9]{12})"/g)]){
@@ -115,6 +115,11 @@ for(const style of catalog.styles){
   const headings=[...(html+en).matchAll(/<h([1-5])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map(m=>m[2].replace(/<[^>]+>/g,'')).join('');
   const missingSerif=[...new Set(headings)].filter(ch=>/[\u3000-\u9fff\uff00-\uffef]/.test(ch)&&!serif.has(ch));
   assert.equal(missingSerif.join(''),'','Final serif subset is missing heading characters: run npm run fonts:final -- <source dir>');
+  // Display type (Smiley Sans) only carries the characters set in it; headings must be covered.
+  const display=new Set(charset.display||'');
+  const shown=[...(html+en).matchAll(/<h([12])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map(m=>m[2].replace(/<svg[\s\S]*?<\/svg>/g,'').replace(/<[^>]+>/g,'')).join('');
+  const missingDisplay=[...new Set(shown)].filter(ch=>/[\u3000-\u9fff\uff00-\uffef]/.test(ch)&&!display.has(ch));
+  assert.equal(missingDisplay.join(''),'','Final display subset is missing heading characters: run npm run fonts:final -- <source dir>');
  }
  if(['story','classic'].includes(style.slug)){
   for(const m of html.matchAll(/(?:href|src|data-ih-light|data-ih-dark)="(\.\/[^"?#]+\.(?:css|js|svg))\?v=([a-f0-9]{12})(?:#[^"]*)?"/g)){

@@ -1,6 +1,8 @@
 # Final 风格维护说明
 
-`/final/`（中文）与 `/final/en/`（英文）是最终版页面，按 InterviewHacker v2 的“纸与墨”视觉语言重做（产品设计见 App 仓库 `docs/redesign/`）：暖白纸底、近黑墨色、墨色主按钮、衬线标题，紫色只标 AI 写的内容，红点只表示录制中，绿点就绪，琥珀色表示需要再看一眼。细线代替阴影，只有浮起来的东西（产品窗口、回答设置、手机）有阴影。
+`/final/`（中文）与 `/final/en/`（英文）是最终版页面，内容按 InterviewHacker v2（“一场会议就是一页”）重写，视觉沿用并加强改版前的 Final：暖白纸与墨色、可以拨动的声波水面、得意黑大标题、紫色的自制手写字形、指针交互和滚动编排。
+
+颜色有固定含义：琥珀是对方（这台 Mac 播放的声音），墨色是你（麦克风），紫色是 AI——它写的回答、AI 读到的重点，以及页面上的手写字和批注。产品窗口内部沿用 App 的“纸与墨”变量（墨色主按钮、紫色只标 AI 内容）。
 
 ## 源码与生成
 
@@ -10,11 +12,12 @@
 | 产品窗口与示例的数据（对话、回答、改写、纪要模板、会议类型、猜类型的关键词、声音示例） | `scripts/final-i18n/demo.json` |
 | 由数据渲染窗口与示例（构建时，无脚本也完整可读） | `scripts/final-app.mjs` |
 | 生成两页并为 CSS/JS 加内容哈希 | `scripts/build-final.mjs`（`npm run final:build`，`--check` 在 `npm run check` 中运行） |
-| 手绘墨迹 | `scripts/final-lettering.mjs`：手写单线字 “one page.”（页脚），以及编辑笔迹：圈注（首屏）、勾、方括号（纪要的“不足”）、箭头。都是骨架点 → Catmull-Rom → 贝塞尔，按笔顺排列，用 `pathLength=1` 的描边偏移画出来 |
+| 自制手写字与笔迹 | `scripts/final-lettering.mjs`：手写单线字 “one page.”（首屏、结尾）与 “next line.”（流程标题，带一段引线），以及圈注、勾、方括号、几种箭头。都是骨架点 → Catmull-Rom → 贝塞尔，按笔顺排列 |
 | 样式 | `public/final/style.css` |
-| 脚本 | `public/final/scripts/`：`bootstrap` 外观与动效开关、`app` 产品窗口、`page` 滚动叙事与各个示例 |
+| 脚本 | `public/final/scripts/`：`bootstrap` 外观与动效开关；`field` 水面（WebGL）；`app` 产品窗口；`page` 流程步骤、会议类型、系列、声音波形、模板标签、复制；`companion` 手机伴侣；`motion` 平滑滚动与 GSAP 编排；`cursor` 指针 |
+| 第三方 | `public/final/assets/vendor/`：GSAP（ScrollTrigger、SplitText、DrawSVG、CustomEase）与 Lenis，同源分发，见该目录 README |
 
-模板里的特殊标记：`{{@app}}` 产品窗口，`{{@types}}` 会议类型示例，`{{@templates}}` 纪要模板对比，`{{@audio:online|offline}}` 声音示例，`{{@script}}` 手写字，`{{@pen:loop|tick|bracket|arrow|arrow-down|underline}}` 笔迹，`{{@demo}}` 给脚本的 JSON。
+模板里的特殊标记：`{{@app}}` 产品窗口，`{{@types}}` 会议类型示例，`{{@templates}}` 纪要模板对比，`{{@audio:online|offline}}` 声音示例，`{{@onepage}}` / `{{@nextline-lead}}` 手写字，`{{@pen:loop|tick|bracket|arrow|arrow-left|arrow-up|arrow-down|underline}}` 笔迹，`{{@demo}}` 给脚本的 JSON。
 
 不要直接修改 `public/final/index.html` 或 `public/final/en/index.html`；改源码后运行 `npm run final:build`（`npm run docs:sync` 已包含）。
 
@@ -24,14 +27,15 @@
 
 | 用途 | 字体 | 子集文件 |
 | --- | --- | --- |
-| 中文标题、窗口里的会议标题与纪要小节 | 思源宋体 Noto Serif SC，字重 500–600（改名 IH Serif） | `assets/fonts/serif/ih-serif.woff2` |
-| 正文与界面 | 思源黑体 Noto Sans SC，字重 400–500（改名 IH Sans） | `assets/fonts/sans/ih-sans.woff2` |
-| 英文标题、字标 | Instrument Serif 正体与斜体 | `assets/fonts/serif/` |
+| 中文大标题、章节标题、批注 | 得意黑 Smiley Sans Oblique v2.0.1（改名 IH Display） | `assets/fonts/display/ih-display.woff2` |
+| 产品窗口里的会议标题与纪要小节 | 思源宋体 Noto Serif SC，500–600（改名 IH Serif） | `assets/fonts/serif/ih-serif.woff2` |
+| 正文与界面 | 思源黑体 Noto Sans SC，400–500（改名 IH Sans） | `assets/fonts/sans/ih-sans.woff2` |
+| 英文标题、批注 | Instrument Serif 正体与斜体 | `assets/fonts/serif/` |
 | 英文界面与注记 | Geist、Geist Mono | `assets/fonts/geist/` |
 
-产品标题用 New York / 宋体，所以中文标题改用思源宋体，原先的得意黑不再使用并已移除。思源黑体、思源宋体保留了 “Source” 字体名，因此子集改名。
+得意黑保留了 “Smiley”“得意黑”，思源黑体 / 思源宋体保留了 “Source” 字体名，因此子集改名。
 
-页面文字有新字时需要重新子集化。原字体来自 `github.com/google/fonts`（`ofl/notosanssc`、`ofl/notoserifsc`、`ofl/instrumentserif`）：
+页面文字有新字时需要重新子集化。原字体：得意黑来自 `github.com/atelier-anchor/smiley-sans` v2.0.1 发布包，其余来自 `github.com/google/fonts`（`ofl/notosanssc`、`ofl/notoserifsc`、`ofl/instrumentserif`）：
 
 ```sh
 pip install fonttools brotli
@@ -40,48 +44,40 @@ npm run fonts:final -- <原字体目录>
 npm run final:build
 ```
 
-`assets/fonts/charset.json` 记录已覆盖字符（`sans`、`serif`）；`npm run check` 会报出页面中未覆盖的汉字，以及标题里 IH Serif 没有覆盖的字。`⇧⌘↩` 里的 ↩ 不在思源黑体里，由系统字体显示。
+`assets/fonts/charset.json` 记录已覆盖字符（`display`、`serif`、`sans`）；`npm run check` 会报出正文、h1–h2 大标题和产品窗口标题里没有覆盖的汉字。`⇧⌘↩` 里的 ↩ 不在思源黑体里，由系统字体显示。
 
 ## 叙事与结构
 
-整页讲“一场会议”的时间线，和产品的“一场会议 = 一页”对应：
+整页跟着一场会议走：
 
-1. 首屏：「一场会议，就是一页。」，“一页”被一圈手绘墨迹圈住。右侧是唯一的产品窗口（`data-demo-app`）。
-2. 流程（`#demo`）：宽屏时窗口固定在右侧，左侧七段文字按时间（14:02 → 15:14）滚过，读到哪一段，窗口就切到哪个状态：首页 → 准备（这是什么会 / 接着上一场 / 新资料与开始前检查）→ 进行中（建议回答逐词浮现）→ 只记录与回答设置 → 结束后的纪要（校对 → 按模板整理 → 核对，然后出现面试复盘）。窗口下方的“首页 · 准备 · 进行中 · 纪要”可以直接跳。窗口里的按钮都能点：新会议、立即记录、会议类型、带入勾选、线上 / 线下、开始、提词 / 只记录、模型标签（回答设置）、更简短 / 举例 / 英文版、“…”、立即回答、计时（暂停）、结束、存进题库。
-3. 会议类型（`#scenes`）：输入会议标题时先猜类型（关键词只作演示，页面上已注明），八个类型可以直接点，右边的“会中 / 回答长度 / 纪要 / 建议放”和小窗口示意（提词时右栏有回答，只记录时右栏留空）跟着变。
-4. 系列（`#series`）：一面 → 二面 → 三面三张纸；勾掉带入的内容，二面的“AI 读到的重点”会跟着少。
-5. 声音（`#audio`）：线上 = 这台 Mac 播放的全部声音（对方）+ 麦克风（我）；线下 = 只用麦克风（现场）。电平每秒刷新 8 次。
-6. 纪要（`#notes`）：校对 / 按模板整理 / 核对三步，各附一个例子；下面是面试复盘、学术、工作会议三个模板的对比，“不足”部分用琥珀色手绘方括号标出。
-7. 看哪里（`#companion`）：提词器在摄像头下方，手机伴侣；如实写明共享整个屏幕或镜像手机时仍可能被看到。
-8. 数据去向（`#privacy`）：虚线框是“这台 Mac”，右边列出会发出去的内容和接收方。
-9. 下载（`#download`）：按钮指向 `https://github.com/OmnixSI/InterviewHacker/releases/latest`；写明 v2.0.0 起的新界面、macOS 14+、Apple Silicon、仓库目前不公开需要访问权、未经 Apple 公证的“仍要打开”与 `xattr` 命令、第一次点“开始”时才申请的两项权限、回答服务。
-10. 问答（`#faq`）与页脚手写字 “one page.”。
+1. **首屏（#top）**：「一场会议，就是 *one page.*」。标题先以带错字的灰色草稿出现（“一场汇议”“one pace”），一条紫色精修线扫过，逐字翻成得意黑，错字先划琥珀线再改正，最后紫色手写字按笔顺写出——对应产品的两遍识别和会后校对。背后是声波水面：琥珀（对方）和墨色（我）两条线在纸上起伏，两人轮流说话时说话一方的线上会落下小涟漪；鼠标划过压出涟漪，点击投下一圈。往下滚，两条线慢慢平复成一条墨线。
+2. **流程（#demo）**：宽屏（≥ 901 × 600）时整段固定，淡青色水面上放一台笔记本电脑，屏幕里是可点击的 v2 窗口。滚动依次走过七步：首页 → 准备（这是什么会 / 接着上一场 / 新资料与开始前检查）→ 进行中（回答逐词浮现）→ 只记录与回答设置 → 纪要（校对 → 整理 → 核对 → 面试复盘）。对方或你说一句话，水面在电脑左边或右边泛起涟漪；AI 给出回答时，回答下方漾开紫色的一圈。电脑随滚动从倾斜中立起，随指针轻微偏转。底部是步骤说明、进度条和“首页 · 准备 · 进行中 · 纪要”跳转。窄屏或矮屏时窗口固定在页头下方，文字从下面滚过，不启动水面。
+3. **间奏**：几句真实场景（面试追问、组会、例会被点名、客户问上线）随滚动从下方升起，越过中线时弯曲、模糊淡入淡出；中线是一条平静的墨线，句子经过时投下一圈墨色 / 琥珀 / 紫色的环。
+4. **会议类型（#scenes）**：输入标题先猜类型（关键词只作演示），八个类型的默认值和小窗口示意随之变化；手写批注“改个标题试试”。
+5. **系列（#series）**：一面 → 二面 → 三面三张纸，滚动时错落下沉；勾掉带入的内容，二面的“AI 读到的重点”跟着变。
+6. **声音（#audio）**：琥珀与墨色两条实时波形；切到“线下”，两条线合成一条“现场”。
+7. **纪要（#notes）**：校对 / 整理 / 核对三步各附例子；面试复盘、学术、工作会议三种模板像被批改过的纸：“不足”部分有琥珀色手写方括号，“待确认”被紫色圈出，时间点旁写着“点一下，跳回原话”。
+8. **手机伴侣（#companion）**：宽屏（≥ 1061 × 640）整段固定三拍：共享整个屏幕时提词器在画面里（琥珀描边）→ 手机扫码配对 → 提词器从共享画面消失、回答出现在手机上。之后手机交给读者，遥控键都能点，提示气泡依次指向“上一条 → 更简短 → 英文版”。如实写明手机被共享或镜像时同样会被看到。
+9. **数据去向（#privacy）**：“这台 Mac”用一圈手绘边线圈起来，紫色箭头指向会发出去的内容和接收方。
+10. **安装（#install）**、**问答（#faq）**。
+11. **结尾（#download）**：整屏深色水面，两路声音（琥珀、浅色）从各自位置扩散涟漪并在中间交汇，指针移动时“你”的声源跟着走；标题、紫色手写 “one page.”、下载按钮（GitHub Releases latest）、使用前提和“仓库目前不公开”的说明；版权、语言、画廊链接与字体说明以小字放在水面底部。
 
-窗口里的对话只有“对方 / 我”（线下为“现场”）。示例公司“云杉科技 / Fernway”是虚构的。所有文案以 App 仓库的 README（readme-v2 分支）、`docs/releases/v2.0.0.md`、`docs/redesign/` 和 App 的英文字符串表为准：不写“无法被检测”，不说手机伴侣“完全看不到”，不写还没做的日历接入。
+窗口里的对话只有“对方 / 我”（线下为“现场”），示例公司“云杉科技 / Fernway”为虚构。文案以 App 仓库 README（readme-v2）、`docs/releases/v2.0.0.md`、`docs/redesign/`、`NotesTemplates.swift` 与英文字符串表为准：不写“无法被检测”，不说手机伴侣“完全看不到”，不写还没做的日历接入。试用名单表单已从页面去掉；`api/waitlist.js` 与 `cloud-functions/api/waitlist.js` 仍在仓库里。
 
-旧版的试用名单表单已从页面去掉（现在可以直接下载）；`api/waitlist.js` 与 `cloud-functions/api/waitlist.js` 仍保留在仓库里，未删除。
+## 动效与降级
 
-## 动效
-
-- 只用三档时长：悬停 / 按下 120ms，展开 / 切换 200ms，阶段转场 320ms，曲线统一 `cubic-bezier(.2,.8,.2,1)`；只改透明度，不弹、不滑、不放大。回答逐词淡入，每词 160ms。手绘笔迹按 320ms 的倍数画出（首屏圈注 640ms，页脚手写字分笔画出）。
-- 进入视野的内容只做一次淡入。
-- 页头有暂停动效按钮（记在本机），`prefers-reduced-motion` 时所有内容直接出现，电平和计时停止。
-- 计时、电平只在窗口进入视野时运行。
+- 产品窗口内部只用 120 / 200 / 320ms 与 `cubic-bezier(.2,.8,.2,1)`；页面编排用 GSAP（`ih.settle` = `.16,1,.3,1`），只动 transform、opacity 与描边。
+- 水面（`field.js`）：CPU 高度场（约 6 CSS px 一格，120 Hz 固定步长，静止 3 秒后停），斜率上传为纹理，在着色器里折射线条、焦散和光；边缘用逐像素随机阈值溶进纸色。离屏、标签页隐藏、暂停动效时停止循环；WebGL 不可用时首屏显示 SVG 波形，流程和结尾显示纯色背景。
+- 页头的暂停按钮（记在本机）和 `prefers-reduced-motion`：标题直接显示定稿，笔迹直接画好，水面静止，不做平滑滚动。
+- 没有脚本时：页面完整可读，窗口停在首页，步骤文字按顺序排列，纪要模板显示第一个。
 
 ## 外观
 
-默认浅色（与产品 README 一致）。页头的月亮按钮切到深色，使用产品 `tokens.json` 的深色变量，选择记在本机；不跟随系统自动切换。
-
-## 布局
-
-- 宽屏（> 1180px）：左 5 / 右 7.4，窗口固定在右侧。
-- 901–1180px：窗口更高（1.22:1），侧边栏收起。
-- ≤ 900px：窗口固定在页头下方（约半屏高），文字从下面滚过，读线在屏幕下部；窗口内部用容器查询改成上下两栏。
-- ≤ 640px：各个示例改成单列；不出现横向滚动。
+默认浅色（与产品 README 一致）；页头月亮按钮切到深色，选择记在本机。深色下水面、窗口和纸张都换成深色变量。
 
 ## 预览截图
 
-`public/previews/final-home.png` 为 1280 × 844 浅色首页（Playwright Chromium 截取）。改动后运行 `npm run docs:sync` 同步 README 与画廊。
+`public/previews/final-home.png` 为 1280 × 844 浅色首页（Playwright Chromium 截取，等首屏标题动画结束）。改动后运行 `npm run docs:sync` 同步 README 与画廊。
 
 ## 部署到 EdgeOne Pages（腾讯云海外站）
 

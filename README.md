@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=e44625155979)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=eedfc8bab69d)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:ce825aaa875b1345e5ea27aee50e24d28bb93c99d25489b683d029a5bc0b3a65 preview:e44625155979420b9c4f8bf63479add7e147afef2c2acd018e4525274ba65c90 -->
+<!-- gallery-source:f6a3ebefc002eadf11b619c47935e2b495e001ab95835c95d1735cea30ca7e1f preview:eedfc8bab69d6ee0591f445eb11b97d6ca1e3f4ba8dc3f2e9816fc6de8546147 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -55,13 +55,13 @@
 
 ### Final · 专业 · 精致 · 最终版
 
-[![Final 首页](public/previews/final-home.png?v=f6a174bfb7a0)](https://interviewhacker.vercel.app/final/)
+[![Final 首页](public/previews/final-home.png?v=550107d680dd)](https://interviewhacker.vercel.app/final/)
 
-按 v2 的“纸与墨”重做：一场会议就是一页。思源宋体标题、手绘墨迹字形，可点击的产品窗口随滚动走完首页、准备、会中与纪要；会议类型、系列、声音、纪要模板都能动手试，附下载、安装、数据去向与问答，中英双语。
+按 v2 讲“一场会议就是一页”：得意黑大标题与紫色手写字形，可拨动的声波水面；滚动驱动的笔记本电脑里，可点击的产品窗口走完首页、准备、会中与纪要，说话时水面泛起涟漪、AI 作答时漾开紫色一圈；会议类型、系列、收音、纪要模板、手机伴侣、数据去向、安装与问答，以深色水面收尾，中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:5c840b2bc9c4702b8e032e1a168463e7d6e7f14898b174b655df207e031b7809 preview:f6a174bfb7a07ea783ecf74f7a6bf8e3d042d868b4025c0ca302adca2ee30d21 -->
+<!-- style:final source:a1b0fdd74d758ccd4344cc31068b64501689fe7b67d033d223ddd084dc4539ae preview:550107d680dd675af58ec0e9c0650ac86bf1c3e30b4757369dec05590af99bda -->
 <!-- STYLES:END -->
 
 ## 本地运行

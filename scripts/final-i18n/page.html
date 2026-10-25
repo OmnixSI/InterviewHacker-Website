@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f5f2">
+  <meta name="theme-color" content="#f6f5f1">
   <meta name="color-scheme" content="light dark">
   <title>{{ InterviewHacker — 一场会议，就是一页 ‖ InterviewHacker — One meeting, one page }}</title>
   <meta name="description" content="{{ InterviewHacker 是一个 macOS 应用。每场会议是一页：会前在这一页上准备资料，开始后变成实时转写和建议回答，结束后整理成按场景分好结构的纪要。音频只在本机识别，不保存录音。 ‖ InterviewHacker is a macOS app that gives every meeting one page: prepare on it, watch it become a live transcript with suggested answers, and end with notes organized for the kind of meeting it was. Audio is transcribed on your Mac and never saved. }}">
@@ -18,8 +18,9 @@
   <link rel="alternate" hreflang="x-default" href="{{url-zh}}">
   <link rel="icon" href="{{base}}assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{{base}}assets/manifest/apple-touch-icon.png">
-  <link rel="preload" href="{{base}}assets/fonts/{{ serif/ih-serif.woff2 ‖ serif/instrument-serif.woff2 }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{base}}assets/fonts/{{ display/ih-display.woff2 ‖ serif/instrument-serif.woff2 }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{base}}assets/fonts/fonts.css">
+  <link rel="stylesheet" href="{{base}}assets/vendor/lenis.css">
   <link rel="stylesheet" href="{{base}}style.css">
   <script src="{{base}}scripts/bootstrap.js"></script>
 </head>
@@ -62,16 +63,18 @@
   </svg>
 
   <a class="skip" href="#main">{{ 跳到主要内容 ‖ Skip to content }}</a>
+  <div class="progress" aria-hidden="true"><span></span></div>
 
   <header class="hd" data-header>
     <div class="hd__in">
       <a class="brand" href="#top" aria-label="{{ InterviewHacker 首页 ‖ InterviewHacker home }}"><svg class="brand__mark" aria-hidden="true"><use href="#i-mark"/></svg><span class="brand__name">InterviewHacker</span></a>
       <nav class="hd__nav" id="hd-nav" aria-label="{{ 页面章节 ‖ Sections }}">
-        <a href="#demo">{{ 流程 ‖ How it works }}</a>
-        <a href="#scenes">{{ 会议类型 ‖ Meeting types }}</a>
-        <a href="#notes">{{ 纪要 ‖ Notes }}</a>
-        <a href="#privacy">{{ 隐私 ‖ Privacy }}</a>
-        <a href="#faq">{{ 问答 ‖ FAQ }}</a>
+        <a href="#demo"><i>01</i>{{ 流程 ‖ Walkthrough }}</a>
+        <a href="#scenes"><i>02</i>{{ 会议类型 ‖ Types }}</a>
+        <a href="#notes"><i>03</i>{{ 纪要 ‖ Notes }}</a>
+        <a href="#companion"><i>04</i>{{ 手机 ‖ Phone }}</a>
+        <a href="#privacy"><i>05</i>{{ 隐私 ‖ Privacy }}</a>
+        <a href="#faq"><i>06</i>{{ 问答 ‖ FAQ }}</a>
       </nav>
       <div class="hd__tools">
         <div class="langs" role="group" aria-label="{{ 语言 ‖ Language }}"><a href="{{href-zh}}" hreflang="zh-CN" lang="zh-CN"{{attr-zh}}>中</a><a href="{{href-en}}" hreflang="en" lang="en"{{attr-en}}>EN</a></div>
@@ -83,98 +86,147 @@
   </header>
 
   <main id="main">
-    <div class="run" data-run>
-      <header class="hero" id="top">
-        <p class="over"><span>InterviewHacker 2.0</span><span>macOS</span></p>
-        <h1 class="hero__title" id="hero-title"><span class="hero__l">{{ 一场会议， ‖ One meeting, }}</span> <span class="hero__l">{{ 就是 ‖  }}<span class="ring">{{ 一页 ‖ one page }}{{@pen:loop}}</span>{{ 。 ‖ . }}</span></h1>
-        <p class="hero__lede">{{ InterviewHacker 是一个 Mac 应用。每场会议在它那里只占一页：会前在这一页上准备，开始后它变成实时转写和建议回答，散会时它把自己整理成纪要。 ‖ InterviewHacker is a Mac app that gives every meeting a single page. You prepare on it. Once you start, it becomes a live transcript with suggested answers. When you end the call, it turns into the notes. }}</p>
-        <div class="hero__cta">
-          <a class="btn btn--ink" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>{{ 下载 macOS 版 ‖ Download for Mac }}<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
-          <a class="btn btn--line" href="#demo-1">{{ 看它怎么用 ‖ See how it works }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
-        </div>
-        <p class="hero__fine">{{ macOS 14 或更新 · Apple Silicon · 中文 / English 界面 ‖ macOS 14 or later · Apple Silicon · English and Chinese interface }}</p>
-      </header>
-
-      <div class="stage" data-stage>
-        <div class="stage__pin">
-          <div class="stage__frame">{{@app}}</div>
-          <div class="stage__rail" role="group" aria-label="{{ 跳到某个阶段 ‖ Jump to a stage }}">
-            <button type="button" data-rail="home" aria-pressed="true">{{ 首页 ‖ Home }}</button>
-            <button type="button" data-rail="prepare" aria-pressed="false">{{ 准备 ‖ Prepare }}</button>
-            <button type="button" data-rail="live" aria-pressed="false">{{ 进行中 ‖ Live }}</button>
-            <button type="button" data-rail="notes" aria-pressed="false">{{ 纪要 ‖ Notes }}</button>
-          </div>
-          <p class="stage__note">{{ 交互示意 · 示例数据，不采集声音，不调用模型。窗口里的按钮都可以点。 ‖ Interactive mock-up · sample data, no audio, no model calls. Everything in the window is clickable. }}</p>
-        </div>
+    <!-- 1. Hero: two voices on the water; the headline arrives as a draft and is corrected in place. -->
+    <section class="hero" id="top" data-hero>
+      <div class="field" aria-hidden="true">
+        <canvas class="field__canvas" data-field></canvas>
+        <svg class="field__fallback" viewBox="0 0 1200 400" preserveAspectRatio="none"><path class="field__them" d="M0 190 C120 120 200 260 320 180 S520 110 640 190 S860 270 980 170 S1140 150 1200 190"/><path class="field__me" d="M0 214 C140 250 240 170 360 220 S560 270 700 214 S900 160 1020 226 S1150 240 1200 214"/></svg>
+        <p class="field__labels"><span class="field__l field__l--them">{{ 对方 · 这台 Mac 播放的声音 ‖ Them · what the Mac plays }}</span><span class="field__l field__l--me">{{ 我 · 麦克风 ‖ Me · microphone }}</span></p>
       </div>
+      <div class="hero__copy" data-hero-copy>
+        <p class="over"><span>InterviewHacker 2.0</span><span>macOS</span></p>
+        <h1 class="hero__title d" id="hero-title" data-two-pass data-draft="{{ 一场汇议， ‖ One meating, }}" data-draft-word="one pace">
+          <span class="sr-only">{{ 一场会议，就是一页。 ‖ One meeting, one page. }}</span>
+          <span class="hero__final" aria-hidden="true">
+            <span class="hero__line">{{ 一场会议， ‖ One meeting, }}</span>
+            <span class="hero__line">{{ 就是 ‖  }}<span class="hero__lettering">{{@onepage}}</span></span>
+          </span>
+        </h1>
+        <p class="hero__lead">{{ 会前把资料放进这一页；开会时，对方一问完，能说出口的回答就出现在屏幕上；散会后，同一页变成纪要。 ‖ Put your materials on the page before the call. During it, the moment a question ends, an answer you can say out loud appears. Afterwards, the same page becomes your notes. }}</p>
+        <div class="hero__actions">
+          <a class="btn btn--ink" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>{{ 下载 macOS 版 ‖ Download for Mac }}<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
+          <a class="btn btn--ghost" href="#demo">{{ 走一遍流程 ‖ Walk through it }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
+        </div>
+        <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>{{ 中文 / English ‖ English / 中文 }}</span></p>
+      </div>
+    </section>
 
-      <section class="steps" id="demo" aria-labelledby="demo-title">
-        <h2 class="sr-only" id="demo-title">{{ 一场会议，从准备到纪要 ‖ One meeting, from preparation to notes }}</h2>
-        <article class="step" id="demo-1" data-step="home" data-focus="start">
-          <p class="step__time"><time>{{ 14:02 ‖ 2:02 PM }}</time><span>{{ 首页 ‖ Home }}</span></p>
-          <h3>{{ 首页只问一件事：要开会了吗？ ‖ Home asks one thing: is there a meeting? }}</h3>
-          <p>{{ “新会议”进入准备页。来不及准备，就点“立即记录”（⇧⌘N）：不选类型、不放资料，马上开始，散会照样有纪要。 ‖ New meeting takes you to the prepare page. No time? Record now (⇧⌘N) skips all of that: no type, no materials, and you still get notes when it ends. }}</p>
-        </article>
-        <article class="step" data-step="prepare" data-focus="1">
-          <p class="step__time"><time>{{ 14:03 ‖ 2:03 PM }}</time><span>{{ 准备 · 1 / 4 ‖ Prepare · 1 of 4 }}</span></p>
-          <h3>{{ 先说清楚这是什么会 ‖ Say what kind of meeting it is }}</h3>
-          <p>{{ 八种类型平铺在一排。选中哪个，会中是提词还是只记录、回答写多长、纪要用哪个模板，就都定了。标题里写着“二面”，它已经替你选好了“面试”。 ‖ Eight types sit in one row. Pick one and the rest follows: prompting or notes only, how long answers run, which notes template it uses. The title says “round 2”, so Interview is already picked. }}</p>
-        </article>
-        <article class="step" data-step="prepare" data-focus="2">
-          <p class="step__time"><time>{{ 14:04 ‖ 2:04 PM }}</time><span>{{ 准备 · 2 / 4 ‖ Prepare · 2 of 4 }}</span></p>
-          <h3>{{ 二面接得上一面 ‖ Round two remembers round one }}</h3>
-          <p>{{ 它认出这是同一个系列的第 2 场，一面留下的资料、复盘、经验默认勾上。一面的完整转写太长，默认不带。取消一个勾试试，下面 AI 读到的重点会跟着变。 ‖ It recognizes the second meeting of the same series and ticks what round one left behind: materials, the review, the lessons. The full transcript is long, so it stays unticked. Untick something and watch what the AI takes away change. }}</p>
-        </article>
-        <article class="step" data-step="prepare" data-focus="3">
-          <p class="step__time"><time>{{ 14:06 ‖ 2:06 PM }}</time><span>{{ 准备 · 3–4 / 4 ‖ Prepare · 3–4 of 4 }}</span></p>
-          <h3>{{ 资料拖进来就开始读，不用等 ‖ Drop files in. It reads while you get ready. }}</h3>
-          <p>{{ 每份资料从“读取中”变成“已读懂”，读完写出它读到的重点。开始前检查只有三行：声音在跳、回答已连上、手机已连接。三个绿点，就可以开始了。 ‖ Each file goes from Reading to Read, then it writes down what it took away. Before you start there are three rows: the audio meters are moving, the answer engine is connected, the phone is paired. Three green dots and you can begin. }}</p>
-        </article>
-        <article class="step" data-step="live" data-focus="answer">
-          <p class="step__time"><time>{{ 14:30 ‖ 2:30 PM }}</time><span>{{ 进行中 ‖ Live }}</span></p>
-          <h3>{{ 开会时，窗口里只剩这场对话 ‖ During the call, the window holds this conversation and nothing else }}</h3>
-          <p>{{ 侧边栏收起。左边是实时转写，右边是建议回答，一个词一个词浮出来。回答下面只露三个改写：更简短、举例、英文版，其余收在“…”里。“立即回答”是整个窗口唯一的主按钮。 ‖ The sidebar folds away. The transcript runs on the left; the suggested answer fades in on the right, word by word. Below it, three rewrites: Shorter, Example, In English. The rest sit behind “…”. Answer now is the only primary button in the window. }}</p>
-        </article>
-        <article class="step" data-step="live" data-focus="settings">
-          <p class="step__time"><time>{{ 14:52 ‖ 2:52 PM }}</time><span>{{ 进行中 ‖ Live }}</span></p>
-          <h3>{{ 没人问你的时候，它可以一直不出声 ‖ It can stay quiet until someone asks you }}</h3>
-          <p>{{ 顶栏切到“只记录”，它就不再自动回答，需要时按 ⇧⌘↩。点一下模型名，打开回答设置：模型、快速模式、联网、回答长度，从下一个回答开始生效。 ‖ Switch the top bar to Notes only and it stops answering on its own; press ⇧⌘↩ when you need it. Click the model name for Answer settings: model, fast mode, web search, length. Changes apply from the next answer. }}</p>
-        </article>
-        <article class="step" data-step="notes" data-focus="notes">
-          <p class="step__time"><time>{{ 15:14 ‖ 3:14 PM }}</time><span>{{ 结束 ‖ Ended }}</span></p>
-          <h3>{{ 点“结束”，同一页变成纪要 ‖ End the call, and the same page becomes the notes }}</h3>
-          <p>{{ 转写交给单独的纪要模型：先校对，再按“面试复盘”整理，最后逐条核对原话。答得不好的题可以存进题库，三面准备时会自动带进来。 ‖ The transcript goes to a separate notes model. It proofreads, organizes by the interview review template, then checks each line against what was said. Questions you fumbled go into the question bank and come back when you prepare for round three. }}</p>
-        </article>
-      </section>
-    </div>
-
-    <section class="sec" id="scenes" aria-labelledby="scenes-title" data-phase-label="{{ 会前 ‖ Before }}">
-      <div class="sec__grid sec__grid--types">
-        <header class="sec__head">
-          <p class="kicker">{{ 会前 · 会议类型 ‖ Before · Meeting types }}</p>
-          <h2 id="scenes-title">{{ 选一个类型，<br>其余开关都不用碰 ‖ Pick the meeting type.<br>Leave the switches alone. }}</h2>
-          <p class="lede">{{ 面试要它及时递一句话，例会只要它安静地记。会议类型决定会中是提词还是只记录、回答写多长、纪要按什么结构整理。输入标题时它会先猜一个；猜不出来就是“通用”，八种都不合适可以自定义。 ‖ An interview needs a line at the right moment; a weekly sync only needs someone taking notes. The type decides whether it prompts or just listens, how long answers run and how the notes are laid out. It guesses from the title as you type, falls back to General, and if none of the eight fit, you can define your own. }}</p>
+    <!-- 2. The walkthrough: one device on the water; the scroll moves the meeting from home to notes. -->
+    <section class="demo" id="demo" aria-labelledby="demo-title" data-demo>
+      <div class="demo__pin" data-demo-pin>
+        <div class="pool" aria-hidden="true"><canvas data-pool></canvas></div>
+        <header class="demo__head">
+          <p class="eyebrow mono"><b>№ 01</b>{{ 一场会议 ‖ One meeting }}</p>
+          <h2 class="demo__title d" id="demo-title"><span>{{ 从打开它，到说出你的 ‖ From opening it to your }}</span><span class="demo__word">{{@nextline-lead}}</span></h2>
         </header>
-        <div class="tsel" data-tsel-root>
-          <label class="tsel__field"><span>{{ 这场会议叫什么 ‖ Meeting title }}</span><input type="text" value="{{ 云杉科技 · 后端二面 ‖ Fernway · Backend, round 2 }}" data-tsel-input autocomplete="off" spellcheck="false"><span class="tsel__guess" data-tsel-guess aria-live="polite"></span></label>
-          <p class="tsel__try"><span>{{ 试试： ‖ Try: }}</span><span data-tsel-examples></span></p>
-          {{@types}}
-          <p class="fine">{{ 交互示意：这里用来猜类型的关键词只是演示。 ‖ Mock-up: the keywords used to guess here are for illustration. }}</p>
+        <div class="demo__stage" data-stage>
+          <div class="device" data-device>
+            <div class="device__tilt">
+            <div class="device__lid">
+              <span class="device__cam" aria-hidden="true"></span>
+              <div class="device__screen">{{@app}}<i class="device__glare" aria-hidden="true"></i></div>
+            </div>
+            <div class="device__base" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="guide">
+          <div class="steps" data-steps>
+            <article class="step" id="demo-1" data-step="home" data-focus="start">
+              <p class="step__time mono"><b>01</b><time>{{ 14:02 ‖ 2:02 PM }}</time><span>{{ 首页 ‖ Home }}</span></p>
+              <h3 class="step__title d">{{ 首页只问一件事：要开会了吗？ ‖ Home asks one thing: is there a meeting? }}</h3>
+              <p class="step__body">{{ “新会议”进入准备页。来不及准备，就点“立即记录”（⇧⌘N）：不选类型、不放资料，马上开始，散会照样有纪要。 ‖ New meeting takes you to the prepare page. No time? Record now (⇧⌘N) skips it all: no type, no materials, and you still get notes when it ends. }}</p>
+            </article>
+            <article class="step" data-step="prepare" data-focus="1">
+              <p class="step__time mono"><b>02</b><time>{{ 14:03 ‖ 2:03 PM }}</time><span>{{ 准备 · 1 / 4 ‖ Prepare · 1 of 4 }}</span></p>
+              <h3 class="step__title d">{{ 先说清楚，这是什么会 ‖ First, what kind of meeting is it? }}</h3>
+              <p class="step__body">{{ 八种类型平铺在一排。选中哪个，会中是提词还是只记录、回答写多长、纪要用哪个模板，就都定了。标题里写着“二面”，它已经替你选好“面试”。 ‖ Eight types sit in one row. Pick one and the rest follows: prompting or notes only, how long answers run, which notes template it uses. The title says “round 2”, so Interview is already picked. }}</p>
+            </article>
+            <article class="step" data-step="prepare" data-focus="2">
+              <p class="step__time mono"><b>03</b><time>{{ 14:04 ‖ 2:04 PM }}</time><span>{{ 准备 · 2 / 4 ‖ Prepare · 2 of 4 }}</span></p>
+              <h3 class="step__title d">{{ 二面，接得上一面 ‖ Round two remembers round one }}</h3>
+              <p class="step__body">{{ 它认出这是同一个系列的第 2 场，一面留下的资料、复盘、经验默认勾上；一面的完整转写太长，默认不带。 ‖ It recognizes the second meeting of the same series and ticks what round one left behind: materials, the review, the lessons. The full transcript is long, so it stays unticked. }}</p>
+            </article>
+            <article class="step" data-step="prepare" data-focus="3">
+              <p class="step__time mono"><b>04</b><time>{{ 14:06 ‖ 2:06 PM }}</time><span>{{ 准备 · 3–4 / 4 ‖ Prepare · 3–4 of 4 }}</span></p>
+              <h3 class="step__title d">{{ 资料拖进来就开始读 ‖ Drop the files in; it reads while you wait }}</h3>
+              <p class="step__body">{{ 每份资料从“读取中”变成“已读懂”，读完写出它读到的重点。开始前检查只有三行：声音在跳、回答已连上、手机已连接。 ‖ Each file goes from Reading to Read, then it writes down what it took away. Before you start: the audio is moving, the answer engine is connected, the phone is paired. }}</p>
+            </article>
+            <article class="step" data-step="live" data-focus="answer">
+              <p class="step__time mono"><b>05</b><time>{{ 14:30 ‖ 2:30 PM }}</time><span>{{ 进行中 ‖ Live }}</span></p>
+              <h3 class="step__title d">{{ 对方一问完，回答就浮上来 ‖ The question ends; the answer surfaces }}</h3>
+              <p class="step__body">{{ 侧边栏收起，窗口里只剩这场对话。回答一个词一个词浮出来，下面只露三个改写：更简短、举例、英文版。“立即回答”是唯一的主按钮。 ‖ The sidebar folds away and the window holds this conversation only. The answer fades in word by word, with three rewrites below: Shorter, Example, In English. Answer now is the only primary button. }}</p>
+            </article>
+            <article class="step" data-step="live" data-focus="settings">
+              <p class="step__time mono"><b>06</b><time>{{ 14:52 ‖ 2:52 PM }}</time><span>{{ 进行中 ‖ Live }}</span></p>
+              <h3 class="step__title d">{{ 没人问你，它就不出声 ‖ Nobody asking? It stays quiet. }}</h3>
+              <p class="step__body">{{ 切到“只记录”，它不再自动回答，需要时按 ⇧⌘↩。点模型名打开回答设置：模型、快速模式、联网、回答长度，下一个回答生效。 ‖ Switch to Notes only and it stops answering on its own; press ⇧⌘↩ when you need it. Click the model name for answer settings: model, fast mode, web search, length. They apply from the next answer. }}</p>
+            </article>
+            <article class="step" data-step="notes" data-focus="notes">
+              <p class="step__time mono"><b>07</b><time>{{ 15:14 ‖ 3:14 PM }}</time><span>{{ 结束 ‖ Ended }}</span></p>
+              <h3 class="step__title d">{{ 点“结束”，同一页变成纪要 ‖ End the call; the page becomes notes }}</h3>
+              <p class="step__body">{{ 单独的纪要模型先校对转写，再按“面试复盘”整理，最后逐条核对原话。答得不好的题存进题库，三面准备时自动带进来。 ‖ A separate notes model proofreads the transcript, organizes it as an interview review, then checks each line against what was said. Fumbled questions go into the question bank for round three. }}</p>
+            </article>
+          </div>
+          <div class="guide__side">
+            <ol class="guide__bar" data-guide-bar aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+            <div class="rail" role="group" aria-label="{{ 跳到某个阶段 ‖ Jump to a stage }}">
+              <button type="button" data-rail="home" aria-pressed="true">{{ 首页 ‖ Home }}</button>
+              <button type="button" data-rail="prepare" aria-pressed="false">{{ 准备 ‖ Prepare }}</button>
+              <button type="button" data-rail="live" aria-pressed="false">{{ 进行中 ‖ Live }}</button>
+              <button type="button" data-rail="notes" aria-pressed="false">{{ 纪要 ‖ Notes }}</button>
+            </div>
+            <p class="guide__note mono">{{ 交互示意 · 示例数据，不采集声音，不调用模型 · 窗口里都可以点 ‖ Interactive mock-up · sample data, no audio, no model calls · everything in the window is clickable }}</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="sec" id="series" aria-labelledby="series-title">
-      <div class="sec__grid">
-        <header class="sec__head sec__head--row">
-          <p class="kicker">{{ 会前 · 系列 ‖ Before · Series }}</p>
-          <h2 id="series-title">{{ 二面不用从头准备 ‖ Round two doesn’t start from zero }}</h2>
-          <p class="lede">{{ 一面、二面、三面，每周一次的组会，和同一个客户谈的几轮，都是一个“系列”。系列共用资料、题库和经验；每场会议的转写和纪要各自保存。 ‖ Interview rounds, a weekly lab meeting, several calls with the same client: each is a series. A series shares its materials, question bank and lessons, while every meeting keeps its own transcript and notes. }}</p>
+    <!-- 3. Interlude: the moments it is for rise past a drop on the water. -->
+    <section class="swirl" aria-labelledby="swirl-title" data-swirl>
+      <div class="swirl__pin">
+        <div class="swirl__drop" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="swirl__col d" data-swirl-col>
+          <h2 class="swirl__stanza swirl__stanza--head" id="swirl-title"><span class="sl">{{ 会议， ‖ Meetings }}</span><span class="sl">{{ 从不等你准备好。 ‖ don’t wait for you. }}</span></h2>
+          <p class="swirl__stanza swirl__stanza--a"><span class="sl">{{ 面试官的追问， ‖ An interviewer’s follow-up, }}</span><span class="sl">{{ 停在半空。 ‖ left hanging. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--b"><span class="sl">{{ 组会上，导师一句 ‖ At lab meeting, }}</span><span class="sl"><em>{{ “这个对照组呢？” ‖ “where’s the control?” }}</em></span></p>
+          <p class="swirl__stanza swirl__stanza--c"><span class="sl">{{ 周一例会， ‖ Monday sync, }}</span><span class="sl">{{ 突然被点到名字。 ‖ your name, called. }}</span></p>
+          <p class="swirl__stanza swirl__stanza--d"><span class="sl">{{ 客户问： ‖ The client asks: }}</span><span class="sl"><em>{{ “月底能上线吗？” ‖ “live by month end?” }}</em></span></p>
+          <p class="swirl__stanza swirl__stanza--end"><span class="sl">{{ 问题落下，回答随即出现。 ‖ The question ends; the answer follows. }}</span><span class="sl">{{ 散会几分钟后，纪要也整理好了。 ‖ Minutes after, the notes are done. }}</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Meeting types: guess from the title, then see the defaults it sets. -->
+    <section class="sec" id="scenes" aria-labelledby="scenes-title">
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono"><b>№ 02</b>{{ 会议类型 ‖ Meeting types }}</p>
+          <h2 class="display d" id="scenes-title">{{ 选一个类型，<br>别的开关都不用碰。 ‖ Pick the type.<br>Leave the switches alone. }}</h2>
+          <p class="lead">{{ 面试要它及时递一句话，例会只要它安静地记。类型决定会中是提词还是只记录、回答写多长、纪要按什么结构整理。输入标题时它会先猜一个，猜不出来就是“通用”。 ‖ An interview needs a line at the right moment; a weekly sync only needs someone taking notes. The type decides whether it prompts or just listens, how long answers run and how the notes are laid out. It guesses from the title as you type, and falls back to General. }}</p>
+        </header>
+        <div class="tsel" data-tsel-root>
+          <label class="tsel__field"><span class="tsel__label mono">{{ 这场会议叫什么 ‖ Meeting title }}</span><input class="d" type="text" value="{{ 云杉科技 · 后端二面 ‖ Fernway · Backend, round 2 }}" data-tsel-input autocomplete="off" spellcheck="false"><span class="tsel__guess" data-tsel-guess aria-live="polite"></span>
+            <span class="anno anno--title" aria-hidden="true">{{@pen:arrow-up}}<b class="d">{{ 改个标题试试 ‖ try another title }}</b></span></label>
+          <p class="tsel__try"><span>{{ 试试： ‖ Try: }}</span><span data-tsel-examples></span></p>
+          {{@types}}
+          <p class="fine">{{ 交互示意：这里用来猜类型的关键词只是演示；八种都不合适时，可以自定义。 ‖ Mock-up: the keywords used to guess here are for illustration. If none of the eight fit, you can define your own. }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Series: round one, round two, round three, on the desk. -->
+    <section class="sec sec--deep" id="series" aria-labelledby="series-title">
+      <div class="wrap">
+        <header class="head head--split">
+          <div><p class="eyebrow mono"><b>№ 03</b>{{ 系列 ‖ Series }}</p>
+          <h2 class="display d" id="series-title">{{ 二面，不用从头准备。 ‖ Round two doesn’t start from zero. }}</h2></div>
+          <p class="lead">{{ 一面、二面、三面，每周的组会，同一个客户谈的几轮，都是一个“系列”。系列共用资料、题库和经验，每场的转写和纪要各自保存。 ‖ Interview rounds, a weekly lab meeting, several calls with one client: each is a series. A series shares materials, a question bank and lessons; every meeting keeps its own transcript and notes. }}</p>
         </header>
         <div class="series" data-series>
           <article class="leaf leaf--past">
-            <p class="leaf__when">{{ 10 月 22 日（周四） ‖ Thu 22 Oct }}</p>
-            <h3 class="leaf__title">{{ 一面 ‖ Round 1 }}</h3>
+            <p class="leaf__when mono">{{ 10 月 22 日（周四） ‖ Thu 22 Oct }}</p>
+            <h3 class="leaf__title d">{{ 一面 ‖ Round 1 }}</h3>
             <p class="leaf__state"><i class="dot dot--idle"></i>{{ 已结束 ‖ Ended }}</p>
             <ul class="leaf__list">
               <li><b>4</b>{{ 份资料 ‖ files }}</li>
@@ -184,8 +236,8 @@
           </article>
           <span class="series__arrow" aria-hidden="true">{{@pen:arrow}}</span>
           <article class="leaf leaf--now">
-            <p class="leaf__when">{{ 今天 14:30 ‖ Today, 2:30 PM }}</p>
-            <h3 class="leaf__title">{{ 二面 ‖ Round 2 }}</h3>
+            <p class="leaf__when mono">{{ 今天 14:30 ‖ Today, 2:30 PM }}</p>
+            <h3 class="leaf__title d">{{ 二面 ‖ Round 2 }}</h3>
             <p class="leaf__state"><i class="dot dot--ready"></i>{{ 准备中 · 带入上一场 ‖ Preparing · bringing in last time }}</p>
             <div class="leaf__carry" role="group" aria-label="{{ 带入的内容 ‖ What to bring in }}">
               <label class="check"><input type="checkbox" data-scarry="materials" checked><span class="check__box">{{@pen:tick}}</span>{{ 资料 · 简历、岗位描述等 4 份 ‖ Materials · résumé, job description and 2 more }}</label>
@@ -193,6 +245,7 @@
               <label class="check"><input type="checkbox" data-scarry="lessons" checked><span class="check__box">{{@pen:tick}}</span>{{ 经验 · “先说结论”等 3 条 ‖ Lessons · “Answer first” and 2 more }}</label>
               <label class="check"><input type="checkbox" data-scarry="transcript"><span class="check__box">{{@pen:tick}}</span>{{ 一面完整转写 · 42 分钟 ‖ Round 1 transcript · 42 min }}</label>
             </div>
+            <span class="anno anno--carry" aria-hidden="true">{{@pen:arrow-down}}<b class="d">{{ 勾掉一项看看 ‖ untick one }}</b></span>
             <div class="ai-note leaf__ai">
               <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>{{ AI 读到的重点 ‖ What AI took away }}</p>
               <ul>
@@ -205,133 +258,161 @@
           </article>
           <span class="series__arrow" aria-hidden="true">{{@pen:arrow}}</span>
           <article class="leaf leaf--next">
-            <p class="leaf__when">{{ 还没约 ‖ Not scheduled }}</p>
-            <h3 class="leaf__title">{{ 三面 ‖ Round 3 }}</h3>
+            <p class="leaf__when mono">{{ 还没约 ‖ Not scheduled }}</p>
+            <h3 class="leaf__title d">{{ 三面 ‖ Round 3 }}</h3>
             <p class="leaf__body">{{ 二面结束后，待改进的题和更好的答法存进同一个题库，三面准备时自动列出来。 ‖ After round two, the questions to improve and their better answers go into the same bank, ready when you prepare round three. }}</p>
           </article>
         </div>
-        <p class="sec__aside">{{ 没认出来？在准备页点“从以前的会议带入…”，或者在“所有会议”里右键一场，选“以此为上一场，准备下一场”。不是同一件事，就点“不是同一个系列”。 ‖ Didn’t catch it? Use “Bring in from a past meeting…” on the prepare page, or right-click a meeting in Meetings and choose “Prepare the next meeting from this one”. Wrong guess? Click “Not the same series”. }}</p>
+        <p class="aside">{{ 没认出来？在准备页点“从以前的会议带入…”，或者在“所有会议”里右键一场，选“以此为上一场，准备下一场”。认错了，就点“不是同一个系列”。 ‖ Didn’t catch it? Use “Bring in from a past meeting…” on the prepare page, or right-click a meeting in Meetings and choose “Prepare the next meeting from this one”. Wrong guess? Click “Not the same series”. }}</p>
       </div>
     </section>
 
+    <!-- 6. Audio: two voices, or one room. -->
     <section class="sec" id="audio" aria-labelledby="audio-title">
-      <div class="sec__grid sec__grid--split">
-        <header class="sec__head">
-          <p class="kicker">{{ 会中 · 声音 ‖ During · Audio }}</p>
-          <h2 id="audio-title">{{ 不用告诉它，<br>你在用哪个会议软件 ‖ It doesn’t need to know<br>which meeting app you use }}</h2>
-          <p class="lede">{{ 线上会议，它听这台 Mac 播放的全部声音，再加上你的麦克风：对方一路，你一路。大家坐在同一个房间，就只用麦克风，转写标成“现场”。 ‖ On a call, it listens to everything your Mac plays, plus your microphone: them on one channel, you on the other. When everyone is in the same room, it uses the microphone alone and labels the transcript “Room”. }}</p>
+      <div class="wrap">
+        <header class="head head--split">
+          <div><p class="eyebrow mono"><b>№ 04</b>{{ 声音 ‖ Audio }}</p>
+          <h2 class="display d" id="audio-title">{{ 用哪个会议软件，<br>它都不用知道。 ‖ Whatever app the call is in,<br>it doesn’t need to know. }}</h2></div>
+          <p class="lead">{{ 线上会议，它听这台 Mac 播放的全部声音，再加上你的麦克风：对方一路，你一路。大家坐在同一个房间，就只用麦克风，转写标成“现场”。 ‖ On a call, it listens to everything your Mac plays plus your microphone: them on one channel, you on the other. When everyone is in the same room, it uses the microphone alone and labels the transcript “Room”. }}</p>
         </header>
         <div class="audio" data-audio-root data-audio-mode="online">
           <div class="seg" role="group" aria-label="{{ 会议在哪里开 ‖ Where the meeting happens }}"><button type="button" data-amode="online" aria-pressed="true">{{ 线上 ‖ Online }}</button><button type="button" data-amode="offline" aria-pressed="false">{{ 线下 ‖ In person }}</button></div>
-          <div class="audio__map">
-            <div class="lane lane--them when-online"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-speaker"/></svg><b>{{ 这台 Mac 播放的全部声音 ‖ Everything this Mac plays }}</b><small>{{ 腾讯会议、飞书、Zoom、浏览器里的会议，都从这里出来 ‖ Zoom, Teams, Google Meet, a call in a browser tab: it all comes out here }}</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">{{ 对方 ‖ Them }}</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-            <div class="lane lane--me when-online"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>{{ 麦克风 ‖ Microphone }}</b><small>{{ 你说的话 ‖ What you say }}</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">{{ 我 ‖ Me }}</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-            <div class="lane lane--room when-offline"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>{{ 麦克风 ‖ Microphone }}</b><small>{{ 房间里所有人的声音都在这一路 ‖ Everyone in the room comes through this one channel }}</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">{{ 现场 ‖ Room }}</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="audio__river">
+            <canvas class="audio__wave" data-awave aria-hidden="true"></canvas>
+            <p class="audio__src audio__src--them when-online"><svg class="ic" aria-hidden="true"><use href="#i-speaker"/></svg><b>{{ 对方 ‖ Them }}</b><span>{{ 这台 Mac 播放的全部声音 · 腾讯会议、飞书、Zoom、浏览器里的会议都一样 ‖ Everything this Mac plays · Zoom, Teams, Meet or a browser tab, all the same }}</span></p>
+            <p class="audio__src audio__src--me when-online"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>{{ 我 ‖ Me }}</b><span>{{ 麦克风 ‖ Microphone }}</span></p>
+            <p class="audio__src audio__src--room when-offline"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>{{ 现场 ‖ Room }}</b><span>{{ 只用麦克风，房间里所有人的声音都在这一路 ‖ Microphone only; everyone in the room is on this one channel }}</span></p>
           </div>
-          <ol class="audio__lines when-online">{{@audio:online}}</ol>
-          <ol class="audio__lines when-offline">{{@audio:offline}}</ol>
-          <ul class="facts">
-            <li><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>{{ 音频只在这台 Mac 上识别，不保存录音。 ‖ Audio is transcribed on this Mac and never saved. }}</li>
-            <li class="when-online">{{ 电脑同时在放音乐或视频？可以把范围缩小到只听某个窗口。 ‖ Music or a video playing too? Narrow it down to a single window. }}</li>
-            <li class="when-offline">{{ 会中默认只记录；纪要只在原话里点了名时，才把事情记到具体的人头上。 ‖ Notes only by default. The notes only put a task on someone when they were named out loud. }}</li>
-            <li class="when-offline">{{ 笔记本放在桌子中间；人多的房间，外接一个会议麦克风更稳。 ‖ Put the laptop in the middle of the table; for a big room, an external conference mic helps. }}</li>
-          </ul>
+          <div class="audio__below">
+            <ol class="audio__lines when-online">{{@audio:online}}</ol>
+            <ol class="audio__lines when-offline">{{@audio:offline}}</ol>
+            <ul class="facts">
+              <li class="facts__key"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>{{ 音频只在这台 Mac 上识别，不保存录音。 ‖ Audio is transcribed on this Mac and never saved. }}</li>
+              <li class="when-online">{{ 电脑同时在放音乐或视频？可以把范围缩小到只听某个窗口。 ‖ Music or a video playing too? Narrow it to a single window. }}</li>
+              <li class="when-offline">{{ 会中默认只记录；纪要只在原话里点了名时，才把事情记到具体的人头上。 ‖ Notes only by default. A task is only put on someone who was named out loud. }}</li>
+              <li class="when-offline">{{ 笔记本放在桌子中间；人多的房间，外接一个会议麦克风更稳。 ‖ Put the laptop in the middle of the table; a conference mic helps in a big room. }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="sec sec--paper" id="notes" aria-labelledby="notes-title">
-      <div class="sec__grid">
-        <header class="sec__head sec__head--row">
-          <p class="kicker">{{ 会后 · 纪要 ‖ After · Notes }}</p>
-          <h2 id="notes-title">{{ 散会以后，<br>留下一份能直接发出去的纪要 ‖ After the call,<br>notes you can send as they are }}</h2>
-          <p class="lede">{{ 会中的回答求快，纪要不赶时间，所以它用另一个模型、另一套流程。点“结束”后在后台整理，通常 1–3 分钟，不耽误你开下一场。 ‖ Live answers are about speed. Notes can take their time, so they get a separate model and their own process. They’re written in the background once you end, usually within one to three minutes, and you can start your next meeting meanwhile. }}</p>
+    <!-- 7. Notes: proofread, organize, check; three templates marked up like a page under review. -->
+    <section class="sec sec--deep" id="notes" aria-labelledby="notes-title">
+      <div class="wrap">
+        <header class="head head--split">
+          <div><p class="eyebrow mono"><b>№ 05</b>{{ 纪要 ‖ Notes }}</p>
+          <h2 class="display d" id="notes-title">{{ 散会以后，<br>留下一份<br>能直接发出去的纪要。 ‖ After the call,<br>notes you can send<br>as they are. }}</h2></div>
+          <p class="lead">{{ 会中的回答求快，纪要不赶时间，所以它用另一个模型、另一套流程。点“结束”后在后台整理，通常 1–3 分钟，不耽误你开下一场。 ‖ Live answers are about speed; notes can take their time, so they get a separate model and their own process. They’re written in the background once you end, usually within one to three minutes. }}</p>
         </header>
         <ol class="process">
           <li>
             <p class="process__n">01</p>
-            <h3>{{ 校对转写 ‖ Proofread }}</h3>
-            <p>{{ 结合上下文和资料里的专有名词，改掉识别错误。不重新识别声音；改过的地方带虚线，原文一直留着，可以撤销。 ‖ Fixes recognition errors using the context and the names and terms in your materials. Nothing is re-transcribed. Every change is underlined, the original stays, and you can undo it. }}</p>
+            <h3 class="d">{{ 校对转写 ‖ Proofread }}</h3>
+            <p>{{ 结合上下文和资料里的专有名词，改掉识别错误。不重新识别声音；改过的地方带虚线，原文一直留着，可以撤销。 ‖ Fixes recognition errors using the context and the names and terms in your materials. Nothing is re-transcribed; every change is underlined and can be undone. }}</p>
             <p class="process__eg">{{ “先把<span class="fix" tabindex="0" data-was="原来识别为：缓存鸡穿">缓存击穿</span>的方案讲完整” ‖ “we moved the hot queries to <span class="fix" tabindex="0" data-was="Originally recognized as: radish">Redis</span>” }}</p>
           </li>
           <li>
             <p class="process__n">02</p>
-            <h3>{{ 按模板整理 ‖ Organize by template }}</h3>
-            <p>{{ 面试、组会、例会，各有各的结构。每一条都带原话的时间点，点一下跳回转写。 ‖ An interview, a lab meeting and a weekly sync each get their own structure. Every item carries the moment it was said; click it to jump back to the transcript. }}</p>
+            <h3 class="d">{{ 按模板整理 ‖ Organize by template }}</h3>
+            <p>{{ 面试、组会、例会，各有各的结构。每一条都带原话的时间点，点一下跳回转写。 ‖ An interview, a lab meeting and a weekly sync each get their own structure. Every item carries the moment it was said; click it to jump back. }}</p>
             <p class="process__eg">{{ 回归测试并给出结果 <span class="ts">[05:40]</span> ‖ Run regression tests and report results <span class="ts">[05:40]</span> }}</p>
           </li>
           <li>
             <p class="process__n">03</p>
-            <h3>{{ 核对 ‖ Check }}</h3>
-            <p>{{ 没有原话依据的条目删掉。“周四交付”按会议日期换成具体日期。人名听不清、截止时间有两种说法，就标“待确认”。 ‖ Items with nothing behind them in the transcript are dropped. “Due Thursday” becomes a date, counted from the meeting day. Unclear names and deadlines given two ways are marked “To confirm”. }}</p>
+            <h3 class="d">{{ 核对 ‖ Check }}</h3>
+            <p>{{ 没有原话依据的条目删掉；“周四交付”按会议日期换成具体日期；人名听不清、截止时间有两种说法，标“待确认”。 ‖ Items with nothing behind them are dropped. “Due Thursday” becomes a date counted from the meeting day. Unclear names and deadlines given two ways are marked “To confirm”. }}</p>
             <p class="process__eg">{{ <s>周四</s> → 10 月 29 日（周四） <span class="badge badge--caution">待确认</span> ‖ <s>Thursday</s> → Thu 29 Oct <span class="badge badge--caution">To confirm</span> }}</p>
           </li>
         </ol>
         <div class="tpl" data-tpl>
           <div class="tpl__intro">
-            <h3>{{ 同样是纪要，三种会议写出三种样子 ‖ Three meetings, three kinds of notes }}</h3>
-            <p>{{ 每个模板都有一部分专门写“不足”：答得不好的、没讨论透的、有风险却没人管的。普通的会议摘要最容易漏掉的，就是这一部分。 ‖ Every template has a section for the gaps: weak answers, questions left unsettled, risks nobody owns. That’s exactly what an ordinary summary tends to leave out. }}</p>
-            <p class="fine">{{ 内置 7 个模板：面试复盘、学术、工作会议、客户沟通、讲座 / 课程、小组讨论、通用；也可以复制一份改成自己的。 ‖ Seven built in: interview review, academic, work meeting, client call, lecture / class, group discussion and general. Copy any of them to make your own. }}</p>
+            <h3 class="d">{{ 同样是纪要，<br>三种会议，三种写法。 ‖ Three meetings,<br>three kinds of notes. }}</h3>
+            <p>{{ 每个模板都有一部分专门写“不足”：答得不好的、没讨论透的、有风险却没人管的。普通的会议摘要最容易漏掉的，就是这一部分。 ‖ Every template has a section for the gaps: weak answers, questions left unsettled, risks nobody owns. That’s exactly what an ordinary summary leaves out. }}</p>
+            <p class="fine">{{ 内置 7 个模板：面试复盘、学术、工作会议、客户沟通、讲座 / 课程、小组讨论、通用；也可以复制一份改成自己的。 ‖ Seven built in: interview review, academic, work meeting, client call, lecture / class, group discussion and general. Copy any to make your own. }}</p>
           </div>
           {{@templates}}
         </div>
       </div>
     </section>
 
-    <section class="sec" id="companion" aria-labelledby="companion-title">
-      <div class="sec__grid sec__grid--split">
-        <header class="sec__head">
-          <p class="kicker">{{ 会中 · 看哪里 ‖ During · Where to look }}</p>
-          <h2 id="companion-title">{{ 回答放在<br>你本来就会看的地方 ‖ Answers go where<br>your eyes already are }}</h2>
-          <p class="lede">{{ 提词器是一条细长的浮窗，拖到摄像头下方，读的时候视线不用离开对方。也可以打开手机伴侣：手机扫码配对，回答出现在手机上，更简短、举例、上一条都能在手机上点。 ‖ The teleprompter is a slim floating strip. Drag it just below the camera and you can read without looking away. Or turn on the phone companion: scan a code to pair, and answers show up on your phone, with Shorter, Example and Previous right there. }}</p>
-          <div class="note-box">
-            <p class="note-box__title"><i class="dot dot--caution"></i>{{ 先说清楚 ‖ To be clear }}</p>
-            <p>{{ 只共享某个窗口或浏览器标签页时，对方看不到提词器。共享整个屏幕时，macOS 没有能保证把它排除在外的公开接口，可以在 设置 → 提词器 里做一次共享可见性测试，或者改用手机。手机屏幕被共享或镜像到 Mac 时，一样会被看到。 ‖ If you share a single window or browser tab, the teleprompter isn’t in the picture. If you share the whole screen, macOS offers no public way to guarantee it stays out; run the screen-sharing visibility test in Settings → Teleprompter, or use your phone. A phone that is shared or mirrored to the Mac can be seen too. }}</p>
+    <!-- 8. Phone companion: pinned for three beats on wide screens. -->
+    <section class="companion" id="companion" aria-labelledby="companion-title" data-companion>
+      <div class="companion__pin" data-companion-pin>
+        <div class="wrap companion__grid">
+          <div class="companion__text">
+            <p class="eyebrow mono"><b>№ 06</b>{{ 手机伴侣 ‖ Phone companion }}</p>
+            <h2 id="companion-title" class="display d">{{ 要共享整个屏幕？<br>回答放到手机上。 ‖ Sharing your whole screen?<br>Read your phone. }}</h2>
+            <ol class="beats" data-beats>
+              <li class="beat is-on"><span class="mono">i.</span><b class="d">{{ 提词器可能被拍进去。 ‖ The teleprompter may show. }}</b><p>{{ 只共享某个窗口时，对方看不到提词器；共享整个屏幕时，macOS 没法保证把它排除在外。 ‖ Share a single window and it stays out of the picture. Share the whole screen and macOS can’t promise that. }}</p></li>
+              <li class="beat"><span class="mono">ii.</span><b class="d">{{ 扫一下，手机就连上。 ‖ One scan, and the phone is in. }}</b><p>{{ 在 Mac 上打开手机伴侣，用手机相机扫配对码，打开的网页就是你的提词屏。会中顶栏显示手机连着没有。 ‖ Turn on the phone companion and scan the code with your phone’s camera; the page that opens is your prompter. The top bar shows whether it’s connected. }}</p></li>
+              <li class="beat"><span class="mono">iii.</span><b class="d">{{ 回答在手机上，也在手机上改。 ‖ Answers on the phone, and the controls too. }}</b><p>{{ 只同步当前的问题和回答；更简短、举例、换语言、上一条，都能在手机上点。手机本身被共享或镜像到 Mac 时，一样会被看到。 ‖ Only the current question and answer sync; Shorter, Example, language and Previous are all on the phone. A phone that is shared or mirrored to the Mac can be seen too. }}</p></li>
+            </ol>
           </div>
-        </header>
-        <div class="look" aria-hidden="true">
-          <div class="look__screen">
-            <span class="look__cam"></span>
-            <div class="prompter">
-              <p class="prompter__q">{{ 如果删除缓存失败了怎么办？ ‖ And if deleting the cache fails? }}</p>
-              <p class="prompter__a">{{ 删失败的 key 进重试队列，后台继续重试；同时订阅 binlog，再异步删一次，两道保险。 ‖ A failed delete goes to a retry queue and keeps retrying, and the binlog subscriber deletes it once more. Two safety nets. }}</p>
-              <p class="prompter__bar"><span>{{ 更简短 ‖ Shorter }}</span><span>{{ 举例 ‖ Example }}</span><span>{{ 英文版 ‖ In English }}</span><span class="prompter__more">···</span><span class="prompter__go">{{ 立即回答 ‖ Answer now }}</span></p>
+          <div class="companion__stage" data-companion-stage>
+            <div class="cmac" aria-hidden="true">
+              <div class="cmac__screen">
+                <p class="cmac__share mono"><i></i>{{ 正在共享整个屏幕 ‖ Sharing entire screen }}</p>
+                <div class="cmac__call"><span><b>{{ 对方 ‖ Them }}</b></span><span><b>{{ 我 ‖ Me }}</b></span></div>
+                <div class="cmac__prompter"><p>{{ 删失败的 key 进重试队列，同时订阅 binlog 再删一次… ‖ A failed delete goes to a retry queue, and the binlog subscriber deletes it again… }}</p></div>
+                <div class="cmac__pair" data-pair>
+                  <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
+                  <p><b>{{ 用手机相机扫一扫 ‖ Scan with your phone’s camera }}</b><span class="mono">{{ 一次性配对码 ‖ One-time pairing code }}</span></p>
+                </div>
+              </div>
+              <div class="cmac__base"></div>
             </div>
-            <div class="look__call"><span><b>{{ 对方 ‖ Them }}</b></span><span><b>{{ 我 ‖ Me }}</b></span></div>
-            <p class="look__label">{{ 提词器 ‖ Teleprompter }}</p>
-          </div>
-          <div class="phone">
-            <span class="phone__notch"></span>
-            <p class="phone__state"><i class="dot dot--ready"></i>{{ 已连接 · 局域网 ‖ Connected · Local network }}</p>
-            <p class="phone__q">{{ 如果删除缓存失败了怎么办？ ‖ And if deleting the cache fails? }}</p>
-            <p class="phone__a">{{ 删失败的 key 进重试队列，后台继续重试；同时订阅 binlog，再异步删一次，两道保险。 ‖ A failed delete goes to a retry queue and keeps retrying, and the binlog subscriber deletes it once more. Two safety nets. }}</p>
-            <p class="phone__bar"><span>{{ 更简短 ‖ Shorter }}</span><span>{{ 举例 ‖ Example }}</span><span>{{ 上一条 ‖ Previous }}</span></p>
+            <p class="companion__tag companion__tag--them mono" aria-hidden="true">{{ 对方看到的 ‖ What they see }}</p>
+            <div class="phone" data-phone>
+              <span class="phone__island" aria-hidden="true"></span>
+              <div class="phone__screen">
+                <div class="phone__scan" data-scan aria-hidden="true"><i class="phone__finder"></i><i class="phone__beam"></i><span class="mono">{{ 正在识别配对码 ‖ Reading the code }}</span></div>
+                <div class="phone__live" data-live>
+                  <p class="phone__bar mono"><span>14:31</span><span class="phone__ok"><i class="dot dot--ready"></i>{{ 已连接 · 局域网 ‖ Connected · Local }}</span></p>
+                  <p class="phone__count mono" data-phone-count>2 / 2</p>
+                  <p class="phone__q" data-phone-q></p>
+                  <p class="phone__a" data-phone-a aria-live="polite"></p>
+                  <div class="phone__keys" role="group" aria-label="{{ 遥控 ‖ Remote }}">
+                    <button type="button" data-remote="answer" class="is-primary">{{ 回答 ‖ Answer }}</button>
+                    <button type="button" data-remote="shorter">{{ 更简短 ‖ Shorter }}</button>
+                    <button type="button" data-remote="example">{{ 举例 ‖ Example }}</button>
+                    <button type="button" data-remote="english">{{ 英文版 ‖ In English }}</button>
+                    <button type="button" data-remote="prev">‹ {{ 上一条 ‖ Prev }}</button>
+                    <button type="button" data-remote="next">{{ 下一条 ‖ Next }} ›</button>
+                  </div>
+                </div>
+              </div>
+              <p class="coach" data-coach role="status" aria-live="polite"><span data-coach-text></span></p>
+            </div>
+            <p class="companion__tag companion__tag--me mono" aria-hidden="true">{{ 在你手里的 ‖ In your hand }}</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 9. Where data goes: a boundary drawn by hand around this Mac. -->
     <section class="sec" id="privacy" aria-labelledby="privacy-title">
-      <div class="sec__grid">
-        <header class="sec__head sec__head--wide">
-          <p class="kicker">{{ 数据去向 ‖ Where your data goes }}</p>
-          <h2 id="privacy-title">{{ 哪些留在这台 Mac 上，<br>哪些会发出去，发给谁 ‖ What stays on your Mac,<br>and what leaves it, for whom }}</h2>
+      <div class="wrap">
+        <header class="head">
+          <p class="eyebrow mono"><b>№ 07</b>{{ 数据去向 ‖ Where your data goes }}</p>
+          <h2 class="display d" id="privacy-title">{{ 哪些留在这台 Mac 上，<br>哪些发出去，发给谁。 ‖ What stays on your Mac,<br>what leaves, and for whom. }}</h2>
         </header>
         <div class="ledger">
           <div class="ledger__col ledger__col--mac">
-            <p class="ledger__label">{{ 留在这台 Mac 上 ‖ Stays on this Mac }}</p>
+            <svg class="ledger__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" vector-effect="non-scaling-stroke" d="M8 2.5C30 1.6 70 2.2 93 3.2 97.6 3.6 98.2 7 98.1 12 97.8 40 98.4 70 97.6 91.5 97.3 96.4 94 97.6 88 97.7 62 98.3 34 97.6 9.5 97.1 4 97 2.2 94.6 2.1 89 1.8 64 2.3 35 2.6 10 2.7 4.6 4.6 2.8 9.6 2.4"/></svg>
+            <p class="ledger__label d">{{ 留在这台 Mac 上 ‖ Stays on this Mac }}</p>
             <dl>
               <div><dt>{{ 声音 ‖ Audio }}</dt><dd>{{ 在本机识别成文字，录音不保存。 ‖ Transcribed on the Mac. Recordings are never kept. }}</dd></div>
               <div><dt>{{ 资料 ‖ Materials }}</dt><dd>{{ 在本机解析，跟着所属的系列存在本机。 ‖ Parsed on the Mac and stored with their series. }}</dd></div>
-              <div><dt>{{ 会议记录与纪要 ‖ Meetings and notes }}</dt><dd>{{ 存在本机的一个文件夹里，不含音频；可以关掉记录、导出或删除。 ‖ Kept in one folder on the Mac, without audio. You can turn recording off, export or delete them. }}</dd></div>
+              <div><dt>{{ 会议记录与纪要 ‖ Meetings and notes }}</dt><dd>{{ 存在本机的一个文件夹里，不含音频；可以关掉记录、导出或删除。 ‖ Kept in one folder on the Mac, without audio. Turn recording off, export or delete any time. }}</dd></div>
               <div><dt>{{ API Key ‖ API keys }}</dt><dd>{{ 存在系统钥匙串。 ‖ Stored in the system keychain. }}</dd></div>
             </dl>
           </div>
           <div class="ledger__mid" aria-hidden="true">{{@pen:arrow}}</div>
           <div class="ledger__col">
-            <p class="ledger__label">{{ 会发出去的 ‖ Leaves the Mac }}</p>
+            <p class="ledger__label d">{{ 会发出去的 ‖ Leaves the Mac }}</p>
             <dl>
-              <div><dt>{{ 你选的回答服务 ‖ Your answer engine }}</dt><dd>{{ 转写、识别出的问题、相关的资料片段、截图和启用的技能。可以是 Codex，也可以是你自己配置的 API。 ‖ The transcript, detected questions, relevant snippets from your materials, screenshots and any skills you enabled. Codex, or an API you set up yourself. }}</dd></div>
+              <div><dt>{{ 你选的回答服务 ‖ Your answer engine }}</dt><dd>{{ 转写、识别出的问题、相关的资料片段、截图和启用的技能。可以是 Codex，也可以是你自己配置的 API。 ‖ The transcript, detected questions, relevant snippets from your materials, screenshots and any skills you enabled. Codex, or an API you set up. }}</dd></div>
               <div><dt>{{ 你选的纪要模型 ‖ Your notes model }}</dt><dd>{{ 这场会议的转写和资料片段，用来整理纪要。可以在 设置 → 纪要 关掉自动整理。 ‖ This meeting’s transcript and material snippets, to write the notes. Turn automatic notes off in Settings → Notes. }}</dd></div>
               <div><dt>{{ 联网搜索（开启时） ‖ Web search (when on) }}</dt><dd>{{ 需要最新信息的问题交给 Codex 联网搜索，或者只把问题文本发给 Tavily。 ‖ Questions that need fresh information go to Codex web search, or only the question text goes to Tavily. }}</dd></div>
               <div><dt>{{ 云端识别（你选了才有） ‖ Cloud recognition (only if you choose it) }}</dt><dd>{{ 勾选同意后，音频实时发给你选的服务商。默认不用。 ‖ Once you opt in, audio streams to the provider you picked. Off by default. }}</dd></div>
@@ -339,43 +420,40 @@
             </dl>
           </div>
         </div>
-        <p class="sec__aside">{{ 请遵守会议、课程、考试和面试方的规则，录音和转写之前取得参与者的同意。 ‖ Follow the rules of whatever meeting, class, exam or interview you’re in, and get people’s consent before recording or transcribing. }}</p>
+        <p class="aside">{{ 不做“隐身”承诺：请遵守会议、课程、考试和面试方的规则，录音和转写之前取得参与者的同意。 ‖ No stealth promises: follow the rules of the meeting, class, exam or interview you’re in, and get people’s consent before recording or transcribing. }}</p>
       </div>
     </section>
 
-    <section class="sec sec--ink" id="download" aria-labelledby="download-title">
-      <div class="sec__grid">
-        <div class="dl">
-          <div class="dl__main">
-            <p class="kicker">{{ 下载 ‖ Download }}</p>
-            <h2 id="download-title">{{ 把下一场会，<br>放到一页上 ‖ Put your next meeting<br>on one page }}</h2>
-            <p class="dl__cta"><a class="btn btn--paper btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>{{ 下载 macOS 版 ‖ Download for Mac }}<svg aria-hidden="true"><use href="#i-dl"/></svg></a></p>
-            <p class="dl__meta">{{ GitHub Releases · InterviewHacker-版本号-macOS-arm64.dmg ‖ GitHub Releases · InterviewHacker-version-macOS-arm64.dmg }}</p>
-            <ul class="dl__req">
-              <li>{{ v2.0.0 起的新界面 ‖ The new interface, from v2.0.0 }}</li>
-              <li>{{ macOS 14 或更新 ‖ macOS 14 or later }}</li>
-              <li>{{ Apple Silicon（M 系列芯片） ‖ Apple Silicon (M-series) }}</li>
-            </ul>
-            <p class="dl__fine">{{ 仓库目前不公开，下载需要仓库访问权。 ‖ The repository is private for now; downloading needs access to it. }}</p>
-          </div>
-          <ol class="install">
-            <li><span class="install__n">1</span><div><h3>{{ 拖进“应用程序” ‖ Drag it into Applications }}</h3><p>{{ 打开下载的 dmg，把 InterviewHacker 拖进“应用程序”。 ‖ Open the dmg and drag InterviewHacker into Applications. }}</p></div></li>
-            <li><span class="install__n">2</span><div><h3>{{ 第一次打开 ‖ Open it the first time }}</h3><p>{{ 应用还没有经过 Apple 公证，macOS 会拦下来。打开 系统设置 → 隐私与安全性，在页面底部点“仍要打开”。也可以在终端执行： ‖ The app isn’t notarized by Apple yet, so macOS blocks it. Go to System Settings → Privacy &amp; Security and click “Open Anyway” near the bottom. Or run this in Terminal: }}</p><p class="code"><code data-copy-src>xattr -dr com.apple.quarantine /Applications/InterviewHacker.app</code><button type="button" class="code__copy" data-copy data-done="{{ 已复制 ‖ Copied }}" aria-label="{{ 复制命令 ‖ Copy command }}"><svg aria-hidden="true"><use href="#i-copy"/></svg><span>{{ 复制 ‖ Copy }}</span></button></p></div></li>
-            <li><span class="install__n">3</span><div><h3>{{ 第一次点“开始” ‖ Click Start once }}</h3><p>{{ 这时才会申请两项权限：屏幕与系统音频录制（听对方）、麦克风（听你）。本机识别模型第一次需要下载，约 270 MB。 ‖ That’s when it asks for two permissions: screen and system audio recording (to hear them) and the microphone (to hear you). The on-device speech model downloads once, about 270 MB. }}</p></div></li>
-            <li><span class="install__n">4</span><div><h3>{{ 连上回答服务 ‖ Connect an answer engine }}</h3><p>{{ 有 ChatGPT 账号可以用 Codex；也可以填任意 OpenAI 兼容服务的 API Key，比如 DeepSeek、通义千问、Kimi，或者本机的 Ollama。 ‖ With a ChatGPT account you can use Codex. Otherwise, add an API key for any OpenAI-compatible service, such as DeepSeek, Qwen or Kimi, or point it at Ollama on your own machine. }}</p></div></li>
-          </ol>
-        </div>
+    <!-- 10. Install. -->
+    <section class="sec sec--deep" id="install" aria-labelledby="install-title">
+      <div class="wrap install-wrap">
+        <header class="head">
+          <p class="eyebrow mono"><b>№ 08</b>{{ 安装 ‖ Install }}</p>
+          <h2 class="display d" id="install-title">{{ 四步，<br>开第一场会。 ‖ Four steps<br>to your first meeting. }}</h2>
+          <ul class="req">
+            <li>{{ v2.0.0 起的新界面 ‖ The new interface, from v2.0.0 }}</li>
+            <li>{{ macOS 14 或更新 ‖ macOS 14 or later }}</li>
+            <li>{{ Apple Silicon（M 系列） ‖ Apple Silicon (M-series) }}</li>
+          </ul>
+        </header>
+        <ol class="install">
+          <li><span class="install__n">1</span><div><h3>{{ 拖进“应用程序” ‖ Drag it into Applications }}</h3><p>{{ 从 GitHub Releases 下载 InterviewHacker-版本号-macOS-arm64.dmg，打开后拖进“应用程序”。 ‖ Download InterviewHacker-version-macOS-arm64.dmg from GitHub Releases, open it and drag the app into Applications. }}</p></div></li>
+          <li><span class="install__n">2</span><div><h3>{{ 第一次打开 ‖ Open it the first time }}</h3><p>{{ 应用还没有经过 Apple 公证，macOS 会拦下来。打开 系统设置 → 隐私与安全性，在页面底部点“仍要打开”。也可以在终端执行： ‖ The app isn’t notarized by Apple yet, so macOS blocks it. Go to System Settings → Privacy &amp; Security and click “Open Anyway” near the bottom. Or run this in Terminal: }}</p><p class="code"><code data-copy-src>xattr -dr com.apple.quarantine /Applications/InterviewHacker.app</code><button type="button" class="code__copy" data-copy data-done="{{ 已复制 ‖ Copied }}" aria-label="{{ 复制命令 ‖ Copy command }}"><svg aria-hidden="true"><use href="#i-copy"/></svg><span>{{ 复制 ‖ Copy }}</span></button></p></div></li>
+          <li><span class="install__n">3</span><div><h3>{{ 第一次点“开始” ‖ Click Start once }}</h3><p>{{ 这时才申请两项权限：屏幕与系统音频录制（听对方）、麦克风（听你）。本机识别模型第一次需要下载，约 270 MB。 ‖ That’s when it asks for two permissions: screen and system audio recording (to hear them) and the microphone (to hear you). The on-device speech model downloads once, about 270 MB. }}</p></div></li>
+          <li><span class="install__n">4</span><div><h3>{{ 连上回答服务 ‖ Connect an answer engine }}</h3><p>{{ 有 ChatGPT 账号可以用 Codex；也可以填任意 OpenAI 兼容服务的 API Key，比如 DeepSeek、通义千问、Kimi，或者本机的 Ollama。 ‖ With a ChatGPT account you can use Codex. Otherwise, add an API key for any OpenAI-compatible service, such as DeepSeek, Qwen or Kimi, or point it at Ollama on your machine. }}</p></div></li>
+        </ol>
       </div>
     </section>
 
+    <!-- 11. FAQ. -->
     <section class="sec" id="faq" aria-labelledby="faq-title">
-      <div class="sec__grid sec__grid--faq">
-        <header class="sec__head">
-          <p class="kicker">{{ 问答 ‖ FAQ }}</p>
-          <h2 id="faq-title">{{ 常被问到的 ‖ Questions people ask }}</h2>
+      <div class="wrap faq-wrap">
+        <header class="head">
+          <p class="eyebrow mono"><b>№ 09</b>{{ 问答 ‖ FAQ }}</p>
+          <h2 class="display d" id="faq-title">{{ 常被问到的。 ‖ Questions people ask. }}</h2>
         </header>
         <div class="faq">
-          <details><summary>{{ 对方会知道我在用它吗？ ‖ Will the other side know I’m using it? }}</summary><p>{{ 它不往会议里发任何东西，只在你的 Mac 上听、在你的屏幕或手机上显示。但它不是隐身的：共享整个屏幕时，提词器可能被拍到，见上面“看哪里”一节。用不用、怎么用，请遵守会议方的规则。 ‖ It doesn’t send anything into the meeting; it listens on your Mac and shows things on your screen or phone. It isn’t invisible, though: if you share your whole screen, the teleprompter may show up (see “Where to look” above). Whether and how you use it is up to the rules of the meeting. }}</p></details>
+          <details><summary>{{ 对方会知道我在用它吗？ ‖ Will the other side know I’m using it? }}</summary><p>{{ 它不往会议里发任何东西，只在你的 Mac 上听、在你的屏幕或手机上显示。但它不是隐身的：共享整个屏幕时，提词器可能被拍到，见上面“手机伴侣”一节。用不用、怎么用，请遵守会议方的规则。 ‖ It doesn’t send anything into the meeting; it listens on your Mac and shows things on your screen or phone. It isn’t invisible, though: if you share your whole screen, the teleprompter may show up (see “Phone companion” above). Whether and how you use it is up to the rules of the meeting. }}</p></details>
           <details><summary>{{ 支持哪些会议软件？ ‖ Which meeting apps does it work with? }}</summary><p>{{ 它不挑。线上会议听的是这台 Mac 播放出来的声音，腾讯会议、飞书、钉钉、Zoom、Teams、浏览器里的会议都一样，不需要识别你用的是哪个。 ‖ It doesn’t care. On a call it listens to what your Mac plays, so Zoom, Teams, Google Meet, Webex or a meeting in a browser tab all work the same way. It never needs to detect which one you’re using. }}</p></details>
           <details><summary>{{ 会保存录音吗？ ‖ Does it keep recordings? }}</summary><p>{{ 不会。声音在本机识别成文字，录音不落盘。保存下来的是转写、回答和纪要，都在你这台 Mac 上。只有你主动选择云端识别并同意之后，音频才会发给对应的服务商。 ‖ No. Audio is turned into text on your Mac and never written to disk. What’s kept is the transcript, the answers and the notes, all on your Mac. Audio only leaves the Mac if you choose cloud recognition and agree to it. }}</p></details>
           <details><summary>{{ 回答是哪里来的？需要什么账号？ ‖ Where do the answers come from? What account do I need? }}</summary><p>{{ 来自你连接的回答服务。有 ChatGPT 账号可以用 Codex；没有的话，填任意 OpenAI 兼容服务的 API Key，比如 DeepSeek、通义千问、Kimi、OpenRouter，或者本机的 Ollama、LM Studio。 ‖ From the answer engine you connect. With a ChatGPT account you can use Codex; otherwise, add an API key for any OpenAI-compatible service, such as DeepSeek, Qwen, Kimi or OpenRouter, or use Ollama or LM Studio locally. }}</p></details>
@@ -386,31 +464,42 @@
         </div>
       </div>
     </section>
+
+    <!-- 12. Ending: deep water; two voices spread rings and meet. -->
+    <section class="ending" id="download" aria-labelledby="download-title" data-ending>
+      <div class="ending__panel" data-ending-panel>
+        <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
+        <div class="ending__copy">
+          <h2 class="ending__title d" id="download-title"><span>{{ 下一场会， ‖ Your next meeting, }}</span><span>{{ 就从这一页开始。 ‖ on one page. }}</span></h2>
+          <div class="ending__script" aria-hidden="true">{{@onepage}}</div>
+          <p class="ending__sub">{{ v2.0.0 起的新界面 · macOS 14 或更新 · Apple Silicon ‖ The new interface from v2.0.0 · macOS 14 or later · Apple Silicon }}</p>
+          <a class="ending__btn" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>{{ 下载 macOS 版 ‖ Download for Mac }}<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
+          <p class="ending__fine">{{ GitHub Releases · 仓库目前不公开，下载需要仓库访问权；第一次打开见上面的安装说明。 ‖ GitHub Releases · the repository is private for now, so downloading needs access to it; see Install above for the first launch. }}</p>
+        </div>
+        <footer class="ending__meta">
+          <span>© 2026 InterviewHacker</span>
+          <a href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener">GitHub Releases</a>
+          <a href="{{other}}" data-lang-switch>{{ English ‖ 中文 }}</a>
+          <a href="/" target="_top">{{ ← 风格画廊 ‖ ← Style gallery }}</a>
+          <span>{{ 字体：得意黑、思源黑体、思源宋体、Instrument Serif、Geist（SIL OFL 1.1） ‖ Type: Smiley Sans, Noto Sans SC, Noto Serif SC, Instrument Serif, Geist (SIL OFL 1.1) }}</span>
+          <span>{{ 页面里的窗口是交互示意，示例数据 ‖ The window on this page is an interactive mock-up with sample data }}</span>
+        </footer>
+      </div>
+    </section>
   </main>
 
-  <footer class="ft">
-    <div class="ft__in">
-      <div class="ft__top">
-        <div class="ft__script">{{@script}}</div>
-        <div class="ft__end">
-          <p>{{ 下一场会，从这一页开始。 ‖ Your next meeting starts on this page. }}</p>
-          <a class="btn btn--ink" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener">{{ 下载 macOS 版 ‖ Download for Mac }}<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
-        </div>
-      </div>
-      <div class="ft__row">
-        <a class="brand" href="#top"><svg class="brand__mark" aria-hidden="true"><use href="#i-mark"/></svg><span class="brand__name">InterviewHacker</span></a>
-        <nav class="ft__links" aria-label="{{ 页脚 ‖ Footer }}">
-          <a href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener">{{ GitHub Releases ‖ GitHub Releases }}<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
-          <a href="{{other}}" data-lang-switch>{{ English ‖ 中文 }}</a>
-          <a href="/" target="_top">{{ 风格画廊 ‖ Style gallery }}</a>
-        </nav>
-      </div>
-      <p class="ft__fine">{{ © 2026 InterviewHacker · 字体：思源黑体、思源宋体、Instrument Serif、Geist，均以 SIL OFL 1.1 授权 · 页面里的窗口是交互示意，示例数据 ‖ © 2026 InterviewHacker · Type: Noto Sans SC, Noto Serif SC, Instrument Serif and Geist, all under the SIL OFL 1.1 · The window on this page is an interactive mock-up with sample data }}</p>
-    </div>
-  </footer>
-
   <script type="application/json" id="demo-data">{{@demo}}</script>
+  <script src="{{base}}assets/vendor/gsap.min.js" defer></script>
+  <script src="{{base}}assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="{{base}}assets/vendor/SplitText.min.js" defer></script>
+  <script src="{{base}}assets/vendor/DrawSVGPlugin.min.js" defer></script>
+  <script src="{{base}}assets/vendor/CustomEase.min.js" defer></script>
+  <script src="{{base}}assets/vendor/lenis.min.js" defer></script>
+  <script src="{{base}}scripts/field.js" defer></script>
   <script src="{{base}}scripts/app.js" defer></script>
   <script src="{{base}}scripts/page.js" defer></script>
+  <script src="{{base}}scripts/companion.js" defer></script>
+  <script src="{{base}}scripts/motion.js" defer></script>
+  <script src="{{base}}scripts/cursor.js" defer></script>
 </body>
 </html>
