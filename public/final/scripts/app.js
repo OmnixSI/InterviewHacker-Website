@@ -17,12 +17,12 @@
   const later = (fn, ms) => { if (still()) { fn(); return; } const id = setTimeout(() => { timers.delete(id); fn(); }, ms); timers.add(id); };
   const clearLater = () => { timers.forEach(clearTimeout); timers.clear(); };
 
-  const state = { phase: 'home', mode: 'prompt', audio: 'online', type: 'interview', quick: false, played: false, filesDone: false, notesDone: false, answer: 'base', visible: true, paused: false, seconds: 12 * 60 + 37 };
+  const state = { phase: 'home', mode: 'prompt', audio: 'online', type: 'interview', quick: false, played: false, filesDone: true, notesDone: false, answer: 'base', visible: true, paused: false, seconds: 12 * 60 + 37 };
   const listeners = new Set();
   const emit = () => listeners.forEach(fn => fn(state.phase));
 
   // ---- Phases -------------------------------------------------------------------------------
-  function setPhase(phase, focus) {
+  function setPhase(phase, focus, fromUser = false) {
     const changed = phase !== state.phase;
     if (changed) clearLater();
     state.phase = phase;
@@ -31,7 +31,7 @@
     if (phase !== 'live') closeMenus();
     if (phase === 'prepare') enterPrepare(focus);
     if (phase === 'live') enterLive(focus);
-    if (phase === 'notes') enterNotes();
+    if (phase === 'notes') enterNotes(fromUser);
     if (phase === 'home') setFocus(focus === 'start' ? 'start' : null);
     if (changed) emit();
   }
@@ -42,6 +42,8 @@
 
   // ---- Prepare ------------------------------------------------------------------------------
   const prepScroll = $('[data-prep-scroll]');
+  // The prepare page is long: a step is brought to the top of the window (with a little air above its
+  // heading) so the window always shows a whole, composed state rather than something cut mid-line.
   function focusStep(n) {
     const steps = $$('[data-prep-step]');
     if (!n) { app.removeAttribute('data-focus-step'); steps.forEach(s => s.classList.remove('is-focus')); return; }
@@ -50,8 +52,8 @@
     steps.forEach(s => s.classList.toggle('is-focus', on.includes(s.dataset.prepStep)));
     const target = steps.find(s => s.dataset.prepStep === n);
     if (target && prepScroll) {
-      const top = n === '1' ? 0 : target.offsetTop - 18;
-      prepScroll.scrollTo({ top, behavior: still() ? 'auto' : 'smooth' });
+      const top = n === '1' ? 0 : Math.max(0, target.offsetTop - 28);
+      prepScroll.scrollTo({ top, behavior: 'auto' });
     }
   }
   // Scrolling the page inside the window means the reader is exploring: stop dimming.
@@ -60,16 +62,9 @@
 
   function enterPrepare(focus) {
     focusStep(focus || null);
-    if (state.filesDone) return;
-    const files = $$('[data-file]');
+    $$('[data-file]').forEach(f => f.classList.add('is-done'));
     const start = $('[data-start]');
-    start.textContent = start.dataset.labelReading;
-    files.forEach(f => f.classList.remove('is-done'));
-    files[1]?.classList.add('is-done');
-    const bar = files[0]?.querySelector('.a-bar i');
-    if (bar) { bar.style.transform = 'scaleX(.18)'; requestAnimationFrame(() => { bar.style.transform = 'scaleX(.64)'; }); }
-    later(() => { if (bar) bar.style.transform = 'scaleX(1)'; }, 1100);
-    later(() => { files[0]?.classList.add('is-done'); state.filesDone = true; start.textContent = start.dataset.labelReady; }, 1600);
+    start.textContent = start.dataset.labelReady;
   }
 
   function setType(id) {
@@ -110,29 +105,19 @@
 
   // ---- Live ---------------------------------------------------------------------------------
   const lines = $$('[data-line]');
+  // Arriving by scroll, the meeting is already under way: the whole conversation and the answer are there.
   function enterLive(focus) {
     $('.a-ttl').textContent = state.quick ? (zh ? '随手记录' : 'Quick notes') : D.prepare.title;
-    if (!state.played) {
-      state.played = true;
-      lines.forEach(l => l.classList.remove('is-shown'));
-      const body = $('[data-body]');
-      body.replaceChildren();
-      const plan = [0, 700, 1500, 2100];
-      plan.forEach((ms, i) => later(() => showLine(i), ms));
-      later(() => { if (state.mode === 'prompt') stream('base'); }, 2500);
-      later(() => showLine(4), 5200);
-      later(() => showLine(5), 6400);
-    } else {
-      lines.forEach(l => l.classList.add('is-shown'));
-    }
+    state.played = true;
+    lines.forEach(l => l.classList.add('is-shown'));
     if (focus === 'settings') {
       if (!$('[data-body]').childElementCount) stream('base', true);
-      lines.forEach(l => l.classList.add('is-shown'));
-      later(() => setMode('notes', true), 500);
-      later(() => openPop(true), 1100);
-    } else if (focus === 'answer') {
+      setMode('notes', true);
+      openPop(true);
+    } else {
       openPop(false);
-      if (state.played && state.mode === 'notes' && !state.quick) setMode(D.types.find(t => t.id === state.type)?.mode || 'prompt', true);
+      if (focus === 'answer' && state.mode === 'notes' && !state.quick) setMode(D.types.find(t => t.id === state.type)?.mode || 'prompt', true);
+      if (!$('[data-body]').childElementCount && state.mode === 'prompt') stream('base', true);
     }
   }
 
@@ -158,7 +143,7 @@
     for (const t of text.match(tokenRe) || []) {
       const s = document.createElement('span');
       s.className = 'tok';
-      s.style.animationDelay = `${i * 34}ms`;
+      s.style.animationDelay = `${i * 16}ms`;
       s.textContent = t;
       parent.append(s);
       i++;
@@ -179,10 +164,11 @@
     if (a.points.length) {
       const ul = document.createElement('ul');
       ul.className = 'a-pts';
-      for (const p of a.points) { const li = document.createElement('li'); li.className = 'tok'; li.style.animationDelay = `${(i + 2) * 34}ms`; i = tokenize(li, p, i + 2); ul.append(li); }
+      for (const p of a.points) { const li = document.createElement('li'); li.className = 'tok'; li.style.animationDelay = `${(i + 2) * 16}ms`; i = tokenize(li, p, i + 2); ul.append(li); }
       body.append(ul);
     }
-    if (!instant && !still()) document.dispatchEvent(new CustomEvent('ih:ai'));
+    // One quiet violet breath on the answer when it arrives on request; never on scroll.
+    if (!instant && !still()) { const pane = $('.a-ans'); pane.classList.remove('is-glow'); void pane.offsetWidth; pane.classList.add('is-glow'); }
     const latest = key === 'latest';
     $('[data-q]').textContent = latest ? D.live.latestFor : D.live.answerFor;
     $('[data-pager]').textContent = latest ? D.live.pagerLatest : D.live.pager;
@@ -218,16 +204,16 @@
   new IntersectionObserver(([e]) => { state.visible = e.isIntersecting; }).observe(app);
 
   // ---- Notes --------------------------------------------------------------------------------
-  function enterNotes() {
+  // By scroll the notes are simply there. Clicking End shows the three steps briefly (under a second).
+  function enterNotes(fromUser) {
     const prog = $('[data-progress]'), steps = $$('[data-pstep]');
-    if (state.notesDone || still()) { finishNotes(); return; }
+    if (state.notesDone || !fromUser || still()) { finishNotes(); return; }
     app.classList.remove('notes-ready');
     $('[data-notes-scroll]').scrollTop = 0;
     steps.forEach(s => s.className = '');
     prog.classList.remove('is-done');
-    const tick = (i, ms) => { later(() => steps[i].className = 'is-active', ms); later(() => steps[i].className = 'is-done', ms + 800); };
-    tick(0, 200); tick(1, 1000); tick(2, 1800);
-    later(finishNotes, 2900);
+    steps.forEach((st, i) => { later(() => { st.className = 'is-active'; }, i * 220); later(() => { st.className = 'is-done'; }, i * 220 + 200); });
+    later(finishNotes, 820);
   }
   function finishNotes() {
     state.notesDone = true;
@@ -243,7 +229,7 @@
     if (t.dataset.go) {
       if (t.hasAttribute('data-record')) { state.quick = true; setMode('notes'); state.played = false; }
       if (t.hasAttribute('data-start')) { state.quick = false; setMode(state.audio === 'offline' ? 'notes' : (D.types.find(x => x.id === state.type)?.mode || 'prompt')); }
-      setPhase(t.dataset.go);
+      setPhase(t.dataset.go, null, true);
       return;
     }
     if (t.dataset.type) { setType(t.dataset.type); return; }

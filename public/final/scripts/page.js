@@ -63,12 +63,12 @@
   let active = null;
   const activate = (step, progress = 0) => {
     const i = steps.indexOf(step);
-    bars.forEach((b, k) => { b.classList.toggle('is-done', k < i); b.classList.toggle('is-on', k === i); });
+    bars.forEach((b, k) => { b.classList.toggle('is-done', k < i); b.classList.toggle('is-on', k === i); b.querySelector('button')?.setAttribute('aria-current', k === i ? 'step' : 'false'); });
     if (i >= 0 && bars[i]) bars[i].style.setProperty('--p', progress.toFixed(3));
     if (step === active) return;
     active = step;
     steps.forEach(s => s.classList.toggle('is-active', s === step));
-    if (step) window.IHApp?.go(step.dataset.step, step.dataset.focus);
+    if (step) { window.IHApp?.go(step.dataset.step, step.dataset.focus); $('[data-demo-app]')?.setAttribute('data-spot', step.dataset.focus || ''); }
     else window.IHApp?.go('home');
   };
   const stageMQ = matchMedia('(min-width: 901px) and (min-height: 600px)');
@@ -95,7 +95,15 @@
     watch();
   }
   window.IHApp?.onPhase(setRail);
-  rail.forEach(b => b.addEventListener('click', () => window.IHApp?.go(b.dataset.rail)));
+  // The labelled progress under the laptop: each label scrolls the page to its step.
+  $$('[data-goto]').forEach(btn => btn.addEventListener('click', () => {
+    const i = Number(btn.dataset.goto);
+    if (stageMQ.matches && demo) {
+      const top = demo.getBoundingClientRect().top + scrollY;
+      const y = top + (i + .5) / steps.length * (demo.offsetHeight - innerHeight);
+      window.IHLenis ? window.IHLenis.scrollTo(y, { duration: 1 }) : scrollTo({ top: y, behavior: 'smooth' });
+    } else steps[i]?.scrollIntoView({ block: 'center' });
+  }));
 
   // ---- Hand annotations: a few words and a pen arrow that land on a real element --------------
   // Positions come from layout offsets (not screen rects), so parallax and tilts never pull them apart;

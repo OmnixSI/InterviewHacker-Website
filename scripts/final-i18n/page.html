@@ -111,10 +111,9 @@
       </div>
     </section>
 
-    <!-- 2. The walkthrough: one device on the water; the scroll moves the meeting from home to notes. -->
+    <!-- 2. The walkthrough: one laptop on the paper; the scroll moves the meeting from home to notes, one thing at a time. -->
     <section class="demo" id="demo" aria-labelledby="demo-title" data-demo>
       <div class="demo__pin" data-demo-pin>
-        <div class="pool" aria-hidden="true"><canvas data-pool></canvas></div>
         <header class="demo__head">
           <p class="eyebrow mono"><b>№ 01</b>{{ 一场会议 ‖ One meeting }}</p>
           <h2 class="demo__title d" id="demo-title"><span>{{ 从打开它，到说出你的 ‖ From opening it to your }}</span><span class="demo__word">{{@nextline-lead}}</span></h2>
@@ -169,38 +168,41 @@
             </article>
           </div>
           <div class="guide__side">
-            <ol class="guide__bar" data-guide-bar aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
-            <div class="rail" role="group" aria-label="{{ 跳到某个阶段 ‖ Jump to a stage }}">
-              <button type="button" data-rail="home" aria-pressed="true">{{ 首页 ‖ Home }}</button>
-              <button type="button" data-rail="prepare" aria-pressed="false">{{ 准备 ‖ Prepare }}</button>
-              <button type="button" data-rail="live" aria-pressed="false">{{ 进行中 ‖ Live }}</button>
-              <button type="button" data-rail="notes" aria-pressed="false">{{ 纪要 ‖ Notes }}</button>
-            </div>
-            <p class="guide__note mono">{{ 交互示意 · 示例数据 · 窗口里都可以点 ‖ Interactive mock-up · sample data · everything in the window is clickable }}</p>
+            <ol class="guide__bar" data-guide-bar aria-label="{{ 流程 ‖ Steps }}">
+              <li><button type="button" data-goto="0">{{ 首页 ‖ Home }}</button></li>
+              <li><button type="button" data-goto="1">{{ 会议类型 ‖ Type }}</button></li>
+              <li><button type="button" data-goto="2">{{ 接着上一场 ‖ Last time }}</button></li>
+              <li><button type="button" data-goto="3">{{ 资料 ‖ Materials }}</button></li>
+              <li><button type="button" data-goto="4">{{ 回答 ‖ Answer }}</button></li>
+              <li><button type="button" data-goto="5">{{ 只记录 ‖ Notes only }}</button></li>
+              <li><button type="button" data-goto="6">{{ 纪要 ‖ Notes }}</button></li>
+            </ol>
+            <p class="guide__note">{{ 交互示意 · 示例数据 · 窗口里都可以点 ‖ Interactive mock-up · sample data · everything in the window is clickable }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Interlude: the moments it is for. Lines surface from the water as grey drafts, are refined as they cross
-         the line where the water meets the page, and each one stirs the water in its speaker's colour. -->
+    <!-- 3. Interlude: one moment at a time. Each line arrives as it was first heard, grey, with a misheard word,
+         and is set right in place, letter by letter. Then the last question, and its answer. -->
     <section class="tide" aria-labelledby="tide-title" data-tide>
       <div class="tide__pin">
-        <canvas class="tide__canvas" data-tide-canvas aria-hidden="true"></canvas>
-        <i class="tide__scan" aria-hidden="true"></i>
-        <div class="tide__col d" data-tide-col>
-          <h2 class="tide__stanza tide__stanza--head" id="tide-title"><span class="tl">{{ 会议， ‖ Meetings }}</span><span class="tl">{{ 从不等你准备好。 ‖ don’t wait for you. }}</span></h2>
-          <p class="tide__stanza tide__stanza--a" data-who="them"><span class="tl" data-draft="{{ 面试官的追文， ‖ An interviewer’s follow-op, }}">{{ 面试官的追问， ‖ An interviewer’s follow-up, }}</span><span class="tl">{{ 停在半空。 ‖ left hanging. }}</span></p>
-          <p class="tide__stanza tide__stanza--b" data-who="them"><span class="tl">{{ 组会上，导师一句 ‖ At lab meeting, }}</span><span class="tl" data-draft="{{ “这个对照祖呢？” ‖ “wears the control?” }}"><em>{{ “这个对照组呢？” ‖ “where’s the control?” }}</em></span></p>
-          <p class="tide__stanza tide__stanza--c" data-who="room"><span class="tl">{{ 周一例会， ‖ Monday sync, }}</span><span class="tl" data-draft="{{ 突然被点到名子。 ‖ your name, cold. }}">{{ 突然被点到名字。 ‖ your name, called. }}</span></p>
-          <p class="tide__stanza tide__stanza--d" data-who="them"><span class="tl">{{ 客户问： ‖ The client asks: }}</span><span class="tl" data-draft="{{ “月底能上线马？” ‖ “live by month and?” }}"><em>{{ “月底能上线吗？” ‖ “live by month end?” }}</em></span></p>
-          <p class="tide__stanza tide__stanza--end" data-who="ai"><span class="tl">{{ 问题落下， ‖ The question ends; }}</span><span class="tl">{{ 回答随即浮上来。 ‖ the answer surfaces. }}</span></p>
-        </div>
-        <div class="tide__answer ai-note" data-tide-answer>
-          <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>{{ 建议回答 ‖ Suggested answer }}</p>
-          <p class="tide__q">{{ “月底能上线吗？” ‖ “Live by month end?” }}</p>
-          <p class="tide__a" data-tide-words>{{ 可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。 ‖ Yes. The core flow goes live by month end; reports and export follow in the next release. I’ll send you the schedule on Monday. }}</p>
-        </div>
+        <h2 class="sr-only" id="tide-title">{{ 会议，从不等你准备好。 ‖ Meetings don’t wait for you. }}</h2>
+        <ol class="tide__list" data-tide-list>
+          <li class="tide__item tide__item--head"><p class="tide__line d">{{ 会议，从不等你准备好。 ‖ Meetings don’t wait for you. }}</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">{{ 面试 ‖ Interview }}</p><p class="tide__line d" data-draft="{{ 面试官的追文，停在半空。 ‖ An interviewer’s follow-op, left hanging. }}">{{ 面试官的追问，停在半空。 ‖ An interviewer’s follow-up, left hanging. }}</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">{{ 组会 ‖ Lab meeting }}</p><p class="tide__line d" data-draft="{{ 导师一句：“这个对照祖呢？” ‖ Your advisor: “where’s the cantrol?” }}">{{ 导师一句：“这个对照组呢？” ‖ Your advisor: “where’s the control?” }}</p></li>
+          <li class="tide__item" data-who="room"><p class="tide__who mono">{{ 例会 ‖ Weekly sync }}</p><p class="tide__line d" data-draft="{{ 周一例会，突然被点到名子。 ‖ Monday sync, your name, galled. }}">{{ 周一例会，突然被点到名字。 ‖ Monday sync, your name, called. }}</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">{{ 客户沟通 ‖ Client call }}</p><p class="tide__line d" data-draft="{{ 客户问：“月底能上线马？” ‖ The client asks: “live by month and?” }}">{{ 客户问：“月底能上线吗？” ‖ The client asks: “live by month end?” }}</p></li>
+          <li class="tide__item tide__item--answer" data-who="ai">
+            <p class="tide__who mono">{{ 问题落下，回答随即浮上来 ‖ The question ends; the answer surfaces }}</p>
+            <div class="tide__answer ai-note">
+              <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>{{ 建议回答 ‖ Suggested answer }}</p>
+              <p class="tide__a">{{ 可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。 ‖ Yes. The core flow goes live by month end; reports and export follow in the next release. I’ll send you the schedule on Monday. }}</p>
+            </div>
+          </li>
+        </ol>
+        <i class="tide__ring" data-tide-ring aria-hidden="true"></i>
       </div>
     </section>
 
@@ -223,7 +225,7 @@
     </section>
 
     <!-- 5. Series: round one, round two, round three, on the desk. -->
-    <section class="sec sec--deep" id="series" aria-labelledby="series-title">
+    <section class="sec" id="series" aria-labelledby="series-title">
       <div class="wrap">
         <header class="head head--split">
           <div><p class="eyebrow mono"><b>№ 03</b>{{ 系列 ‖ Series }}</p>
@@ -303,7 +305,7 @@
     </section>
 
     <!-- 7. Notes: proofread, organize, check; three templates marked up like a page under review. -->
-    <section class="sec sec--deep" id="notes" aria-labelledby="notes-title">
+    <section class="sec" id="notes" aria-labelledby="notes-title">
       <div class="wrap">
         <header class="head head--split">
           <div><p class="eyebrow mono"><b>№ 05</b>{{ 纪要 ‖ Notes }}</p>
@@ -412,7 +414,7 @@
     </section>
 
     <!-- 10. FAQ: only what people ask about using it. -->
-    <section class="sec sec--deep" id="faq" aria-labelledby="faq-title">
+    <section class="sec" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq-wrap">
         <header class="head">
           <p class="eyebrow mono"><b>№ 08</b>{{ 问答 ‖ FAQ }}</p>

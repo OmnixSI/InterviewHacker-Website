@@ -1,9 +1,7 @@
 // Water surfaces. A small height-field simulation (CPU, ~6 CSS px per cell) is stirred by the pointer and
 // by the voices, uploaded as a texture, and its slope bends whatever the shader draws: the two voice
-// lines in the hero, the pale water under the walkthrough's laptop, the deep water at the end.
+// lines in the hero and the deep water at the end.
 //   window.IHField.set({ them, me, converge, base }) drives the hero; converge 1 = one still ink line.
-//   The walkthrough's window sends 'ih:voice' (someone spoke: a ripple on that side) and 'ih:ai' (an
-//   answer arrived: a violet ring spreads from under the answer).
 // WebGL 1 on one full-screen triangle; without WebGL the static SVG fallback stays.
 (() => {
   const root = document.documentElement;
@@ -114,9 +112,9 @@ void main(){
     float fv=float(v),e=mix(u_energy.x,u_energy.y,fv);
     vec3 c=mix(mix(u_them,u_me,fv),u_ink,u_conv);
     float centre=base+mix(.026,-.026,fv)*live;
-    for(int i=0;i<5;i++){
+    for(int i=0;i<3;i++){
       float fi=float(i);
-      float amp=(.012+.05*e)*env*live*(1.-fi*.16);
+      float amp=(.01+.04*e)*env*live*(1.-fi*.22);
       float y=centre+amp*wave(x+fi*.012,u_t*(1.+fi*.07),fv*3.3+fi*.55);
       float a=line((p.y-y)*u_res.y,(fi==0.?1.6:1.)*u_px)*(fi==0.?.85:.34-fi*.05);
       col=mix(col,c,a);
@@ -124,39 +122,6 @@ void main(){
   }
   col+=(hash(floor(gl_FragCoord.xy))-.5)*.022;
   gl_FragColor=vec4(col,1.);
-}`;
-
-  // Views panel: a body of pale water lit from above, caustics bent by the same ripples.
-  const POOL = COMMON + `
-uniform vec3 u_deep;uniform vec3 u_shallow;uniform vec3 u_light;uniform vec4 u_edge;uniform vec4 u_ring;uniform vec3 u_ai;
-float caustic(vec2 p,float t){
-  vec2 q=p;float c=0.;
-  for(int i=0;i<4;i++){
-    float fi=float(i);
-    q+=vec2(sin(q.y*1.7+t*.55+fi*1.3),cos(q.x*1.5-t*.45+fi*2.1))*.6;
-    c+=.07/abs(sin(q.x+t*.2)*sin(q.y-t*.15)+.07);
-  }
-  return c*.25;
-}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_res;
-  vec3 w=wake(vec2(uv.x,1.-uv.y));
-  vec3 sw=swell(uv,.006);
-  vec2 p=(uv+vec2(w.x,-w.y)*2.+sw.xy)*vec2(u_res.x/u_res.y,1.)*3.2;
-  float c=caustic(p,u_t*.6);
-  vec3 col=mix(u_deep,u_shallow,smoothstep(0.,1.,uv.y*.7+.25));
-  col=mix(col,u_light,clamp(pow(c,1.6)*.22,0.,.55));
-  col*=1.+w.z*1.6+sw.z*3.;
-  // An answer arrived: one violet ring spreads from under it and thins out.
-  if(u_ring.w>0.){
-    vec2 asp=vec2(u_res.x/u_res.y,1.);
-    float d=length((uv-u_ring.xy)*asp+vec2(w.x,-w.y)*3.),r=.06+u_ring.z*.32;
-    float band=exp(-pow((d-r)/(.007+u_ring.z*.004),2.))*exp(-u_ring.z*.9)*u_ring.w;
-    col=mix(col,u_ai,clamp(band*.85,0.,.85));
-  }
-  col+=(hash(floor(gl_FragCoord.xy))-.5)*.03;
-  float a=dissolve(gl_FragCoord.xy,u_edge);
-  gl_FragColor=vec4(col*a,a);
 }`;
 
   // Ending: slow, deep water. Two voices spread rings from where they speak and meet in the middle.
@@ -175,52 +140,12 @@ void main(){
   vec3 col=mix(u_deep,u_mid,smoothstep(.2,.9,n*.95+uv.y*.3));
   col=mix(col,u_mid*1.32,smoothstep(.55,.95,m)*.4);
   float ra=rings(p,u_a*asp,u_t),rb=rings(p,u_b*asp,u_t*1.13+1.7);
-  col+=u_them*ra*.16+u_me*rb*.18+pow(ra*rb,1.4)*.3;
+  col+=u_them*ra*.07+u_me*rb*.07+pow(ra*rb,1.4)*.12;
   col*=1.+w.z*1.8+sw.z*3.;
-  col+=(hash(floor(gl_FragCoord.xy))-.5)*.075;
-  float a=dissolve(gl_FragCoord.xy,u_edge);
+  col+=(hash(floor(gl_FragCoord.xy))-.5)*.05;
+  // The water rises out of the paper over a long, soft gradient: no edge, no grain line.
+  float a=smoothstep(0.,1.,clamp((u_res.y-gl_FragCoord.y)/u_edge.w,0.,1.));
   gl_FragColor=vec4(col*a,a);
-}`;
-
-  // Interlude: the page turns to deep water and back. Lines that cross the middle stir it, each in its
-  // speaker's colour (u_rg: x, y, age, on; u_rc: colour); the last one spreads a violet tide (u_burst).
-  const TIDE = COMMON + `
-uniform float u_dark;uniform vec3 u_paper;uniform vec3 u_deep;uniform vec3 u_mid;uniform vec3 u_ai;
-uniform vec4 u_rg[4];uniform vec3 u_rc[4];uniform vec4 u_burst;
-float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
-float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_res;vec2 asp=vec2(u_res.x/u_res.y,1.);
-  vec3 w=wake(vec2(uv.x,1.-uv.y));
-  vec3 sw=swell(uv,.004*u_dark);
-  vec2 p=(uv+vec2(w.x,-w.y)*2.5+sw.xy)*asp;
-  float n=fbm(p*1.3+vec2(u_t*.02,-u_t*.015));
-  float m=fbm(p*2.5-vec2(u_t*.03,0.)+n*1.3);
-  vec3 water=mix(u_deep,u_mid,smoothstep(.2,.95,n*.95+uv.y*.25));
-  water=mix(water,u_mid*1.3,smoothstep(.55,.95,m)*.35);
-  vec3 col=mix(u_paper,water,u_dark);
-  col*=1.+(w.z*1.8+sw.z*3.)*(.4+.6*u_dark);
-  for(int i=0;i<4;i++){
-    vec4 g=u_rg[i];
-    if(g.w>0.){
-      float d=length((uv-g.xy)*asp+vec2(w.x,-w.y)*.9);
-      float r=.03+g.z*.42,f=exp(-g.z*1.05)*g.w*.75;
-      float band=exp(-pow((d-r)/(.005+g.z*.006),2.))+.45*exp(-pow((d-r*.62)/(.004+g.z*.004),2.));
-      col=mix(col,u_rc[i],clamp(band*f,0.,.9));
-    }
-  }
-  if(u_burst.w>0.){
-    vec2 c=u_burst.xy;
-    float d=length((uv-c)*asp+vec2(w.x,-w.y)*1.2);
-    float r=u_burst.z*1.25,f=u_burst.w;
-    float front=exp(-pow((d-r)/(.012+u_burst.z*.03),2.));
-    float inner=smoothstep(r,r-.35,d)*exp(-u_burst.z*.7);
-    float echo=exp(-pow((d-r*.7)/(.008+u_burst.z*.015),2.))*.5+exp(-pow((d-r*.45)/(.006+u_burst.z*.01),2.))*.3;
-    col=mix(col,u_ai,clamp((front+echo)*f*.85,0.,.85));
-    col=mix(col,mix(col,u_ai,.55),inner*f*.45);
-  }
-  col+=(hash(floor(gl_FragCoord.xy))-.5)*mix(.02,.07,u_dark);
-  gl_FragColor=vec4(col,1.);
 }`;
 
   const rgbOf = value => {
@@ -333,14 +258,14 @@ void main(){
   // On narrow screens the copy runs long, so the voices sit at the foot of the first screen instead.
   const state = { them: .55, me: .35, converge: 0, base: matchMedia('(max-width: 640px)').matches ? .9 : .815 };
   const target = { ...state };
-  let colors = null, hero = null, dropClock = 0, talk = 0, shownBase = -1;
+  let colors = null, hero = null, talk = 0, shownBase = -1, lastSpeaker = null;
   const fieldEl = document.querySelector('.field');
   const readColors = () => {
     const cs = getComputedStyle(root);
     colors = { them: rgbOf(cs.getPropertyValue('--them')), me: rgbOf(cs.getPropertyValue('--me')), ink: rgbOf(cs.getPropertyValue('--ink')), paper: rgbOf(cs.getPropertyValue('--paper')), ai: rgbOf(cs.getPropertyValue('--ai')) };
   };
   readColors();
-  document.addEventListener('ih:theme', () => { readColors(); hero?.wake(); api.pool?.wake(); });
+  document.addEventListener('ih:theme', () => { readColors(); hero?.wake(); });
   const api = { live: false, set(values) { Object.assign(target, values); hero?.wake(); } };
   window.IHField = api;
 
@@ -363,105 +288,16 @@ void main(){
         state.converge += (target.converge - state.converge) * Math.min(1, dt * 14);
         state.base += (target.base - state.base) * Math.min(1, dt * 14);
         if (Math.abs(state.base - shownBase) > .0008) { shownBase = state.base; fieldEl?.style.setProperty('--base', state.base.toFixed(4)); }
-        // A voice speaking loudly drops small ripples onto the water beneath its line.
-        dropClock += dt;
-        if (!still() && state.converge < .2 && dropClock > .16) {
-          dropClock = 0;
-          for (const [lane, offset] of [['them', -.026], ['me', .026]]) {
-            if (state[lane] > .6 && Math.random() < state[lane] - .45) hero.drop(.15 + Math.random() * .7, state.base + offset, .018, .018);
-          }
+        // When one voice finishes and the other begins, a single faint ring opens under the one who just spoke.
+        const speaker = Math.sin(talk * .7) >= 0 ? 'them' : 'me';
+        if (!still() && state.converge < .2 && lastSpeaker && speaker !== lastSpeaker) {
+          hero.drop(.62 + (Math.random() - .5) * .3, state.base + (lastSpeaker === 'them' ? -.026 : .026), .012, .03);
         }
+        lastSpeaker = speaker;
         return Math.abs(target.converge - state.converge) > .001 || Math.abs(target.base - state.base) > .0005;
       }
     });
     if (hero) { api.live = true; hero.wake(); }
-  }
-
-  /* ---------- Walkthrough: the pool under the laptop ---------- */
-  // Narrow screens keep the laptop in the reading flow without water, so the pool never starts there.
-  const poolCanvas = document.querySelector('[data-pool]');
-  if (poolCanvas && matchMedia('(min-width: 901px) and (min-height: 600px)').matches) {
-    let pool = null;
-    const ring = { x: .6, y: .5, age: 9 };
-    pool = surface(poolCanvas, {
-      frag: POOL, cell: 6, scale: .75, alpha: true, target: poolCanvas.closest('[data-demo-pin]') || poolCanvas, host: poolCanvas.parentElement,
-      // The pool meets the paper above and below through grain.
-      uniforms: () => {
-        const k = pool ? pool.ratio() : 1;
-        const dark = root.dataset.theme === 'dark';
-        return {
-          u_deep: dark ? [.1, .13, .14] : [.66, .72, .72], u_shallow: dark ? [.16, .19, .2] : [.9, .91, .89], u_light: dark ? [.42, .5, .5] : [1, 1, .97],
-          u_edge: [60 * k, 60 * k, 110 * k, 150 * k], u_ring: [ring.x, ring.y, ring.age, ring.age < 3.2 ? 1 : 0], u_ai: colors.ai
-        };
-      },
-      onFrame(dt) { if (ring.age < 3.2) { ring.age += dt; return true; } return false; }
-    });
-    if (pool) {
-      pool.wake();
-      api.pool = pool;
-      // Positions come from the laptop on screen, so ripples land beside the right edge of the window.
-      const spot = (fx, fy) => {
-        const dev = document.querySelector('[data-device] .device__screen'), c = poolCanvas.getBoundingClientRect();
-        if (!dev || !c.width) return [fx, fy];
-        const r = dev.getBoundingClientRect();
-        return [(r.left + r.width * fx - c.left) / c.width, (r.top + r.height * fy - c.top) / c.height];
-      };
-      document.addEventListener('ih:voice', e => {
-        if (still()) return;
-        const who = e.detail?.who;
-        const [x, y] = who === 'me' ? spot(1.04 + Math.random() * .03, .62 + Math.random() * .2) : spot(-.04 - Math.random() * .03, .25 + Math.random() * .4);
-        pool.drop(x, y, .07, .045);
-      });
-      document.addEventListener('ih:ai', () => {
-        if (still()) return;
-        const [x, y] = spot(.74, .45);
-        ring.x = x; ring.y = 1 - y; ring.age = 0;
-        pool.drop(x, y, .05, .06);
-      });
-    }
-  }
-
-  /* ---------- Interlude: the tide ---------- */
-  const tideCanvas = document.querySelector('[data-tide-canvas]');
-  if (tideCanvas && matchMedia('(min-width: 901px) and (min-height: 600px)').matches && !reduced.matches) {
-    const T = { dark: 0, rings: [0, 1, 2, 3].map(() => ({ x: .5, y: .5, age: 9, c: [0, 0, 0] })), next: 0, burst: { x: .5, y: .5, age: 9, on: 0 } };
-    let tide = null;
-    tide = surface(tideCanvas, {
-      frag: TIDE, cell: 7, scale: .8, target: tideCanvas.parentElement, host: tideCanvas.parentElement,
-      uniforms: () => {
-        const dark = root.dataset.theme === 'dark';
-        return {
-          u_dark: T.dark, u_paper: colors.paper, u_deep: dark ? [.06, .09, .1] : [.1, .15, .16], u_mid: dark ? [.17, .23, .24] : [.24, .33, .33], u_ai: [.6, .55, 1],
-          u_rg: { n: 4, v: T.rings.flatMap(r => [r.x, r.y, r.age, r.age < 3.5 ? 1 : 0]) },
-          u_rc: { n: 3, v: T.rings.flatMap(r => r.c) },
-          u_burst: [T.burst.x, T.burst.y, T.burst.age, T.burst.on]
-        };
-      },
-      onFrame(dt) {
-        let busy = false;
-        for (const r of T.rings) if (r.age < 3.5) { r.age += dt; busy = true; }
-        if (T.burst.on && T.burst.age < 4) { T.burst.age += dt; busy = true; }
-        return busy;
-      }
-    });
-    if (tide) {
-      api.tide = {
-        // Darkness of the water, 0 = paper.
-        dark(v) { if (Math.abs(v - T.dark) > .002) { T.dark = v; tide.wake(); } },
-        // A line crossed the middle: press the water along it and spread a ring in its colour.
-        line(x0, x1, y, colour) {
-          const r = T.rings[T.next++ % 4];
-          Object.assign(r, { x: (x0 + x1) / 2, y: 1 - y, age: 0, c: colour });
-          tide.press(x0, y, x1, y, .025, .05);
-          tide.drop((x0 + x1) / 2, y, .08, .05);
-        },
-        burst(x, y, on = true) {
-          if (on && !T.burst.on) { Object.assign(T.burst, { x, y: 1 - y, age: 0, on: 1 }); tide.drop(x, y, .2, .09); }
-          if (!on) T.burst.on = 0;
-          tide.wake();
-        }
-      };
-    }
   }
 
   /* ---------- Ending: slow water where two voices meet ---------- */
@@ -475,7 +311,7 @@ void main(){
       // Only the top edge dissolves into the paper: the water runs to the end of the page.
       uniforms: () => {
         const k = shore ? shore.ratio() : 1;
-        return { u_a: voices.a, u_b: voices.b, u_deep: [.11, .16, .17], u_mid: [.27, .36, .36], u_them: colors.them, u_me: [.93, .91, .86], u_edge: [0, 0, 0, 150 * k] };
+        return { u_a: voices.a, u_b: voices.b, u_deep: [.11, .16, .17], u_mid: [.27, .36, .36], u_them: colors.them, u_me: [.93, .91, .86], u_edge: [0, 0, 0, shoreCanvas.height * .42] };
       },
       // The two voices drift slowly; with a pointer over the water, "you" follow it.
       onFrame(dt) {

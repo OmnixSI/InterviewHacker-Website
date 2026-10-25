@@ -22,7 +22,7 @@
   <link rel="preload" href="../assets/fonts/serif/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/fonts/fonts.css?v=460990a18790">
   <link rel="stylesheet" href="../assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="../style.css?v=4e0db2e197e9">
+  <link rel="stylesheet" href="../style.css?v=989a9cdeb28b">
   <script src="../scripts/bootstrap.js?v=276e5bdfb86c"></script>
 </head>
 <body>
@@ -112,10 +112,9 @@
       </div>
     </section>
 
-    <!-- 2. The walkthrough: one device on the water; the scroll moves the meeting from home to notes. -->
+    <!-- 2. The walkthrough: one laptop on the paper; the scroll moves the meeting from home to notes, one thing at a time. -->
     <section class="demo" id="demo" aria-labelledby="demo-title" data-demo>
       <div class="demo__pin" data-demo-pin>
-        <div class="pool" aria-hidden="true"><canvas data-pool></canvas></div>
         <header class="demo__head">
           <p class="eyebrow mono"><b>№ 01</b>One meeting</p>
           <h2 class="demo__title d" id="demo-title"><span>From opening it to your</span><span class="demo__word"><svg class="lettering lettering--lead" viewBox="20 20 690 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" pathLength="1" d="M20 200C25 200 39.8 200.7 50 200C60.2 199.3 71.3 204.7 80.9 196C90.6 187.3 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" pathLength="1" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" pathLength="1" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" pathLength="1" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" pathLength="1" d="M523.6 72L529.4 64"/><path data-stroke="stop" pathLength="1" d="M692.5 198L696.4 194"/></g></svg></span></h2>
@@ -218,38 +217,41 @@
             </article>
           </div>
           <div class="guide__side">
-            <ol class="guide__bar" data-guide-bar aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
-            <div class="rail" role="group" aria-label="Jump to a stage">
-              <button type="button" data-rail="home" aria-pressed="true">Home</button>
-              <button type="button" data-rail="prepare" aria-pressed="false">Prepare</button>
-              <button type="button" data-rail="live" aria-pressed="false">Live</button>
-              <button type="button" data-rail="notes" aria-pressed="false">Notes</button>
-            </div>
-            <p class="guide__note mono">Interactive mock-up · sample data · everything in the window is clickable</p>
+            <ol class="guide__bar" data-guide-bar aria-label="Steps">
+              <li><button type="button" data-goto="0">Home</button></li>
+              <li><button type="button" data-goto="1">Type</button></li>
+              <li><button type="button" data-goto="2">Last time</button></li>
+              <li><button type="button" data-goto="3">Materials</button></li>
+              <li><button type="button" data-goto="4">Answer</button></li>
+              <li><button type="button" data-goto="5">Notes only</button></li>
+              <li><button type="button" data-goto="6">Notes</button></li>
+            </ol>
+            <p class="guide__note">Interactive mock-up · sample data · everything in the window is clickable</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Interlude: the moments it is for. Lines surface from the water as grey drafts, are refined as they cross
-         the line where the water meets the page, and each one stirs the water in its speaker's colour. -->
+    <!-- 3. Interlude: one moment at a time. Each line arrives as it was first heard, grey, with a misheard word,
+         and is set right in place, letter by letter. Then the last question, and its answer. -->
     <section class="tide" aria-labelledby="tide-title" data-tide>
       <div class="tide__pin">
-        <canvas class="tide__canvas" data-tide-canvas aria-hidden="true"></canvas>
-        <i class="tide__scan" aria-hidden="true"></i>
-        <div class="tide__col d" data-tide-col>
-          <h2 class="tide__stanza tide__stanza--head" id="tide-title"><span class="tl">Meetings</span><span class="tl">don’t wait for you.</span></h2>
-          <p class="tide__stanza tide__stanza--a" data-who="them"><span class="tl" data-draft="An interviewer’s follow-op,">An interviewer’s follow-up,</span><span class="tl">left hanging.</span></p>
-          <p class="tide__stanza tide__stanza--b" data-who="them"><span class="tl">At lab meeting,</span><span class="tl" data-draft="“wears the control?”"><em>“where’s the control?”</em></span></p>
-          <p class="tide__stanza tide__stanza--c" data-who="room"><span class="tl">Monday sync,</span><span class="tl" data-draft="your name, cold.">your name, called.</span></p>
-          <p class="tide__stanza tide__stanza--d" data-who="them"><span class="tl">The client asks:</span><span class="tl" data-draft="“live by month and?”"><em>“live by month end?”</em></span></p>
-          <p class="tide__stanza tide__stanza--end" data-who="ai"><span class="tl">The question ends;</span><span class="tl">the answer surfaces.</span></p>
-        </div>
-        <div class="tide__answer ai-note" data-tide-answer>
-          <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Suggested answer</p>
-          <p class="tide__q">“Live by month end?”</p>
-          <p class="tide__a" data-tide-words>Yes. The core flow goes live by month end; reports and export follow in the next release. I’ll send you the schedule on Monday.</p>
-        </div>
+        <h2 class="sr-only" id="tide-title">Meetings don’t wait for you.</h2>
+        <ol class="tide__list" data-tide-list>
+          <li class="tide__item tide__item--head"><p class="tide__line d">Meetings don’t wait for you.</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">Interview</p><p class="tide__line d" data-draft="An interviewer’s follow-op, left hanging.">An interviewer’s follow-up, left hanging.</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">Lab meeting</p><p class="tide__line d" data-draft="Your advisor: “where’s the cantrol?”">Your advisor: “where’s the control?”</p></li>
+          <li class="tide__item" data-who="room"><p class="tide__who mono">Weekly sync</p><p class="tide__line d" data-draft="Monday sync, your name, galled.">Monday sync, your name, called.</p></li>
+          <li class="tide__item" data-who="them"><p class="tide__who mono">Client call</p><p class="tide__line d" data-draft="The client asks: “live by month and?”">The client asks: “live by month end?”</p></li>
+          <li class="tide__item tide__item--answer" data-who="ai">
+            <p class="tide__who mono">The question ends; the answer surfaces</p>
+            <div class="tide__answer ai-note">
+              <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Suggested answer</p>
+              <p class="tide__a">Yes. The core flow goes live by month end; reports and export follow in the next release. I’ll send you the schedule on Monday.</p>
+            </div>
+          </li>
+        </ol>
+        <i class="tide__ring" data-tide-ring aria-hidden="true"></i>
       </div>
     </section>
 
@@ -281,7 +283,7 @@
     </section>
 
     <!-- 5. Series: round one, round two, round three, on the desk. -->
-    <section class="sec sec--deep" id="series" aria-labelledby="series-title">
+    <section class="sec" id="series" aria-labelledby="series-title">
       <div class="wrap">
         <header class="head head--split">
           <div><p class="eyebrow mono"><b>№ 03</b>Series</p>
@@ -361,7 +363,7 @@
     </section>
 
     <!-- 7. Notes: proofread, organize, check; three templates marked up like a page under review. -->
-    <section class="sec sec--deep" id="notes" aria-labelledby="notes-title">
+    <section class="sec" id="notes" aria-labelledby="notes-title">
       <div class="wrap">
         <header class="head head--split">
           <div><p class="eyebrow mono"><b>№ 05</b>Notes</p>
@@ -470,7 +472,7 @@
     </section>
 
     <!-- 10. FAQ: only what people ask about using it. -->
-    <section class="sec sec--deep" id="faq" aria-labelledby="faq-title">
+    <section class="sec" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq-wrap">
         <header class="head">
           <p class="eyebrow mono"><b>№ 08</b>FAQ</p>
@@ -554,11 +556,11 @@
   <script src="../assets/vendor/DrawSVGPlugin.min.js?v=beb19529f54c" defer></script>
   <script src="../assets/vendor/CustomEase.min.js?v=466e426a5c60" defer></script>
   <script src="../assets/vendor/lenis.min.js?v=07020831fc52" defer></script>
-  <script src="../scripts/field.js?v=43ad669c2c84" defer></script>
-  <script src="../scripts/app.js?v=02952bd8509c" defer></script>
-  <script src="../scripts/page.js?v=88a8a077758b" defer></script>
+  <script src="../scripts/field.js?v=d57d51569e45" defer></script>
+  <script src="../scripts/app.js?v=0232b431a65b" defer></script>
+  <script src="../scripts/page.js?v=e4760a7ad506" defer></script>
   <script src="../scripts/companion.js?v=df98c7dfc159" defer></script>
-  <script src="../scripts/motion.js?v=0d7fd9df45b4" defer></script>
+  <script src="../scripts/motion.js?v=5645b72436fe" defer></script>
   <script src="../scripts/waitlist.js?v=3133cfc04933" defer></script>
   <script src="../scripts/cursor.js?v=8ed65cfb9499" defer></script>
 </body>

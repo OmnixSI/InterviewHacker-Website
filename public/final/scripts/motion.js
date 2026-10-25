@@ -22,6 +22,7 @@
   let lenis = null;
   if (!reduced.matches && window.Lenis) {
     lenis = new Lenis({ lerp: .11, smoothWheel: true, anchors: false });
+    window.IHLenis = lenis;
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
@@ -129,12 +130,12 @@
     gsap.set(word, { opacity: 0 });
     gsap.set(strokes(letter), { drawSVG: '0%' });
 
-    const tl = gsap.timeline({ delay: .35, onComplete: finish });
-    const step = root.lang.startsWith('zh') ? .07 : .13;
+    const tl = gsap.timeline({ delay: .2, onComplete: finish });
+    const step = root.lang.startsWith('zh') ? .045 : .08;
     cells.forEach((c, i) => tl.call(() => c.cell.append(caret), null, i * step).to(D(c), { opacity: 1, duration: .18, ease: 'power1.out' }, i * step));
     let t = cells.length * step;
     tl.call(() => word.append(caret), null, t).to(word, { opacity: 1, duration: .3 }, t);
-    t += .55;
+    t += .3;
     tl.call(() => { caret.remove(); h1.classList.add('is-refining'); }, null, t);
 
     const box = h1.getBoundingClientRect();
@@ -143,10 +144,10 @@
       const right = line.querySelector('.hero__lettering') ? letterBox.getBoundingClientRect().right : r.right;
       return { left: r.left - box.left, right: right - box.left, top: r.top - box.top, height: r.height };
     });
-    const sweepTime = .75;
+    const sweepTime = .55;
     const reach = f => { f = Math.max(0, Math.min(1, f)); return f < .5 ? Math.sqrt(f / 2) : 1 - Math.sqrt((1 - f) / 2); };
     rows.forEach((row, li) => {
-      const start = t + li * .5;
+      const start = t + li * .35;
       tl.set(sweep, { x: row.left - 8, y: row.top, height: row.height, opacity: 0 }, start)
         .to(sweep, { opacity: 1, duration: .12 }, start)
         .to(sweep, { x: row.right + 8, duration: sweepTime, ease: 'power1.inOut' }, start)
@@ -166,7 +167,7 @@
         const at = start + sweepTime * reach((wr.left - box.left - row.left) / span);
         tl.to(word, { '--strike': 1, duration: .2, ease: 'power2.inOut' }, at)
           .to(word, { opacity: 0, y: -10, duration: .3, ease: 'power2.inOut' }, at + .22)
-          .add(pen(letter, 1.5), at + .3);
+          .add(pen(letter, 1.1), at + .25);
       }
     });
     function finish() {
@@ -212,122 +213,74 @@
     }
     if (word) {
       gsap.set(strokes(word), { drawSVG: '0%' });
-      ScrollTrigger.create({ trigger: demo, start: stage ? 'top 30%' : 'top 75%', once: true, onEnter: () => pen(word, 1.6).add(() => gsap.to(strokes(word)[0], { drawSVG: '6.5% 100%', duration: .5 }), '+=.1') });
+      ScrollTrigger.create({ trigger: demo, start: stage ? 'top 70%' : 'top 92%', once: true, onEnter: () => pen(word, .9).add(() => gsap.to(strokes(word)[0], { drawSVG: '6.5% 100%', duration: .35 }), '+=.05') });
     }
 
-    /* Interlude ("the tide"). Pinned on wide screens. The column of lines rises through the screen; below the
-       middle each line is a grey draft (what was first heard, typos and all), and as it crosses the middle a
-       refinement line turns it, letter by letter, into the final words, while a wave of sound pushes through
-       the letters and the line stirs the water in its speaker's colour. The page darkens into deep water and
-       comes back to paper; at the end a violet tide spreads and the answer rises word by word. */
-    const tideEl = $('[data-tide]'), tideCol = $('[data-tide-col]');
-    if (tideEl && tideCol) {
-      const tls = $$('.tl', tideEl);
-      // Build the two layers of every line: a draft (sans, grey) and the final words split into letters.
-      const split = text => text.match(/[\u3000-\u9fff\uff00-\uffef]|\s+|[^\s\u3000-\u9fff\uff00-\uffef]/g) || [];
-      const lines = tls.map(tl => {
-        const em = tl.querySelector('em');
-        const finalText = tl.textContent;
-        const draftText = tl.dataset.draft || finalText;
-        const fin = document.createElement('span'); fin.className = 'tl__f';
-        const chars = split(finalText).map(ch => { const c = document.createElement('span'); c.className = 'tc'; c.textContent = ch; fin.append(c); return c; });
-        const draft = document.createElement('span'); draft.className = 'tl__d'; draft.setAttribute('aria-hidden', 'true');
-        // Wrong letters in the draft are marked so the refinement can strike them first.
-        split(draftText).forEach((ch, i) => { const c = document.createElement('span'); c.textContent = ch; if (ch !== split(finalText)[i]) c.className = 'is-wrong'; draft.append(c); });
-        tl.textContent = '';
-        if (em) { const e = document.createElement('em'); e.append(fin); tl.append(e); } else tl.append(fin);
-        tl.append(draft);
-        const stanza = tl.closest('.tide__stanza');
-        return { tl, fin, draft, chars, who: stanza.dataset.who || 'ink', end: stanza.classList.contains('tide__stanza--end'), crossed: false };
+    /* Interlude. One moment on the page at a time, set small, with room around it. Pinned on wide screens:
+       a line arrives as it was first heard (grey, one word misheard), the correction runs through it left to
+       right in place, the wrong letter giving way to the right one, then it rests and leaves. When a line is
+       set right, one faint ring opens behind it; the answer at the end gets one violet ring. */
+    const tideEl = $('[data-tide]');
+    if (tideEl) {
+      const items = $$('.tide__item', tideEl), ring = $('[data-tide-ring]', tideEl);
+      const split = text => text.match(/[\u3000-\u9fff\uff00-\uffef]|\s|[^\s\u3000-\u9fff\uff00-\uffef]/g) || [];
+      const rows = items.map(item => {
+        const line = $('.tide__line', item);
+        if (!line) return { item, chars: [] };
+        const fin = split(line.textContent), draft = line.dataset.draft ? split(line.dataset.draft) : fin;
+        line.textContent = '';
+        // Latin letters stay together in their word so a line only ever breaks between words.
+        const latin = ch => !/[\s\u3000-\u9fff\uff00-\uffef]/.test(ch);
+        let word = null;
+        const chars = fin.map((ch, i) => {
+          const c = document.createElement('span');
+          c.className = 'tc';
+          const wrong = draft[i] !== undefined && draft[i] !== ch;
+          if (wrong) { c.classList.add('is-fix'); c.innerHTML = '<span class="tc__d"></span><span class="tc__f"></span>'; c.firstChild.textContent = draft[i]; c.lastChild.textContent = ch; }
+          else c.textContent = ch;
+          if (latin(ch)) { if (!word) { word = document.createElement('span'); word.className = 'tword'; line.append(word); } word.append(c); }
+          else { word = null; line.append(c); }
+          return c;
+        });
+        return { item, chars, draftable: !!line.dataset.draft };
       });
       tideEl.classList.add('is-split');
-      const answer = $('[data-tide-answer]'), words = $('[data-tide-words]');
-      const wordEls = (words.textContent.match(/[A-Za-z0-9.,'’%:;\-–—()?!/“”"]+\s*|[\u3000-\u303f\uff00-\uffef]|[\u4e00-\u9fff]{1,2}[\u3000-\u303f\uff00-\uffef]?|\s+|./g) || []).map(t => { const w = document.createElement('span'); w.className = 'tw'; w.textContent = t; return w; });
-      words.textContent = ''; words.append(...wordEls);
-
       if (stage) {
         tideEl.classList.add('is-pinned');
-        const tide = () => field?.tide;
-        const colourOf = who => ({ them: [.85, .55, .25], room: [.93, .91, .86], ai: [.66, .6, 1], ink: [.93, .91, .86] })[who];
-        let H = 1, from = 0, travel = 1, mids = [], lefts = [], widths = [], raf = 0, visible = false, t = 0, prog = 0, burst = false;
-        const STOP = .74; // share of the scroll spent moving the lines; the rest belongs to the answer
-        const measure = () => {
-          gsap.set(tideCol, { y: 0 });
-          H = innerHeight;
-          const c = tideCol.getBoundingClientRect();
-          const rects = lines.map(l => l.tl.getBoundingClientRect());
-          mids = rects.map(r => r.top - c.top + r.height / 2);
-          lefts = rects.map(r => r.left / innerWidth);
-          widths = rects.map(r => r.width / innerWidth);
-          from = H * 1.05 - mids[0];
-          const last = lines.findIndex(l => l.end);
-          travel = Math.max(1, from - (H * .26 - mids[last]));
-          tideEl.style.height = `${Math.round(travel * 1.9 / STOP + H)}px`;
+        const n = items.length;
+        tideEl.style.height = `${n * 85 + 100}vh`;
+        let shown = -1, ringed = -1;
+        const render = p => {
+          const f = Math.min(n - .0001, Math.max(0, p * n)), i = Math.floor(f), local = f - i;
+          if (i !== shown) { shown = i; items.forEach((it, k) => it.classList.toggle('is-on', k === i)); }
+          const row = rows[i];
+          // Arrive (fast), refine (left to right), rest, leave.
+          const enter = Math.min(1, local / .12), leave = i === n - 1 ? 1 : Math.min(1, (1 - local) / .12);
+          row.item.style.opacity = Math.min(enter, leave).toFixed(3);
+          row.item.style.transform = `translate3d(0,${((1 - enter) * 10 - (1 - leave) * 10).toFixed(1)}px,0)`;
+          const r = row.draftable ? Math.max(0, Math.min(1, (local - .2) / .3)) : 1;
+          const m = row.chars.length;
+          row.chars.forEach((c, j) => { const k = Math.max(0, Math.min(1, r * (m + 4) - j)); c.style.setProperty('--k', k.toFixed(3)); });
+          if (r >= 1 && ringed !== i) { ringed = i; ring.dataset.who = row.item.dataset.who || ''; ring.classList.remove('is-on'); void ring.offsetWidth; ring.classList.add('is-on'); }
+          if (r < 1 && ringed === i) ringed = -1;
         };
-        const ease = x => x * x * (3 - 2 * x);
-        const render = () => {
-          const p = prog, q = Math.min(1, p / STOP);
-          const y = from - q * travel;
-          gsap.set(tideCol, { y });
-          // Paper → deep water → back to paper, then light again under the answer.
-          const dark = ease(Math.max(0, Math.min(1, (p - .04) / .14))) * (1 - ease(Math.max(0, Math.min(1, (p - .84) / .13))));
-          tideEl.style.setProperty('--dk', dark.toFixed(3));
-          tide()?.dark(dark);
-          lines.forEach((l, i) => {
-            const sy = (y + mids[i]) / H;
-            const k = Math.max(0, Math.min(1, (1.02 - sy) / .2, (sy + .02) / .16));
-            l.tl.style.opacity = k.toFixed(3);
-            l.tl.style.filter = k > .98 ? '' : `blur(${((1 - k) * 8).toFixed(1)}px)`;
-            // Refinement: letters flip from the left as the line passes the middle.
-            const r = (.535 - sy) / .07;
-            const n = l.chars.length;
-            const near = Math.exp(-Math.pow((sy - .5) / .07, 2));
-            l.chars.forEach((c, j) => {
-              const f = Math.max(0, Math.min(1, r * 1.6 - j / Math.max(1, n) * .6));
-              const wave = Math.sin(j * .75 - t * 7) * near * 10 * (1 - f * .4);
-              c.style.opacity = f.toFixed(3);
-              c.style.transform = `translate3d(0,${((1 - f) * 18 + wave).toFixed(1)}px,0)`;
-            });
-            l.draft.style.opacity = Math.max(0, 1 - r * 1.4).toFixed(3);
-            l.draft.style.setProperty('--strike', Math.max(0, Math.min(1, r * 3)).toFixed(3));
-            const crossed = sy < .5;
-            if (crossed && !l.crossed) tide()?.line(lefts[i], lefts[i] + widths[i], .5, colourOf(l.who));
-            l.crossed = crossed;
-          });
-          // The answer: a violet tide, then the words rise as they do in the app.
-          const a = Math.max(0, Math.min(1, (p - STOP) / (1 - STOP)));
-          const on = p > STOP - .02;
-          if (on !== burst) { burst = on; tide()?.burst(.5, .62, on); }
-          answer.style.opacity = Math.min(1, a * 4).toFixed(3);
-          answer.style.transform = `translate3d(-50%,${((1 - Math.min(1, a * 3)) * 30).toFixed(1)}px,0)`;
-          const shown = Math.round(Math.max(0, (a - .12) / .6) * wordEls.length);
-          wordEls.forEach((w, j) => w.classList.toggle('is-on', j < shown));
-        };
-        const loop = () => { raf = 0; if (!visible || paused()) return; t += 1 / 60; render(); raf = requestAnimationFrame(loop); };
-        new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !raf) raf = requestAnimationFrame(loop); }).observe(tideEl);
-        document.addEventListener('ih:motion', () => { if (!raf && visible) raf = requestAnimationFrame(loop); render(); });
-        measure();
-        ScrollTrigger.addEventListener('refreshInit', measure);
-        ScrollTrigger.create({ trigger: tideEl, start: 'top top', end: 'bottom bottom', onUpdate: s => { prog = s.progress; render(); }, onRefresh: s => { prog = s.progress; render(); } });
-        render();
+        ScrollTrigger.create({ trigger: tideEl, start: 'top top', end: 'bottom bottom', onUpdate: s => render(s.progress), onRefresh: s => render(s.progress) });
+        render(0);
       } else {
-        // Narrow screens: each line simply writes itself in when it comes into view; the answer follows.
-        tideEl.classList.add('is-flow');
-        lines.forEach(l => { l.draft.style.opacity = 0; gsap.from(l.chars, { opacity: 0, y: 14, duration: .7, stagger: .025, scrollTrigger: { trigger: l.tl, start: 'top 85%' } }); });
-        ScrollTrigger.create({ trigger: answer, start: 'top 80%', once: true, onEnter: () => wordEls.forEach((w, j) => setTimeout(() => w.classList.add('is-on'), 200 + j * 60)) });
+        rows.forEach(row => row.chars.forEach(c => c.style.setProperty('--k', 1)));
       }
     }
 
     /* Section headings rise line by line behind a mask. */
     if (window.SplitText) {
-      for (const h of $$('.display, .tpl__intro h3, .ending__title')) {
+      for (const h of $$('.display, .tpl__intro h3')) {
         const split = SplitText.create(h, { type: 'lines', mask: 'lines', linesClass: 'line' });
-        gsap.from(split.lines, { yPercent: 108, duration: 1.15, stagger: .09, scrollTrigger: { trigger: h, start: 'top 88%', refreshPriority: -1 } });
+        gsap.from(split.lines, { yPercent: 100, duration: .5, stagger: .06, scrollTrigger: { trigger: h, start: 'top 96%', refreshPriority: -1 } });
       }
     }
     // Leads, kickers and the specimens surface after their heading.
     for (const el of $$('.head .lead, .head .eyebrow, .tsel, .audio, .process > li, .install > li, .faq details, .ledger__col, .aside, .req li')) {
-      gsap.from(el, { y: 34, opacity: 0, duration: 1.1, scrollTrigger: { trigger: el, start: 'top 90%', refreshPriority: -1 } });
+      gsap.from(el, { y: 12, opacity: 0, duration: .45, scrollTrigger: { trigger: el, start: 'top 98%', refreshPriority: -1 } });
     }
 
     /* Pen marks are drawn as they come into view, like notes added while reading. */
@@ -335,7 +288,7 @@
       for (const svg of $$('.anno .pen, .series__arrow .pen, .ledger__mid .pen, .gap-mark .pen, .badge--ringed .pen, .ledger__line')) {
         const paths = strokes(svg);
         gsap.set(paths, { drawSVG: '0%' });
-        ScrollTrigger.create({ trigger: svg.closest('.tpl-panel') ? svg.parentElement : svg, start: 'top 82%', once: true, onEnter: () => pen(svg, svg.classList.contains('ledger__line') ? 1.6 : .7).delay(.2) });
+        ScrollTrigger.create({ trigger: svg.closest('.tpl-panel') ? svg.parentElement : svg, start: 'top 82%', once: true, onEnter: () => pen(svg, svg.classList.contains('ledger__line') ? 1 : .6).delay(.1) });
       }
       // Template panels that start hidden draw their marks when shown.
       document.addEventListener('ih:tpl', e => { for (const svg of $$('.pen', e.detail)) pen(svg, .7); });
@@ -355,10 +308,9 @@
     /* Ending: the words surface from the water, through a blur; the signature writes itself. */
     const ending = $('[data-ending]');
     if (ending) {
-      gsap.from($$('.ending__sub, .ending__fine', ending), { opacity: 0, y: 34, filter: 'blur(10px)', duration: 1.6, stagger: .12, clearProps: 'filter,transform', scrollTrigger: { trigger: ending, start: 'top 45%' } });
-      gsap.from($('.ending__btn', ending), { opacity: 0, duration: 1.2, delay: .3, scrollTrigger: { trigger: ending, start: 'top 45%' } });
+      
       const sig = $('.ending__script svg', ending);
-      if (sig && window.DrawSVGPlugin) { gsap.set(strokes(sig), { drawSVG: '0%' }); ScrollTrigger.create({ trigger: ending, start: 'top 35%', once: true, onEnter: () => pen(sig, 1.8).delay(.5) }); }
+      if (sig && window.DrawSVGPlugin) { gsap.set(strokes(sig), { drawSVG: '0%' }); ScrollTrigger.create({ trigger: ending, start: 'top 35%', once: true, onEnter: () => pen(sig, 1.2).delay(.2) }); }
     }
 
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
