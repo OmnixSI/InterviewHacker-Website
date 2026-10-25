@@ -1,34 +1,12 @@
-// Custom monoline lettering for "next line." used by Final.
-// Each stroke is a list of skeleton points (upright, y up, x-height = 100). A Catmull-Rom pass turns
-// them into cubic Béziers, a 13° shear gives the italic slant, and the strokes stay in writing order
-// so DrawSVG reveals them the way a pen would: the word, then the x-cross and t-bar, then the dots.
-const SLANT = Math.tan(13 * Math.PI / 180);
-const OX = 80, BASE = 200;
-
-const strokes = [
-  // n e x t — begins with a flat lead-in so the waveform's baseline can run straight into the pen.
-  { id: 'next', points: [[-60,0],[-30,0],[0,4],[16,52],[26,94],[29,70],[29,30],[29,0],
-    [31,34],[42,82],[58,98],[71,86],[73,46],[75,10],[88,0],[104,12],
-    [124,44],[134,64],[130,76],[118,74],[110,58],[110,28],[120,6],[140,0],[160,14],
-    [172,52],[178,72],[188,46],[202,10],[216,0],[230,10],
-    [244,56],[254,142],[250,96],[248,40],[254,8],[268,0],[286,12]] },
-  { id: 'x', points: [[212,72],[194,40],[170,0]] },
-  { id: 't', points: [[232,96],[256,100],[280,100]] },
-  // l i n e
-  { id: 'line', points: [[330,6],[352,58],[374,128],[376,160],[364,164],[356,140],[354,90],[356,36],[364,6],[378,0],[394,12],
-    [406,56],[412,94],[411,52],[414,10],[426,0],[442,12],
-    [452,56],[458,96],[459,50],[459,0],
-    [461,34],[472,84],[488,98],[501,86],[503,46],[505,10],[518,0],[532,12],
-    [552,44],[562,64],[558,76],[546,74],[538,58],[538,28],[548,6],[568,0],[592,16]] },
-  { id: 'dot', points: [[414,128],[418,136]] },
-  { id: 'stop', points: [[612,2],[615,6]] }
-];
-
-const place = ([x, y]) => [x + y * SLANT + OX, BASE - y];
+// Final's hand-drawn ink: a monoline script word ("one page.") and the pen marks an editor leaves on a
+// page — a loop around a phrase, an underline, a tick, a margin bracket and a curved arrow.
+// Every stroke is a list of skeleton points (y up). A Catmull-Rom pass turns them into cubic Béziers and
+// the strokes stay in writing order, so the page can reveal them the way a pen would (stroke-dashoffset).
+// Nothing here is a font: the shapes are drawn point by point for this site.
 const f = n => Number(n.toFixed(1));
 
 function catmullRom(points) {
-  const p = points.map(place);
+  const p = points;
   if (p.length === 2) return `M${f(p[0][0])} ${f(p[0][1])}L${f(p[1][0])} ${f(p[1][1])}`;
   const q = [p[0], ...p, p[p.length - 1]];
   let d = `M${f(q[1][0])} ${f(q[1][1])}`;
@@ -39,16 +17,56 @@ function catmullRom(points) {
   return d;
 }
 
-// The viewBox starts at the lead-in so the stroke's first point sits on the left edge, on the baseline.
-export const LETTERING_VIEWBOX = '20 20 690 196';
-export const LETTERING_BASELINE = (BASE - 20) / 196;
+// ---- The script word ---------------------------------------------------------------------------
+// Upright skeleton, x-height 100, baseline 0, descender to -92. A 14° shear gives the slant.
+const SLANT = Math.tan(14 * Math.PI / 180);
+const word = [
+  // o n e — the o closes at the top and its exit stroke becomes the n's first arch.
+  { id: 'one', points: [[44,92],[26,94],[10,76],[4,44],[12,12],[30,0],[50,8],[60,36],[58,72],[46,94],[40,88],[54,86],[70,90],
+    [80,96],[86,84],[88,56],[88,26],[88,0],
+    [90,34],[100,80],[116,98],[130,88],[132,48],[134,12],[146,0],[160,10],
+    [178,40],[190,62],[186,76],[172,76],[164,58],[164,28],[174,6],[194,0],[214,12]] },
+  // p a g e — the p's stem drops below the line, climbs back into its bowl and runs on into the a.
+  { id: 'p', points: [[262,2],[276,52],[286,96],[284,40],[278,-40],[272,-92],[276,-40],[284,30],[294,78],[312,98],[330,90],[336,60],[330,24],[314,4],[296,4],[288,12]] },
+  { id: 'age', points: [[352,70],[366,84],[376,86],[388,98],[380,94],[364,96],[348,80],[342,48],[350,14],[366,2],[380,14],[388,46],[392,92],[392,40],[396,10],[408,0],[420,8],
+    [446,92],[430,98],[414,82],[408,52],[418,22],[434,14],[446,30],[452,92],[448,20],[440,-48],[424,-88],[404,-92],[396,-70],[410,-36],[440,-6],[468,16],
+    [486,42],[498,64],[494,76],[480,76],[472,58],[472,28],[482,6],[502,0],[524,12]] },
+  { id: 'stop', points: [[542,2],[545,6]] }
+];
+const WORD_BASE = 120, WORD_OX = 36;
+const placeWord = ([x, y]) => [x + y * SLANT + WORD_OX, WORD_BASE - y];
 
-// Inline use drops the lead-in (it would read as an underscore before the word) and crops to the word.
-export function letteringSvg({ className = 'lettering', lead = true } = {}) {
-  const paths = strokes.map(s => {
-    const points = !lead && s.id === 'next' ? s.points.slice(2) : s.points;
-    return `<path data-stroke="${s.id}" d="${catmullRom(points)}"/>`;
-  }).join('');
-  const viewBox = lead ? LETTERING_VIEWBOX : '72 20 638 196';
-  return `<svg class="${className}" viewBox="${viewBox}" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
+export function scriptSvg({ className = 'script', label = '' } = {}) {
+  const paths = word.map(s => `<path data-stroke="${s.id}" pathLength="1" d="${catmullRom(s.points.map(placeWord))}"/>`).join('');
+  const aria = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
+  return `<svg class="${className}" viewBox="0 0 640 236" ${aria} focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
+}
+
+// ---- Pen marks ---------------------------------------------------------------------------------
+// A loop drawn around a phrase: starts at the upper right, overshoots past the start, drifts a little.
+function loopPoints() {
+  const pts = [];
+  const steps = 26;
+  for (let i = 0; i <= steps; i++) {
+    const t = -0.32 * Math.PI + (i / steps) * 2.3 * Math.PI;
+    const drift = i / steps;
+    const rx = 96 + 3 * Math.sin(3 * t), ry = 38 + 2.4 * Math.cos(2 * t);
+    pts.push([100 + rx * Math.cos(t) + drift * 4, 46 - ry * Math.sin(t) - drift * 6 + 2 * Math.cos(t)]);
+  }
+  return pts;
+}
+const marks = {
+  loop: { viewBox: '-4 0 208 92', strokes: [loopPoints()] },
+  underline: { viewBox: '0 0 200 20', strokes: [[[2,12],[40,9],[90,8],[140,10],[176,8],[198,5]]] },
+  tick: { viewBox: '0 0 28 24', strokes: [[[3,13],[7,16],[11,21],[17,11],[25,3]]] },
+  bracket: { viewBox: '0 0 18 200', strokes: [[[4,3],[12,4],[13,30],[13,92],[16,100],[13,108],[13,170],[12,196],[4,197]]] },
+  arrow: { viewBox: '0 0 120 60', strokes: [[[4,42],[30,22],[62,14],[92,20],[112,34]], [[96,38],[113,35],[108,18]]] },
+  'arrow-down': { viewBox: '0 0 40 90', strokes: [[[20,3],[16,30],[17,58],[20,84]], [[9,70],[20,85],[31,71]]] }
+};
+
+export function markSvg(name, { className = '' } = {}) {
+  const m = marks[name];
+  if (!m) throw new Error(`Unknown pen mark: ${name}`);
+  const paths = m.strokes.map(s => `<path pathLength="1" vector-effect="non-scaling-stroke" d="${catmullRom(s)}"/>`).join('');
+  return `<svg class="pen pen--${name}${className ? ' ' + className : ''}" viewBox="${m.viewBox}" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
 }

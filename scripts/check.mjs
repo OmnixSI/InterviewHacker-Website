@@ -35,8 +35,8 @@ await inspectHtml(path.join(publicRoot,'index.html'),catalog.origin+'/');
 await inspectHtml(path.join(publicRoot,'compare/index.html'),catalog.origin+'/compare/');
 for(const style of catalog.styles){
  const base=path.join(publicRoot,style.slug),html=await inspectHtml(path.join(base,'index.html'),catalog.origin+style.path);
- const version={final:'v1.9.0'}[style.slug]||'v1.8.0';
- // Final is an early-access page with a waitlist instead of a download, so it carries no download prerequisites.
+ const version={final:'v2.0.0'}[style.slug]||'v1.8.0';
+ // Final states its own prerequisites (system, private repository) in its download section.
  for(const text of [version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])])assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);
@@ -87,10 +87,11 @@ for(const style of catalog.styles){
   assert(scripts.findIndex(src=>src.startsWith('./scripts/theme.js')) < scripts.findIndex(src=>src.startsWith('./assets/javascripts/shared.js')),'Classic theme must initialize before reference measurements');
  }
  if(style.slug==='final'){
-  // Final ships two generated language pages, subset fonts and its own vendor copies.
+  // Final ships two generated language pages and subset fonts.
   const en=await inspectHtml(path.join(base,'en/index.html'),catalog.origin+'/final/en/');
   for(const page of [html,en]){
-   assert(page.includes('v1.9.0'),'Final must state the current release');
+   assert(page.includes('v2.0.0'),'Final must state the current release');
+   assert(page.includes('https://github.com/OmnixSI/InterviewHacker/releases/latest'),'Final must link the latest GitHub release');
    assert(page.includes('hreflang="zh-CN"')&&page.includes('hreflang="en"'),'Final pages must link their language alternates');
    assert(!/fonts\.googleapis|cdn\.|无法被检测|undetectable/i.test(page),'Final must stay self-hosted and avoid detection claims');
    for(const src of [...page.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]))assert(/^\.\.?\//.test(src),'Final scripts must be same-origin');
@@ -109,6 +110,11 @@ for(const style of catalog.styles){
   const text=(html+en).replace(/<script\b[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,'');
   const missing=[...new Set(text)].filter(ch=>/[\u3000-\u9fff\uff00-\uffef]/.test(ch)&&!covered.has(ch));
   assert.equal(missing.join(''),'','Final font subset is missing characters: run npm run fonts:final -- <source dir>');
+  // Headings are set in IH Serif, which carries only the characters used in them.
+  const serif=new Set(charset.serif||'');
+  const headings=[...(html+en).matchAll(/<h([1-5])\b[^>]*>([\s\S]*?)<\/h\1>/g)].map(m=>m[2].replace(/<[^>]+>/g,'')).join('');
+  const missingSerif=[...new Set(headings)].filter(ch=>/[\u3000-\u9fff\uff00-\uffef]/.test(ch)&&!serif.has(ch));
+  assert.equal(missingSerif.join(''),'','Final serif subset is missing heading characters: run npm run fonts:final -- <source dir>');
  }
  if(['story','classic'].includes(style.slug)){
   for(const m of html.matchAll(/(?:href|src|data-ih-light|data-ih-dark)="(\.\/[^"?#]+\.(?:css|js|svg))\?v=([a-f0-9]{12})(?:#[^"]*)?"/g)){

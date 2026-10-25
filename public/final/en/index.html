@@ -4,11 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f6f5f1">
-  <title>InterviewHacker — Hear every question. Say your next line.</title>
-  <meta name="description" content="InterviewHacker is a native macOS assistant for live conversations. It hears the other side and you on separate channels, detects the questions meant for you, and streams answers you can say out loud, grounded in your own material.">
-  <meta property="og:title" content="InterviewHacker — Hear every question. Say your next line.">
-  <meta property="og:description" content="A live conversation assistant for interviews, talks, meetings and classes. On-device speech recognition by default.">
+  <meta name="theme-color" content="#f6f5f2">
+  <meta name="color-scheme" content="light dark">
+  <title>InterviewHacker — One meeting, one page</title>
+  <meta name="description" content="InterviewHacker is a macOS app that gives every meeting one page: prepare on it, watch it become a live transcript with suggested answers, and end with notes organized for the kind of meeting it was. Audio is transcribed on your Mac and never saved.">
+  <meta property="og:title" content="InterviewHacker — One meeting, one page">
+  <meta property="og:description" content="Prepare, get a line when you need one, and leave with notes. All on one page. A native macOS app.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://interviewhacker.vercel.app/final/en/">
   <meta property="og:image" content="https://interviewhacker.vercel.app/previews/final-home.png">
@@ -19,431 +20,457 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/manifest/apple-touch-icon.png">
   <link rel="preload" href="../assets/fonts/serif/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/fonts/fonts.css?v=acf24d5a1c3a">
-  <link rel="stylesheet" href="../assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="../style.css?v=8b908b0eb02a">
-  <script src="../scripts/bootstrap.js?v=25810ca2bdeb"></script>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css?v=953aaa36c7d7">
+  <link rel="stylesheet" href="../style.css?v=2bc8b62980c2">
+  <script src="../scripts/bootstrap.js?v=276e5bdfb86c"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
-    <symbol id="i-logo" viewBox="0 0 48 48"><path d="M7 25h5l3-10 6 20 6-27 6 21 4-10h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.4"/></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM17 8.5a5 5 0 0 1 0 7M19.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M9 6a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
-    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
-    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <symbol id="i-crop" viewBox="0 0 24 24"><path d="M4 8V5h3M17 5h3v3M20 16v3h-3M7 19H4v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
-    <filter id="f-dissolve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="4" result="noise"/>
-      <feComposite in="SourceAlpha" in2="noise" operator="arithmetic" k2="1" k3=".9" k4="-.45" result="sum"/>
-      <feComponentTransfer in="sum" result="mask"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
-      <feComposite in="SourceGraphic" in2="mask" operator="in"/>
-    </filter>
+    <defs>
+      <symbol id="i-mark" viewBox="0 0 128 128"><rect width="128" height="128" rx="30" fill="currentColor"/><g fill="none" stroke="var(--mark-ink, #fff)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M42 32H86Q98 32 98 44V74Q98 86 86 86H60L43 98V86H42Q30 86 30 74V44Q30 32 42 32Z"/><path d="M48 53V67M64 46V74M80 53V67"/></g></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7a1.5 1.5 0 0 1 1.5-1.5h4l2 2h8A1.5 1.5 0 0 1 20.5 9v8.5A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M18.4 5.6l-1.8 1.8M7.4 16.6l-1.8 1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 4 8 4-8 4-8-4 8-4zM4 12l8 4 8-4M4 16l8 4 8-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3c.6 4.2 2.8 6.4 7 7-4.2.6-6.4 2.8-7 7-.6-4.2-2.8-6.4-7-7 4.2-.6 6.4-2.8 7-7z" fill="currentColor"/></symbol>
+      <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 20h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.4" fill="currentColor"/></symbol>
+      <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m14.5 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/></symbol>
+      <symbol id="i-tele" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 9h18" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-crop" viewBox="0 0 24 24"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 3 5.5 13.5h6L10.5 21l8-10.5h-6z" fill="currentColor"/></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6.5 3.5h7l4 4v13h-11zM13.5 3.5v4h4M9 12h6M9 15.5h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 18h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><path d="M9 6a3 3 0 0 1 6 0v6a3 3 0 0 1-6 0zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4zM15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6.5 11h11v8.5h-11zM9 11V8.5a3 3 0 0 1 6 0V11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2m0 15v2M4.6 4.6 6 6m12 12 1.4 1.4M2.5 12h2m15 0h2M4.6 19.4 6 18M18 6l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5.5h2.6v13H8zM13.4 5.5H16v13h-2.6z" fill="currentColor"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z" fill="currentColor"/></symbol>
+      <symbol id="i-ext" viewBox="0 0 24 24"><path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
   </svg>
 
-  <a class="skip-link" href="#main">Skip to content</a>
-  <a class="gallery-back" href="/" target="_top">← Style gallery</a>
-  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <header class="site-header" data-header>
-    <div class="site-header__inner">
-      <a class="brand" href="#top" aria-label="InterviewHacker home">
-        <svg class="brand__mark" aria-hidden="true"><use href="#i-logo"/></svg>
-        <span class="brand__name">InterviewHacker</span>
-      </a>
-      <nav class="site-nav" id="site-nav" aria-label="Sections">
-        <a href="#demo"><i>01</i>Demo</a>
-        <a href="#scenes"><i>02</i>Moments</a>
-        <a href="#companion"><i>03</i>Companion</a>
-        <a href="#privacy"><i>04</i>Privacy</a>
+  <header class="hd" data-header>
+    <div class="hd__in">
+      <a class="brand" href="#top" aria-label="InterviewHacker home"><svg class="brand__mark" aria-hidden="true"><use href="#i-mark"/></svg><span class="brand__name">InterviewHacker</span></a>
+      <nav class="hd__nav" id="hd-nav" aria-label="Sections">
+        <a href="#demo">How it works</a>
+        <a href="#scenes">Meeting types</a>
+        <a href="#notes">Notes</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#faq">FAQ</a>
       </nav>
-      <div class="site-header__actions">
-        <div class="lang" data-lang>
-          <button class="lang__toggle" type="button" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English" data-lang-toggle><span>EN</span><i class="lang__plus" aria-hidden="true"></i></button>
-          <ul class="lang__menu" id="lang-menu" role="list" aria-label="Language">
-            <li style="--i:0"><a href="../" hreflang="zh-CN" lang="zh-CN" data-lang-switch><span class="mono">ZH</span>中文</a></li>
-            <li style="--i:1"><a href="./" hreflang="en" lang="en" aria-current="page"><span class="mono">EN</span>English</a></li>
-          </ul>
-        </div>
-        <button class="icon-btn" type="button" data-motion-toggle aria-pressed="false" aria-label="Pause motion" data-label-on="Resume motion" data-label-off="Pause motion">
-          <svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg>
-        </button>
-        <a class="btn btn--ink btn--sm" href="#download">Early access</a>
-        <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu" data-label-open="Close menu" data-label-closed="Open menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <div class="hd__tools">
+        <div class="langs" role="group" aria-label="Language"><a href="../" hreflang="zh-CN" lang="zh-CN" data-lang-switch>中</a><a href="./" hreflang="en" lang="en" aria-current="page">EN</a></div>
+        <button class="tool" type="button" data-theme-toggle aria-pressed="false" aria-label="Dark appearance"><svg class="when-light" aria-hidden="true"><use href="#i-moon"/></svg><svg class="when-dark" aria-hidden="true"><use href="#i-sun"/></svg></button>
+        <button class="tool" type="button" data-motion-toggle aria-pressed="false" aria-label="Pause motion" data-label-on="Resume motion" data-label-off="Pause motion"><svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg></button>
+        <a class="btn btn--ink btn--sm" href="#download">Download</a>
       </div>
     </div>
   </header>
 
   <main id="main">
-    <!-- Hero → voiceprint → device. One pinned stage on wide screens; plain reading order elsewhere. -->
-    <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
-      <div class="hero__pin" data-hero-pin>
-        <div class="field" aria-hidden="true">
-          <canvas class="field__canvas" data-field></canvas>
-          <svg class="field__fallback" viewBox="0 0 1200 400" preserveAspectRatio="none"><path class="field__them" d="M0 190 C120 120 200 260 320 180 S520 110 640 190 S860 270 980 170 S1140 150 1200 190"/><path class="field__me" d="M0 214 C140 250 240 170 360 220 S560 270 700 214 S900 160 1020 226 S1150 240 1200 214"/></svg>
+    <div class="run" data-run>
+      <header class="hero" id="top">
+        <p class="over"><span>InterviewHacker 2.0</span><span>macOS</span></p>
+        <h1 class="hero__title" id="hero-title"><span class="hero__l">One meeting,</span> <span class="hero__l"><span class="ring">one page<svg class="pen pen--loop" viewBox="-4 0 208 92" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M151.2 78.3C154.4 77.4 164.5 75 170 72.7C175.5 70.4 180.2 67.6 184.1 64.5C188.1 61.4 191.5 57.8 193.6 54.2C195.7 50.5 197.2 46.5 197 42.8C196.8 39.1 195.3 35.2 192.3 31.8C189.3 28.4 184.5 25.2 178.8 22.5C173.1 19.7 165.7 17.4 158.3 15.5C150.8 13.5 142.2 12.1 133.9 10.9C125.6 9.7 116.9 9 108.4 8.5C99.8 8.1 91.2 8 82.7 8.2C74.2 8.5 65.5 9 57.5 10.1C49.4 11.1 41.2 12.5 34.5 14.4C27.7 16.3 21.3 18.6 16.8 21.3C12.3 24.1 9 27.3 7.3 30.7C5.6 34 5.6 37.8 6.5 41.4C7.5 45 10 48.8 13 52.2C16 55.6 20 58.9 24.7 61.7C29.3 64.5 34.7 66.9 40.9 69C47.1 71 54.2 72.6 61.9 73.8C69.7 75 78.6 75.8 87.4 76.3C96.2 76.8 106 77 114.9 76.8C123.8 76.6 132.9 76.1 140.9 75.2C148.8 74.3 156.2 73 162.7 71.2C169.1 69.4 174.7 67.2 179.6 64.6C184.4 62 188.6 58.8 191.9 55.4C195.2 52.1 198 46.3 199.2 44.5"/></g></svg></span>.</span></h1>
+        <p class="hero__lede">InterviewHacker is a Mac app that gives every meeting a single page. You prepare on it. Once you start, it becomes a live transcript with suggested answers. When you end the call, it turns into the notes.</p>
+        <div class="hero__cta">
+          <a class="btn btn--ink" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>Download for Mac<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
+          <a class="btn btn--line" href="#demo-1">See how it works<svg aria-hidden="true"><use href="#i-down"/></svg></a>
         </div>
+        <p class="hero__fine">macOS 14 or later · Apple Silicon · English and Chinese interface</p>
+      </header>
 
-        <div class="hero__copy" data-hero-copy>
-          <p class="eyebrow eyebrow--quiet mono">InterviewHacker <span>v1.9.0</span> <span>macOS</span></p>
-          <h1 class="hero__title" id="hero-title" data-two-pass data-draft="Hear every questoin." data-draft-word="next lion">
-            <span class="sr-only">Hear every question. Say your next line.</span>
-            <span class="hero__final" aria-hidden="true">
-              <span class="hero__line">Hear every question.</span>
-              <span class="hero__line">Say your<span class="hero__lettering"><svg class="lettering lettering--inline" viewBox="72 20 638 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M80.9 196C85.4 188 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></span>
-            </span>
-          </h1>
-          <p class="hero__lead">In interviews, meetings and classes, the answer starts arriving as soon as the question ends.<br>Speech stays on your Mac; answers draw on your own notes.</p>
-          <div class="hero__actions">
-            <a class="btn btn--ink" href="#download">Get early access<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="btn btn--ghost" href="#demo">See it work<svg aria-hidden="true"><use href="#i-down"/></svg></a>
+      <div class="stage" data-stage>
+        <div class="stage__pin">
+          <div class="stage__frame"><div class="app" data-demo-app data-phase="home" data-mode="prompt" data-audio="online" data-type="interview" role="group" aria-roledescription="interactive mock-up" aria-label="InterviewHacker window">
+  <div class="app__chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+  <nav class="a-side" aria-hidden="true"><span class="a-nav is-on" data-nav="home"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span>Home</span></span><span class="a-nav" data-nav="meetings"><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg><span>Meetings</span></span><span class="a-nav"><svg class="ic" aria-hidden="true"><use href="#i-folder"/></svg><span>Library</span></span><span class="a-grow"></span><span class="a-nav"><svg class="ic" aria-hidden="true"><use href="#i-gear"/></svg><span>Settings</span></span></nav>
+  <div class="a-views"><section class="a-view a-home" data-view="home"><div class="a-scroll"><div class="a-col">
+    <p class="a-over">Tuesday, 27 October</p><h4 class="a-display">Good afternoon</h4>
+    <div class="a-card a-start" data-focus="start"><p class="a-over">Start a meeting</p><p class="a-section">Meeting coming up?</p><p class="a-sub">New meeting: add materials, check your setup, then start. Record now: start right away; notes are written when you end.</p>
+      <div class="a-actions"><button class="a-primary a-primary--lg" type="button" data-go="prepare">New meeting <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="a-secondary" type="button" data-go="live" data-record><svg class="ic" aria-hidden="true"><use href="#i-record"/></svg>Record now <kbd>⇧⌘N</kbd></button></div></div>
+    <p class="a-over a-over--rule">Recent</p>
+    <ul class="a-recent"><li><span><b>Monday product sync</b><small>3 action items</small></span><time>Yesterday 10:00 AM</time></li><li><span><b>Fernway · Backend, round 1</b><small>2 questions to improve</small></span><time>22 Oct 3:00 PM</time></li></ul>
+  </div></div></section><section class="a-view a-prep" data-view="prepare"><header class="a-crumbs"><span>Home</span><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg><b>Prepare</b></header><div class="a-scroll" data-prep-scroll><div class="a-col">
+    <h4 class="a-display">Fernway · Backend, round 2</h4><p class="a-src"><svg class="ic" aria-hidden="true"><use href="#i-screen"/></svg><span data-where>Online meeting</span></p>
+    <div class="a-step" data-prep-step="1"><span class="a-n">1</span><div><p class="a-step__head"><b>What kind of meeting</b><span class="a-cap">Picked from the title; you can change it</span></p><div class="a-chips" role="group" aria-label="What kind of meeting"><button type="button" class="a-chip" data-type="general" aria-pressed="false">General</button><button type="button" class="a-chip is-on" data-type="interview" aria-pressed="true">Interview</button><button type="button" class="a-chip" data-type="presentation" aria-pressed="false">Presentation / Defense</button><button type="button" class="a-chip" data-type="lab" aria-pressed="false">Lab meeting</button><button type="button" class="a-chip" data-type="work" aria-pressed="false">Work meeting</button><button type="button" class="a-chip" data-type="client" aria-pressed="false">Client call</button><button type="button" class="a-chip" data-type="lecture" aria-pressed="false">Lecture / Class</button><button type="button" class="a-chip" data-type="discussion" aria-pressed="false">Group discussion</button><button type="button" class="a-chip a-chip--add" data-type-custom><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Custom…</button></div><p class="a-cap a-typeline" data-typeline>Interview: Answers appear automatically · Brief answers · Review afterwards, saved to the question bank · Bring: Résumé, job description, company info</p></div></div>
+    <div class="a-step" data-prep-step="2"><span class="a-n">2</span><div><p class="a-step__head"><b>Continue from last time</b></p><div class="a-card a-carry"><div class="a-carry__head"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg><span class="a-grow"><b>Meeting 2 of “Fernway · Backend”</b><span class="a-cap">Last time: Round 1 · Thu 22 Oct</span></span><button type="button" class="a-ghost" data-not-same>Not the same series</button></div><div class="a-carry__list"><label class="a-check"><input type="checkbox" data-carry="materials" checked><span class="a-box"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><span class="a-grow">Materials · resume-2026.pdf, backend-role.md…</span><span class="a-cap">4 files</span></label><label class="a-check"><input type="checkbox" data-carry="review" checked><span class="a-box"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><span class="a-grow">Review · improved answers</span><span class="a-cap">3 questions</span></label><label class="a-check"><input type="checkbox" data-carry="lessons" checked><span class="a-box"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><span class="a-grow">Lessons · “Lead with scale and results”, “Answer first”</span><span class="a-cap">3 lessons</span></label><label class="a-check"><input type="checkbox" data-carry="transcript"><span class="a-box"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></span><span class="a-grow">Full transcript of last time</span><span class="a-cap">42 min</span></label></div></div></div></div>
+    <div class="a-step" data-prep-step="3"><span class="a-n">3</span><div><p class="a-step__head"><b>New materials for this meeting</b><span class="a-cap">Optional</span><span class="a-grow"></span><span class="a-link">Bring in from a past meeting…</span><span class="a-link"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Add</span></p><div class="a-file" data-file="0"><span class="a-ext">PDF</span><span class="a-grow"><span class="a-fname">order-system-architecture.pdf</span><span class="a-bar"><i></i></span></span><span class="a-fstate"><span class="when-reading">Reading</span><span class="when-done"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Read</span></span></div><div class="a-file" data-file="1"><span class="a-ext">PNG</span><span class="a-grow"><span class="a-fname">team-page.png</span><span class="a-bar"><i></i></span></span><span class="a-fstate"><span class="when-reading">Reading</span><span class="when-done"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Read</span></span></div>
+      <div class="ai-note a-ai"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>What AI took away</p><ul><li data-needs="review">Round 1 stalled on the cache-breakdown follow-up. Have the full answer ready this time.</li><li data-needs="lessons">When they ask about projects, give the scale and the result before the method.</li><li>The role leans on high concurrency and cache consistency; the order flow in the diagram has three stages.</li></ul><p class="a-ai__more">See 5 likely questions <svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></p></div></div></div>
+    <div class="a-step" data-prep-step="4"><span class="a-n">4</span><div><p class="a-step__head"><b>Before you start</b></p><div class="a-card a-checks">
+      <div class="a-crow"><i class="dot dot--ready"></i><b>Audio</b><span class="a-seg a-seg--sm" role="group"><button type="button" class="is-on" data-audio="online" aria-pressed="true">Online</button><button type="button" data-audio="offline" aria-pressed="false">In person</button></span><span class="a-grow a-meters"><span class="a-meter" data-meter="them"><span class="a-meter__label">Them</span><span class="a-meter__bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class="a-meter" data-meter="me"><span class="a-meter__label">Me</span><span class="a-meter__bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class="a-meter" data-meter="room"><span class="a-meter__label">Room</span><span class="a-meter__bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span></span></div>
+      <div class="a-crow"><i class="dot dot--ready"></i><b>Answers</b><span class="a-cap">gpt-5.5 · Fast</span></div>
+      <div class="a-crow"><i class="dot dot--ready"></i><b>Phone</b><span class="a-cap">1 phone connected · Local network</span></div>
+    </div></div></div>
+  </div></div><footer class="a-prep__foot"><button type="button" class="a-primary a-primary--lg" data-go="live" data-start data-label-ready="Start" data-label-reading="Start (reading materials 1/2)">Start</button></footer></section><section class="a-view a-live" data-view="live"><header class="a-top">
+      <button type="button" class="a-timer" data-timer title="Paused"><i class="dot dot--live"></i><span data-time>12:37</span><span class="a-paused">Paused</span></button>
+      <span class="a-ttl">Fernway · Backend, round 2</span><span class="a-grow"></span>
+      <span class="a-seg" role="group" data-focus="mode"><button type="button" class="is-on" data-mode-btn="prompt" aria-pressed="true">Prompt</button><button type="button" data-mode-btn="notes" aria-pressed="false">Notes only</button></span>
+      <span class="a-phone" title="1 phone connected · Local network"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><i class="dot dot--ready"></i></span>
+      <button type="button" class="a-model" data-model aria-expanded="false" data-focus="model">gpt-5.5<span data-fast-mark><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span></button>
+      <span class="a-icon" title="Teleprompter"><svg class="ic" aria-hidden="true"><use href="#i-tele"/></svg></span>
+      <button type="button" class="a-secondary" data-go="notes" data-end>End</button><div class="a-pop" data-pop role="dialog" aria-label="Answer settings" hidden><p class="a-pop__title">Answer settings</p>
+    <div class="a-prow"><span>Model</span><span class="a-seg a-seg--sm" role="group" aria-label="Model"><button type="button" class="is-on" aria-pressed="true">gpt-5.5</button><button type="button" class="" aria-pressed="false">gpt-5.5-mini</button></span></div>
+    <div class="a-prow"><span>Fast mode <svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><small>About 1.5× faster · uses more quota</small></span><button type="button" class="a-switch is-on" data-fast role="switch" aria-checked="true"><i></i></button></div>
+    <div class="a-prow"><span>Web search</span><span class="a-seg a-seg--sm" role="group" aria-label="Web search"><button type="button" class="" aria-pressed="false">Off</button><button type="button" class="is-on" aria-pressed="true">Automatic</button><button type="button" class="" aria-pressed="false">Always</button></span></div>
+    <div class="a-prow"><span>Length</span><span class="a-seg a-seg--sm" role="group" aria-label="Length"><button type="button" class="is-on" aria-pressed="true">Brief</button><button type="button" class="" aria-pressed="false">Detailed</button></span></div>
+    <p class="a-pop__foot">Applies from the next answer</p></div>
+    </header>
+    <div class="a-cols">
+      <div class="a-conv"><p class="a-over">Live transcript</p><ol class="a-lines" data-lines><li class="a-line a-line--them" data-line="0" data-who="them"><span class="a-who">Them</span><span class="a-said"><span class="a-qtag">Question</span>Let's start with a recent project. Which part was yours?</span></li><li class="a-line a-line--me" data-line="1" data-who="me"><span class="a-who">Me</span><span class="a-said">I owned the caching layer of the order service. We moved the hot queries from the database to Redis.</span></li><li class="a-line a-line--them" data-line="2" data-who="them"><span class="a-who">Them</span><span class="a-said">Okay, that's a big piece.</span></li><li class="a-line a-line--them" data-line="3" data-who="them"><span class="a-who">Them</span><span class="a-said"><span class="a-qtag">Question</span>So when the database and the cache both change, how do you keep them consistent?</span></li><li class="a-line a-line--me" data-line="4" data-who="me"><span class="a-who">Me</span><span class="a-said">We update the database first, then delete the cache…</span></li><li class="a-line a-line--them is-partial" data-line="5" data-who="them"><span class="a-who">Them</span><span class="a-said"><span class="a-qtag">Question</span>And if deleting the cache fails?</span></li></ol><p class="a-foot">On-device recognition · 1 echo line ignored<svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg></p></div>
+      <div class="a-ans" data-focus="answer"><div class="a-ans__head"><p class="a-over a-over--ai"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Suggested answer</p><span class="a-grow"></span><span class="a-pager"><svg class="ic" aria-hidden="true"><use href="#i-chev-l"/></svg><span data-pager>2/2</span><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg></span></div>
+        <p class="a-q" data-q>So when the database and the cache both change, how do you keep them consistent?</p><div class="a-body" data-body data-empty="Listening…"><p class="a-lead">We write to the database first, then delete the cache entry, and a binlog subscriber backs that up. It's eventually consistent.</p><ul class="a-pts"><li>After a successful write we delete the key; a read that misses goes to the database and refills the cache.</li><li>If the delete fails, the key goes to a retry queue, and the binlog subscriber deletes it again.</li><li>Hot keys get a delayed double delete, so a stale value has almost no time to sneak back in.</li><li>Where we need strong consistency, like balances, we read from the database or take a distributed lock.</li></ul></div>
+        <p class="a-quiet" data-quiet>Notes only: no automatic answers. Press ⇧⌘↩ when you need help, or type a question below.</p>
+        <div class="a-rew"><button type="button" data-rewrite="shorter">Shorter</button><button type="button" data-rewrite="example">Example</button><button type="button" data-rewrite="english">In English</button><button type="button" class="a-more" data-more aria-expanded="false" aria-label="More"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg></button><div class="a-menu" data-more-menu hidden><button type="button">Expand</button><button type="button">STAR</button><button type="button">In Chinese</button><button type="button">Clarify</button><button type="button">Questions to ask back</button><button type="button" data-regen>Regenerate</button><button type="button">Check the web</button><button type="button">Copy answer</button></div></div>
+        <p class="a-basis">Based on: Materials 2</p></div>
+    </div>
+    <footer class="a-barline"><span class="a-input" data-input><span class="when-prompt">Type a question, press Return to send</span><span class="when-notes">Need help? Type a question, or press ⇧⌘↩ to answer what they just asked</span><kbd>⌘L</kbd></span><span class="a-icon"><svg class="ic" aria-hidden="true"><use href="#i-crop"/></svg></span><button type="button" class="a-primary" data-answer-now><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg>Answer now <kbd>⇧⌘↩</kbd></button></footer>
+  </section><section class="a-view a-notes" data-view="notes"><header class="a-crumbs a-crumbs--bar"><span>Meetings</span><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg><span class="a-crumb-mid">Fernway · Backend, round 2</span><svg class="ic" aria-hidden="true"><use href="#i-chev-r"/></svg><b>Review</b><span class="a-grow"></span><span class="a-tpl"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>Template: Interview review<svg class="ic" aria-hidden="true"><use href="#i-chev-d"/></svg></span><span class="a-icon"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg></span><button type="button" class="a-primary" data-save data-saved="Saved · 2">Save to question bank · 2</button></header>
+    <div class="a-scroll" data-notes-scroll><div class="a-col">
+      <h4 class="a-display">Fernway · Backend, round 2</h4><p class="a-cap a-meta">Tue 27 Oct, 2:30 PM · 44 min · Online · 3 recognition errors fixed</p>
+      <span class="a-seg a-tabs"><button type="button" class="is-on">Review</button><button type="button">Transcript</button><button type="button">Live answers</button></span>
+      <div class="a-progress" data-progress><p class="a-progress__title"><i class="spin"></i>Writing notes · usually 1–3 minutes</p><ol><li data-pstep="0"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Proofread transcript</span></li><li data-pstep="1"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Organize by template</span></li><li data-pstep="2"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span>Check</span></li></ol></div>
+      <div class="sheet sheet--app" data-doc><section class="sh-sec sh-sec--ai"><div class="ai-note"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>In one line</p><p>The project story was solid and backed by numbers. On system design you got to the point too slowly, and the cache-breakdown answer was still incomplete.</p></div></section><section class="sh-sec"><h5 class="sh-title">Question by question</h5><ol class="sh-qs"><li><span class="sh-n">1</span><div><p class="sh-q">What if deleting the cache fails? <span class="ts" title="Jump to this moment in the transcript">[18:22]</span> <span class="badge badge--ready">Good</span></p><p class="sh-mine">My answer: Retry queue plus an async delete from the binlog. Two safety nets.</p></div></li><li><span class="sh-n">2</span><div><p class="sh-q">A hot key expires and a flood of requests hits the database at once. What do you do? <span class="ts" title="Jump to this moment in the transcript">[27:05]</span> <span class="badge badge--caution">To improve</span></p><p class="sh-mine">My answer: Add a lock… (8-second pause) …maybe a Bloom filter.</p><div class="ai-note ai-note--sm"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Better answer</p><p>Answer first: a mutex rebuild or logical expiry, chosen by how fresh the data must be. A Bloom filter stops penetration, not breakdown; keep them apart.</p></div></div></li></ol></section><section class="sh-sec is-gap"><h5 class="sh-title">Where I fell short</h5><ul class="sh-list"><li>Mixed up cache breakdown and cache penetration <span class="ts" title="Jump to this moment in the transcript">[27:40]</span></li></ul></section><section class="sh-sec is-gap"><h5 class="sh-title">What I didn't mention</h5><ul class="sh-list"><li>Never brought up “80k QPS through the sale with zero incidents” from the résumé <span class="ts" title="Jump to this moment in the transcript">[31:40]</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Next time</h5><ul class="sh-list"><li>On design questions, state the answer, then unpack it</li><li>Have breakdown, penetration and avalanche side by side</li><li>Bring scale and results into every project story</li></ul></section></div>
+    </div></div></section></div>
+</div></div>
+          <div class="stage__rail" role="group" aria-label="Jump to a stage">
+            <button type="button" data-rail="home" aria-pressed="true">Home</button>
+            <button type="button" data-rail="prepare" aria-pressed="false">Prepare</button>
+            <button type="button" data-rail="live" aria-pressed="false">Live</button>
+            <button type="button" data-rail="notes" aria-pressed="false">Notes</button>
           </div>
-          <p class="hero__meta mono"><span>macOS 14+</span><span>Apple Silicon</span><span>Early access soon</span></p>
-          <p class="hero__hint mono" aria-hidden="true"><i></i>Scroll to play a full interview, step by step</p>
+          <p class="stage__note">Interactive mock-up · sample data, no audio, no model calls. Everything in the window is clickable.</p>
         </div>
+      </div>
 
-        <div class="voiceprint" data-voiceprint>
-          <p class="eyebrow mono"><b>№ 01</b>Live demo</p>
-          <h2 class="voiceprint__title" id="demo-title"><span class="voiceprint__text">From their question to your</span><span class="voiceprint__word"><svg class="lettering lettering--lead" viewBox="20 20 690 196" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="next" d="M20 200C25 200 39.8 200.7 50 200C60.2 199.3 71.3 204.7 80.9 196C90.6 187.3 100.2 163 108 148C115.8 133 124.8 109 127.7 106C130.6 103 127.1 119.3 125.2 130C123.2 140.7 118.6 158.3 115.9 170C113.2 181.7 108.5 200.7 109 200C109.5 199.3 113.5 179.7 118.8 166C124.2 152.3 134 128.7 140.9 118C147.9 107.3 155.6 102.7 160.6 102C165.6 101.3 170.4 105.3 170.9 114C171.4 122.7 165.9 141.3 163.6 154C161.4 166.7 156.6 182.3 157.3 190C158 197.7 163.1 200.3 168 200C172.9 199.7 179.1 195.3 186.8 188C194.5 180.7 207.2 164.7 214.2 156C221.2 147.3 226.5 141.3 228.8 136C231 130.7 229.8 125.7 227.5 124C225.3 122.3 219.1 123 215.1 126C211.1 129 206.5 134.3 203.4 142C200.3 149.7 196.8 163.3 196.5 172C196.1 180.7 197.5 189.3 201.4 194C205.3 198.7 213 201.3 220 200C227 198.7 235.9 194.7 243.2 186C250.6 177.3 258.8 157.7 264 148C269.2 138.3 272.2 127 274.6 128C277.1 129 277 143.7 278.6 154C280.2 164.3 281.4 182.3 284.3 190C287.2 197.7 291.3 200 296 200C300.7 200 305.5 199.3 312.3 190C319.1 180.7 327.8 166 336.9 144C346 122 364.2 64.7 366.8 58C369.3 51.3 357.1 87 352.2 104C347.2 121 340 145.3 337.2 160C334.5 174.7 334.1 185.3 335.8 192C337.6 198.7 342.5 200.7 348 200C353.5 199.3 365.3 190 368.8 188"/><path data-stroke="x" d="M308.6 128C304.4 133.3 293 148 283.2 160C273.5 172 255.5 193.3 250 200"/><path data-stroke="t" d="M334.2 104C338.3 103.3 350.9 100.7 359.1 100C367.2 99.3 379.1 100 383.1 100"/><path data-stroke="line" d="M411.4 194C417.1 185.3 433.4 162.3 445.4 142C457.4 121.7 475.6 89 483.6 72C491.5 55 493.2 46 492.9 40C492.7 34 486 32.7 481.9 36C477.8 39.3 472.8 47.7 468.3 60C463.8 72.3 458.8 92.7 454.8 110C450.8 127.3 445.9 150 444.3 164C442.7 178 443.1 188 445.4 194C447.7 200 452.8 201 458 200C463.2 199 469.9 197.3 476.8 188C483.6 178.7 492.8 157.7 498.9 144C505.1 130.3 513 105.3 513.7 106C514.4 106.7 505.9 134 503 148C500.1 162 495.8 181.3 496.3 190C496.8 198.7 501.3 200.3 506 200C510.7 199.7 518.3 197.3 524.8 188C531.3 178.7 539 158 544.9 144C550.8 130 559.2 103 560.2 104C561.1 105 554.1 134 550.5 150C547 166 539.3 197.3 539 200C538.7 202.7 543.5 180 548.8 166C554.2 152 564.4 126.7 571.4 116C578.4 105.3 585.7 102.3 590.6 102C595.5 101.7 600.4 105.3 600.9 114C601.4 122.7 595.9 141.3 593.6 154C591.4 166.7 586.6 182.3 587.3 190C588 197.7 593.4 200.3 598 200C602.6 199.7 607.4 195.3 614.8 188C622.1 180.7 635.2 164.7 642.2 156C649.2 147.3 654.5 141.3 656.8 136C659 130.7 657.8 125.7 655.5 124C653.3 122.3 647.1 123 643.1 126C639.1 129 634.5 134.3 631.4 142C628.3 149.7 624.8 163.3 624.5 172C624.1 180.7 625.5 189.3 629.4 194C633.3 198.7 640.3 201.7 648 200C655.7 198.3 671.1 186.7 675.7 184"/><path data-stroke="dot" d="M523.6 72L529.4 64"/><path data-stroke="stop" d="M692.5 198L696.4 194"/></g></svg></span></h2>
-        </div>
+      <section class="steps" id="demo" aria-labelledby="demo-title">
+        <h2 class="sr-only" id="demo-title">One meeting, from preparation to notes</h2>
+        <article class="step" id="demo-1" data-step="home" data-focus="start">
+          <p class="step__time"><time>2:02 PM</time><span>Home</span></p>
+          <h3>Home asks one thing: is there a meeting?</h3>
+          <p>New meeting takes you to the prepare page. No time? Record now (⇧⌘N) skips all of that: no type, no materials, and you still get notes when it ends.</p>
+        </article>
+        <article class="step" data-step="prepare" data-focus="1">
+          <p class="step__time"><time>2:03 PM</time><span>Prepare · 1 of 4</span></p>
+          <h3>Say what kind of meeting it is</h3>
+          <p>Eight types sit in one row. Pick one and the rest follows: prompting or notes only, how long answers run, which notes template it uses. The title says “round 2”, so Interview is already picked.</p>
+        </article>
+        <article class="step" data-step="prepare" data-focus="2">
+          <p class="step__time"><time>2:04 PM</time><span>Prepare · 2 of 4</span></p>
+          <h3>Round two remembers round one</h3>
+          <p>It recognizes the second meeting of the same series and ticks what round one left behind: materials, the review, the lessons. The full transcript is long, so it stays unticked. Untick something and watch what the AI takes away change.</p>
+        </article>
+        <article class="step" data-step="prepare" data-focus="3">
+          <p class="step__time"><time>2:06 PM</time><span>Prepare · 3–4 of 4</span></p>
+          <h3>Drop files in. It reads while you get ready.</h3>
+          <p>Each file goes from Reading to Read, then it writes down what it took away. Before you start there are three rows: the audio meters are moving, the answer engine is connected, the phone is paired. Three green dots and you can begin.</p>
+        </article>
+        <article class="step" data-step="live" data-focus="answer">
+          <p class="step__time"><time>2:30 PM</time><span>Live</span></p>
+          <h3>During the call, the window holds this conversation and nothing else</h3>
+          <p>The sidebar folds away. The transcript runs on the left; the suggested answer fades in on the right, word by word. Below it, three rewrites: Shorter, Example, In English. The rest sit behind “…”. Answer now is the only primary button in the window.</p>
+        </article>
+        <article class="step" data-step="live" data-focus="settings">
+          <p class="step__time"><time>2:52 PM</time><span>Live</span></p>
+          <h3>It can stay quiet until someone asks you</h3>
+          <p>Switch the top bar to Notes only and it stops answering on its own; press ⇧⌘↩ when you need it. Click the model name for Answer settings: model, fast mode, web search, length. Changes apply from the next answer.</p>
+        </article>
+        <article class="step" data-step="notes" data-focus="notes">
+          <p class="step__time"><time>3:14 PM</time><span>Ended</span></p>
+          <h3>End the call, and the same page becomes the notes</h3>
+          <p>The transcript goes to a separate notes model. It proofreads, organizes by the interview review template, then checks each line against what was said. Questions you fumbled go into the question bank and come back when you prepare for round three.</p>
+        </article>
+      </section>
+    </div>
 
-        <div class="stage" data-stage>
-          <div class="device" data-device>
-            <div class="device__lid">
-              <span class="device__cam" aria-hidden="true"></span>
-              <div class="device__screen">
-                <div class="desk" aria-hidden="true">
-                  <div class="call"><span class="call__tile"><b>A</b><small>Interviewer · Zoom</small></span><span class="call__tile call__tile--me"><b>Me</b><small>Camera</small></span></div>
-                </div>
-                <div class="app" data-demo-app aria-label="InterviewHacker assistant window, demo" role="group">
-                  <div class="app__bar">
-                    <span class="app__lights" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="app__tabs" aria-hidden="true"><b class="is-on">Assistant</b><b>Scenes</b><b>History</b><b>Settings</b></span>
-                    <span class="app__status"><i class="live-dot" aria-hidden="true"></i><span data-demo-status>Listening</span><span class="mono" data-demo-clock>00:00</span></span>
-                  </div>
-                  <div class="app__body">
-                    <section class="app__pane app__pane--talk" aria-label="Live transcript">
-                      <header class="app__head"><b>Live transcript</b><span class="app__chip" data-demo-scene-name>Backend · onsite round 2</span></header>
-                      <p class="app__meta mono" data-demo-asr>On this Mac · each sentence checked again</p>
-                      <div class="lanes">
-                        <div class="lane lane--them"><svg aria-hidden="true"><use href="#i-speaker"/></svg><span>Them</span><canvas data-wave="them"></canvas></div>
-                        <div class="lane lane--me"><svg aria-hidden="true"><use href="#i-mic"/></svg><span>Me</span><canvas data-wave="me"></canvas></div>
-                      </div>
-                      <ol class="transcript" data-transcript aria-live="off">
-                        <li class="bubble bubble--them is-question"><span class="bubble__tag">Follow-up</span>When the database and cache both change, how do you keep them consistent?</li>
-                        <li class="bubble bubble--echo"><span class="bubble__tag">Echo · ignored</span>database and cache both change keep them consistent<button type="button" class="bubble__restore" tabindex="-1">That was me</button></li>
-                      </ol>
-                    </section>
-                    <section class="app__pane app__pane--answer" aria-label="Suggested answer">
-                      <div class="qcard">
-                        <span class="qcard__types" aria-label="Question type"><b data-qtype="ask">Question</b><b data-qtype="request">Request</b><b data-qtype="follow" class="is-on">Follow-up</b></span>
-                        <p class="qcard__text" data-demo-question>When the database and cache both change, how do you keep them consistent?</p>
-                      </div>
-                      <div class="acard" data-acard>
-                        <p class="acard__head"><svg aria-hidden="true"><use href="#i-spark"/></svg><b>Suggested answer</b><span data-demo-answer-state>Streaming</span></p>
-                        <p class="acard__text" data-demo-answer>We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a safety net; hot keys get a delayed double delete.</p>
-                        <p class="acard__sources" data-demo-sources><span><svg aria-hidden="true"><use href="#i-file"/></svg>order-system-design.md · §3</span><span><svg aria-hidden="true"><use href="#i-file"/></svg>resume.pdf · p.2</span></p>
-                        <div class="acard__chips" role="group" aria-label="Adjust" data-demo-chips>
-                          <button type="button" data-variant="short">Shorter</button>
-                          <button type="button" data-variant="example">Example</button>
-                          <button type="button" data-variant="translate">中文版</button>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="app__input">
-                    <span>Type a question, or ask with a screenshot</span>
-                    <button type="button" class="app__answer" data-demo-now><svg aria-hidden="true"><use href="#i-bolt"/></svg>Answer now<kbd>⌘⇧↩</kbd></button>
-                  </div>
-                  <p class="app__foot">Audio is recognised on this Mac and not saved; only the text an answer needs goes to the service you chose.</p>
-                </div>
-              </div>
-            </div>
-            <div class="device__base" aria-hidden="true"><span></span></div>
-          </div>
-        </div>
-
-        <div class="guide" data-guide hidden>
-          <div class="guide__now">
-            <span class="guide__no mono"><b data-guide-no>01</b> / 06</span>
-            <p class="guide__title" data-guide-title></p>
-            <p class="guide__desc" data-guide-desc></p>
-          </div>
-          <ol class="guide__bar" data-guide-bar role="list"></ol>
-          <button class="guide__skip mono" type="button" data-guide-skip>Skip<svg aria-hidden="true"><use href="#i-down"/></svg></button>
-        </div>
-
-        <div class="demo-controls" id="demo" data-demo-controls>
-          <p class="demo-controls__hint mono"><i aria-hidden="true"></i>Your turn: switch scenes, try a rewrite, or press ⌘⇧↩</p>
-          <p class="demo-controls__note mono">Interactive illustration: a scripted replay, no microphone or network</p>
-          <div class="segmented" role="tablist" aria-label="Demo scene" data-demo-scenes>
-            <button role="tab" type="button" aria-selected="true" data-scene-key="interview">Interview</button>
-            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="talk">Talk</button>
-            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="meeting">Meeting</button>
-            <button role="tab" type="button" aria-selected="false" tabindex="-1" data-scene-key="class">Class</button>
-          </div>
-          <div class="segmented segmented--view" role="group" aria-label="View">
-            <button type="button" aria-pressed="true" data-view="workspace">Workspace</button>
-            <button type="button" aria-pressed="false" data-view="prompter">Teleprompter</button>
-          </div>
-          <button class="chip-btn" type="button" data-demo-toggle aria-pressed="false"><svg class="when-running" aria-hidden="true"><use href="#i-pause"/></svg><svg class="when-paused" aria-hidden="true"><use href="#i-play"/></svg><span data-demo-toggle-label>Pause demo</span></button>
+    <section class="sec" id="scenes" aria-labelledby="scenes-title" data-phase-label="Before">
+      <div class="sec__grid sec__grid--types">
+        <header class="sec__head">
+          <p class="kicker">Before · Meeting types</p>
+          <h2 id="scenes-title">Pick the meeting type.<br>Leave the switches alone.</h2>
+          <p class="lede">An interview needs a line at the right moment; a weekly sync only needs someone taking notes. The type decides whether it prompts or just listens, how long answers run and how the notes are laid out. It guesses from the title as you type, falls back to General, and if none of the eight fit, you can define your own.</p>
+        </header>
+        <div class="tsel" data-tsel-root>
+          <label class="tsel__field"><span>Meeting title</span><input type="text" value="Fernway · Backend, round 2" data-tsel-input autocomplete="off" spellcheck="false"><span class="tsel__guess" data-tsel-guess aria-live="polite"></span></label>
+          <p class="tsel__try"><span>Try:</span><span data-tsel-examples></span></p>
+          <div class="tsel__chips" role="group" aria-label="Meeting type"><button type="button" class="chip" data-tsel="general" aria-pressed="false">General</button><button type="button" class="chip is-on" data-tsel="interview" aria-pressed="true">Interview</button><button type="button" class="chip" data-tsel="presentation" aria-pressed="false">Presentation / Defense</button><button type="button" class="chip" data-tsel="lab" aria-pressed="false">Lab meeting</button><button type="button" class="chip" data-tsel="work" aria-pressed="false">Work meeting</button><button type="button" class="chip" data-tsel="client" aria-pressed="false">Client call</button><button type="button" class="chip" data-tsel="lecture" aria-pressed="false">Lecture / Class</button><button type="button" class="chip" data-tsel="discussion" aria-pressed="false">Group discussion</button><span class="chip chip--add"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>Custom…</span></div>
+  <div class="tsel__sheet" aria-live="polite">
+    <div class="tsel__glyph" data-tglyph="prompt" aria-hidden="true"><span class="g-top"><i></i><i></i><i></i></span><span class="g-cols"><span class="g-conv"><i></i><i></i><i></i><i></i></span><span class="g-ans"><b class="g-ans__ai"><i></i><i></i><i></i></b><b class="g-ans__quiet"></b></span></span><span class="g-labels"><span class="g-l g-l--prompt">Prompt</span><span class="g-l g-l--notes">Notes only</span></span></div>
+    <dl class="tsel__dl">
+      <div><dt>During the meeting</dt><dd data-tfield="live">Prompt: an answer as soon as you're asked</dd></div>
+      <div><dt>Answer length</dt><dd data-tfield="length">Brief</dd></div>
+      <div><dt>Notes</dt><dd data-tfield="template">Interview review: question by question · where I fell short · what I didn't mention · next time</dd></div>
+      <div><dt>Bring</dt><dd data-tfield="bring">Résumé, job description, company info</dd></div>
+    </dl>
+  </div>
+          <p class="fine">Mock-up: the keywords used to guess here are for illustration.</p>
         </div>
       </div>
     </section>
 
-    <!-- Swirl: the moments the product is for rise past a slowly turning voice. -->
-    <section class="swirl" aria-labelledby="swirl-title" data-swirl>
-      <div class="swirl__pin">
-        <div class="swirl__orb" aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="swirl__col" data-swirl-col>
-          <h2 class="swirl__stanza swirl__stanza--head" id="swirl-title"><span class="sl">Conversations</span><span class="sl">don’t wait for you.</span></h2>
-          <p class="swirl__stanza swirl__stanza--a"><span class="sl">An interviewer’s follow-up,</span><span class="sl">left hanging.</span></p>
-          <p class="swirl__stanza swirl__stanza--b"><span class="sl">At lab meeting,</span><span class="sl">a quiet</span><span class="sl">“why this design?”</span></p>
-          <p class="swirl__stanza swirl__stanza--c"><span class="sl">Across the table:</span><span class="sl"><em>“another eight percent.”</em></span></p>
-          <p class="swirl__stanza swirl__stanza--d"><span class="sl">In class,</span><span class="sl">your name, called.</span></p>
-          <p class="swirl__stanza swirl__stanza--end"><span class="sl">InterviewHacker is listening.</span><span class="sl">The question ends;</span><span class="sl">the answer follows.</span></p>
+    <section class="sec" id="series" aria-labelledby="series-title">
+      <div class="sec__grid">
+        <header class="sec__head sec__head--row">
+          <p class="kicker">Before · Series</p>
+          <h2 id="series-title">Round two doesn’t start from zero</h2>
+          <p class="lede">Interview rounds, a weekly lab meeting, several calls with the same client: each is a series. A series shares its materials, question bank and lessons, while every meeting keeps its own transcript and notes.</p>
+        </header>
+        <div class="series" data-series>
+          <article class="leaf leaf--past">
+            <p class="leaf__when">Thu 22 Oct</p>
+            <h3 class="leaf__title">Round 1</h3>
+            <p class="leaf__state"><i class="dot dot--idle"></i>Ended</p>
+            <ul class="leaf__list">
+              <li><b>4</b>files</li>
+              <li><b>3</b>questions banked, 2 to improve</li>
+              <li><b>3</b>lessons</li>
+            </ul>
+          </article>
+          <span class="series__arrow" aria-hidden="true"><svg class="pen pen--arrow" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 42C8.3 38.7 20.3 26.7 30 22C39.7 17.3 51.7 14.3 62 14C72.3 13.7 83.7 16.7 92 20C100.3 23.3 108.7 31.7 112 34"/><path pathLength="1" vector-effect="non-scaling-stroke" d="M96 38C98.8 37.5 111 38.3 113 35C115 31.7 108.8 20.8 108 18"/></g></svg></span>
+          <article class="leaf leaf--now">
+            <p class="leaf__when">Today, 2:30 PM</p>
+            <h3 class="leaf__title">Round 2</h3>
+            <p class="leaf__state"><i class="dot dot--ready"></i>Preparing · bringing in last time</p>
+            <div class="leaf__carry" role="group" aria-label="What to bring in">
+              <label class="check"><input type="checkbox" data-scarry="materials" checked><span class="check__box"><svg class="pen pen--tick" viewBox="0 0 28 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M3 13C3.7 13.5 5.7 14.7 7 16C8.3 17.3 9.3 21.8 11 21C12.7 20.2 14.7 14 17 11C19.3 8 23.7 4.3 25 3"/></g></svg></span>Materials · résumé, job description and 2 more</label>
+              <label class="check"><input type="checkbox" data-scarry="review" checked><span class="check__box"><svg class="pen pen--tick" viewBox="0 0 28 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M3 13C3.7 13.5 5.7 14.7 7 16C8.3 17.3 9.3 21.8 11 21C12.7 20.2 14.7 14 17 11C19.3 8 23.7 4.3 25 3"/></g></svg></span>Review · 3 improved answers</label>
+              <label class="check"><input type="checkbox" data-scarry="lessons" checked><span class="check__box"><svg class="pen pen--tick" viewBox="0 0 28 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M3 13C3.7 13.5 5.7 14.7 7 16C8.3 17.3 9.3 21.8 11 21C12.7 20.2 14.7 14 17 11C19.3 8 23.7 4.3 25 3"/></g></svg></span>Lessons · “Answer first” and 2 more</label>
+              <label class="check"><input type="checkbox" data-scarry="transcript"><span class="check__box"><svg class="pen pen--tick" viewBox="0 0 28 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M3 13C3.7 13.5 5.7 14.7 7 16C8.3 17.3 9.3 21.8 11 21C12.7 20.2 14.7 14 17 11C19.3 8 23.7 4.3 25 3"/></g></svg></span>Round 1 transcript · 42 min</label>
+            </div>
+            <div class="ai-note leaf__ai">
+              <p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>What AI took away</p>
+              <ul>
+                <li data-sneeds="review">Round 1 stalled on the cache-breakdown follow-up. Have the full answer ready.</li>
+                <li data-sneeds="lessons">Lead project answers with scale and results</li>
+                <li data-sneeds="materials">The role leans on concurrency and cache consistency</li>
+                <li class="leaf__empty" data-sneeds-empty>Nothing carried over, so it only has this meeting’s new files to go on</li>
+              </ul>
+            </div>
+          </article>
+          <span class="series__arrow" aria-hidden="true"><svg class="pen pen--arrow" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 42C8.3 38.7 20.3 26.7 30 22C39.7 17.3 51.7 14.3 62 14C72.3 13.7 83.7 16.7 92 20C100.3 23.3 108.7 31.7 112 34"/><path pathLength="1" vector-effect="non-scaling-stroke" d="M96 38C98.8 37.5 111 38.3 113 35C115 31.7 108.8 20.8 108 18"/></g></svg></span>
+          <article class="leaf leaf--next">
+            <p class="leaf__when">Not scheduled</p>
+            <h3 class="leaf__title">Round 3</h3>
+            <p class="leaf__body">After round two, the questions to improve and their better answers go into the same bank, ready when you prepare round three.</p>
+          </article>
+        </div>
+        <p class="sec__aside">Didn’t catch it? Use “Bring in from a past meeting…” on the prepare page, or right-click a meeting in Meetings and choose “Prepare the next meeting from this one”. Wrong guess? Click “Not the same series”.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="audio" aria-labelledby="audio-title">
+      <div class="sec__grid sec__grid--split">
+        <header class="sec__head">
+          <p class="kicker">During · Audio</p>
+          <h2 id="audio-title">It doesn’t need to know<br>which meeting app you use</h2>
+          <p class="lede">On a call, it listens to everything your Mac plays, plus your microphone: them on one channel, you on the other. When everyone is in the same room, it uses the microphone alone and labels the transcript “Room”.</p>
+        </header>
+        <div class="audio" data-audio-root data-audio-mode="online">
+          <div class="seg" role="group" aria-label="Where the meeting happens"><button type="button" data-amode="online" aria-pressed="true">Online</button><button type="button" data-amode="offline" aria-pressed="false">In person</button></div>
+          <div class="audio__map">
+            <div class="lane lane--them when-online"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-speaker"/></svg><b>Everything this Mac plays</b><small>Zoom, Teams, Google Meet, a call in a browser tab: it all comes out here</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">Them</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+            <div class="lane lane--me when-online"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>Microphone</b><small>What you say</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">Me</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+            <div class="lane lane--room when-offline"><span class="lane__src"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg><b>Microphone</b><small>Everyone in the room comes through this one channel</small></span><span class="lane__wire" aria-hidden="true"></span><span class="lane__to">Room</span><span class="meter" aria-hidden="true" data-ameter><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+          </div>
+          <ol class="audio__lines when-online"><li class="au-line au-line--them"><span class="au-who">Them</span><span>Walk me through your rollout plan on the next slide.</span></li><li class="au-line au-line--me"><span class="au-who">Me</span><span>Sure. We ramp up in three batches.</span></li></ol>
+          <ol class="audio__lines when-offline"><li class="au-line au-line--room"><span class="au-who">Room</span><span>Sam, can you have the data filled in by Thursday?</span></li><li class="au-line au-line--room"><span class="au-who">Room</span><span>Then let's move the review to next Monday.</span></li></ol>
+          <ul class="facts">
+            <li><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Audio is transcribed on this Mac and never saved.</li>
+            <li class="when-online">Music or a video playing too? Narrow it down to a single window.</li>
+            <li class="when-offline">Notes only by default. The notes only put a task on someone when they were named out loud.</li>
+            <li class="when-offline">Put the laptop in the middle of the table; for a big room, an external conference mic helps.</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Moments: a still pool on one side, the scene's window floating on it; the moments scroll on the other. -->
-    <section class="moments" id="scenes" aria-labelledby="scenes-title" data-moments>
-      <h2 class="sr-only" id="scenes-title">Five moments</h2>
-      <div class="moments__stage" aria-hidden="true">
-        <div class="pool"><canvas data-pool></canvas></div>
-        <div class="glass" data-glass>
-          <div class="glass__card glass__card--prompter is-active" data-glass-card>
-            <span class="glass__cam"></span>
-            <div class="mini-prompter">
-              <p class="mini-prompter__status mono"><i class="live-dot"></i>Listening · follow-up</p>
-              <p class="mini-prompter__q">When the database and cache both change, how do you keep them consistent?</p>
-              <p class="mini-prompter__a">Write the database, then delete the cache; retry failed deletes, with a binlog subscriber as backstop.</p>
-              <p class="mini-prompter__src mono">resume.pdf · p.2</p>
-            </div>
-          </div>
-          <div class="glass__card" data-glass-card>
-            <div class="mini-slide">
-              <div class="mini-slide__page"><span class="mono">Mamba · 4 / 18</span><b>Selective state spaces</b><i></i><i></i><i></i></div>
-              <ol class="mini-slide__points">
-                <li class="is-done">Input-dependent parameters</li>
-                <li class="is-done">Linear-time scan</li>
-                <li>Long-sequence cost vs. attention</li>
-              </ol>
-              <p class="mini-slide__next"><span class="mono">Next</span>“Next, throughput on long sequences.”</p>
-            </div>
-          </div>
-          <div class="glass__card" data-glass-card>
-            <div class="mini-phone">
-              <p class="mini-phone__bar mono"><span>14:07</span><span>Companion</span></p>
-              <p class="mini-phone__q">“Could you take another 8% off?”</p>
-              <p class="mini-phone__a">Tier it by volume: 5% above 12,000 units, with terms extended to 90 days.</p>
-              <ul class="mini-phone__minutes"><li><b>Decision</b>Tiered pricing, confirm in writing</li><li><b>To-do</b>Finance to approve 90-day terms</li></ul>
-            </div>
-          </div>
-          <div class="glass__card" data-glass-card>
-            <div class="mini-crop">
-              <div class="mini-crop__shot"><span class="mono">Lecture 9 · slide 23</span><b>What happens on a TLB miss?</b><i class="mini-crop__frame"></i></div>
-              <p class="mini-crop__a">Hardware walks the page table first; a valid entry refills the TLB, an invalid one faults to the OS.</p>
-            </div>
-          </div>
-          <div class="glass__card" data-glass-card>
-            <div class="mini-review">
-              <p class="mini-review__head"><b>Round 2 · backend</b><span class="mono">17 questions</span></p>
-              <ul><li>Order system and stock deduction</li><li>Cache consistency · two follow-ups</li><li>Rate limiting and fallback</li></ul>
-              <p class="mini-review__weak"><span class="mono">Weak spot</span>Distributed-transaction trade-offs</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="moments__chapters">
-        <nav class="moments__index mono" aria-label="Moments">
-          <a href="#moment-interview" data-index><span>01</span>Interview</a>
-          <a href="#moment-talk" data-index><span>02</span>Talk</a>
-          <a href="#moment-meeting" data-index><span>03</span>Meeting</a>
-          <a href="#moment-class" data-index><span>04</span>Class</a>
-          <a href="#moment-after" data-index><span>05</span>After</a>
-        </nav>
-        <article class="moment" id="moment-interview" data-moment>
-          <p class="moment__kicker mono">01 · Job interview</p>
-          <h3 class="moment__title"><span>The follow-up,</span><span>handled.</span></h3>
-          <p class="moment__body">The interviewer presses on cache consistency. In the bar under your camera, the answer is already forming, built on a project from your résumé.</p>
-          <p class="moment__aside">Floating teleprompter · click-through · hide with ⌘⇧\</p>
-        </article>
-        <article class="moment" id="moment-talk" data-moment>
-          <p class="moment__kicker mono">02 · Academic talk</p>
-          <h3 class="moment__title"><span>Your notes turn</span><span>with the slides.</span></h3>
-          <p class="moment__body">Points tick off as you cover them, and the next transition is ready. When someone cuts in, the explanation cites its page.</p>
-          <p class="moment__aside">Pick a window, display or region · each answer keeps its frame</p>
-        </article>
-        <article class="moment" id="moment-meeting" data-moment>
-          <p class="moment__kicker mono">03 · Negotiation</p>
-          <h3 class="moment__title"><span>They push on price.</span><span>You hold your floor.</span></h3>
-          <p class="moment__body">They ask for another eight percent. It suggests a tiered offer within the floor you set for this meeting, and notes decisions and to-dos.</p>
-          <p class="moment__aside">Phone companion on the table · paired by QR, off by default</p>
-        </article>
-        <article class="moment" id="moment-class" data-moment>
-          <p class="moment__kicker mono">04 · Online class</p>
-          <h3 class="moment__title"><span>Called on,</span><span>and composed.</span></h3>
-          <p class="moment__body">Asked what happens on a TLB miss, the answer follows lecture 9, slide 23. A question or code on screen can be cropped and asked.</p>
-          <p class="moment__aside">Ask with a screenshot · aligned to the slides</p>
-        </article>
-        <article class="moment" id="moment-after" data-moment>
-          <p class="moment__kicker mono">05 · Afterwards</p>
-          <h3 class="moment__title"><span>After the call,</span><span>the notes are done.</span></h3>
-          <p class="moment__body">A summary, the questions and the material used are filed under the scene. Good answers are kept; weak ones return in the next review.</p>
-          <p class="moment__aside">Searchable · export to Markdown · delete any time</p>
-        </article>
-      </div>
-    </section>
-
-
-    <!-- Phone companion: a pinned scene in three beats — sharing, pairing, the answer on the phone — then the phone is yours. -->
-    <section class="section companion" id="companion" aria-labelledby="companion-title" data-companion>
-      <div class="companion__pin" data-companion-pin>
-        <div class="container companion__grid">
-          <div class="companion__text">
-            <p class="eyebrow mono"><b>№ 03</b>Phone companion</p>
-            <h2 id="companion-title" class="display">Sharing your screen?<br>Read your phone.</h2>
-            <ol class="beats" role="list" data-beats>
-              <li class="beat is-on"><span class="mono">i.</span><b>You’re sharing your whole screen.</b><p>Whatever is on your Mac, they see.</p></li>
-              <li class="beat"><span class="mono">ii.</span><b>One scan, and the phone is in.</b><p>The camera reads the code; the browser becomes your prompter. No app.</p></li>
-              <li class="beat"><span class="mono">iii.</span><b>Questions and answers, on the phone only.</b><p>Nothing new on the shared screen. Only this moment syncs; transcripts and material stay on the Mac.</p></li>
-            </ol>
-          </div>
-          <div class="companion__stage" data-companion-stage>
-            <div class="cmac" aria-hidden="true">
-            <div class="cmac__screen">
-              <p class="cmac__share mono"><i></i>Sharing entire screen</p>
-              <div class="cmac__call"><span><b>A</b><small>Interviewer</small></span><span><b>Me</b></span></div>
-              <div class="cmac__pair" data-pair>
-                <svg class="cmac__qr" viewBox="0 0 29 29" data-qr shape-rendering="crispEdges"></svg>
-                <p><b>Scan with your phone’s camera</b><span class="mono">One-time pairing code</span></p>
-              </div>
-            </div>
-            <div class="cmac__base"></div>
-          </div>
-            <p class="companion__tag companion__tag--them mono" aria-hidden="true">What they see</p>
-          <div class="phone" data-phone>
-            <span class="phone__island" aria-hidden="true"></span>
-            <div class="phone__screen">
-              <div class="phone__scan" data-scan aria-hidden="true"><i class="phone__finder"></i><i class="phone__beam"></i><span class="mono">Reading the code</span></div>
-              <div class="phone__live" data-live>
-                <p class="phone__bar mono"><span>14:07</span><span class="phone__ok"><i class="live-dot"></i>Connected to MacBook</span></p>
-                <p class="phone__count mono" data-phone-count>2 / 2</p>
-                <p class="phone__q" data-phone-q></p>
-                <p class="phone__a" data-phone-a aria-live="polite"></p>
-                <div class="phone__size" role="group" aria-label="Text size"><button type="button" data-size="-1" aria-label="Smaller text">A−</button><button type="button" data-size="1" aria-label="Larger text">A+</button></div>
-                <div class="phone__keys" role="group" aria-label="Remote">
-                  <button type="button" data-remote="answer" class="is-primary">Answer</button>
-                  <button type="button" data-remote="short">Shorter</button>
-                  <button type="button" data-remote="example">Example</button>
-                  <button type="button" data-remote="translate">中文版</button>
-                  <button type="button" data-remote="prev" aria-label="Previous">‹ Prev</button>
-                  <button type="button" data-remote="next" aria-label="Next">Next ›</button>
-                  <button type="button" data-remote="cancel">Cancel</button>
-                </div>
-              </div>
-            </div>
-            <p class="coach" data-coach role="status" aria-live="polite"><span data-coach-text></span></p>
-          </div>
-            <p class="companion__tag companion__tag--me mono" aria-hidden="true">Only you see</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Principles: three quiet statements instead of a data sheet. -->
-    <section class="section principles" id="privacy" aria-labelledby="privacy-title">
-      <div class="container">
-        <p class="eyebrow mono"><b>№ 04</b>Privacy</p>
-        <h2 id="privacy-title" class="display">What stays on your Mac,<br>and what leaves.</h2>
-        <ol class="principles__list" role="list">
-          <li><span class="mono">i.</span><h3>Your voice stays on this Mac.</h3><p>Speech is recognised on your Mac and raw audio is never saved. Cloud recognition is used only if you agree to it.</p></li>
-          <li><span class="mono">ii.</span><h3>Only the passages that matter.</h3><p>Answers use only the passages retrieved for the question at hand, not your whole library. Material and records stay on your Mac.</p></li>
-          <li><span class="mono">iii.</span><h3>You decide what leaves.</h3><p>Answers go through the service you choose, and its key stays in your Keychain; web search and the phone companion are off by default.</p></li>
+    <section class="sec sec--paper" id="notes" aria-labelledby="notes-title">
+      <div class="sec__grid">
+        <header class="sec__head sec__head--row">
+          <p class="kicker">After · Notes</p>
+          <h2 id="notes-title">After the call,<br>notes you can send as they are</h2>
+          <p class="lede">Live answers are about speed. Notes can take their time, so they get a separate model and their own process. They’re written in the background once you end, usually within one to three minutes, and you can start your next meeting meanwhile.</p>
+        </header>
+        <ol class="process">
+          <li>
+            <p class="process__n">01</p>
+            <h3>Proofread</h3>
+            <p>Fixes recognition errors using the context and the names and terms in your materials. Nothing is re-transcribed. Every change is underlined, the original stays, and you can undo it.</p>
+            <p class="process__eg">“we moved the hot queries to <span class="fix" tabindex="0" data-was="Originally recognized as: radish">Redis</span>”</p>
+          </li>
+          <li>
+            <p class="process__n">02</p>
+            <h3>Organize by template</h3>
+            <p>An interview, a lab meeting and a weekly sync each get their own structure. Every item carries the moment it was said; click it to jump back to the transcript.</p>
+            <p class="process__eg">Run regression tests and report results <span class="ts">[05:40]</span></p>
+          </li>
+          <li>
+            <p class="process__n">03</p>
+            <h3>Check</h3>
+            <p>Items with nothing behind them in the transcript are dropped. “Due Thursday” becomes a date, counted from the meeting day. Unclear names and deadlines given two ways are marked “To confirm”.</p>
+            <p class="process__eg"><s>Thursday</s> → Thu 29 Oct <span class="badge badge--caution">To confirm</span></p>
+          </li>
         </ol>
-        <p class="fine">No stealth promises: get consent before recording, and follow the rules of the room. <a class="link" href="https://github.com/OmnixSI/InterviewHacker#数据去向">Full data notes</a></p>
+        <div class="tpl" data-tpl>
+          <div class="tpl__intro">
+            <h3>Three meetings, three kinds of notes</h3>
+            <p>Every template has a section for the gaps: weak answers, questions left unsettled, risks nobody owns. That’s exactly what an ordinary summary tends to leave out.</p>
+            <p class="fine">Seven built in: interview review, academic, work meeting, client call, lecture / class, group discussion and general. Copy any of them to make your own.</p>
+          </div>
+          <div class="tpl-tabs" role="tablist" aria-label="Notes templates"><button type="button" role="tab" id="tpl-tab-interview" aria-controls="tpl-interview" aria-selected="true" tabindex="0" class="is-on"><b>Interview review</b><small>Every interview round</small></button><button type="button" role="tab" id="tpl-tab-academic" aria-controls="tpl-academic" aria-selected="false" tabindex="-1"><b>Academic</b><small>Lab meeting · Presentation / Defense</small></button><button type="button" role="tab" id="tpl-tab-work" aria-controls="tpl-work" aria-selected="false" tabindex="-1"><b>Work meeting</b><small>Weekly syncs and project check-ins</small></button></div><div class="tpl-panels"><article class="paper tpl-panel" role="tabpanel" id="tpl-interview" aria-labelledby="tpl-tab-interview"><header class="paper__head"><div><h4 class="paper__title">Fernway · Backend, round 2</h4><p class="paper__meta">Tue 27 Oct · 44 min · Online</p></div><span class="paper__btn">Save to question bank · 2</span></header><div class="sheet"><section class="sh-sec sh-sec--ai"><div class="ai-note"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>In one line</p><p>The project story was solid and backed by numbers. On system design you got to the point too slowly, and the cache-breakdown answer was still incomplete.</p></div></section><section class="sh-sec"><h5 class="sh-title">Question by question</h5><ol class="sh-qs"><li><span class="sh-n">1</span><div><p class="sh-q">What if deleting the cache fails? <span class="ts" title="Jump to this moment in the transcript">[18:22]</span> <span class="badge badge--ready">Good</span></p><p class="sh-mine">My answer: Retry queue plus an async delete from the binlog. Two safety nets.</p></div></li><li><span class="sh-n">2</span><div><p class="sh-q">A hot key expires and a flood of requests hits the database at once. What do you do? <span class="ts" title="Jump to this moment in the transcript">[27:05]</span> <span class="badge badge--caution">To improve</span></p><p class="sh-mine">My answer: Add a lock… (8-second pause) …maybe a Bloom filter.</p><div class="ai-note ai-note--sm"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Better answer</p><p>Answer first: a mutex rebuild or logical expiry, chosen by how fresh the data must be. A Bloom filter stops penetration, not breakdown; keep them apart.</p></div></div></li></ol></section><section class="sh-sec is-gap"><span class="gap-mark" aria-hidden="true"><svg class="pen pen--bracket" viewBox="0 0 18 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 3C5.3 3.2 10.5 -0.5 12 4C13.5 8.5 12.8 15.3 13 30C13.2 44.7 12.5 80.3 13 92C13.5 103.7 16 97.3 16 100C16 102.7 13.5 96.3 13 108C12.5 119.7 13.2 155.3 13 170C12.8 184.7 13.5 191.5 12 196C10.5 200.5 5.3 196.8 4 197"/></g></svg><span class="gap-mark__label">Gaps</span></span><h5 class="sh-title">Where I fell short</h5><ul class="sh-list"><li>Mixed up cache breakdown and cache penetration <span class="ts" title="Jump to this moment in the transcript">[27:40]</span></li></ul></section><section class="sh-sec is-gap"><span class="gap-mark" aria-hidden="true"><svg class="pen pen--bracket" viewBox="0 0 18 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 3C5.3 3.2 10.5 -0.5 12 4C13.5 8.5 12.8 15.3 13 30C13.2 44.7 12.5 80.3 13 92C13.5 103.7 16 97.3 16 100C16 102.7 13.5 96.3 13 108C12.5 119.7 13.2 155.3 13 170C12.8 184.7 13.5 191.5 12 196C10.5 200.5 5.3 196.8 4 197"/></g></svg><span class="gap-mark__label">Gaps</span></span><h5 class="sh-title">What I didn't mention</h5><ul class="sh-list"><li>Never brought up “80k QPS through the sale with zero incidents” from the résumé <span class="ts" title="Jump to this moment in the transcript">[31:40]</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Next time</h5><ul class="sh-list"><li>On design questions, state the answer, then unpack it</li><li>Have breakdown, penetration and avalanche side by side</li><li>Bring scale and results into every project story</li></ul></section></div></article><article class="paper tpl-panel" role="tabpanel" id="tpl-academic" aria-labelledby="tpl-tab-academic" hidden><header class="paper__head"><div><h4 class="paper__title">Wednesday lab meeting</h4><p class="paper__meta">Wed 28 Oct · 56 min · In person</p></div><span class="paper__btn">Copy notes</span></header><div class="sheet"><section class="sh-sec sh-sec--ai"><div class="ai-note"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>In one line</p><p>The ablation direction is fine, but there aren't enough controls yet, so the claim stays out of the paper for now.</p></div></section><section class="sh-sec is-gap"><span class="gap-mark" aria-hidden="true"><svg class="pen pen--bracket" viewBox="0 0 18 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 3C5.3 3.2 10.5 -0.5 12 4C13.5 8.5 12.8 15.3 13 30C13.2 44.7 12.5 80.3 13 92C13.5 103.7 16 97.3 16 100C16 102.7 13.5 96.3 13 108C12.5 119.7 13.2 155.3 13 170C12.8 184.7 13.5 191.5 12 196C10.5 200.5 5.3 196.8 4 197"/></g></svg><span class="gap-mark__label">Gaps</span></span><h5 class="sh-title">Not settled yet</h5><ul class="sh-list"><li>Is the gain from augmentation, or just from a bigger training set? There's no equal-size control <span class="ts" title="Jump to this moment in the transcript">[14:10]</span></li><li>Which runs the error bars come from was never stated <span class="ts" title="Jump to this moment in the transcript">[22:48]</span> <span class="badge badge--caution">To confirm</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Feedback and requests</h5><ul class="sh-list"><li>In section 4, put the limitations before the conclusion <span class="ts" title="Jump to this moment in the transcript">[31:02]</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Next: experiments</h5><div class="sh-table"><div class="sh-row"><span class="sh-what">Add an equal-size control without augmentation <span class="ts" title="Jump to this moment in the transcript">[15:20]</span></span><span class="sh-who">Me</span><span class="sh-due">Tue 3 Nov</span></div></div></section><section class="sh-sec"><h5 class="sh-title">Next: the paper</h5><div class="sh-table"><div class="sh-row"><span class="sh-what">Rewrite 4.2 and include the two settings that failed <span class="ts" title="Jump to this moment in the transcript">[33:15]</span></span><span class="sh-who">Me</span><span class="sh-due">Thu 5 Nov</span></div></div></section><section class="sh-sec"><h5 class="sh-title">Papers to look up</h5><ul class="sh-list"><li>The 2025 study on data size versus augmentation the advisor mentioned; the title wasn't clear <span class="ts" title="Jump to this moment in the transcript">[17:30]</span> <span class="badge badge--caution">To confirm</span></li></ul></section></div></article><article class="paper tpl-panel" role="tabpanel" id="tpl-work" aria-labelledby="tpl-tab-work" hidden><header class="paper__head"><div><h4 class="paper__title">Monday product sync</h4><p class="paper__meta">Mon 26 Oct, 10:00 AM · 38 min · Online</p></div><span class="paper__btn">Copy notes</span></header><div class="sheet"><section class="sh-sec sh-sec--ai"><div class="ai-note"><p class="ai-note__over"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>In one line</p><p>The new version ships before next Wednesday; the payment bugs are fixed today and regression results are due Tuesday.</p></div></section><section class="sh-sec"><h5 class="sh-title">Decisions</h5><ul class="sh-list"><li>Ship the new version before next Wednesday <span class="ts" title="Jump to this moment in the transcript">[03:12]</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Action items · who · when</h5><div class="sh-table"><div class="sh-row"><span class="sh-what">Run regression tests and report results <span class="ts" title="Jump to this moment in the transcript">[05:40]</span></span><span class="sh-who">Me</span><span class="sh-due">Tue 27 Oct</span></div><div class="sh-row"><span class="sh-what">Fix the two payment bugs <span class="ts" title="Jump to this moment in the transcript">[04:55]</span></span><span class="sh-who">Them</span><span class="sh-due">Mon 26 Oct</span></div><div class="sh-row"><span class="sh-what">Design review <span class="ts" title="Jump to this moment in the transcript">[12:30]</span></span><span class="sh-who">—</span><span class="sh-due">Thu 29 Oct <span class="badge badge--caution">To confirm</span></span></div></div></section><section class="sh-sec is-gap"><span class="gap-mark" aria-hidden="true"><svg class="pen pen--bracket" viewBox="0 0 18 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 3C5.3 3.2 10.5 -0.5 12 4C13.5 8.5 12.8 15.3 13 30C13.2 44.7 12.5 80.3 13 92C13.5 103.7 16 97.3 16 100C16 102.7 13.5 96.3 13 108C12.5 119.7 13.2 155.3 13 170C12.8 184.7 13.5 191.5 12 196C10.5 200.5 5.3 196.8 4 197"/></g></svg><span class="gap-mark__label">Gaps</span></span><h5 class="sh-title">Risks and open questions</h5><ul class="sh-list"><li>Nobody owns the export feature the client asked for <span class="ts" title="Jump to this moment in the transcript">[21:08]</span></li><li>The design review was said to be Thursday and also Friday <span class="ts" title="Jump to this moment in the transcript">[12:30]</span> <span class="badge badge--caution">To confirm</span></li></ul></section><section class="sh-sec"><h5 class="sh-title">Next meeting</h5><ul class="sh-list"><li>Mon 2 Nov, 10:00 AM, to look at the release <span class="ts" title="Jump to this moment in the transcript">[36:40]</span></li></ul></section></div></article></div>
+        </div>
       </div>
     </section>
 
-    <!-- Ending: early access on slow water where two voices meet; the waitlist opens as a sheet of glass on it. -->
-    <section class="ending" id="download" aria-labelledby="download-title" data-ending>
-      <div class="ending__panel">
-        <canvas class="ending__canvas" data-shore aria-hidden="true"></canvas>
-        <div class="ending__copy" data-ending-copy>
-          <h2 class="ending__title" id="download-title"><span>InterviewHacker</span><span>is opening early access.</span></h2>
-          <p class="ending__sub">The first beta is running now. More places open soon.</p>
-          <button class="ending__btn" type="button" aria-controls="waitlist" aria-expanded="false" data-waitlist-open>Join the waitlist</button>
-        </div>
-
-        <div class="waitlist" id="waitlist" data-waitlist role="dialog" aria-modal="false" aria-labelledby="waitlist-title">
-          <form class="waitlist__form" action="/api/waitlist" method="post" data-waitlist-form novalidate>
-            <button class="waitlist__close" type="button" aria-label="Close" data-waitlist-close><i></i></button>
-            <header class="waitlist__head">
-              <p class="waitlist__kicker mono">InterviewHacker · Early access</p>
-              <h3 class="waitlist__title" id="waitlist-title">Join the waitlist</h3>
-              <p class="waitlist__lead">When places open, you’ll be the first to hear.</p>
-            </header>
-            <div class="waitlist__row">
-              <label class="wl-field"><span class="wl-field__label">Name</span><input name="name" type="text" autocomplete="name" maxlength="60" required placeholder="What should we call you"></label>
-              <label class="wl-field"><span class="wl-field__label">Email</span><input name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required placeholder="name@example.com"></label>
+    <section class="sec" id="companion" aria-labelledby="companion-title">
+      <div class="sec__grid sec__grid--split">
+        <header class="sec__head">
+          <p class="kicker">During · Where to look</p>
+          <h2 id="companion-title">Answers go where<br>your eyes already are</h2>
+          <p class="lede">The teleprompter is a slim floating strip. Drag it just below the camera and you can read without looking away. Or turn on the phone companion: scan a code to pair, and answers show up on your phone, with Shorter, Example and Previous right there.</p>
+          <div class="note-box">
+            <p class="note-box__title"><i class="dot dot--caution"></i>To be clear</p>
+            <p>If you share a single window or browser tab, the teleprompter isn’t in the picture. If you share the whole screen, macOS offers no public way to guarantee it stays out; run the screen-sharing visibility test in Settings → Teleprompter, or use your phone. A phone that is shared or mirrored to the Mac can be seen too.</p>
+          </div>
+        </header>
+        <div class="look" aria-hidden="true">
+          <div class="look__screen">
+            <span class="look__cam"></span>
+            <div class="prompter">
+              <p class="prompter__q">And if deleting the cache fails?</p>
+              <p class="prompter__a">A failed delete goes to a retry queue and keeps retrying, and the binlog subscriber deletes it once more. Two safety nets.</p>
+              <p class="prompter__bar"><span>Shorter</span><span>Example</span><span>In English</span><span class="prompter__more">···</span><span class="prompter__go">Answer now</span></p>
             </div>
-            <fieldset class="uses">
-              <legend class="wl-field__label">Where will you use it? Pick any</legend>
-              <label class="use"><input type="checkbox" name="uses" value="interview"><span>Job interviews</span></label>
-              <label class="use"><input type="checkbox" name="uses" value="talk"><span>Lab meetings &amp; talks</span></label>
-              <label class="use"><input type="checkbox" name="uses" value="meeting"><span>Meetings &amp; negotiations</span></label>
-              <label class="use"><input type="checkbox" name="uses" value="class"><span>Online classes</span></label>
-              <label class="use"><input type="checkbox" name="uses" value="other"><span>Something else</span></label>
-            </fieldset>
-            <label class="wl-field wl-field--more"><span class="wl-field__label">Anything else (optional)</span><textarea name="more" rows="2" maxlength="1000" placeholder="e.g. a technical interview next month"></textarea></label>
-            <label class="waitlist__trap" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-            <input type="hidden" name="lang" value="en">
-            <div class="waitlist__foot">
-              <p class="waitlist__note">Used only to reach you about early access. Never shared.</p>
-              <button class="waitlist__submit" type="submit" data-waitlist-submit><span>Request access</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-            </div>
-            <p class="waitlist__error" role="alert" data-waitlist-error></p>
-          </form>
-          <div class="waitlist__done" data-waitlist-done tabindex="-1">
-            <svg class="waitlist__tick" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="m15 27 7.5 7.5L37.5 19"/></svg>
-            <h3 class="waitlist__title">You’re on the list.</h3>
-            <p class="waitlist__lead" data-waitlist-done-text data-template="We’ll write to %email% when your place opens.">We’ll write to you when your place opens.</p>
-            <button class="waitlist__back" type="button" data-waitlist-close>Done</button>
+            <div class="look__call"><span><b>Them</b></span><span><b>Me</b></span></div>
+            <p class="look__label">Teleprompter</p>
+          </div>
+          <div class="phone">
+            <span class="phone__notch"></span>
+            <p class="phone__state"><i class="dot dot--ready"></i>Connected · Local network</p>
+            <p class="phone__q">And if deleting the cache fails?</p>
+            <p class="phone__a">A failed delete goes to a retry queue and keeps retrying, and the binlog subscriber deletes it once more. Two safety nets.</p>
+            <p class="phone__bar"><span>Shorter</span><span>Example</span><span>Previous</span></p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <p class="ending__meta mono"><span>© 2026 OmnixSI</span><a href="../" hreflang="zh-CN">中文</a><a href="/" target="_top">Style gallery</a></p>
+    <section class="sec" id="privacy" aria-labelledby="privacy-title">
+      <div class="sec__grid">
+        <header class="sec__head sec__head--wide">
+          <p class="kicker">Where your data goes</p>
+          <h2 id="privacy-title">What stays on your Mac,<br>and what leaves it, for whom</h2>
+        </header>
+        <div class="ledger">
+          <div class="ledger__col ledger__col--mac">
+            <p class="ledger__label">Stays on this Mac</p>
+            <dl>
+              <div><dt>Audio</dt><dd>Transcribed on the Mac. Recordings are never kept.</dd></div>
+              <div><dt>Materials</dt><dd>Parsed on the Mac and stored with their series.</dd></div>
+              <div><dt>Meetings and notes</dt><dd>Kept in one folder on the Mac, without audio. You can turn recording off, export or delete them.</dd></div>
+              <div><dt>API keys</dt><dd>Stored in the system keychain.</dd></div>
+            </dl>
+          </div>
+          <div class="ledger__mid" aria-hidden="true"><svg class="pen pen--arrow" viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" vector-effect="non-scaling-stroke" d="M4 42C8.3 38.7 20.3 26.7 30 22C39.7 17.3 51.7 14.3 62 14C72.3 13.7 83.7 16.7 92 20C100.3 23.3 108.7 31.7 112 34"/><path pathLength="1" vector-effect="non-scaling-stroke" d="M96 38C98.8 37.5 111 38.3 113 35C115 31.7 108.8 20.8 108 18"/></g></svg></div>
+          <div class="ledger__col">
+            <p class="ledger__label">Leaves the Mac</p>
+            <dl>
+              <div><dt>Your answer engine</dt><dd>The transcript, detected questions, relevant snippets from your materials, screenshots and any skills you enabled. Codex, or an API you set up yourself.</dd></div>
+              <div><dt>Your notes model</dt><dd>This meeting’s transcript and material snippets, to write the notes. Turn automatic notes off in Settings → Notes.</dd></div>
+              <div><dt>Web search (when on)</dt><dd>Questions that need fresh information go to Codex web search, or only the question text goes to Tavily.</dd></div>
+              <div><dt>Cloud recognition (only if you choose it)</dt><dd>Once you opt in, audio streams to the provider you picked. Off by default.</dd></div>
+              <div><dt>Update checks</dt><dd>Asks GitHub whether there’s a new version.</dd></div>
+            </dl>
+          </div>
+        </div>
+        <p class="sec__aside">Follow the rules of whatever meeting, class, exam or interview you’re in, and get people’s consent before recording or transcribing.</p>
+      </div>
+    </section>
+
+    <section class="sec sec--ink" id="download" aria-labelledby="download-title">
+      <div class="sec__grid">
+        <div class="dl">
+          <div class="dl__main">
+            <p class="kicker">Download</p>
+            <h2 id="download-title">Put your next meeting<br>on one page</h2>
+            <p class="dl__cta"><a class="btn btn--paper btn--lg" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener" data-download>Download for Mac<svg aria-hidden="true"><use href="#i-dl"/></svg></a></p>
+            <p class="dl__meta">GitHub Releases · InterviewHacker-version-macOS-arm64.dmg</p>
+            <ul class="dl__req">
+              <li>The new interface, from v2.0.0</li>
+              <li>macOS 14 or later</li>
+              <li>Apple Silicon (M-series)</li>
+            </ul>
+            <p class="dl__fine">The repository is private for now; downloading needs access to it.</p>
+          </div>
+          <ol class="install">
+            <li><span class="install__n">1</span><div><h3>Drag it into Applications</h3><p>Open the dmg and drag InterviewHacker into Applications.</p></div></li>
+            <li><span class="install__n">2</span><div><h3>Open it the first time</h3><p>The app isn’t notarized by Apple yet, so macOS blocks it. Go to System Settings → Privacy &amp; Security and click “Open Anyway” near the bottom. Or run this in Terminal:</p><p class="code"><code data-copy-src>xattr -dr com.apple.quarantine /Applications/InterviewHacker.app</code><button type="button" class="code__copy" data-copy data-done="Copied" aria-label="Copy command"><svg aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></p></div></li>
+            <li><span class="install__n">3</span><div><h3>Click Start once</h3><p>That’s when it asks for two permissions: screen and system audio recording (to hear them) and the microphone (to hear you). The on-device speech model downloads once, about 270 MB.</p></div></li>
+            <li><span class="install__n">4</span><div><h3>Connect an answer engine</h3><p>With a ChatGPT account you can use Codex. Otherwise, add an API key for any OpenAI-compatible service, such as DeepSeek, Qwen or Kimi, or point it at Ollama on your own machine.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="faq" aria-labelledby="faq-title">
+      <div class="sec__grid sec__grid--faq">
+        <header class="sec__head">
+          <p class="kicker">FAQ</p>
+          <h2 id="faq-title">Questions people ask</h2>
+        </header>
+        <div class="faq">
+          <details><summary>Will the other side know I’m using it?</summary><p>It doesn’t send anything into the meeting; it listens on your Mac and shows things on your screen or phone. It isn’t invisible, though: if you share your whole screen, the teleprompter may show up (see “Where to look” above). Whether and how you use it is up to the rules of the meeting.</p></details>
+          <details><summary>Which meeting apps does it work with?</summary><p>It doesn’t care. On a call it listens to what your Mac plays, so Zoom, Teams, Google Meet, Webex or a meeting in a browser tab all work the same way. It never needs to detect which one you’re using.</p></details>
+          <details><summary>Does it keep recordings?</summary><p>No. Audio is turned into text on your Mac and never written to disk. What’s kept is the transcript, the answers and the notes, all on your Mac. Audio only leaves the Mac if you choose cloud recognition and agree to it.</p></details>
+          <details><summary>Where do the answers come from? What account do I need?</summary><p>From the answer engine you connect. With a ChatGPT account you can use Codex; otherwise, add an API key for any OpenAI-compatible service, such as DeepSeek, Qwen, Kimi or OpenRouter, or use Ollama or LM Studio locally.</p></details>
+          <details><summary>Will lots of materials slow the answers down?</summary><p>It doesn’t stuff every file into the prompt. Materials are converted to structured text on your Mac, and each answer pulls only the passages relevant to the question, with the file and page they came from.</p></details>
+          <details><summary>Is there an English interface?</summary><p>Yes. Switch in Settings → Basics → Language and the app reopens in English; a few older advanced settings pages are still in Chinese for now. Suggested answers follow the language of the conversation, so an English interview gets English answers.</p></details>
+          <details><summary>Do I have to re-allow screen recording after every update?</summary><p>macOS ties those permissions to the app’s signature. Bind a local signature once in Settings → Basics, then update from inside the app and you won’t be asked again.</p></details>
+          <details><summary>Does it run on an Intel Mac or on Windows?</summary><p>No. It needs a Mac with Apple Silicon running macOS 14 or later.</p></details>
+        </div>
       </div>
     </section>
   </main>
 
-  <script type="application/json" id="demo-data">{"ui":{"listening":"Listening","detected":"Question detected","generating":"Answering","speaking":"You’re speaking","ready":"On-device speech ready","waiting":"Waiting for a question","streaming":"Streaming","adjusted":{"short":"Made shorter","example":"Example added","translate":"Switched to Chinese"},"tags":{"ask":"Question","request":"Request","follow":"Follow-up"},"echo":"Echo · ignored","restore":"That was me","pause":"Pause demo","resume":"Resume demo","chars":"questiondetectfollowuprequestcontext","guide":[{"title":"They start talking","desc":"The meeting window is its own channel, transcribed as they speak."},{"title":"It knows it's a question","desc":"Statements, requests and follow-ups are told apart the moment they end."},{"title":"The answer streams in","desc":"Only this scene's relevant material is used, with sources."},{"title":"You answer","desc":"Your microphone is a separate channel, never mixed with theirs."},{"title":"A follow-up, a new answer","desc":"Speaker echo is greyed out; the answer rewrites for the new question."},{"title":"One-tap rewrites","desc":"Shorter, with an example, or in Chinese."}]},"scenes":{"interview":{"name":"Backend · onsite round 2","sources":["order-system-design.md · §3","resume.pdf · p.2"],"q1":{"type":"ask","text":"Tell me about the order system on your résumé. How do you deduct stock during a flash sale?"},"a1":"Stock lives in Redis and a Lua script deducts it atomically, so we never oversell. After a successful deduction we publish a transactional message, and the consumer writes to the database idempotently by order ID. Before big sales we pre-warm stock and add rate limits.","me":"We deduct in Redis with Lua, atomically, then persist asynchronously.","q2":{"type":"follow","text":"And when the database and cache both change, how do you keep them consistent?"},"echo":"database and cache both change keep them consistent","a2":"We update the database first, then delete the cache. Failed deletes go to a retry queue, and a Canal binlog subscriber deletes again as a backstop; hot keys get a delayed double delete. Strongly consistent data like balances is read straight from the database.","variants":{"short":"Write the database, then delete the cache; retry failed deletes, back them up with binlog, double-delete hot keys.","example":"Say the cache delete times out right after an order deducts stock: the key goes into the retry queue, Canal deletes it again when the binlog arrives, and the next read reloads the fresh value.","translate":"我们用的是先更新数据库、再删除缓存。删除失败的 key 进重试队列，同时用 Canal 订阅 binlog 再删一次兜底；热点 key 做延迟双删。"}},"talk":{"name":"Lab meeting · Mamba","sources":["mamba.pdf · p.4","group-meeting.pptx · slide 6"],"q1":{"type":"ask","text":"Compared with attention, where do selective state spaces win on long sequences?"},"a1":"Attention grows quadratically with sequence length; Mamba’s selective scan is linear. Because its state-transition parameters depend on the input, it decides what to keep and what to forget by content — which gives higher inference throughput on long sequences.","me":"Mostly the linear-time scan, plus input-dependent parameters.","q2":{"type":"follow","text":"Doesn’t it lose out on tasks that need exact recall?"},"a2":"There is a gap. A fixed-size state can’t look back token by token like a KV cache, so recall-heavy tasks usually mix in a few attention layers. That’s exactly what we plan to test next.","variants":{"short":"Yes — a fixed state can’t look back exactly, so recall tasks usually add a few attention layers.","example":"Ask for the name next to a phone number buried in a long document: attention can look straight back at the text, while pure Mamba relies on a compressed state that degrades with length.","translate":"会有差距。固定大小的状态没法像 KV 缓存那样逐字回看，关联回忆这类任务通常要混入少量注意力层来补。"}},"meeting":{"name":"Distributor · annual renewal","sources":["annual-pricing.xlsx · tiers","renewal-agenda.docx · floor"],"q1":{"type":"request","text":"Could you take another 8% off the unit price?"},"a1":"A flat 8% is hard for us. Here’s another way: at 12,000 units a year we can do 5%, and extend payment terms from 60 to 90 days, which also eases your cash flow.","me":"Eight points is tough — we can tier it by volume.","q2":{"type":"follow","text":"Terms matter more to us. What about 90 days and 6% off?"},"a2":"We can work towards that. Six percent assumes a minimum volume no lower than last year’s; the 90-day term needs our finance team’s sign-off, and I’ll confirm in writing after today’s meeting.","variants":{"short":"Possible: 6% with last year’s volume as the floor; 90 days confirmed in writing after the call.","example":"With last year’s 11,000 units as the floor: hit it and you get 6% off on 90-day terms; fall short and it’s back to 5% on 60 days.","translate":"可以往这个方向谈。单价降 6 个点的前提是保底量不低于去年；90 天账期需要我们财务确认，我今天会后给你书面答复。"}},"class":{"name":"Operating systems · lecture 9","sources":["lecture-09-virtual-memory.pdf · p.23","notes.md · TLB"],"q1":{"type":"ask","text":"On a TLB miss, what does the hardware do, and what does the OS do?"},"a1":"First the hardware page-table walker looks up the multi-level page table; if the entry is valid, it refills the TLB and retries the access. Only an invalid entry raises a page fault, and then the OS brings the page into memory and updates the table.","me":"Hardware walks the page table first; only a miss there faults.","q2":{"type":"follow","text":"And what happens to the TLB on a context switch?"},"a2":"Two options: flush the whole TLB on every switch, or tag each entry with an ASID. With ASIDs, stale entries can’t be used by the new process and nothing has to be flushed, so switches are cheaper.","variants":{"short":"Flush it on every switch, or tag entries with ASIDs so nothing needs flushing.","example":"Processes A and B both use virtual address 0x4000: with ASIDs, both entries stay in the TLB under their own tags, and switching back to A hits immediately.","translate":"两种做法：切换时整体刷新 TLB，或者用 ASID 给每个进程的表项打标签。用 ASID 时不需要全部清空，切换开销更小。"}}}}</script>
-  <script src="../scripts/theme.js?v=f3abd4677691"></script>
-  <script src="../assets/vendor/gsap.min.js?v=92bb9a96476f"></script>
-  <script src="../assets/vendor/ScrollTrigger.min.js?v=b0b14d67b55b"></script>
-  <script src="../assets/vendor/SplitText.min.js?v=419f7027a5f0"></script>
-  <script src="../assets/vendor/DrawSVGPlugin.min.js?v=beb19529f54c"></script>
-  <script src="../assets/vendor/MotionPathPlugin.min.js?v=ace44a07c6c1"></script>
-  <script src="../assets/vendor/ScrambleTextPlugin.min.js?v=a2cfaa722323"></script>
-  <script src="../assets/vendor/Flip.min.js?v=cbe3ca726350"></script>
-  <script src="../assets/vendor/CustomEase.min.js?v=466e426a5c60"></script>
-  <script src="../assets/vendor/lenis.min.js?v=07020831fc52"></script>
-  <script src="../scripts/field.js?v=b55f5c077225"></script>
-  <script src="../scripts/demo.js?v=d85826925287"></script>
-  <script src="../scripts/companion.js?v=c39be0b128fd"></script>
-  <script src="../scripts/waitlist.js?v=31997f233437"></script>
-  <script src="../scripts/motion.js?v=b5ef7a23be58"></script>
-  <script src="../scripts/cursor.js?v=7fbaa53f5624"></script>
-  <script src="../scripts/fps.js?v=c2f92270878e"></script>
+  <footer class="ft">
+    <div class="ft__in">
+      <div class="ft__top">
+        <div class="ft__script"><svg class="script" viewBox="0 0 640 236" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="one" pathLength="1" d="M102.9 28C100 27.7 91.8 23.3 85.4 26C79.1 28.7 70.7 35.7 64.9 44C59.2 52.3 53.3 65.3 51 76C48.6 86.7 48.5 100.7 51 108C53.5 115.3 59.8 119.3 66 120C72.2 120.7 81.5 118 88 112C94.5 106 101 94.7 105 84C109 73.3 111.9 57.7 112 48C112 38.3 107.8 28.7 105.4 26C103.1 23.3 96.9 30.7 97.9 32C98.9 33.3 106.4 34.3 111.4 34C116.5 33.7 123.7 31.7 128.4 30C133.2 28.3 137.5 23 139.9 24C142.4 25 143.3 29.3 142.9 36C142.6 42.7 140 54.3 138 64C135.9 73.7 132.8 84.7 130.5 94C128.2 103.3 123.3 121.3 124 120C124.7 118.7 129.2 99.3 134.5 86C139.8 72.7 149 50.7 155.9 40C162.9 29.3 171.1 23.3 176.4 22C181.8 20.7 187.4 23.7 187.9 32C188.5 40.3 182.5 59.3 180 72C177.5 84.7 172.7 100 173 108C173.3 116 177.7 119.7 182 120C186.3 120.3 191.5 116.7 198.5 110C205.5 103.3 216.8 88.7 224 80C231.1 71.3 238.6 64 241.5 58C244.3 52 243.4 46.3 240.9 44C238.5 41.7 231.4 41 226.9 44C222.5 47 217.8 54 214.5 62C211.1 70 207.5 83.3 207 92C206.5 100.7 207.7 109.3 211.5 114C215.3 118.7 223.1 121 230 120C236.9 119 249.2 110 253 108"/><path data-stroke="p" pathLength="1" d="M298.5 118C302.9 109.7 317.1 83.7 325 68C332.9 52.3 345.1 22 345.9 24C346.8 26 337 57.3 330 80C323 102.7 311.5 138 304 160C296.5 182 285.4 212 285.1 212C284.7 212 295 180.3 302 160C309.1 139.7 319.6 109.7 327.5 90C335.4 70.3 342 53.3 349.4 42C356.9 30.7 365.9 24 372.4 22C378.9 20 386 23.7 388.4 30C390.9 36.3 389.7 49 387 60C384.2 71 378 86.7 372 96C366 105.3 357.5 112.7 351 116C344.5 119.3 337 117.3 333 116C329 114.7 328 109.3 327 108"/><path data-stroke="age" pathLength="1" d="M405.5 50C408.4 47.7 418.3 38.7 422.9 36C427.6 33.3 429.2 36.3 433.4 34C437.7 31.7 447.4 23.3 448.4 22C449.4 20.7 443.5 25.7 439.4 26C435.4 26.3 429.9 21.7 423.9 24C418 26.3 409.6 32 403.9 40C398.3 48 392.4 61 390 72C387.6 83 387.4 98.3 389.5 106C391.6 113.7 397.5 118 402.5 118C407.5 118 414 113.3 419.5 106C425 98.7 430.2 87 435.5 74C440.7 61 450.5 27 450.9 28C451.4 29 440.7 66.3 438 80C435.2 93.7 433.5 103.3 434.5 110C435.5 116.7 440.1 119.7 444 120C447.9 120.3 447.8 127.3 458 112C468.2 96.7 499.5 43 504.9 28C510.3 13 496.2 20.3 490.4 22C484.7 23.7 476 30.3 470.4 38C464.9 45.7 458.8 58 457 68C455.1 78 456.7 91.7 459.5 98C462.2 104.3 468.5 107.3 473.5 106C478.5 104.7 483.2 103 489.5 90C495.7 77 511 26.3 510.9 28C510.9 29.7 496.8 76.7 489 100C481.2 123.3 472.5 150 464 168C455.5 186 445.9 200.7 438.1 208C430.2 215.3 421 215 417.1 212C413.1 209 411.2 199.3 414.5 190C417.9 180.7 427 166.7 437 156C447 145.3 462.7 134.7 474.5 126C486.3 117.3 498.3 112 508 104C517.7 96 525.5 86 532.5 78C539.5 70 547.2 61.7 550 56C552.7 50.3 551.5 46 548.9 44C546.4 42 539.4 41 534.9 44C530.5 47 525.8 54 522.5 62C519.1 70 515.5 83.3 515 92C514.5 100.7 515.7 109.3 519.5 114C523.3 118.7 530.8 121 538 120C545.2 119 558.8 110 563 108"/><path data-stroke="stop" pathLength="1" d="M578.5 118L582.5 114"/></g></svg></div>
+        <div class="ft__end">
+          <p>Your next meeting starts on this page.</p>
+          <a class="btn btn--ink" href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener">Download for Mac<svg aria-hidden="true"><use href="#i-dl"/></svg></a>
+        </div>
+      </div>
+      <div class="ft__row">
+        <a class="brand" href="#top"><svg class="brand__mark" aria-hidden="true"><use href="#i-mark"/></svg><span class="brand__name">InterviewHacker</span></a>
+        <nav class="ft__links" aria-label="Footer">
+          <a href="https://github.com/OmnixSI/InterviewHacker/releases/latest" rel="noopener">GitHub Releases<svg aria-hidden="true"><use href="#i-ext"/></svg></a>
+          <a href="../" data-lang-switch>中文</a>
+          <a href="/" target="_top">Style gallery</a>
+        </nav>
+      </div>
+      <p class="ft__fine">© 2026 InterviewHacker · Type: Noto Sans SC, Noto Serif SC, Instrument Serif and Geist, all under the SIL OFL 1.1 · The window on this page is an interactive mock-up with sample data</p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="demo-data">{"nav":{"home":"Home","meetings":"Meetings","library":"Library","settings":"Settings"},"home":{"date":"Tuesday, 27 October","greeting":"Good afternoon","over":"Start a meeting","title":"Meeting coming up?","body":"New meeting: add materials, check your setup, then start. Record now: start right away; notes are written when you end.","new":"New meeting","record":"Record now","recordKey":"⇧⌘N","recentLabel":"Recent","recent":[{"title":"Monday product sync","result":"3 action items","when":"Yesterday 10:00 AM"},{"title":"Fernway · Backend, round 1","result":"2 questions to improve","when":"22 Oct 3:00 PM"}]},"prepare":{"crumbs":["Home","Prepare"],"title":"Fernway · Backend, round 2","where":"Online meeting","s1":{"label":"What kind of meeting","hint":"Picked from the title; you can change it"},"custom":"Custom…","s2":{"label":"Continue from last time","series":"Meeting 2 of “Fernway · Backend”","last":"Last time: Round 1 · Thu 22 Oct","notSame":"Not the same series","items":[{"id":"materials","label":"Materials · resume-2026.pdf, backend-role.md…","count":"4 files","on":true},{"id":"review","label":"Review · improved answers","count":"3 questions","on":true},{"id":"lessons","label":"Lessons · “Lead with scale and results”, “Answer first”","count":"3 lessons","on":true},{"id":"transcript","label":"Full transcript of last time","count":"42 min","on":false}]},"s3":{"label":"New materials for this meeting","optional":"Optional","bringIn":"Bring in from a past meeting…","add":"Add","files":[{"ext":"PDF","name":"order-system-architecture.pdf","reading":"Reading","done":"Read"},{"ext":"PNG","name":"team-page.png","reading":"Reading","done":"Read"}],"ai":"What AI took away","highlights":[{"text":"Round 1 stalled on the cache-breakdown follow-up. Have the full answer ready this time.","needs":"review"},{"text":"When they ask about projects, give the scale and the result before the method.","needs":"lessons"},{"text":"The role leans on high concurrency and cache consistency; the order flow in the diagram has three stages.","needs":""}],"likely":"See 5 likely questions"},"s4":{"label":"Before you start","audio":"Audio","online":"Online","offline":"In person","them":"Them","me":"Me","room":"Room","answers":"Answers","model":"gpt-5.5 · Fast","phone":"Phone","phoneState":"1 phone connected · Local network"},"start":"Start","startReading":"Start (reading materials 1/2)"},"live":{"timer":"12:37","paused":"Paused","prompt":"Prompt","notesOnly":"Notes only","model":"gpt-5.5","end":"End","transcript":"Live transcript","question":"Question","lines":[{"who":"them","text":"Let's start with a recent project. Which part was yours?","q":true},{"who":"me","text":"I owned the caching layer of the order service. We moved the hot queries from the database to Redis."},{"who":"them","text":"Okay, that's a big piece."},{"who":"them","text":"So when the database and the cache both change, how do you keep them consistent?","q":true},{"who":"me","text":"We update the database first, then delete the cache…"},{"who":"them","text":"And if deleting the cache fails?","q":true,"partial":true}],"whoName":{"them":"Them","me":"Me","room":"Room"},"echo":"On-device recognition · 1 echo line ignored","suggested":"Suggested answer","pager":"2/2","answerFor":"So when the database and the cache both change, how do you keep them consistent?","answers":{"base":{"lead":"We write to the database first, then delete the cache entry, and a binlog subscriber backs that up. It's eventually consistent.","points":["After a successful write we delete the key; a read that misses goes to the database and refills the cache.","If the delete fails, the key goes to a retry queue, and the binlog subscriber deletes it again.","Hot keys get a delayed double delete, so a stale value has almost no time to sneak back in.","Where we need strong consistency, like balances, we read from the database or take a distributed lock."]},"shorter":{"lead":"Write the database, delete the cache, retry failed deletes from a queue, and let the binlog subscriber delete once more. Eventually consistent.","points":[]},"example":{"lead":"Say a user changes their shipping address.","points":["We write the new address, then delete that user's address key.","If the delete fails, the key goes to the retry queue, and the binlog subscriber deletes it too.","The next read misses, fetches the new address and refills the cache."]},"english":{"lead":"We write to the database first, then delete the cache entry, and a binlog subscriber backs that up. It's eventually consistent.","points":["After a successful write we delete the key; a read that misses goes to the database and refills the cache.","If the delete fails, the key goes to a retry queue, and the binlog subscriber deletes it again.","Hot keys get a delayed double delete, so a stale value has almost no time to sneak back in.","Where we need strong consistency, like balances, we read from the database or take a distributed lock."]},"latest":{"lead":"A failed delete goes to a retry queue and keeps retrying in the background, and the binlog subscriber deletes it once more. Two safety nets.","points":["Retries are capped; past the cap it alerts someone.","Any stale read in between is bounded by the key's TTL."]}},"rewrites":[{"id":"shorter","label":"Shorter"},{"id":"example","label":"Example"},{"id":"english","label":"In English"}],"more":["Expand","STAR","In Chinese","Clarify","Questions to ask back","Regenerate","Check the web","Copy answer"],"basis":"Based on: Materials 2","input":"Type a question, press Return to send","inputNotes":"Need help? Type a question, or press ⇧⌘↩ to answer what they just asked","answerNow":"Answer now","answerKey":"⇧⌘↩","quiet":"Notes only: no automatic answers. Press ⇧⌘↩ when you need help, or type a question below.","settings":{"title":"Answer settings","model":"Model","models":["gpt-5.5","gpt-5.5-mini"],"fast":"Fast mode","fastNote":"About 1.5× faster · uses more quota","web":"Web search","webOptions":["Off","Automatic","Always"],"length":"Length","lengthOptions":["Brief","Detailed"],"foot":"Applies from the next answer"},"phoneTip":"1 phone connected · Local network","teleprompter":"Teleprompter","latestFor":"And if deleting the cache fails?","pagerLatest":"3/3"},"notes":{"crumbs":["Meetings","Fernway · Backend, round 2","Review"],"template":"Template: Interview review","save":"Save to question bank · 2","saved":"Saved · 2","title":"Fernway · Backend, round 2","meta":"Tue 27 Oct, 2:30 PM · 44 min · Online · 3 recognition errors fixed","tabs":["Review","Transcript","Live answers"],"progress":"Writing notes · usually 1–3 minutes","steps":["Proofread transcript","Organize by template","Check"]},"templates":[{"id":"interview","name":"Interview review","for":"Every interview round","meeting":"Fernway · Backend, round 2","meta":"Tue 27 Oct · 44 min · Online","primary":"Save to question bank · 2","sections":[{"title":"In one line","ai":true,"items":[{"text":"The project story was solid and backed by numbers. On system design you got to the point too slowly, and the cache-breakdown answer was still incomplete."}]},{"title":"Question by question","kind":"questions","items":[{"text":"What if deleting the cache fails?","t":"18:22","verdict":"good","mine":"Retry queue plus an async delete from the binlog. Two safety nets."},{"text":"A hot key expires and a flood of requests hits the database at once. What do you do?","t":"27:05","verdict":"improve","mine":"Add a lock… (8-second pause) …maybe a Bloom filter.","better":"Answer first: a mutex rebuild or logical expiry, chosen by how fresh the data must be. A Bloom filter stops penetration, not breakdown; keep them apart."}]},{"title":"Where I fell short","gap":true,"items":[{"text":"Mixed up cache breakdown and cache penetration","t":"27:40"}]},{"title":"What I didn't mention","gap":true,"items":[{"text":"Never brought up “80k QPS through the sale with zero incidents” from the résumé","t":"31:40"}]},{"title":"Next time","items":[{"text":"On design questions, state the answer, then unpack it"},{"text":"Have breakdown, penetration and avalanche side by side"},{"text":"Bring scale and results into every project story"}]}]},{"id":"academic","name":"Academic","for":"Lab meeting · Presentation / Defense","meeting":"Wednesday lab meeting","meta":"Wed 28 Oct · 56 min · In person","primary":"Copy notes","sections":[{"title":"In one line","ai":true,"items":[{"text":"The ablation direction is fine, but there aren't enough controls yet, so the claim stays out of the paper for now."}]},{"title":"Not settled yet","gap":true,"items":[{"text":"Is the gain from augmentation, or just from a bigger training set? There's no equal-size control","t":"14:10"},{"text":"Which runs the error bars come from was never stated","t":"22:48","unsure":true}]},{"title":"Feedback and requests","items":[{"text":"In section 4, put the limitations before the conclusion","t":"31:02"}]},{"title":"Next: experiments","kind":"actions","items":[{"text":"Add an equal-size control without augmentation","who":"Me","due":"Tue 3 Nov","t":"15:20"}]},{"title":"Next: the paper","kind":"actions","items":[{"text":"Rewrite 4.2 and include the two settings that failed","who":"Me","due":"Thu 5 Nov","t":"33:15"}]},{"title":"Papers to look up","items":[{"text":"The 2025 study on data size versus augmentation the advisor mentioned; the title wasn't clear","t":"17:30","unsure":true}]}]},{"id":"work","name":"Work meeting","for":"Weekly syncs and project check-ins","meeting":"Monday product sync","meta":"Mon 26 Oct, 10:00 AM · 38 min · Online","primary":"Copy notes","sections":[{"title":"In one line","ai":true,"items":[{"text":"The new version ships before next Wednesday; the payment bugs are fixed today and regression results are due Tuesday."}]},{"title":"Decisions","items":[{"text":"Ship the new version before next Wednesday","t":"03:12"}]},{"title":"Action items · who · when","kind":"actions","items":[{"text":"Run regression tests and report results","who":"Me","due":"Tue 27 Oct","t":"05:40"},{"text":"Fix the two payment bugs","who":"Them","due":"Mon 26 Oct","t":"04:55"},{"text":"Design review","who":"—","due":"Thu 29 Oct","t":"12:30","unsure":true}]},{"title":"Risks and open questions","gap":true,"items":[{"text":"Nobody owns the export feature the client asked for","t":"21:08"},{"text":"The design review was said to be Thursday and also Friday","t":"12:30","unsure":true}]},{"title":"Next meeting","items":[{"text":"Mon 2 Nov, 10:00 AM, to look at the release","t":"36:40"}]}]}],"verdict":{"good":"Good","improve":"To improve"},"better":"Better answer","mineLabel":"My answer: ","unsure":"To confirm","gapLabel":"Gaps","types":[{"id":"general","name":"General","mode":"notes","live":"Notes only, ⇧⌘↩ when needed","length":"Brief","template":"General: in one line · key points · decisions · action items · open questions","bring":"—","line":"Notes only, ⇧⌘↩ answers when needed · Brief answers · Notes: summary, decisions, action items"},{"id":"interview","name":"Interview","mode":"prompt","live":"Prompt: an answer as soon as you're asked","length":"Brief","template":"Interview review: question by question · where I fell short · what I didn't mention · next time","bring":"Résumé, job description, company info","line":"Answers appear automatically · Brief answers · Review afterwards, saved to the question bank"},{"id":"presentation","name":"Presentation / Defense","mode":"prompt","live":"Prompt, follows your slides","length":"Brief","template":"Academic: what was discussed · not settled yet · next steps","bring":"Script, slides, paper","line":"Answers appear automatically, follows your slides · Brief answers · Notes: what the audience asked and better answers"},{"id":"lab","name":"Lab meeting","mode":"notes","live":"Notes only, ⇧⌘↩ when asked","length":"Detailed","template":"Academic: feedback · next: the paper / experiments · deadlines","bring":"This week's progress, related papers","line":"Notes only, ⇧⌘↩ when asked · Detailed answers · Notes: progress, advisor feedback, next steps"},{"id":"work","name":"Work meeting","mode":"notes","live":"Notes only","length":"Brief","template":"Work meeting: decisions · action items (who · when) · risks and open questions","bring":"Agenda","line":"Notes only · Brief answers · Notes: decisions, action items, risks"},{"id":"client","name":"Client call","mode":"prompt","live":"Prompt","length":"Brief","template":"Client call: needs · concerns and replies · what we promised · next steps","bring":"Product materials, pricing","line":"Answers appear automatically · Brief answers · Notes: needs, concerns, what we promised, next steps"},{"id":"lecture","name":"Lecture / Class","mode":"notes","live":"Notes only","length":"Detailed","template":"Lecture / Class: outline · key concepts · my questions","bring":"Course slides","line":"Notes only · Detailed answers · Notes: key points, concepts, my questions"},{"id":"discussion","name":"Group discussion","mode":"notes","live":"Notes only","length":"Brief","template":"Group discussion: viewpoints · conclusions and disagreements · who does what","bring":"Discussion topic","line":"Notes only · Brief answers · Notes: viewpoints, conclusions, who does what"}],"guess":{"examples":["Fernway · Backend, round 2","Wednesday lab meeting","Thesis midterm defense","Renewal call with Northgate","Monday product sync","Machine Learning, lecture 7"],"rules":[{"type":"interview","words":["interview","round 1","round 2","round 3","onsite","screen","面试"]},{"type":"presentation","words":["defense","defence","presentation","talk","答辩"]},{"type":"lab","words":["lab meeting","group meeting","组会"]},{"type":"client","words":["client","customer","renewal"]},{"type":"lecture","words":["lecture","class","seminar","course"]},{"type":"discussion","words":["discussion","workshop","brainstorm"]},{"type":"work","words":["sync","standup","stand-up","weekly","review","1:1"]}]},"audio":{"online":{"them":"Everything this Mac plays","themSub":"Zoom, Teams, Google Meet, a call in the browser: it all comes out here","me":"Microphone","lines":[{"who":"them","text":"Walk me through your rollout plan on the next slide."},{"who":"me","text":"Sure. We ramp up in three batches."}]},"offline":{"room":"Microphone","roomSub":"Everyone in the room comes through this one channel","lines":[{"who":"room","text":"Sam, can you have the data filled in by Thursday?"},{"who":"room","text":"Then let's move the review to next Monday."}]}},"bringLabel":"Bring: ","lang":"en"}</script>
+  <script src="../scripts/app.js?v=6782f8dc9a2e" defer></script>
+  <script src="../scripts/page.js?v=94f5bdf900de" defer></script>
 </body>
 </html>

@@ -5,14 +5,15 @@ Usage: python3 scripts/subset-fonts.py --src <dir with the original font files>
 Needs fontTools and brotli (pip install fonttools brotli). Run after `npm run final:build`.
 
 The originals are not committed (Noto Sans SC alone is 17 MB). Fetch them from their OFL sources:
-  SmileySans-Oblique.ttf       github.com/atelier-anchor/smiley-sans  (release v2.0.1)
   NotoSansSC[wght].ttf         github.com/google/fonts  ofl/notosanssc
+  NotoSerifSC[wght].ttf        github.com/google/fonts  ofl/notoserifsc
   InstrumentSerif-Regular.ttf, InstrumentSerif-Italic.ttf  github.com/google/fonts  ofl/instrumentserif
 
-Smiley Sans reserves the names "Smiley" and "得意黑", and Noto Sans SC reserves "Source", so the
-subsets are renamed IH Display and IH Sans as the SIL OFL requires for modified versions.
+Noto Sans SC and Noto Serif SC reserve the name "Source", so the subsets are renamed IH Sans and
+IH Serif as the SIL OFL requires for modified versions.
 """
 import argparse, json, re
+from html.parser import HTMLParser
 from pathlib import Path
 from fontTools import subset
 from fontTools.ttLib import TTFont
@@ -22,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 FINAL = ROOT / 'public' / 'final'
 OUT = FINAL / 'assets' / 'fonts'
 ASCII = ''.join(chr(c) for c in range(0x20, 0x7f))
-PUNCT = '‘’“”—–…·×→←↗↩⌘⇧\\¶§©®™°±·「」『』《》〈〉【】、。，；：？！（）·￥％'
+PUNCT = '‘’“”—–…·×→←↗↩⌘⇧\\¶§©®™°±·「」『』《》〈〉【】、。，；：？！（）·￥％⌃⌥'
 
 
 def page_text():
@@ -32,21 +33,40 @@ def page_text():
     return texts
 
 
-def display_text(html):
-    """Text set in the display face: headings, the wordmark and a few display-styled labels."""
-    picks = re.findall(r'<(h[1-3])\b[^>]*>([\s\S]*?)</\1>', html)
-    chunks = [body for _, body in picks]
-    chunks += re.findall(r'class="(?:wordmark|slide__title)"[^>]*>([\s\S]*?)</', html)
-    chunks += re.findall(r'data-draft="([^"]*)"', html)
-    chunks += re.findall(r'class="call__tile[^"]*"><b>([^<]*)<', html)
-    chunks += re.findall(r'class="cmac__call"><span><b>([^<]*)<', html)
-    chunks += re.findall(r'<p class="swirl__stanza[^"]*">([\s\S]*?)</p>', html)
-    chunks += re.findall(r'<li class="beat[^"]*"><span[^>]*>[^<]*</span><b>([^<]*)</b>', html)
-    chunks += re.findall(r'class="mini-slide__page"><span[^>]*>[^<]*</span><b>([^<]*)<', html)
-    # Walkthrough step titles are set by script from the demo data.
-    demo = json.loads((ROOT / 'scripts' / 'final-i18n' / 'demo.json').read_text('utf-8'))
-    chunks += [step['title'] for lang in demo.values() for step in lang['ui'].get('guide', [])]
-    return re.sub(r'<[^>]+>', '', ''.join(chunks))
+class SerifText(HTMLParser):
+    """Collects text set in the serif faces: headings and the window's document-style titles."""
+    TAGS = {'h1', 'h2', 'h3', 'h4', 'h5'}
+    CLASSES = {'a-section', 'a-n', 'sh-n', 'leaf__title', 'paper__title', 'install__n'}
+
+    def __init__(self):
+        super().__init__()
+        self.stack, self.out = [], []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('br', 'input', 'img', 'use', 'path', 'i', 'meta', 'link'):
+            if tag == 'input':
+                self.out.append(dict(attrs).get('value') or '')
+            return
+        cls = set((dict(attrs).get('class') or '').split())
+        serif = tag in self.TAGS or bool(cls & self.CLASSES) or (self.stack and self.stack[-1][0] == 'tpl-tabs' and tag == 'b')
+        marker = 'tpl-tabs' if 'tpl-tabs' in cls else ('serif' if serif else '')
+        self.stack.append((marker, tag))
+
+    def handle_endtag(self, tag):
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][1] == tag:
+                del self.stack[i:]
+                break
+
+    def handle_data(self, data):
+        if any(m == 'serif' for m, _ in self.stack):
+            self.out.append(data)
+
+
+def serif_text(html):
+    parser = SerifText()
+    parser.feed(re.sub(r'<script\b[\s\S]*?</script>', '', html))
+    return ''.join(parser.out)
 
 
 def rename(font, family):
@@ -88,17 +108,19 @@ def main():
     ap.add_argument('--src', required=True, type=Path)
     args = ap.parse_args()
     texts = page_text()
-    zh = texts[0]
+    zh, en = texts[0], texts[1]
     every = set(''.join(texts)) | set(ASCII) | set(PUNCT)
     every = ''.join(sorted(c for c in every if c >= ' '))
-    display = ''.join(sorted(set(display_text(zh)) | set(display_text(texts[1])) | set(ASCII) | set(PUNCT) | set('InterviewHacker')))
+    demo = json.loads((ROOT / 'scripts' / 'final-i18n' / 'demo.json').read_text('utf-8'))
+    examples = ''.join(t for lang in demo.values() for t in lang['guess']['examples'])
+    serif = ''.join(sorted(c for c in set(serif_text(zh) + serif_text(en) + examples) | set(ASCII) | set(PUNCT) if c >= ' '))
     sizes = {
-        'display/ih-display.woff2': build(args.src / 'SmileySans-Oblique.ttf', OUT / 'display/ih-display.woff2', display, 'IH Display'),
+        'serif/ih-serif.woff2': build(args.src / 'NotoSerifSC[wght].ttf', OUT / 'serif/ih-serif.woff2', serif, 'IH Serif', (500, 600)),
         'sans/ih-sans.woff2': build(args.src / 'NotoSansSC[wght].ttf', OUT / 'sans/ih-sans.woff2', every, 'IH Sans', (400, 500)),
         'serif/instrument-serif.woff2': build(args.src / 'InstrumentSerif-Regular.ttf', OUT / 'serif/instrument-serif.woff2', ASCII + PUNCT + 'éèàçïô№'),
         'serif/instrument-serif-italic.woff2': build(args.src / 'InstrumentSerif-Italic.ttf', OUT / 'serif/instrument-serif-italic.woff2', ASCII + PUNCT + 'éèàçïô№'),
     }
-    (OUT / 'charset.json').write_text(json.dumps({'display': display, 'sans': every}, ensure_ascii=False, indent=0) + '\n', 'utf-8')
+    (OUT / 'charset.json').write_text(json.dumps({'serif': serif, 'sans': every}, ensure_ascii=False, indent=0) + '\n', 'utf-8')
     for k, v in sizes.items():
         print(f'{k}: {v / 1024:.0f} KB')
 

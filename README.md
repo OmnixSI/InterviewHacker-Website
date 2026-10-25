@@ -9,9 +9,9 @@
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=e44625155979)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:b8e235d9cf2caeae37dba1265c7a4cbbaf1f15f0a859d262a4ef2a58201ec691 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:ce825aaa875b1345e5ea27aee50e24d28bb93c99d25489b683d029a5bc0b3a65 preview:e44625155979420b9c4f8bf63479add7e147afef2c2acd018e4525274ba65c90 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -55,13 +55,13 @@
 
 ### Final · 专业 · 精致 · 最终版
 
-[![Final 首页](public/previews/final-home.png?v=2f66aed59500)](https://interviewhacker.vercel.app/final/)
+[![Final 首页](public/previews/final-home.png?v=f6a174bfb7a0)](https://interviewhacker.vercel.app/final/)
 
-以「时刻」叙事：得意黑与定制手写字形，鼠标可拨动的声波水面，随滚动播放的完整面试演示，回旋的序与颗粒消融的边缘，以早期试用收尾，中英双语。
+按 v2 的“纸与墨”重做：一场会议就是一页。思源宋体标题、手绘墨迹字形，可点击的产品窗口随滚动走完首页、准备、会中与纪要；会议类型、系列、声音、纪要模板都能动手试，附下载、安装、数据去向与问答，中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
-<!-- style:final source:8d784e6fa3a9c198e5a337e32aa8d93dcddb91d057e0ba147bfd9441565694f1 preview:2f66aed59500470a5ce3f72bd88464ec84502c7770114927a273c03f7432f4f5 -->
+<!-- style:final source:5c840b2bc9c4702b8e032e1a168463e7d6e7f14898b174b655df207e031b7809 preview:f6a174bfb7a07ea783ecf74f7a6bf8e3d042d868b4025c0ca302adca2ee30d21 -->
 <!-- STYLES:END -->
 
 ## 本地运行
