@@ -1,4 +1,37 @@
-<!-- OWNER: night agent. № 04 FAQ (23:10). -->
+<!-- OWNER: night agent. № 04 FAQ (23:10). Native <details>: opens with no script; CSS animates the height where the browser
+     can (interpolate-size + ::details-content), night.js animates it elsewhere and adds sound. Rows stay independent. -->
 <section class="faq section" id="faq" data-time="23:10" data-palette="night" data-lines="still" aria-labelledby="faq-title">
-  <div class="wrap"><h2 class="t-h2" id="faq-title">{{ 常被问到的。 ‖ Asked often. }}</h2></div>
+  <div class="wrap faq__grid">
+    <header class="faq__head">
+      <p class="kicker"><b>№ 04</b><span>{{ 问答 ‖ FAQ }}</span><span class="night-time">23:10</span></p>
+      <h2 class="t-h2 faq__title" id="faq-title" data-night-title><span class="rl"><span>{{ 常被问到的。 ‖ Asked often. }}</span></span></h2>
+    </header>
+
+    <div class="faq__list" data-faq>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">01</span><span class="qa__text">{{ 对方会知道我在用它吗？ ‖ Will the other side know I’m using it? }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 它不往会议里发任何东西，只在你的屏幕或手机上显示。共享整个屏幕时，屏幕上的提词可能被看到，那时就把回答放到手机上。用不用、怎么用，请遵守会议的规则。 ‖ It sends nothing into the meeting; it only shows on your screen or phone. If you share your whole screen, prompts on it can be seen, so move the answer to your phone. Whether and how you use it, follow the rules of the meeting. }}</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">02</span><span class="qa__text">{{ 用哪个会议软件都可以吗？ ‖ Does it work with any meeting app? }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 可以。它听的是 Mac 放出来的声音，不用知道你在用哪一个。 ‖ Yes. It listens to the sound your Mac plays, so it doesn’t need to know which app that is. }}</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">03</span><span class="qa__text">{{ 大家在同一个房间开会呢？ ‖ What if we’re all in one room? }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 选“线下”，它只用麦克风，转写标成“现场”。 ‖ Choose In person. It uses only the microphone and marks the transcript In the room. }}</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">04</span><span class="qa__text">{{ 会留下录音吗？ ‖ Does it keep recordings? }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 不会。声音在这台 Mac 上变成文字，留下的只有转写和纪要。 ‖ No. Speech becomes text on your Mac; only the transcript and notes remain. }}</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">05</span><span class="qa__text">{{ 不想被打扰，只想要一份纪要？ ‖ I only want notes, no interruptions. }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 点“立即记录”。开会时它安静地记，散会后，纪要就在那一页上。 ‖ Press Record now. It takes notes quietly during the meeting, and the notes are on the page when it ends. }}</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">06</span><span class="qa__text">{{ 什么时候可以用？ ‖ When can I use it? }}</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>{{ 首批试用正在进行。加入等待名单，开放时我们会第一时间写信给你。 ‖ The first beta is running now. Join the waitlist and we’ll write to you as soon as places open. }}</p><p class="qa__more"><a class="qa__link" href="#join">{{ 加入等待名单 ‖ Join the waitlist }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p></div>
+      </details>
+    </div>
+  </div>
 </section>

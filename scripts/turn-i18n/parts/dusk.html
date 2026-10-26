@@ -1,46 +1,40 @@
 <!-- OWNER: evening agent. Dusk interlude (18:10).
      The paper turns from afternoon to dusk while a low sun made of the two voices (amber, indigo) comes down onto the
      horizon; then the moments of the day rise past it, parting around it, and the sun sinks as the last line arrives.
-     Script: scripts/dusk.js (pinned scrub on large screens; sticky still sun elsewhere) · styles: styles/dusk.css.
-     The two marks give the clock and the colour turn their own places (see dusk.js → anchors). -->
+     scripts/dusk.js: pinned scrub on large screens (.is-pinned); elsewhere a still sunset above staggered stanzas.
+     The two marks give the clock and the colour turn their own places (dusk.js moves them with IH.anchorAt). -->
 <section class="dusk" id="dusk" data-time="18:10" data-palette="dusk" data-lines="dusk" aria-labelledby="dusk-title" data-dusk>
-  <span class="dusk__mark dusk__mark--before" data-time="17:30" data-palette="afternoon" data-dusk-mark="before" aria-hidden="true"></span>
+  <span class="dusk__mark dusk__mark--before" data-time="17:30" data-palette="afternoon" data-lines="day" data-dusk-mark="before" aria-hidden="true"></span>
   <div class="dusk__stage" data-dusk-stage>
     <div class="dusk__air" aria-hidden="true">
-      <div class="dusk__sun" data-dusk-sun>
-        <i class="dusk__band" data-dusk-band></i>
-        <i class="dusk__glow" data-dusk-glow></i>
-        <div class="dusk__sky">
+      <i class="dusk__band" data-dusk-band></i>
+      <div class="dusk__sky">
+        <div class="dusk__lift" data-dusk-lift>
+          <i class="dusk__glow"></i>
           <div class="dusk__orb" data-dusk-orb>
             <i class="dusk__core"></i>
-            <div class="dusk__turn"><i class="dusk__a"></i></div>
-            <div class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></div>
+            <span class="dusk__turn"><i class="dusk__a"></i></span>
+            <span class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></span>
             <i class="dusk__grain"></i>
           </div>
         </div>
-        <div class="dusk__sea">
-          <div class="dusk__orb dusk__orb--mirror" data-dusk-mirror>
-            <i class="dusk__core"></i>
-            <div class="dusk__turn"><i class="dusk__a"></i></div>
-          </div>
-        </div>
-        <i class="dusk__horizon"></i>
-        <i class="dusk__rule" data-dusk-rule></i>
       </div>
+      <div class="dusk__sea">
+        <div class="dusk__dip" data-dusk-dip><i class="dusk__mirror"></i><i class="dusk__glint"></i></div>
+      </div>
+      <i class="dusk__horizon"></i>
     </div>
 
     <div class="dusk__col" data-dusk-col>
-      <h2 class="dusk__st dusk__head" id="dusk-title" data-side="l"><span class="dl">{{ 对话， ‖ Conversations }}</span> <span class="dl">{{ 从不等你准备好。 ‖ don’t wait for you to be ready. }}</span></h2>
-      <p class="dusk__st" data-side="r"><span class="dl">{{ 面试官的追问， ‖ An interviewer’s follow-up, }}</span> <span class="dl">{{ 停在半空。 ‖ left hanging. }}</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">{{ 导师一句： ‖ Your advisor: }}</span> <span class="dl voice-them">{{ “这个对照组呢？” ‖ “And the control group?” }}</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">{{ 谈判桌对面： ‖ Across the table: }}</span> <span class="dl voice-them">{{ “再降八个点。” ‖ “Another eight percent.” }}</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">{{ 网课里， ‖ In class, }}</span> <span class="dl">{{ 突然被点到名字。 ‖ your name, out of nowhere. }}</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">{{ 电话那头： ‖ On the line: }}</span> <span class="dl voice-them">{{ “月底能上线吗？” ‖ “Live by month-end?” }}</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">{{ 答辩的 ‖ The last question }}</span> <span class="dl">{{ 最后一个问题。 ‖ at your defence. }}</span></p>
-      <p class="dusk__st dusk__st--end" data-side="e"><span class="dl">{{ 每一句， ‖ Each one }}</span> <span class="dl">{{ 都只给你一眨眼。 ‖ gives you a blink. }}</span></p>
+      <h2 class="dusk__st dusk__head" id="dusk-title" data-side="l">{{ <span class="dl">对话，</span><span class="dl">从不等你准备好。</span> ‖ <span class="dl">Conversations</span> <span class="dl">don’t wait for you</span> <span class="dl">to be ready.</span> }}</h2>
+      <p class="dusk__st" data-side="r">{{ <span class="dl">面试官的追问，</span><span class="dl">停在半空。</span> ‖ <span class="dl">An interviewer’s follow-up,</span> <span class="dl">left hanging.</span> }}</p>
+      <p class="dusk__st" data-side="l">{{ <span class="dl">导师一句：</span><span class="dl voice-them">“这个对照组呢？”</span> ‖ <span class="dl">Your advisor:</span> <span class="dl voice-them">“And the control group?”</span> }}</p>
+      <p class="dusk__st" data-side="r">{{ <span class="dl">谈判桌对面：</span><span class="dl voice-them">“再降八个点。”</span> ‖ <span class="dl">Across the table:</span> <span class="dl voice-them">“Another eight percent.”</span> }}</p>
+      <p class="dusk__st" data-side="l">{{ <span class="dl">网课里，</span><span class="dl">突然被点到名字。</span> ‖ <span class="dl">In class, your name,</span> <span class="dl">out of nowhere.</span> }}</p>
+      <p class="dusk__st" data-side="r">{{ <span class="dl">电话那头：</span><span class="dl voice-them">“月底能上线吗？”</span> ‖ <span class="dl">On the line:</span> <span class="dl voice-them">“Live by month-end?”</span> }}</p>
+      <p class="dusk__st" data-side="l">{{ <span class="dl">答辩的</span><span class="dl">最后一个问题。</span> ‖ <span class="dl">The last question</span> <span class="dl">at your defence.</span> }}</p>
+      <p class="dusk__st dusk__end" data-side="c">{{ <span class="dl">每一句，</span><span class="dl">都只给你一眨眼。</span> ‖ <span class="dl">Each one</span> <span class="dl">gives you a blink.</span> }}</p>
     </div>
-
-    <div class="dusk__set" aria-hidden="true"><i class="dusk__set-glow"></i><i class="dusk__set-line"></i></div>
   </div>
   <span class="dusk__mark dusk__mark--after" data-time="19:30" data-dusk-mark="after" aria-hidden="true"></span>
 </section>

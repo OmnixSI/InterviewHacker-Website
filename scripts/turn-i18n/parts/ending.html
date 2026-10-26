@@ -1,5 +1,88 @@
-<!-- OWNER: night agent. Ending (23:59): tomorrow, another one; the waitlist. -->
-<section class="ending" id="join" data-time="23:59" data-palette="midnight" data-lines="water" aria-labelledby="join-title">
-  <div class="wrap"><h2 class="t-h2" id="join-title">{{ 明天，还有一场。 ‖ Tomorrow, there’s another one. }}</h2>
-  <p class="t-small">{{ 页面里的对话都是交互示意，示例数据，不访问麦克风或网络。 ‖ The conversations on this page are interactive illustrations with sample data. No microphone, no network. }}</p></div>
+<!-- OWNER: night agent. Ending (23:59 → 00:00). The last screen is a night lake (lines.js, mode water): the headline
+     stands on its horizon; pressing the button sinks it under the waterline and raises a sheet of frosted glass with
+     the waitlist. Without script the form is simply shown under the headline and posts to /api/waitlist. -->
+<section class="ending" id="join" data-time="23:59" data-palette="midnight" data-lines="water" aria-labelledby="join-title" data-ending>
+  <div class="ending__stage wrap">
+    <div class="ending__sky">
+      <div class="ending__rise" data-ending-copy>
+        <p class="kicker ending__kicker"><span class="night-time" data-ending-time>23:59</span></p>
+        <h2 class="t-h2 ending__title" id="join-title" data-night-title><span class="rl"><span>{{ 明天， ‖ Tomorrow, }}</span></span> <span class="rl"><span>{{ 还有一场。 ‖ there’s another one. }}</span></span></h2>
+      </div>
+    </div>
+    <div class="ending__water" data-ending-copy>
+      <div class="ending__letter" data-ending-letter>{{@letter:tomorrow.|ending__lettering}}</div>
+      <p class="ending__sub">{{ InterviewHacker 2.0 即将开放。首批试用正在进行，名额会陆续开放。 ‖ InterviewHacker 2.0 is coming soon. The first beta is running now; more places open soon. }}</p>
+      <button class="btn btn--ink ending__btn" type="button" aria-controls="waitlist" aria-expanded="false" data-waitlist-open data-needs-js><span>{{ 加入等待名单 ‖ Join the waitlist }}</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    </div>
+
+    <div class="waitlist" id="waitlist" data-waitlist>
+      <div class="waitlist__sheet">
+        <span class="waitlist__progress" aria-hidden="true"></span>
+        <form class="waitlist__form" action="/api/waitlist" method="post" aria-labelledby="waitlist-title" data-waitlist-form>
+          <button class="waitlist__close" type="button" aria-label="{{ 关闭 ‖ Close }}" data-waitlist-close data-needs-js><i></i><i></i></button>
+          <header class="waitlist__head">
+            <p class="waitlist__kicker mono">{{ InterviewHacker 2.0 · 等待名单 ‖ InterviewHacker 2.0 · Waitlist }}</p>
+            <h3 class="waitlist__title" id="waitlist-title" tabindex="-1">{{ 加入等待名单 ‖ Join the waitlist }}</h3>
+            <p class="waitlist__lead">{{ 开放时，我们会第一时间写信给你。 ‖ We’ll write to you as soon as places open. }}</p>
+          </header>
+          <!-- After a script-free post, /api/waitlist sends the reader back here with the outcome in the hash. -->
+          <div class="wl-return" data-waitlist-say>
+            <p class="wl-return__msg wl-return__msg--ok" id="waitlist-ok">{{ 已加入名单。开放时，我们会写信给你。 ‖ You’re on the list. We’ll write to you when your place opens. }}</p>
+            <p class="wl-return__msg" id="waitlist-name">{{ 请填写称呼。 ‖ Please add your name. }}</p>
+            <p class="wl-return__msg" id="waitlist-email">{{ 这个邮箱格式好像不对。 ‖ That email doesn’t look quite right. }}</p>
+            <p class="wl-return__msg" id="waitlist-uses">{{ 选一个用途，或者在“更多”里写几句。 ‖ Pick a use, or tell us in “Anything else”. }}</p>
+            <p class="wl-return__msg" id="waitlist-busy">{{ 提交得有点频繁，请稍等一会儿再试。 ‖ That was a lot of tries. Please wait a moment. }}</p>
+            <p class="wl-return__msg" id="waitlist-offline">{{ 暂时没能提交，请稍后再试。 ‖ We couldn’t send that just now. Please try again shortly. }}</p>
+            <p class="wl-return__msg" id="waitlist-mail">{{ 暂时没能提交，请稍后再试。 ‖ We couldn’t send that just now. Please try again shortly. }}</p>
+          </div>
+          <div class="waitlist__row">
+            <div class="wl-field" data-field="name">
+              <label class="wl-field__label" for="wl-name">{{ 称呼 ‖ Name }}</label>
+              <input class="wl-field__input" id="wl-name" name="name" type="text" autocomplete="name" maxlength="60" required aria-describedby="wl-name-msg" placeholder="{{ 怎么称呼你 ‖ What should we call you }}">
+              <p class="wl-msg" id="wl-name-msg"></p>
+            </div>
+            <div class="wl-field" data-field="email">
+              <label class="wl-field__label" for="wl-email">{{ 邮箱 ‖ Email }}</label>
+              <input class="wl-field__input" id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" maxlength="254" required aria-describedby="wl-email-msg" placeholder="name@example.com">
+              <p class="wl-msg" id="wl-email-msg"></p>
+            </div>
+          </div>
+          <fieldset class="uses" data-field="uses" aria-describedby="wl-uses-msg">
+            <legend class="wl-field__label">{{ 用在哪里？可多选 ‖ Where will you use it? Pick any }}</legend>
+            <div class="uses__list">
+              <label class="use"><input type="checkbox" name="uses" value="interview"><span>{{ 求职面试 ‖ Job interviews }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="talk"><span>{{ 组会与汇报 ‖ Lab meetings &amp; talks }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="meeting"><span>{{ 工作会议与客户沟通 ‖ Work meetings &amp; client calls }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="class"><span>{{ 课程与讲座 ‖ Classes &amp; lectures }}</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="other"><span>{{ 其他 ‖ Something else }}</span></label>
+            </div>
+            <p class="wl-msg" id="wl-uses-msg"></p>
+          </fieldset>
+          <div class="wl-field wl-field--more" data-field="more">
+            <label class="wl-field__label" for="wl-more">{{ 更多（可选） ‖ Anything else (optional) }}</label>
+            <textarea class="wl-field__input" id="wl-more" name="more" rows="2" maxlength="1000" placeholder="{{ 比如：下个月有一场技术面试 ‖ e.g. a technical interview next month }}"></textarea>
+          </div>
+          <div class="waitlist__trap" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="lang" value="{{ zh ‖ en }}">
+          <div class="waitlist__foot">
+            <p class="waitlist__note">{{ 只用于联系试用，不会公开或转给他人。 ‖ Used only to reach you about early access. Never shared. }}</p>
+            <button class="btn waitlist__submit" type="submit" data-waitlist-submit><span>{{ 提交 ‖ Request access }}</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="waitlist__error" role="alert" data-waitlist-error></p>
+        </form>
+        <div class="waitlist__done" data-waitlist-done data-needs-js>
+          <svg class="waitlist__tick" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30"/><path d="m20 33 8.5 8.5L45 24"/></svg>
+          <p class="waitlist__kicker mono">{{ 周二 · 00:00 ‖ Tue · 00:00 }}</p>
+          <h3 class="waitlist__title" tabindex="-1" data-waitlist-done-title>{{ 已加入名单。 ‖ You’re on the list. }}</h3>
+          <p class="waitlist__lead" data-waitlist-done-text data-template="{{ 开放时，我们会写信到 %email%。 ‖ We’ll write to %email% when your place opens. }}">{{ 开放时，我们会写信给你。 ‖ We’ll write to you when your place opens. }}</p>
+          <button class="btn btn--ghost waitlist__back" type="button" data-waitlist-close>{{ 好的 ‖ Done }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ending__foot">
+    <p class="ending__links mono"><span>© 2026 OmnixSI</span><a href="{{other}}#join" hreflang="{{ en ‖ zh-CN }}" lang="{{ en ‖ zh-CN }}">{{ English ‖ 中文 }}</a><a href="/" target="_top">{{ 风格画廊 ‖ Style gallery }}</a></p>
+    <p class="ending__notes"><span>{{ 字体：得意黑、思源黑体、思源宋体、Instrument Serif、Geist（SIL OFL 1.1） ‖ Type: Smiley Sans, Noto Sans SC, Noto Serif SC, Instrument Serif, Geist (SIL OFL 1.1) }}</span><span>{{ 页面里的对话都是交互示意，示例数据，不访问麦克风或网络。 ‖ The conversations on this page are interactive illustrations with sample data. No microphone, no network. }}</span></p>
+  </footer>
 </section>

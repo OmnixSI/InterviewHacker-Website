@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="./styles/day.css?v=8c8f2e431aa7">
   <link rel="stylesheet" href="./styles/dusk.css?v=94d5fc89b977">
   <link rel="stylesheet" href="./styles/evening.css?v=da51348e635c">
-  <link rel="stylesheet" href="./styles/night.css?v=e636dad4239f">
+  <link rel="stylesheet" href="./styles/night.css?v=8de16d2a2282">
   <link rel="stylesheet" href="./styles/cursor.css?v=a56376ac8e0a">
   <script src="./scripts/bootstrap.js?v=b4881cbdbc4b"></script>
 </head>
@@ -82,35 +82,36 @@
   </header>
 
   <main id="main">
-    <!-- OWNER: hero agent. Hero (08:59). Layout: headline above the two strings, a hand annotation pointing into the gap
-     between them, the lead and actions below. [data-lines-slot] tells scripts/lines.js where the strings rest:
-     its top edge is the amber string (them), its bottom edge the indigo string (you). -->
+    <!-- OWNER: hero agent. Hero (08:59).
+     A poster frame: the headline; the two strings across the lower part with a hand-written note pointing into the gap
+     between them; the lead and actions. [data-lines-slot] tells scripts/lines.js where the strings rest: its top edge is
+     the amber string (them), its bottom edge the indigo string (you). The labels inside it travel with the strings.
+     .hero__seg spans keep each phrase of the headline whole, so it breaks only between phrases on narrow screens. -->
 <section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title" data-hero>
   <div class="hero__grid wrap">
     <div class="hero__head" data-hero-drift>
-      <p class="kicker hero__kicker" data-hero-in>InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>即将开放</p>
-      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">对话里，</span></span><br><span class="hero__seg"><span class="hero__in">留给你的，</span></span><wbr><span class="hero__seg"><span class="hero__in">只有<span class="hero__word" data-draft="一瞬间">一眨眼</span>。</span></span></h1>
+      <p class="kicker hero__kicker">InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>即将开放</p>
+      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">对话里，</span></span><br><span class="hero__seg"><span class="hero__in">留给你的，</span></span><wbr><span class="hero__seg"><span class="hero__in">只有<span class="hero__word" data-draft="一扎眼">一眨眼</span>。</span></span></h1>
     </div>
 
     <div class="hero__strings" data-lines-slot aria-hidden="true">
-      <span class="hero__label hero__label--them mono" data-hero-mark>对方</span>
-      <span class="hero__measure mono" data-hero-mark><i></i>≈ 0.2 s</span>
-      <span class="hero__label hero__label--me mono" data-hero-mark>你</span>
-      <span class="hero__note" data-hero-note>
-        <svg class="hero__arrow" viewBox="0 0 92 132" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-arrow d="M44.5 3.5C53 15 63.5 29 60.5 44.5C58.6 54.3 47.2 58.6 42.3 51.5C37.6 44.7 46.4 37.6 52.6 43.4C61.5 51.8 56.8 75.2 46.6 91C39.4 102.2 28.7 113.1 15.8 122.4"/><path data-arrow d="M17.6 106.9C17.9 112.4 16.9 117.6 15.8 122.4C21.2 121.6 26.5 121.4 31.8 122.3"/></g></svg>
-        <svg class="lettering hero__letter" viewBox="-2 -154 818 249" data-word="your turn." data-baseline="0.6185" data-xheight="0.4016" style="--l-h:2.490;--l-base:0.6185" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="your" d="M5 -68.6C12.3 -78.8 16 -90.6 23.4 -100.9C18.2 -78.7 13.1 -56.4 7.9 -34.2C3.9 -17 7.7 0.1 23 0.1C43.3 0.1 56.5 -23.8 64.1 -46.3C70.2 -64.5 76.2 -82.7 80.4 -100.9C72.6 -67.2 64.1 -33.5 55.8 0.1C50.9 19.6 45.3 39 37.5 58.1C32.1 71.2 29.8 88.1 17.2 88.1C7.7 88.1 5.3 77 10.1 66.1C19.6 44.7 32.6 23.9 51.5 8.1C60 1 68.6 -6.1 78 -12C95.9 -23.1 115.3 -35.7 119.6 -54.4C124.9 -77.2 134.9 -101.9 154.5 -101.9C166.1 -101.9 175 -95.1 178.1 -84.7C175 -95.1 166.1 -101.9 154.5 -101.9C134.9 -101.9 124.9 -77.2 119.6 -54.4C113.6 -28.6 109.9 0.1 132.1 0.1C151.9 0.1 164.5 -23.7 170.5 -46.3C173.9 -59.2 177.4 -72.1 178.1 -84.7C178.5 -90.9 186 -94.6 192.5 -97.9C196.7 -100.1 201.2 -99.9 205.5 -99.9C214.6 -99.9 223.7 -99.6 233.1 -100.9C227.9 -78.6 222.8 -56.4 217.6 -34.2C213.6 -16.8 218.3 0.1 233.9 0.1C254.6 0.1 268.9 -23.5 276.6 -46.3C282.7 -64.5 288.8 -82.6 293 -100.9C287 -74.6 280.9 -48.3 274.8 -22.1C272.4 -11.6 272.3 -0.4 281.3 -0.4C287.4 -0.4 292.9 -5.4 298.6 -8.9C331 -29.1 326.7 -69.3 343.1 -100.9C335.3 -67.2 327.5 -33.5 319.7 0.1C323.3 -13.3 326.2 -26.8 330.3 -40.3C337.3 -63.6 340.5 -91.7 363.5 -97.9C370.2 -99.7 374 -93.7 379.5 -91.8C381.9 -90.9 383.1 -88.6 384.6 -86.7"/><path data-stroke="turn" d="M485.1 -147.3C478.2 -117.7 471.4 -88.1 464.5 -58.4C461.7 -46.3 458.9 -34.2 456.1 -22.1C453.7 -11.6 453.3 -0.4 462.2 -0.4C468.2 -0.4 473.5 -5.5 479 -8.9C511.3 -29 512.6 -68.8 529.2 -100.8C524.1 -78.6 519 -56.4 513.9 -34.2C509.9 -16.9 514.3 0.1 529.8 0.1C550.3 0.1 564.2 -23.6 571.8 -46.3C577.9 -64.4 584 -82.6 588.2 -100.8C582.1 -74.5 576.1 -48.3 570 -22.1C567.6 -11.6 567.3 -0.4 576.3 -0.4C582.3 -0.4 587.7 -5.4 593.3 -8.9C625.7 -29.1 621.8 -69.2 638.2 -100.8C630.4 -67.2 622.7 -33.5 614.9 0.1C618.5 -13.3 621.4 -26.8 625.4 -40.2C632.4 -63.5 635.3 -91.6 658.3 -97.8C664.9 -99.6 668.5 -93.7 674 -91.7C679.2 -89.9 685.6 -92.9 691.6 -93.7C704.3 -95.5 717.2 -99.3 730 -101C722.2 -67.3 714.2 -33.6 706.4 0.1C709.7 -12 712.7 -24.1 716.2 -36.3C724.9 -67.1 735.9 -102.1 762.9 -102.1C779.8 -102.1 789.7 -87.8 785.8 -70.7C782.1 -54.5 778.2 -38.3 774.5 -22.1C772.1 -11.6 771.7 -0.4 780.7 -0.4C785.8 -0.4 790.4 -4.8 795.1 -7.9"/><path data-stroke="t-bar" d="M453.6 -101.9C472.2 -104.1 490.6 -105.3 509 -106.9"/><path data-stroke="stop" d="M806.6 -1.5C807.6 -3 808.6 -4.5 809.6 -6"/></g></svg>
-      </span>
+      <div class="hero__marks" data-hero-marks>
+        <span class="hero__label hero__label--them" data-hero-mark>对方</span>
+        <span class="hero__measure" data-hero-mark><i></i>≈ 0.2 s</span>
+        <span class="hero__label hero__label--me" data-hero-mark>你</span>
+        <span class="hero__note"><svg class="lettering hero__letter" viewBox="-2 -154 818 249" data-word="your turn." data-baseline="0.6185" data-xheight="0.4016" style="--l-h:2.490;--l-base:0.6185" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="your" d="M5 -68.6C12.3 -78.8 16 -90.6 23.4 -100.9C18.2 -78.7 13.1 -56.4 7.9 -34.2C3.9 -17 7.7 0.1 23 0.1C43.3 0.1 56.5 -23.8 64.1 -46.3C70.2 -64.5 76.2 -82.7 80.4 -100.9C72.6 -67.2 64.1 -33.5 55.8 0.1C50.9 19.6 45.3 39 37.5 58.1C32.1 71.2 29.8 88.1 17.2 88.1C7.7 88.1 5.3 77 10.1 66.1C19.6 44.7 32.6 23.9 51.5 8.1C60 1 68.6 -6.1 78 -12C95.9 -23.1 115.3 -35.7 119.6 -54.4C124.9 -77.2 134.9 -101.9 154.5 -101.9C166.1 -101.9 175 -95.1 178.1 -84.7C175 -95.1 166.1 -101.9 154.5 -101.9C134.9 -101.9 124.9 -77.2 119.6 -54.4C113.6 -28.6 109.9 0.1 132.1 0.1C151.9 0.1 164.5 -23.7 170.5 -46.3C173.9 -59.2 177.4 -72.1 178.1 -84.7C178.5 -90.9 186 -94.6 192.5 -97.9C196.7 -100.1 201.2 -99.9 205.5 -99.9C214.6 -99.9 223.7 -99.6 233.1 -100.9C227.9 -78.6 222.8 -56.4 217.6 -34.2C213.6 -16.8 218.3 0.1 233.9 0.1C254.6 0.1 268.9 -23.5 276.6 -46.3C282.7 -64.5 288.8 -82.6 293 -100.9C287 -74.6 280.9 -48.3 274.8 -22.1C272.4 -11.6 272.3 -0.4 281.3 -0.4C287.4 -0.4 292.9 -5.4 298.6 -8.9C331 -29.1 326.7 -69.3 343.1 -100.9C335.3 -67.2 327.5 -33.5 319.7 0.1C323.3 -13.3 326.2 -26.8 330.3 -40.3C337.3 -63.6 340.5 -91.7 363.5 -97.9C370.2 -99.7 374 -93.7 379.5 -91.8C381.9 -90.9 383.1 -88.6 384.6 -86.7"/><path data-stroke="turn" d="M485.1 -147.3C478.2 -117.7 471.4 -88.1 464.5 -58.4C461.7 -46.3 458.9 -34.2 456.1 -22.1C453.7 -11.6 453.3 -0.4 462.2 -0.4C468.2 -0.4 473.5 -5.5 479 -8.9C511.3 -29 512.6 -68.8 529.2 -100.8C524.1 -78.6 519 -56.4 513.9 -34.2C509.9 -16.9 514.3 0.1 529.8 0.1C550.3 0.1 564.2 -23.6 571.8 -46.3C577.9 -64.4 584 -82.6 588.2 -100.8C582.1 -74.5 576.1 -48.3 570 -22.1C567.6 -11.6 567.3 -0.4 576.3 -0.4C582.3 -0.4 587.7 -5.4 593.3 -8.9C625.7 -29.1 621.8 -69.2 638.2 -100.8C630.4 -67.2 622.7 -33.5 614.9 0.1C618.5 -13.3 621.4 -26.8 625.4 -40.2C632.4 -63.5 635.3 -91.6 658.3 -97.8C664.9 -99.6 668.5 -93.7 674 -91.7C679.2 -89.9 685.6 -92.9 691.6 -93.7C704.3 -95.5 717.2 -99.3 730 -101C722.2 -67.3 714.2 -33.6 706.4 0.1C709.7 -12 712.7 -24.1 716.2 -36.3C724.9 -67.1 735.9 -102.1 762.9 -102.1C779.8 -102.1 789.7 -87.8 785.8 -70.7C782.1 -54.5 778.2 -38.3 774.5 -22.1C772.1 -11.6 771.7 -0.4 780.7 -0.4C785.8 -0.4 790.4 -4.8 795.1 -7.9"/><path data-stroke="t-bar" d="M453.6 -101.9C472.2 -104.1 490.6 -105.3 509 -106.9"/><path data-stroke="stop" d="M806.6 -1.5C807.6 -3 808.6 -4.5 809.6 -6"/></g></svg><svg class="hero__arrow" viewBox="0 0 92 132" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M40.6 4.2C52.4 13.6 64.8 27.8 62.2 43.6C60.6 53.4 49.4 58.2 44 51.6C38.9 45.4 46.2 37.4 53 42.2C62.6 49 59.2 73.4 48.4 89.6C40.6 101.4 29.6 112.6 16.4 121.8"/><path d="M20.8 106.6C19.6 112 18.1 117.1 16.4 121.8C21.6 121.2 26.9 121.2 32.1 121.9"/></g></svg></span>
+      </div>
     </div>
 
     <div class="hero__foot" data-hero-drift>
-      <p class="t-body hero__lead" data-hero-in>InterviewHacker和你一起听。对方一问完，你能说出口的那句话，就开始浮上来，用的是你自己的资料。</p>
-      <p class="hero__actions" data-hero-in>
+      <p class="t-body hero__lead">InterviewHacker和你一起听。对方一问完，你能说出口的那句话，就开始浮上来，用的是你自己的资料。</p>
+      <p class="hero__actions">
         <a class="btn btn--ink" href="#join">加入等待名单<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--ghost" href="#gap">过一遍这一天<svg aria-hidden="true"><use href="#i-down"/></svg></a>
       </p>
     </div>
 
-    <p class="hero__hint mono" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">拨一下这两根线 · 打开声音会更好</span><span class="hero__hint-touch">碰一下这两根线</span></p>
+    <p class="hero__hint" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">拨一下这两根线 · 打开声音会更好</span><span class="hero__hint-touch">碰一下这两根线</span></p>
   </div>
 </section>
     <!-- OWNER: hero agent. № 01 The blink (09:00). -->
@@ -124,46 +125,40 @@
     <!-- OWNER: evening agent. Dusk interlude (18:10).
      The paper turns from afternoon to dusk while a low sun made of the two voices (amber, indigo) comes down onto the
      horizon; then the moments of the day rise past it, parting around it, and the sun sinks as the last line arrives.
-     Script: scripts/dusk.js (pinned scrub on large screens; sticky still sun elsewhere) · styles: styles/dusk.css.
-     The two marks give the clock and the colour turn their own places (see dusk.js → anchors). -->
+     scripts/dusk.js: pinned scrub on large screens (.is-pinned); elsewhere a still sunset above staggered stanzas.
+     The two marks give the clock and the colour turn their own places (dusk.js moves them with IH.anchorAt). -->
 <section class="dusk" id="dusk" data-time="18:10" data-palette="dusk" data-lines="dusk" aria-labelledby="dusk-title" data-dusk>
-  <span class="dusk__mark dusk__mark--before" data-time="17:30" data-palette="afternoon" data-dusk-mark="before" aria-hidden="true"></span>
+  <span class="dusk__mark dusk__mark--before" data-time="17:30" data-palette="afternoon" data-lines="day" data-dusk-mark="before" aria-hidden="true"></span>
   <div class="dusk__stage" data-dusk-stage>
     <div class="dusk__air" aria-hidden="true">
-      <div class="dusk__sun" data-dusk-sun>
-        <i class="dusk__band" data-dusk-band></i>
-        <i class="dusk__glow" data-dusk-glow></i>
-        <div class="dusk__sky">
+      <i class="dusk__band" data-dusk-band></i>
+      <div class="dusk__sky">
+        <div class="dusk__lift" data-dusk-lift>
+          <i class="dusk__glow"></i>
           <div class="dusk__orb" data-dusk-orb>
             <i class="dusk__core"></i>
-            <div class="dusk__turn"><i class="dusk__a"></i></div>
-            <div class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></div>
+            <span class="dusk__turn"><i class="dusk__a"></i></span>
+            <span class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></span>
             <i class="dusk__grain"></i>
           </div>
         </div>
-        <div class="dusk__sea">
-          <div class="dusk__orb dusk__orb--mirror" data-dusk-mirror>
-            <i class="dusk__core"></i>
-            <div class="dusk__turn"><i class="dusk__a"></i></div>
-          </div>
-        </div>
-        <i class="dusk__horizon"></i>
-        <i class="dusk__rule" data-dusk-rule></i>
       </div>
+      <div class="dusk__sea">
+        <div class="dusk__dip" data-dusk-dip><i class="dusk__mirror"></i><i class="dusk__glint"></i></div>
+      </div>
+      <i class="dusk__horizon"></i>
     </div>
 
     <div class="dusk__col" data-dusk-col>
-      <h2 class="dusk__st dusk__head" id="dusk-title" data-side="l"><span class="dl">对话，</span> <span class="dl">从不等你准备好。</span></h2>
-      <p class="dusk__st" data-side="r"><span class="dl">面试官的追问，</span> <span class="dl">停在半空。</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">导师一句：</span> <span class="dl voice-them">“这个对照组呢？”</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">谈判桌对面：</span> <span class="dl voice-them">“再降八个点。”</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">网课里，</span> <span class="dl">突然被点到名字。</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">电话那头：</span> <span class="dl voice-them">“月底能上线吗？”</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">答辩的</span> <span class="dl">最后一个问题。</span></p>
-      <p class="dusk__st dusk__st--end" data-side="e"><span class="dl">每一句，</span> <span class="dl">都只给你一眨眼。</span></p>
+      <h2 class="dusk__st dusk__head" id="dusk-title" data-side="l"><span class="dl">对话，</span><span class="dl">从不等你准备好。</span></h2>
+      <p class="dusk__st" data-side="r"><span class="dl">面试官的追问，</span><span class="dl">停在半空。</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">导师一句：</span><span class="dl voice-them">“这个对照组呢？”</span></p>
+      <p class="dusk__st" data-side="r"><span class="dl">谈判桌对面：</span><span class="dl voice-them">“再降八个点。”</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">网课里，</span><span class="dl">突然被点到名字。</span></p>
+      <p class="dusk__st" data-side="r"><span class="dl">电话那头：</span><span class="dl voice-them">“月底能上线吗？”</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">答辩的</span><span class="dl">最后一个问题。</span></p>
+      <p class="dusk__st dusk__end" data-side="c"><span class="dl">每一句，</span><span class="dl">都只给你一眨眼。</span></p>
     </div>
-
-    <div class="dusk__set" aria-hidden="true"><i class="dusk__set-glow"></i><i class="dusk__set-line"></i></div>
   </div>
   <span class="dusk__mark dusk__mark--after" data-time="19:30" data-dusk-mark="after" aria-hidden="true"></span>
 </section>
@@ -177,7 +172,7 @@
   <div class="wrap privacy__grid">
     <header class="privacy__head">
       <p class="kicker"><b>№ 03</b><span>隐私</span><span class="night-time">22:30</span></p>
-      <h2 class="t-h2 privacy__title" id="privacy-title" data-night-title><span class="rl"><span>你的声音，</span></span><span class="rl"><span>留在这台 Mac 上。</span></span></h2>
+      <h2 class="t-h2 privacy__title" id="privacy-title" data-night-title><span class="rl"><span>你的声音，</span></span> <span class="rl"><span>留在这台 Mac 上。</span></span></h2>
     </header>
 
     <figure class="privacy__figure" aria-hidden="true" data-privacy-figure>
@@ -226,14 +221,130 @@
     <p class="privacy__fine"><strong>不做“隐身”承诺：</strong>录音和转写之前，请取得在场的人同意，并遵守会议的规则。</p>
   </div>
 </section>
-    <!-- OWNER: night agent. № 04 FAQ (23:10). -->
+    <!-- OWNER: night agent. № 04 FAQ (23:10). Native <details>: opens with no script; CSS animates the height where the browser
+     can (interpolate-size + ::details-content), night.js animates it elsewhere and adds sound. Rows stay independent. -->
 <section class="faq section" id="faq" data-time="23:10" data-palette="night" data-lines="still" aria-labelledby="faq-title">
-  <div class="wrap"><h2 class="t-h2" id="faq-title">常被问到的。</h2></div>
+  <div class="wrap faq__grid">
+    <header class="faq__head">
+      <p class="kicker"><b>№ 04</b><span>问答</span><span class="night-time">23:10</span></p>
+      <h2 class="t-h2 faq__title" id="faq-title" data-night-title><span class="rl"><span>常被问到的。</span></span></h2>
+    </header>
+
+    <div class="faq__list" data-faq>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">01</span><span class="qa__text">对方会知道我在用它吗？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>它不往会议里发任何东西，只在你的屏幕或手机上显示。共享整个屏幕时，屏幕上的提词可能被看到，那时就把回答放到手机上。用不用、怎么用，请遵守会议的规则。</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">02</span><span class="qa__text">用哪个会议软件都可以吗？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>可以。它听的是 Mac 放出来的声音，不用知道你在用哪一个。</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">03</span><span class="qa__text">大家在同一个房间开会呢？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>选“线下”，它只用麦克风，转写标成“现场”。</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">04</span><span class="qa__text">会留下录音吗？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>不会。声音在这台 Mac 上变成文字，留下的只有转写和纪要。</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">05</span><span class="qa__text">不想被打扰，只想要一份纪要？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>点“立即记录”。开会时它安静地记，散会后，纪要就在那一页上。</p></div>
+      </details>
+      <details class="qa">
+        <summary class="qa__q"><span class="qa__n" aria-hidden="true">06</span><span class="qa__text">什么时候可以用？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
+        <div class="qa__a"><p>首批试用正在进行。加入等待名单，开放时我们会第一时间写信给你。</p><p class="qa__more"><a class="qa__link" href="#join">加入等待名单<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p></div>
+      </details>
+    </div>
+  </div>
 </section>
-    <!-- OWNER: night agent. Ending (23:59): tomorrow, another one; the waitlist. -->
-<section class="ending" id="join" data-time="23:59" data-palette="midnight" data-lines="water" aria-labelledby="join-title">
-  <div class="wrap"><h2 class="t-h2" id="join-title">明天，还有一场。</h2>
-  <p class="t-small">页面里的对话都是交互示意，示例数据，不访问麦克风或网络。</p></div>
+    <!-- OWNER: night agent. Ending (23:59 → 00:00). The last screen is a night lake (lines.js, mode water): the headline
+     stands on its horizon; pressing the button sinks it under the waterline and raises a sheet of frosted glass with
+     the waitlist. Without script the form is simply shown under the headline and posts to /api/waitlist. -->
+<section class="ending" id="join" data-time="23:59" data-palette="midnight" data-lines="water" aria-labelledby="join-title" data-ending>
+  <div class="ending__stage wrap">
+    <div class="ending__sky">
+      <div class="ending__rise" data-ending-copy>
+        <p class="kicker ending__kicker"><span class="night-time" data-ending-time>23:59</span></p>
+        <h2 class="t-h2 ending__title" id="join-title" data-night-title><span class="rl"><span>明天，</span></span> <span class="rl"><span>还有一场。</span></span></h2>
+      </div>
+    </div>
+    <div class="ending__water" data-ending-copy>
+      <div class="ending__letter" data-ending-letter><svg class="lettering ending__lettering" viewBox="-2 -153 823 159" data-word="tomorrow." data-baseline="0.9623" data-xheight="0.6289" style="--l-h:1.590;--l-base:0.9623" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="tomorrow" d="M35.4 -146.3C28.6 -116.9 22.3 -87.5 15.6 -58.1C12.8 -46.1 10.2 -34.1 7.5 -22.1C5.1 -11.7 4.8 -0.6 13.8 -0.6C19.7 -0.6 25 -5.6 30.6 -9.1C48.5 -20.2 65.3 -35.4 69.6 -54.1C74.8 -76.7 85 -101.2 104.4 -101.2C116.2 -101.2 125.4 -94.6 128.6 -84.2C125.4 -94.6 116.2 -101.2 104.4 -101.2C85 -101.2 74.8 -76.7 69.6 -54.1C63.7 -28.4 60.8 -0.1 82.9 -0.1C102.6 -0.1 115.3 -23.6 121.3 -46.1C124.7 -58.8 127.9 -71.6 128.6 -84.2C128.9 -90.3 136.4 -93.9 142.9 -97.2C147.2 -99.4 151.7 -99.2 156.1 -99.2C165.2 -99.2 174.2 -99 183.5 -100.2C175.8 -66.8 168.6 -33.5 160.9 -0.1C164.3 -12.8 166.9 -25.5 170.8 -38.1C179.2 -66.2 181.6 -101.2 207.5 -101.2C221 -101.2 225.7 -87 222.3 -72.2C216.7 -48.1 211.5 -24.1 206 -0.1C209.4 -12.8 212 -25.5 215.8 -38.1C224.3 -66.2 226.7 -101.2 252.6 -101.2C266.1 -101.2 270.8 -87 267.3 -72.2C263.5 -55.5 259.9 -38.8 256 -22.1C253.6 -11.7 253.5 -0.6 262.5 -0.6C268.4 -0.6 273.8 -5.6 279.4 -9.1C296.3 -19.6 309.1 -36.2 313.3 -54.2C318.4 -76.6 327.6 -101.2 346.8 -101.2C358.2 -101.2 366.6 -94.3 369.6 -84.2C366.6 -94.3 358.2 -101.2 346.8 -101.2C327.6 -101.2 318.4 -76.6 313.3 -54.2C307.4 -28.6 303.3 -0.1 325.3 -0.1C344.7 -0.1 356.3 -23.8 362.2 -46.1C365.6 -58.9 368.9 -71.7 369.6 -84.2C369.9 -90.2 377.1 -94 383.4 -97.2C387.5 -99.3 391.8 -99.2 396 -99.2C405.4 -99.2 414.8 -99 424.5 -100.3C416.8 -66.9 409.6 -33.5 401.9 -0.1C405.4 -13.4 408.2 -26.8 412.2 -40.1C419.1 -63.3 422.4 -91.1 445.3 -97.3C452.1 -99.1 455.9 -93.2 461.6 -91.3C467 -89.4 473.6 -92.4 479.7 -93.3C492.3 -95 504.9 -98.6 517.4 -100.3C509.7 -66.9 502.5 -33.5 494.8 -0.1C498.4 -13.4 501.1 -26.8 505.1 -40.1C512 -63.2 514.6 -91.1 537.5 -97.3C544.1 -99 547.7 -93.2 553.2 -91.2C558.4 -89.4 564.8 -92.4 570.7 -93.2C591.7 -96.1 613.4 -103.5 633.4 -101.3C644.7 -100.1 654.5 -94.5 657.6 -84.3C654.4 -94.7 645.2 -101.3 633.4 -101.3C614 -101.3 603.8 -76.8 598.5 -54.2C592.6 -28.5 589.7 -0.1 611.8 -0.1C631.5 -0.1 644.3 -23.7 650.2 -46.2C653.6 -58.9 656.9 -71.7 657.6 -84.3C657.9 -90.5 665.5 -94 672 -97.3C676.3 -99.5 680.8 -99.3 685.2 -99.3C694.2 -99.3 703.2 -99 712.5 -100.3C707.4 -78.2 702.6 -56.2 697.5 -34.1C693.6 -17.1 696.9 -0.1 712 -0.1C730.3 -0.1 737.3 -23.8 744.1 -44.2C748.8 -58.2 752.8 -72.2 756.1 -86.3C751.9 -68.2 748 -50.2 743.9 -32.1C740.1 -16 744.3 -0.1 758.8 -0.1C777.7 -0.1 784.9 -24.8 791.4 -46.2C796 -61.5 801.2 -76.9 804.2 -92.3C805 -96.4 810.6 -97 814.4 -99.3"/><path data-stroke="t-bar" d="M4.2 -101.2C22.8 -103.4 41.3 -104.6 59.9 -106.2"/><path data-stroke="stop" d="M804.9 -1.5C805.9 -3 806.9 -4.5 807.9 -6"/></g></svg></div>
+      <p class="ending__sub">InterviewHacker 2.0 即将开放。首批试用正在进行，名额会陆续开放。</p>
+      <button class="btn btn--ink ending__btn" type="button" aria-controls="waitlist" aria-expanded="false" data-waitlist-open data-needs-js><span>加入等待名单</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    </div>
+
+    <div class="waitlist" id="waitlist" data-waitlist>
+      <div class="waitlist__sheet">
+        <span class="waitlist__progress" aria-hidden="true"></span>
+        <form class="waitlist__form" action="/api/waitlist" method="post" aria-labelledby="waitlist-title" data-waitlist-form>
+          <button class="waitlist__close" type="button" aria-label="关闭" data-waitlist-close data-needs-js><i></i><i></i></button>
+          <header class="waitlist__head">
+            <p class="waitlist__kicker mono">InterviewHacker 2.0 · 等待名单</p>
+            <h3 class="waitlist__title" id="waitlist-title" tabindex="-1">加入等待名单</h3>
+            <p class="waitlist__lead">开放时，我们会第一时间写信给你。</p>
+          </header>
+          <!-- After a script-free post, /api/waitlist sends the reader back here with the outcome in the hash. -->
+          <div class="wl-return" data-waitlist-say>
+            <p class="wl-return__msg wl-return__msg--ok" id="waitlist-ok">已加入名单。开放时，我们会写信给你。</p>
+            <p class="wl-return__msg" id="waitlist-name">请填写称呼。</p>
+            <p class="wl-return__msg" id="waitlist-email">这个邮箱格式好像不对。</p>
+            <p class="wl-return__msg" id="waitlist-uses">选一个用途，或者在“更多”里写几句。</p>
+            <p class="wl-return__msg" id="waitlist-busy">提交得有点频繁，请稍等一会儿再试。</p>
+            <p class="wl-return__msg" id="waitlist-offline">暂时没能提交，请稍后再试。</p>
+            <p class="wl-return__msg" id="waitlist-mail">暂时没能提交，请稍后再试。</p>
+          </div>
+          <div class="waitlist__row">
+            <div class="wl-field" data-field="name">
+              <label class="wl-field__label" for="wl-name">称呼</label>
+              <input class="wl-field__input" id="wl-name" name="name" type="text" autocomplete="name" maxlength="60" required aria-describedby="wl-name-msg" placeholder="怎么称呼你">
+              <p class="wl-msg" id="wl-name-msg"></p>
+            </div>
+            <div class="wl-field" data-field="email">
+              <label class="wl-field__label" for="wl-email">邮箱</label>
+              <input class="wl-field__input" id="wl-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" maxlength="254" required aria-describedby="wl-email-msg" placeholder="name@example.com">
+              <p class="wl-msg" id="wl-email-msg"></p>
+            </div>
+          </div>
+          <fieldset class="uses" data-field="uses" aria-describedby="wl-uses-msg">
+            <legend class="wl-field__label">用在哪里？可多选</legend>
+            <div class="uses__list">
+              <label class="use"><input type="checkbox" name="uses" value="interview"><span>求职面试</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="talk"><span>组会与汇报</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="meeting"><span>工作会议与客户沟通</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="class"><span>课程与讲座</span></label>
+              <label class="use"><input type="checkbox" name="uses" value="other"><span>其他</span></label>
+            </div>
+            <p class="wl-msg" id="wl-uses-msg"></p>
+          </fieldset>
+          <div class="wl-field wl-field--more" data-field="more">
+            <label class="wl-field__label" for="wl-more">更多（可选）</label>
+            <textarea class="wl-field__input" id="wl-more" name="more" rows="2" maxlength="1000" placeholder="比如：下个月有一场技术面试"></textarea>
+          </div>
+          <div class="waitlist__trap" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="lang" value="zh">
+          <div class="waitlist__foot">
+            <p class="waitlist__note">只用于联系试用，不会公开或转给他人。</p>
+            <button class="btn waitlist__submit" type="submit" data-waitlist-submit><span>提交</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+          <p class="waitlist__error" role="alert" data-waitlist-error></p>
+        </form>
+        <div class="waitlist__done" data-waitlist-done data-needs-js>
+          <svg class="waitlist__tick" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30"/><path d="m20 33 8.5 8.5L45 24"/></svg>
+          <p class="waitlist__kicker mono">周二 · 00:00</p>
+          <h3 class="waitlist__title" tabindex="-1" data-waitlist-done-title>已加入名单。</h3>
+          <p class="waitlist__lead" data-waitlist-done-text data-template="开放时，我们会写信到 %email%。">开放时，我们会写信给你。</p>
+          <button class="btn btn--ghost waitlist__back" type="button" data-waitlist-close>好的</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="ending__foot">
+    <p class="ending__links mono"><span>© 2026 OmnixSI</span><a href="./en/#join" hreflang="en" lang="en">English</a><a href="/" target="_top">风格画廊</a></p>
+    <p class="ending__notes"><span>字体：得意黑、思源黑体、思源宋体、Instrument Serif、Geist（SIL OFL 1.1）</span><span>页面里的对话都是交互示意，示例数据，不访问麦克风或网络。</span></p>
+  </footer>
 </section>
   </main>
 
@@ -253,7 +364,7 @@
   <script src="./scripts/day.js?v=b0f95703653d"></script>
   <script src="./scripts/dusk.js?v=647fe51835bf"></script>
   <script src="./scripts/evening.js?v=7a3832f393ec"></script>
-  <script src="./scripts/night.js?v=5775fdb63d6a"></script>
-  <script src="./scripts/waitlist.js?v=8a771c128938"></script>
+  <script src="./scripts/night.js?v=fda9af8553c5"></script>
+  <script src="./scripts/waitlist.js?v=f61485da1a02"></script>
 </body>
 </html>
