@@ -1080,6 +1080,8 @@
   }
   addEventListener('resize', () => { if (!resizeQ) { resizeQ = true; requestAnimationFrame(onResize); } });
   const relayout = () => { watchClear(); readSlot(); writeVars(); if (!running) { if (static_) renderStill(); else if (live) { poseFor(mode, cur, scrollY); render(); } } };
+  // gap.js adds/removes .gap-pinned as it (un)pins; the gap pose depends on it.
+  if ('MutationObserver' in window) new MutationObserver(() => { if (mode === 'gap') relayout(); }).observe(root, { attributes: true, attributeFilter: ['class'] });
   if (window.ScrollTrigger && window.ScrollTrigger.addEventListener) window.ScrollTrigger.addEventListener('refresh', relayout);
   document.fonts && document.fonts.ready.then(relayout);
   addEventListener('load', () => { relayout(); setTimeout(relayout, 1200); });
