@@ -391,3 +391,7 @@
 
 /* Reduced or paused motion: states change in place, nothing travels. */
 .motion-reduced .scene--standup .noted, .motion-reduced .scene--standup .scene__slot > .scene__answer { transform: none !important; }
+
+/* Mainland punctuation in the other side's lines: full-width ，？ (no proportional "palt" squeeze); only line-edge
+   marks are trimmed (text-spacing-trim). */
+:lang(zh) .scene .scene__quote { font-feature-settings: normal; }
