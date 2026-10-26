@@ -43,7 +43,7 @@
   const OPEN = /[（「『《〈【“‘(\[]$/;
   const PUNCT_END = /[，。、；：？！…,.;:?!]$/;
   const PARTICLE = /^[的了吗呢吧着过地得们]$/;
-  const HAN = /[㐀-鿿豈-﫿]/;
+  const HAN = /[\u3400-\u9fff\uf900-\ufaff]/;
   const LATIN = /[A-Za-z0-9]/;
   const zhSeg = typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter('zh', { granularity: 'word' }) : null;
   const langOf = el => ((el.closest('[lang]')?.getAttribute('lang') || 'en').startsWith('zh') ? 'zh' : 'en');
