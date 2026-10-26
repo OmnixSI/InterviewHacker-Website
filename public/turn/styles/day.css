@@ -82,7 +82,8 @@
 :lang(en) .scene__body { max-width: 29em; }
 
 /* Split text (day.js): words / phrases become inline blocks so they can rise. */
-.dw { display: inline-block; }
+.dp { white-space: nowrap; }
+.dw { display: inline-block; white-space: pre; }
 .dw.as { margin-inline-start: .125em; }
 .speak-ul {
   position: absolute; left: 0; top: 0; width: 0; height: 1.5px; border-radius: 1px;
