@@ -71,7 +71,7 @@
 
 **访问页面：[https://interviewhacker.vercel.app/turn/](https://interviewhacker.vercel.app/turn/)**
 
-<!-- style:turn source:df53f07be8193134dca691f057f8d05a3c620bfb1b971033821e7d94d18b92f2 preview:6753e8c62cbbbee660d70417b7543c1aec9714123744e780596ac5d0f160e1bb -->
+<!-- style:turn source:2e67bc0ab3fdb3d7e523768f14a400ca142e048c15650101012b2a203ebe45b3 preview:6753e8c62cbbbee660d70417b7543c1aec9714123744e780596ac5d0f160e1bb -->
 <!-- STYLES:END -->
 
 ## 本地运行

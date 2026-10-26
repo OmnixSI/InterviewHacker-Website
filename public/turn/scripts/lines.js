@@ -596,7 +596,8 @@
     const sT = S[0], sM = S[1];
     const litT = sT.lit, litM = sM.lit;
     // Indigo first: merged, it reads as a thread winding inside the amber cord.
-    const meA = Math.min(1, alphaOf(1) * (1 + litM * 0.35)), themA = Math.min(1, alphaOf(0) * (1 + litT * 0.35));
+    const litK = cur[AMP] < 0.9 && !dark ? 0.6 : 0.35;
+    const meA = Math.min(1, alphaOf(1) * (1 + litM * litK)), themA = Math.min(1, alphaOf(0) * (1 + litT * litK));
     const meW = lw * (1 - merged * 0.3) + litM * 0.35, themW = lw * (1 + merged * 0.3) + litT * 0.35;
     if (warm > 0.99) strokeString(sM, meWarm, meA, meW, glow * (1 + litM));
     else if (warm > 0.01) { strokeString(sM, pal.me, meA * (1 - warm), meW, glow * (1 + litM) * (1 - warm)); strokeString(sM, meWarm, meA * warm, meW, glow * warm); }
@@ -661,7 +662,7 @@
     for (let k = 0; k < 2; k++) {
       const s = S[k];
       if (stepPackets(s, dt, span)) busy = true;
-      s.lit *= Math.exp(-dt / 0.7); if (s.lit < 0.004) s.lit = 0; else busy = true;
+      s.lit *= Math.exp(-dt / (cur[AMP] < 0.9 && !dark ? 1.6 : 0.7)); if (s.lit < 0.004) s.lit = 0; else busy = true;
       s.lean += (s.leanTo - s.lean) * Math.min(1, dt * 9);
       if (Math.abs(s.lean - s.leanTo) > 0.01 || Math.abs(s.lean) > 0.01) busy = true;
       if (s.peak > 0 || s.grab || s.pickT < s.pickDur) busy = true;
@@ -926,15 +927,19 @@
       if (t - s.packetAt > 140) { waterDrop(sourceX(k) + (rand() - 0.5) * 2, sourceY() + (rand() - 0.5) * 2, 1.5, 0.25 + 0.35 * level); s.packetAt = t; }
     } else if (t - s.packetAt > 110) {
       // Low, dim strings (day, still) get a relatively larger wave so a spoken line stays visible on them.
-      const quiet = cur[AMP] < 0.9 ? 1.5 / Math.max(0.4, cur[AMP]) : 1;
-      addPacket(s, Math.max(420, W * 0.5), (1.3 + 3.4 * level) * (isMobile() ? 0.8 : 1) * quiet, 64, 72, t);
+      // On light paper a hairline wave reads far weaker than on dark, so it is twice as tall there and travels slower
+      // (about 4 s across instead of 2) so it is still moving while the answer finishes surfacing.
+      const low = cur[AMP] < 0.9, light = low && !dark;
+      const quiet = low ? (1.5 / Math.max(0.4, cur[AMP])) * (light ? 2 : 1) : 1;
+      const speed = light ? Math.max(260, W * 0.24) : Math.max(420, W * 0.5);
+      addPacket(s, speed, (1.3 + 3.4 * level) * (isMobile() ? 0.8 : 1) * quiet, light ? 80 : 64, 72, t);
     } else {
       // Words closer together than the packets: the newest packet carries the louder level instead.
       let o = -1, p = 1e9; const pk = s.pk;
       for (let j = 0; j < PK; j++) if (pk[j * PF + 2] !== 0 && pk[j * PF] < p) { p = pk[j * PF]; o = j * PF; }
-      if (o >= 0) pk[o + 2] = Math.max(pk[o + 2], 1.3 + 3.4 * level);
+      if (o >= 0) pk[o + 2] = Math.max(pk[o + 2], (1.3 + 3.4 * level) * (cur[AMP] < 0.9 ? (1.5 / Math.max(0.4, cur[AMP])) * (dark ? 1 : 2) : 1));
     }
-    s.lit = Math.max(s.lit, (cur[AMP] < 0.9 ? 0.45 : 0.15) + 0.3 * level);
+    s.lit = Math.max(s.lit, (cur[AMP] < 0.9 ? (dark ? 0.45 : 0.85) : 0.15) + 0.3 * level);
     start();
   }
   function onTurn(d) {
