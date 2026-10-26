@@ -270,7 +270,7 @@
     verdictEl.textContent = v;
     pin.style.left = Math.min(100, ms / 10) + '%'; pin.classList.add('is-on');
     play('result', { ms });
-    live.textContent = `${ms} ${D.unit}. ${v}`;
+    live.textContent = IH.t(`${ms} 毫秒。${v}`, `${ms} ms. ${v}`);
     label(D.labelAgain);
   }
   function cancel() {
@@ -285,13 +285,14 @@
   const busy = () => state === 'asking' || state === 'armed';
 
   // Pointer: time on pointerdown (what the reader feels as the press); the click that follows is ignored.
+  let swallow = 0;
   btn.addEventListener('pointerdown', e => {
     if (e.button !== 0 || !busy()) return;
-    lastPress = performance.now();
+    swallow = performance.now();
     press();
   });
   btn.addEventListener('click', () => {
-    if (performance.now() - lastPress < 600) return;
+    if (performance.now() - swallow < 1500) { swallow = 0; return; }
     if (busy()) { press(); return; }
     start();
   });
@@ -308,7 +309,7 @@
     press();
   });
   // Space released on the focused button would click it again: swallow that one.
-  btn.addEventListener('keyup', e => { if ((e.key === ' ' || e.code === 'Space') && performance.now() - lastPress < 2000) e.preventDefault(); });
+  btn.addEventListener('keyup', e => { if ((e.key === ' ' || e.code === 'Space') && performance.now() - lastPress < 2000) { e.preventDefault(); lastPress = 0; } });
   // Leaving the game mid-question cancels it.
   IH.inView(game, on => { if (!on) cancel(); });
 })();
