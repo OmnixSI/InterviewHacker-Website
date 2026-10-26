@@ -121,6 +121,8 @@
     IH.on('tick', s => { if (s.y > innerHeight * .4) done(); });
   }
 
+  // The clock reads 08:59 for the whole first screen, not halfway to the next anchor.
+  IH.anchorAt(hero, () => 0);
   const tl = entrance();
   // Anything that takes the reader elsewhere finishes the entrance at once.
   if (tl) {

@@ -101,37 +101,37 @@
       tl.to(el('tl-end'), { autoAlpha: 1, duration: .2 }, 2.0);
 
       // B — 200 ms.
-      tl.to(B.a, { autoAlpha: 0, y: -24, duration: .4, ease: 'power1.in' }, 2.4)
-        .fromTo(B.b, { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: .5, ease }, 2.65)
+      tl.to(B.a, { autoAlpha: 0, y: -24, duration: .3, ease: 'power1.in' }, 2.4)
+        .fromTo(B.b, { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: .5, ease }, 2.55)
         .to({ v: 0 }, { v: 200, duration: .7, ease: 'power2.out', onUpdate() { n200.textContent = Math.round(this.targets()[0].v); } }, 2.65)
         .to(names.me, { autoAlpha: 1, duration: .3 }, 2.7)
         .to(el('tl-gap'), { autoAlpha: 1, duration: .3 }, 2.8)
         .to(el('tl-me'), { scaleX: 1, duration: .8 }, 3.6);
 
       // C — 600 ms: the planning bar grows backwards from where you speak, into their sentence.
-      tl.to(B.b, { autoAlpha: 0, y: -24, duration: .4, ease: 'power1.in' }, 4.4)
-        .fromTo(B.c, { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: .5, ease }, 4.65)
-        .to({ v: 200 }, { v: 600, duration: .8, ease: 'power2.out', onUpdate() { n600.textContent = Math.round(this.targets()[0].v); } }, 4.65)
+      tl.to(B.b, { autoAlpha: 0, y: -24, duration: .3, ease: 'power1.in' }, 4.4)
+        .fromTo(B.c, { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: .5, ease }, 4.55)
+        .to({ v: 200 }, { v: 600, duration: .8, ease: 'power2.out', onUpdate() { n600.textContent = Math.round(this.targets()[0].v); } }, 4.6)
         .to(names.plan, { autoAlpha: 1, duration: .3 }, 4.7)
         .to(el('tl-plan'), { scaleX: 1, duration: .9, ease: 'power1.inOut' }, 4.8)
         .to(el('tl-plan-tag'), { autoAlpha: 1, duration: .3 }, 5.5)
         .to(el('tl-overlap'), { autoAlpha: 1, duration: .35 }, 5.75);
 
       // D — the conclusion.
-      tl.to(B.c, { autoAlpha: 0, y: -24, duration: .4, ease: 'power1.in' }, 6.1)
-        .set(B.d, { autoAlpha: 1 }, 6.35)
-        .to('.gap__title .gap__ln > span', { yPercent: 0, duration: .6, ease: settle, stagger: .08 }, 6.35);
+      tl.to(B.c, { autoAlpha: 0, y: -24, duration: .3, ease: 'power1.in' }, 6.1)
+        .set(B.d, { autoAlpha: 1 }, 6.25)
+        .to('.gap__title .gap__ln > span', { yPercent: 0, duration: .6, ease: settle, stagger: .08 }, 6.25);
 
       // E — the product: listening all along their sentence, the answer surfacing at its end.
-      tl.to(B.d, { autoAlpha: 0, y: -24, duration: .4, ease: 'power1.in' }, 7.5)
-        .set(B.e, { autoAlpha: 1 }, 7.75)
-        .fromTo($('.gap__who', B.e), { autoAlpha: 0 }, { autoAlpha: 1, duration: .3 }, 7.75)
+      tl.to(B.d, { autoAlpha: 0, y: -24, duration: .3, ease: 'power1.in' }, 7.45)
+        .set(B.e, { autoAlpha: 1 }, 7.6)
+        .fromTo($('.gap__who', B.e), { autoAlpha: 0 }, { autoAlpha: 1, duration: .3 }, 7.6)
         .to([names.ih, el('tl-listen-tag')], { autoAlpha: 1, duration: .3 }, 7.0)
         .to(el('tl-listen'), { scaleX: 1, duration: .5 }, 7.0)
         .to(el('tl-surface'), { scaleX: 1, duration: .9 }, 7.6)
         .to(el('tl-surface-tag'), { autoAlpha: 1, duration: .3 }, 7.7)
         .to([...planRow, ...meRow, el('tl-overlap')], { opacity: .35, duration: .4 }, 7.6)
-        .to(answerWords, { opacity: 1, y: 0, duration: .35, ease, stagger: .9 / Math.max(1, answerWords.length) }, 7.85)
+        .to(answerWords, { opacity: 1, y: 0, duration: .35, ease, stagger: .9 / Math.max(1, answerWords.length) }, 7.7)
         .to({}, { duration: .6 }, 8.9);
     }, sec);
   }

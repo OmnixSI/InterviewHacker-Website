@@ -82,7 +82,7 @@
 :lang(en) .scene__body { max-width: 29em; }
 
 /* Split text (day.js): words / phrases become inline blocks so they can rise. */
-.dp { white-space: nowrap; }
+.dp, .nw { white-space: nowrap; }
 .dw { display: inline-block; white-space: pre; }
 .dw.as { margin-inline-start: .125em; }
 .speak-ul {
@@ -378,6 +378,8 @@
   .series__arrow svg { width: 40px; }
 }
 @media (max-width: 380px) {
+  .series__tab span { font-size: 10.5px; letter-spacing: 0; }
+  .series__tab { padding: 8px 10px 9px; }
   .chips { gap: 6px; }
   .chip { padding: 0 12px; font-size: 13.5px; }
   .chip--original { margin-right: 8px; }

@@ -12,7 +12,7 @@
 /* ---------- Beats (static reading order) ---------- */
 .gap__beats { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); row-gap: clamp(56px, 8vw, 104px); }
 .gap__beat { grid-column: 1 / -1; }
-.gap__who { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.gap__who { display: flex; text-transform: none; letter-spacing: .04em; align-items: center; gap: 10px; margin-bottom: 18px; }
 .gap__dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
 .gap__dot--them { background: var(--them); }
 .gap__dot--me { background: var(--me); }
@@ -23,7 +23,6 @@
 :lang(en) .gap__quote { font-size: clamp(34px, 5.6vw, 92px); line-height: 1.04; letter-spacing: -.012em; max-width: 13em; }
 .gap__quote p { position: relative; }
 .gap__q { position: absolute; right: 100%; top: 0; }
-:lang(zh) .gap__q { margin-right: -.42em; }      /* the CJK quote glyph sits right in its em box */
 .gap__q--close { position: static; }
 :lang(zh) .gap__q--close { margin-left: -.5em; }  /* “？” already carries its own white */
 .gap__w { transition: color 300ms var(--e-settle); }
@@ -61,7 +60,11 @@
 .tl__name--ih { text-transform: none; letter-spacing: 0; }
 .tl__track { grid-column: 2; position: relative; height: 100%; }
 .tl__track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
-.tl__track--ih { margin-top: 10px; }
+.tl__name--them, .tl__track--them { grid-row: 1; }
+.tl__name--plan, .tl__track--plan { grid-row: 2; }
+.tl__name--me, .tl__track--me { grid-row: 3; }
+.tl__name--ih, .tl__track--ih { grid-row: 4; }
+.tl__axis { grid-row: 5; }
 
 /* Anything placed on the axis */
 .tl__seg, .tl__plan, .tl__gap, .tl__listen, .tl__surface, .tl__overlap {
@@ -83,10 +86,10 @@
 .tl__surface { top: calc(50% - 3px); height: 6px; border-radius: 3px; background: var(--me); transform-origin: 0 50%; }
 .tl__tag { bottom: calc(50% + 8px); font: 500 10.5px/1 var(--f-mono); letter-spacing: .02em; color: var(--me-ink); white-space: nowrap; }
 .tl__tag--listen { color: var(--muted); }
-.tl__over { grid-column: 2; grid-row: 1 / span 4; position: relative; align-self: stretch; pointer-events: none; }
-.tl__overlap { top: -6px; height: calc(var(--track) * 2 + 12px); border-radius: 6px; background: color-mix(in srgb, var(--me) 9%, transparent); outline: 1px dashed color-mix(in srgb, var(--me) 45%, transparent); outline-offset: -1px; }
-.tl__overlap b { position: absolute; right: 0; bottom: calc(100% + 8px); font: 500 10.5px/1.2 var(--f-mono); color: var(--me-ink); white-space: nowrap; }
-.tl__end { top: -10px; bottom: -6px; width: 1px; background: color-mix(in srgb, var(--ink) 55%, transparent); }
+.tl__over { grid-column: 2; grid-row: 1 / span 2; position: relative; align-self: stretch; pointer-events: none; }
+.tl__overlap { top: 4px; bottom: 4px; border-radius: 6px; background: color-mix(in srgb, var(--me) 9%, transparent); outline: 1px dashed color-mix(in srgb, var(--me) 45%, transparent); outline-offset: -1px; }
+.tl__overlap b { position: absolute; right: 8px; bottom: calc(100% + 8px); font: 500 10.5px/1.2 var(--f-mono); color: var(--me-ink); white-space: nowrap; }
+.tl__end { top: -10px; bottom: calc(var(--track) * -2 + 6px); width: 1px; background: color-mix(in srgb, var(--ink) 55%, transparent); }
 .tl__end b { position: absolute; left: 6px; top: -4px; font: 500 10.5px/1 var(--f-mono); color: var(--ink); white-space: nowrap; }
 
 /* Axis: a tick every 100 ms, labels every 400 */
@@ -100,21 +103,25 @@
 
 .gap__source { margin-top: clamp(28px, 4vw, 48px); max-width: none; }
 
-/* ---------- Pinned (wide screens with motion; scripts/gap.js) ---------- */
-.gap-pinned .gap { padding-block: 0; }
-.gap-pinned .gap__pin { height: 100svh; min-height: 640px; }
-.gap-pinned .gap__stage {
-  height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto;
-  padding-top: calc(var(--header) + clamp(16px, 3svh, 36px)); padding-bottom: clamp(20px, 3.4svh, 36px);
+/* ---------- Pinned (wide screens with motion; scripts/gap.js) ----------
+   The background strings rest at 53.5% and 59% of the viewport in gap mode (scripts/lines.js); the stage keeps that band
+   empty: the beats sit above it, the diagram below it, so the strings read as the seam between story and data. */
+.gap-pinned .gap { padding-block: 0; --band-a: var(--gap-line-them, 53.5svh); --band-b: var(--gap-line-me, 59svh); }
+.gap-pinned .gap__pin { height: 100svh; }
+.gap-pinned .gap__stage { height: 100%; }
+.gap-pinned .gap__kicker { position: absolute; top: calc(var(--header) + clamp(12px, 2.4svh, 28px)); margin: 0; }
+.gap-pinned .gap__beats {
+  position: absolute; left: 0; right: 0; top: calc(var(--header) + clamp(40px, 7svh, 72px)); bottom: calc(100svh - var(--band-a) + clamp(28px, 4.6svh, 48px));
+  grid-template-rows: minmax(0, 1fr); align-items: end; row-gap: 0;
 }
-.gap-pinned .gap__kicker { margin-bottom: 0; }
-.gap-pinned .gap__beats { grid-template-rows: minmax(0, 1fr); align-items: center; row-gap: 0; padding-bottom: clamp(48px, 9svh, 110px); }
 .gap-pinned .gap__beat { grid-row: 1; }
-.gap-pinned .tl { margin-top: 0; }
-.gap-pinned .gap__source { margin-top: clamp(16px, 2.6svh, 28px); }
-.gap-pinned .gap__beat--num .gap__num { font-size: clamp(112px, min(17.5vw, 30svh), 268px); }
-.gap-pinned .gap__quote { font-size: clamp(30px, min(4.9vw, 8svh), 78px); }
-:lang(en).gap-pinned .gap__quote, .gap-pinned :lang(en) .gap__quote { font-size: clamp(34px, min(5.6vw, 9svh), 92px); }
+.gap-pinned .tl { position: absolute; left: 0; right: 0; top: calc(var(--band-b) + clamp(26px, 4svh, 44px)); margin: 0; }
+.gap-pinned .gap__source { position: absolute; left: 0; bottom: clamp(16px, 2.6svh, 28px); margin: 0; }
+.gap-pinned .gap__num { font-size: clamp(104px, min(16vw, 27svh), 252px); }
+.gap-pinned .gap__quote { font-size: clamp(30px, min(4.6vw, 7.4svh), 74px); }
+.gap-pinned :lang(en) .gap__quote, :lang(en).gap-pinned .gap__quote { font-size: clamp(34px, min(5.3vw, 8.4svh), 88px); }
+.gap-pinned .gap__title { font-size: clamp(36px, min(4.8vw, 7.6svh), 80px); }
+.gap-pinned .tl { --track: clamp(26px, 3.6svh, 34px); }
 @keyframes gap-caret { 50% { opacity: 0; } }
 .tl__caret.is-blinking { opacity: 1; animation: gap-caret 1s steps(1) infinite; }
 

@@ -5,7 +5,8 @@
 
 .hero {
   --gap-h: clamp(46px, 7svh, 72px);          /* the distance between the two strings */
-  --xh: clamp(15px, 1.55vw, 24px);           /* x-height of the hand lettering */
+  --xh: clamp(16px, 1.9vw, 30px);            /* x-height of the hand lettering */
+  --note-r: clamp(72px, 15%, 260px);         /* the note's distance from the right edge */
   position: relative;
   min-height: max(100svh, 640px);
   display: flex;
@@ -74,17 +75,18 @@
 }
 .hero__measure i::before { content: ""; position: absolute; left: 3px; top: 0; bottom: 0; width: 1px; background: color-mix(in srgb, var(--ink) 38%, transparent); }
 
-/* The note: "your turn." written above the strings, a hand-drawn curl that dives into the gap. */
+/* The note: "your turn." written above the strings; a hand-drawn curl leaves the full stop and dives into the gap,
+   its head landing on the gap's centre line. Sizes follow the lettering's x-height (--xh) and the gap (--gap-h). */
 .hero__note {
-  position: absolute; right: clamp(40px, 13%, 240px); bottom: calc(100% + var(--xh) * .9);
-  display: block; color: var(--me);
-  pointer-events: none;
+  position: absolute; right: var(--note-r); bottom: calc(100% + var(--xh) * .55);
+  display: block; color: var(--me); pointer-events: none;
 }
 .hero__letter { display: block; height: calc(var(--l-h, 2.49) * var(--xh)); width: auto; color: var(--me); stroke-width: 2.2; }
 .hero__arrow {
-  position: absolute; left: calc(100% - var(--xh) * .6); top: calc(var(--xh) * .9);
-  width: calc(var(--xh) * 2.5); height: auto; overflow: visible;
-  stroke-width: 1.7; color: var(--me);
+  position: absolute; overflow: visible; pointer-events: none; color: var(--me);
+  top: calc(var(--xh) * -1.6); height: calc(var(--xh) * 1.6 + var(--gap-h) * .5);
+  right: calc(var(--note-r) - var(--xh) * 2.1); width: calc(var(--xh) * 2);
+  stroke-width: 1.6;
 }
 .hero__arrow path { vector-effect: non-scaling-stroke; }
 
@@ -133,7 +135,7 @@
   .hero__actions { margin-top: 22px; }
   .hero__strings { order: 2; margin-top: calc(var(--xh) * 5.6 + 18px); margin-bottom: 34px; }
   .hero__hint { order: 3; margin-top: 8px; }
-  .hero__note { right: calc(var(--xh) * 3.2); }
+  .hero { --note-r: calc(var(--xh) * 3.4); }
   .hero__measure { left: 64px; }
 }
 @media (max-width: 819.98px) and (min-width: 560px) {

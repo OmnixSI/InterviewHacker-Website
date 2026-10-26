@@ -95,6 +95,9 @@
     const lang = langOf(el);
     // Display lines (quotes) break between phrases; running text (answers) between words, like ordinary text.
     const phrased = el.closest('[data-quote]') != null;
+    // Authored phrases (span.nw, unbreakable without script) become break points.
+    el.querySelectorAll('.nw').forEach(n => { n.before(document.createElement('wbr')); n.replaceWith(...n.childNodes); });
+    el.normalize();
     const words = [];
     let cur = null, brBefore = false, authored = false;
     const start = () => { cur = { nodes: [], text: '', el: false, brBefore }; brBefore = false; words.push(cur); return cur; };

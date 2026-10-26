@@ -64,7 +64,7 @@
           <li class="series__arrow" aria-hidden="true"><svg viewBox="0 0 84 34" focusable="false"><path class="series__stem" d="M3 23.5C17 14.2 33.6 9.6 49.2 11.4C59.4 12.6 68.8 16.4 77.6 21.6"/><path class="series__head" d="M68.4 13.9C71.9 16.1 75.2 18.6 77.6 21.6C73.9 22.6 70 23.1 66.1 23.2"/></svg></li>
           <li class="series__tab series__tab--now" aria-current="step"><b>{{ 二面 ‖ Round 2 }}</b><span>{{ 今天 · 带入上一场 ‖ today · continued }}</span></li>
         </ol>
-        <blockquote class="t-quote scene__quote" data-quote><p>{{ 那数据库和缓存<wbr>同时更新，<wbr>怎么保证<wbr>一致性？ ‖ When the database and the cache both change, how do you keep them consistent? }}</p></blockquote>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ <span class="nw">那数据库和缓存</span><span class="nw">同时更新，</span><span class="nw">怎么保证</span><span class="nw">一致性？</span> ‖ When the database and the cache both change, how do you keep them consistent? }}</p></blockquote>
         <div class="scene__slot" data-slot>
           <p class="t-answer scene__answer" data-answer data-cursor="caret"
              data-rewrite-short="{{ 先写库，再删缓存；删失败就重试，binlog兜底。 ‖ Write the DB, delete the cache, retry failures, binlog as backstop. }}"
@@ -96,7 +96,7 @@
         <p class="kicker scene__kicker"><time class="sr-only" datetime="14:00">14:00</time><span>{{ 组会 ‖ Lab meeting }}</span><i aria-hidden="true">·</i><span>{{ 线下 ‖ in person }}</span></p>
       </header>
       <div class="scene__talk">
-        <blockquote class="t-quote scene__quote" data-quote><p>{{ 这个对照组<wbr>是怎么选的？ ‖ How did you choose the control group? }}</p></blockquote>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ <span class="nw">这个对照组</span><span class="nw">是怎么选的？</span> ‖ How did you choose the control group? }}</p></blockquote>
         <div class="scene__slot" data-slot>
           <p class="t-answer scene__answer" data-answer data-cursor="caret">{{ 按年龄和基线分层后随机抽取，细节在论文<span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>第4页，表2</span>。 ‖ Stratified by age and baseline, then drawn at random. Details on <span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>page 4, table 2</span>. }}</p>
         </div>
