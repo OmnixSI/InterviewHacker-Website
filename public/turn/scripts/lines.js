@@ -511,11 +511,11 @@
   // body copy, FAQ rows and forms do by default. Boxes are read only for elements an IntersectionObserver reports in
   // view, and only on scroll ticks and layout refreshes, never inside the animation loop.
   const CLEAR_SEL = '[data-lines-clear], .t-h2, .t-h3, .t-quote, .t-answer, .t-body, .t-small, .t-label, .kicker, .faq details, .qa, form, .scene__numeral, .scene__kicker, .scene__note, .principle, .ev-raw__line, .ev-item, .room__line, .chip, .seg__btn';
-  const MAXR = 96, rects = new Float32Array(MAXR * 4), inView = new Set();
-  let nRects = 0, clearDirty = true;
+  const MAXR = 96, rects = new Float32Array(MAXR * 4), pinned = new Uint8Array(MAXR), inView = new Set();
+  let nRects = 0, clearDirty = true, rectsAt = -1e9, rectsY = 0;
   const clearIO = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     for (const e of entries) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); }
-    clearDirty = true;
+    clearDirty = true; rectsAt = -1e9;
     if (!running && cur[CL] > 0.01 && live) redrawIdle();
   }) : null;
   const observed = new WeakSet();
@@ -525,17 +525,22 @@
       if (el.closest('[data-lines-clear="off"]')) continue;
       if (!observed.has(el)) { observed.add(el); clearIO.observe(el); }
     }
-    clearDirty = true;
+    clearDirty = true; rectsAt = -1e9;
   }
-  function readRects() {
-    clearDirty = false;
+  // Boxes are re-read at most every 200 ms (a layout read can force a reflow while other scripts are writing);
+  // in between they move with the scroll, except inside a pinned (GSAP .pin-spacer) block, which stays put.
+  function readRects(force) {
+    const t = now();
+    if (!force && t - rectsAt < 200) return;
+    clearDirty = false; rectsAt = t; rectsY = scrollY;
     nRects = 0;
     for (const el of inView) {
       if (nRects >= MAXR) break;
       const r = el.getBoundingClientRect();
-      if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > CH) continue;
+      if (r.width < 2 || r.height < 2 || r.bottom < -CH * 0.5 || r.top > CH * 1.5) continue;
       const o = nRects * 4;
       rects[o] = r.left; rects[o + 1] = r.top; rects[o + 2] = r.right; rects[o + 3] = r.bottom;
+      pinned[nRects] = el.closest('.pin-spacer') ? 1 : 0;
       nRects++;
     }
   }
@@ -543,11 +548,11 @@
   const FEATHER = 36, STEPS = 9;
   function carve(lo, hi, k) {
     if (k < 0.01 || !nRects) return;
-    const padY = 10, padX = 14;
+    const padY = 10, padX = 14, dy = rectsY - scrollY;
     ctx.globalCompositeOperation = 'destination-out';
     ctx.fillStyle = '#000';
     for (let i = 0; i < nRects; i++) {
-      const o = i * 4, top = rects[o + 1] - padY, bot = rects[o + 3] + padY;
+      const o = i * 4, shift = pinned[i] ? 0 : dy, top = rects[o + 1] - padY + shift, bot = rects[o + 3] + padY + shift;
       if (bot < lo || top > hi) continue;
       const l = rects[o] - padX, r = rects[o + 2] + padX, h = bot - top;
       ctx.globalAlpha = k;
@@ -596,7 +601,7 @@
     else strokeString(sM, pal.me, meA, meW, glow * (1 + litM));
     strokeString(sT, pal.them, themA, themW, glow * (1 + litT));
     ctx.globalAlpha = 1;
-    if (cur[CL] > 0.01) { if (clearDirty) readRects(); carve(lo - 40, hi + 40, cur[CL]); }
+    if (cur[CL] > 0.01) { if (clearDirty) readRects(false); carve(lo - 40, hi + 40, cur[CL]); }
     if (!live) { live = true; host && host.classList.add('is-live'); }
   }
 
@@ -980,6 +985,7 @@
   IH.on('voice', onVoice);
   IH.on('turn', onTurn);
   IH.on('motion', ok => { if (ok) { static_ = false; wake(); } else renderStill(); });
+  let settleT = 0;
   function redrawIdle() {
     if (running) return;
     if (static_) renderStill(); else { poseFor(mode, cur, scrollY); render(); }
@@ -987,7 +993,12 @@
   IH.on('tick', () => {
     clearDirty = true;
     if (!ctx || running) return;
-    if (cur[CL] > 0.01 && live) { redrawIdle(); return; }
+    if (cur[CL] > 0.01 && live) {
+      redrawIdle();
+      clearTimeout(settleT);
+      settleT = setTimeout(() => { rectsAt = -1e9; clearDirty = true; redrawIdle(); }, 240);
+      return;
+    }
     // Idle: redraw only when something on screen depends on the scroll — the hero strings or the colour.
     const palChanged = IH.palette !== palSeen;
     if (mode === 'hero' && motionOK() && !static_) { activity(); start(); return; }

@@ -42,7 +42,7 @@
   const CLOSE = /^[，。、；：？！…）」』》〉】,.;:?!’”)\]]/;
   const OPEN = /[（「『《〈【“‘(\[]$/;
   const PUNCT_END = /[，。、；：？！…,.;:?!]$/;
-  const PARTICLE = /^[的了吗呢吧着过地得们]$/;
+  const PARTICLE = /^[的了吗呢吧着过地得们时后]$/;
   const HAN = /[\u3400-\u9fff\uf900-\ufaff]/;
   const LATIN = /[A-Za-z0-9]/;
   const zhSeg = typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter('zh', { granularity: 'word' }) : null;
@@ -499,7 +499,7 @@
       // Plays once the scene is about a quarter into the viewport. Scrolled past fast (or past it entirely): complete at once.
       ST.create({
         trigger: grid, start: 'top 75%', end: 'bottom top',
-        onEnter: self => { if (Math.abs(self.getVelocity()) > 3200) item.finish(); else play(); },
+        onEnter: self => { if (Math.abs(self.getVelocity()) > 7000) item.finish(); else play(); },
         onLeave: () => { if (pending.has(item)) item.finish(); },
         onEnterBack: () => { if (pending.has(item)) item.finish(); }
       });
