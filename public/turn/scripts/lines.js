@@ -319,7 +319,10 @@
   }
 
   /* ---------------- Colour ---------------- */
-  let pal = null, palSeen = null, dark = false, meWarm = '#888', midCol = '#888', waterGrad = null, gradW = 0;
+  // The lake is coloured left amber → right indigo. A canvas gradient stroke costs 2–3× a solid one when rastered,
+  // so each row is stroked in SEG solid pieces whose colours step across (invisible on lines this fine).
+  const SEG = 12, segCol = new Array(SEG).fill('#888');
+  let pal = null, palSeen = null, dark = false, meWarm = '#888';
   function readPalette() {
     const p = IH.palette;
     if (p && p === palSeen) return false;
@@ -327,19 +330,11 @@
     pal = p || { them: '#d0802e', me: '#5b5ff0', paper: '#eeebe4' };
     dark = root.classList.contains('is-dark');
     meWarm = IH.mix ? IH.mix(pal.me, pal.them, 0.62) : pal.them;
-    midCol = IH.mix ? IH.mix(pal.them, pal.me, 0.5) : pal.me;
-    waterGrad = null;
+    for (let i = 0; i < SEG; i++) {
+      const t = smooth(clamp(((i + 0.5) / SEG - 0.16) / 0.68, 0, 1));
+      segCol[i] = IH.mix ? IH.mix(pal.them, pal.me, t) : (t < 0.5 ? pal.them : pal.me);
+    }
     return true;
-  }
-  function getWaterGrad() {
-    if (waterGrad && gradW === W) return waterGrad;
-    gradW = W;
-    const g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0, pal.them); g.addColorStop(0.18, pal.them);
-    g.addColorStop(0.5, midCol);
-    g.addColorStop(0.82, pal.me); g.addColorStop(1, pal.me);
-    waterGrad = g;
-    return g;
   }
 
   /* ---------------- State over time ---------------- */
@@ -441,29 +436,44 @@
     ctx.lineWidth = width;
     ctx.stroke();
   }
+  let wx = null, wy = null;
   function drawWater(f, t) {
-    const grad = getWaterGrad(), w = GW, xL = -W * 0.02, dx = (W * 1.04) / (w - 1), still = wStatic;
-    ctx.strokeStyle = grad;
+    const w = GW, xL = -W * 0.02, dx = (W * 1.04) / (w - 1), still = wStatic;
+    if (!wx || wx.length !== w) { wx = new Float32Array(w); wy = new Float32Array(w); }
+    for (let i = 0; i < w; i++) wx[i] = xL + i * dx;
+    ctx.lineCap = 'butt';
     for (let k = 0; k < GH; k++) {
       // Rows fall from the horizon into place, nearest last: the line multiplies into the lake.
       const u = (k + 1) / GH, fk = clamp(f * 1.35 - u * 0.35, 0, 1);
       if (fk <= 0) continue;
       const e = easeMorph(fk), y0 = waterY + (rowY[k] - waterY) * e, a = rowAl[k] * smooth(fk * 1.6);
       if (a < 0.004) continue;
-      const sc = rowS[k], sw = still ? 0 : 0.85 * rowNear[k], off = k * GW, ph = k * 0.83;
-      ctx.beginPath();
-      let pxp = xL, pyp = y0 - wA[off] * sc + sw * Math.sin(xL * 0.0061 + t * 0.33 + ph);
-      ctx.moveTo(pxp, pyp);
-      for (let i = 1; i < w; i++) {
-        const x = xL + i * dx;
-        const y = y0 - wA[off + i] * sc + (sw ? sw * (Math.sin(x * 0.0061 + t * 0.33 + ph) + 0.5 * Math.sin(x * 0.0143 - t * 0.47 + ph * 2.3)) : 0);
-        if (i < w - 1) ctx.quadraticCurveTo(pxp, pyp, (pxp + x) * 0.5, (pyp + y) * 0.5); else { ctx.quadraticCurveTo(pxp, pyp, x, y); }
-        pxp = x; pyp = y;
+      const sc = rowS[k], sw = still ? 0 : 0.8 * rowNear[k], off = k * GW, ph = k * 0.83;
+      for (let i = 0; i < w; i++) {
+        const x = wx[i];
+        wy[i] = y0 - wA[off + i] * sc + (sw ? sw * (Math.sin(x * 0.0061 + t * 0.33 + ph) + 0.5 * Math.sin(x * 0.0143 - t * 0.47 + ph * 2.3)) : 0);
       }
-      ctx.globalAlpha = a;
       ctx.lineWidth = rowLw[k];
-      ctx.stroke();
+      // Quadratic curves through the midpoints, cut into SEG pieces that meet exactly at a midpoint.
+      let sx = wx[0], sy = wy[0];
+      for (let g = 0; g < SEG; g++) {
+        const i0 = Math.max(1, Math.round(g * (w - 1) / SEG)), i1 = Math.round((g + 1) * (w - 1) / SEG);
+        let lift = 0;
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        for (let i = i0; i <= i1; i++) {
+          if (i < w - 1) { const mx = (wx[i] + wx[i + 1]) * 0.5, my = (wy[i] + wy[i + 1]) * 0.5; ctx.quadraticCurveTo(wx[i], wy[i], mx, my); sx = mx; sy = my; }
+          else { ctx.lineTo(wx[i], wy[i]); sx = wx[i]; sy = wy[i]; }
+          const h = wA[off + i]; lift += h < 0 ? -h : h;
+        }
+        // Ripples catch the light: a passing ring brightens the line it moves through.
+        const glint = still ? 0 : Math.min(0.9, (lift / (i1 - i0 + 1)) * sc * 0.16);
+        ctx.globalAlpha = Math.min(1, a * (1 + glint));
+        ctx.strokeStyle = segCol[g];
+        ctx.stroke();
+      }
     }
+    ctx.lineCap = 'round';
   }
   function render() {
     if (!ctx || !W) return;
