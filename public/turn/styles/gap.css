@@ -57,7 +57,7 @@
 .tl__name--them { color: var(--them-ink); }
 .tl__name--me, .tl__name--plan, .tl__name--ih { color: var(--me-ink); }
 :lang(zh) .tl__name { letter-spacing: .14em; font-size: 12px; }
-.tl__name--ih { text-transform: none; letter-spacing: 0; }
+.tl__name--ih { font-family: var(--f-sans); text-transform: none; letter-spacing: -.01em; font-size: 12px; }
 .tl__track { grid-column: 2; position: relative; height: 100%; }
 .tl__track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
 .tl__name--them, .tl__track--them { grid-row: 1; }
@@ -80,12 +80,13 @@
 }
 .tl__gap { top: 3px; bottom: 3px; border-inline: 1px solid color-mix(in srgb, var(--ink) 40%, transparent); }
 .tl__gap::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: color-mix(in srgb, var(--ink) 40%, transparent); }
-.tl__gap b { position: absolute; left: 50%; bottom: calc(100% + 2px); transform: translateX(-50%); font: 500 10.5px/1 var(--f-mono); color: var(--ink-2); }
+.tl__gap b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 0 4px; background: var(--paper); font: 500 10.5px/1 var(--f-mono); color: var(--ink-2); }
 .tl__caret { top: calc(50% - 9px); width: 2px; height: 18px; margin-left: -14px; border-radius: 1px; background: var(--me); opacity: 0; }
 .tl__listen { top: calc(50% - .5px); height: 0; border-top: 1.5px dotted color-mix(in srgb, var(--me) 70%, transparent); transform-origin: 0 50%; }
 .tl__surface { top: calc(50% - 3px); height: 6px; border-radius: 3px; background: var(--me); transform-origin: 0 50%; }
 .tl__tag { bottom: calc(50% + 8px); font: 500 10.5px/1 var(--f-mono); letter-spacing: .02em; color: var(--me-ink); white-space: nowrap; }
 .tl__tag--listen { color: var(--muted); }
+.tl__tag--plan { bottom: auto; top: 50%; transform: translateY(-50%); margin-left: 10px; }
 .tl__over { grid-column: 2; grid-row: 1 / span 2; position: relative; align-self: stretch; pointer-events: none; }
 .tl__overlap { top: 4px; bottom: 4px; border-radius: 6px; background: color-mix(in srgb, var(--me) 9%, transparent); outline: 1px dashed color-mix(in srgb, var(--me) 45%, transparent); outline-offset: -1px; }
 .tl__overlap b { position: absolute; right: 8px; bottom: calc(100% + 8px); font: 500 10.5px/1.2 var(--f-mono); color: var(--me-ink); white-space: nowrap; }
