@@ -127,7 +127,7 @@
         .to(el('tl-listen'), { scaleX: 1, duration: .5 }, 7.0)
         .to(el('tl-surface'), { scaleX: 1, duration: .9 }, 7.6)
         .to(el('tl-surface-tag'), { autoAlpha: 1, duration: .3 }, 7.7)
-        .to([el('tl-plan'), el('tl-gap'), el('tl-me')], { opacity: .4, duration: .4 }, 7.6)
+        .to([el('tl-plan'), el('tl-me')], { opacity: .4, duration: .4 }, 7.6)
         .to(answerWords, { opacity: 1, y: 0, duration: .35, ease, stagger: .9 / Math.max(1, answerWords.length) }, 7.7)
         .to({}, { duration: .25 }, 8.7);
     }, sec);

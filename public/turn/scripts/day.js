@@ -165,7 +165,7 @@
     const tl = gsap.timeline();
     const chars = units.reduce((n, u) => n + lenOf(u), 0) || 1;
     // A spoken line, compressed: about 70 ms a character (zh) or 26 ms a letter (en), 0.7–1.5 s in all.
-    const total = Math.min(0.55, Math.max(0.36, chars * (lang === 'zh' ? 0.045 : 0.017)));
+    const total = Math.min(0.5, Math.max(0.3, chars * (lang === 'zh' ? 0.04 : 0.015)));
     let t = 0;
     tl.call(() => IH.emit('turn', { who: 'them' }), null, 0);
     units.forEach((u, i) => {
@@ -191,7 +191,7 @@
     const tl = gsap.timeline();
     if (emitTurn) tl.call(() => IH.emit('turn', { who: 'me' }), null, 0);
     // 40 ms a word, but a long answer never takes more than ~0.36 s to start its last word.
-    const each = Math.min(0.04, 0.36 / Math.max(1, units.length - 1));
+    const each = Math.min(0.04, 0.3 / Math.max(1, units.length - 1));
     tl.fromTo(units, { opacity: 0, y: '0.4em' }, { opacity: 1, y: 0, duration: 0.42, ease: SETTLE, stagger: each }, 0);
     units.forEach((u, i) => tl.call(() => {
       IH.emit('voice', { who: 'me', level: 0.35 + 0.4 * Math.min(1, lenOf(u) / 5), ms: 120 });
@@ -473,16 +473,16 @@
         room.forEach((r, i) => {
           tl.call(() => { room.forEach(x => x.classList.toggle('is-now', x === r)); IH.emit('voice', { who: 'them', level: 0.18, ms: 120 }); }, null, t);
           tl.to(r, { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t);
-          t += 0.1;
+          t += 0.07;
         });
-        tl.call(() => room.forEach(x => x.classList.remove('is-now')), null, t + 0.12);
-        t += 0.1;
+        tl.call(() => room.forEach(x => x.classList.remove('is-now')), null, t + 0.1);
+        t = 0.16; // the quote comes in over the tail of the room
       }
       if (seriesParts) {
         tl.to(seriesParts.tabs[0], { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t);
         if (canDraw) tl.to(seriesParts.paths, { drawSVG: '100%', duration: 0.2, ease: CHANGE, stagger: 0.14 }, t + 0.06);
         tl.to(seriesParts.tabs[1], { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t + 0.24);
-        t += 0.3;
+        t = 0.18;
       }
       tl.call(() => ans.classList.add('is-listening'), null, t);
       const sp = speak(quote);

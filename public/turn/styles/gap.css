@@ -4,12 +4,14 @@
    stacks the beats in one place and lets scroll scrub them.
    Diagram: a fixed axis from −1600 ms to +1200 ms; every mark is placed from its times (--a, --b) in ms. */
 
-.gap { --t0: -1600; --span: 2800; padding-block: clamp(88px, 12vw, 168px) clamp(80px, 10vw, 140px); }
+/* --muted measures 4.3:1 on the morning paper; small labels here use a slightly deeper tone (≥ 4.5:1). */
+.gap { --soft: color-mix(in oklab, var(--muted) 74%, var(--ink)); --t0: -1600; --span: 2800; padding-block: clamp(88px, 12vw, 168px) clamp(80px, 10vw, 140px); }
 .gap__stage { position: relative; }
 .gap__kicker { margin-bottom: clamp(36px, 5vw, 64px); }
 .gap__kicker span { white-space: nowrap; }
 
 /* ---------- Beats (static reading order) ---------- */
+.gap .t-label, .gap .t-small, .gap .kicker { color: var(--soft); }
 .gap__beats { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); row-gap: clamp(56px, 8vw, 104px); }
 .gap__beat { grid-column: 1 / -1; }
 .gap__who { display: flex; text-transform: none; letter-spacing: .04em; align-items: center; gap: 10px; margin-bottom: 18px; }
@@ -31,7 +33,7 @@
 /* B, C: big numerals, text set beside them on the numeral's baseline */
 .gap__beat--num { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: end; }
 .gap__num { grid-column: 1 / span 6; display: flex; align-items: baseline; gap: .12em; margin-left: -.05em; font: 400 clamp(112px, 17.5vw, 268px)/.8 var(--f-serif); letter-spacing: -.035em; font-variant-numeric: tabular-nums lining-nums; color: var(--ink); }
-.gap__unit { font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transform: translateY(-.2em); }
+.gap__unit { font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--soft); transform: translateY(-.2em); }
 :lang(zh) .gap__unit { font-size: 13px; letter-spacing: .14em; }
 .gap__beat[data-beat="c"] .gap__n { color: var(--me-ink); }
 .gap__text { grid-column: 7 / span 5; padding-bottom: .4em; max-width: 26em; }
@@ -53,7 +55,7 @@
 /* ---------- The timing diagram ---------- */
 .tl { --name-w: clamp(84px, 9vw, 136px); --track: 34px; margin: clamp(64px, 9vw, 112px) 0 0; }
 .tl__plot { position: relative; display: grid; grid-template-columns: var(--name-w) minmax(0, 1fr); grid-auto-rows: var(--track); align-items: center; }
-.tl__name { grid-column: 1; font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.tl__name { grid-column: 1; font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--soft); white-space: nowrap; }
 .tl__name--them { color: var(--them-ink); }
 .tl__name--me, .tl__name--plan, .tl__name--ih { color: var(--me-ink); }
 :lang(zh) .tl__name { letter-spacing: .14em; font-size: 12px; }
@@ -85,7 +87,7 @@
 .tl__listen { top: calc(50% - .5px); height: 0; border-top: 1.5px dotted color-mix(in srgb, var(--me) 70%, transparent); transform-origin: 0 50%; }
 .tl__surface { top: calc(50% - 3px); height: 6px; border-radius: 3px; background: var(--me); transform-origin: 0 50%; }
 .tl__tag { bottom: calc(50% + 8px); font: 500 10.5px/1 var(--f-mono); letter-spacing: .02em; color: var(--me-ink); white-space: nowrap; }
-.tl__tag--listen { color: var(--muted); }
+.tl__tag--listen { color: var(--soft); }
 .tl__tag--plan { bottom: auto; top: 50%; transform: translateY(-50%); margin-left: 10px; }
 .tl__over { grid-column: 2; grid-row: 1 / span 2; position: relative; align-self: stretch; pointer-events: none; }
 .tl__overlap { top: 4px; bottom: 4px; border-radius: 6px; background: color-mix(in srgb, var(--me) 9%, transparent); outline: 1px dashed color-mix(in srgb, var(--me) 45%, transparent); outline-offset: -1px; }
@@ -97,7 +99,7 @@
 .tl__axis { grid-column: 2; position: relative; height: 100%; border-top: 1px solid var(--line-2); margin-top: 14px; }
 .tl__tick { top: -1px; width: 1px; height: 5px; background: var(--line-2); }
 .tl__tick--major { height: 9px; background: color-mix(in srgb, var(--ink) 40%, transparent); }
-.tl__tick b { position: absolute; top: 14px; left: 0; transform: translateX(-50%); font: 400 10.5px/1 var(--f-mono); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tl__tick b { position: absolute; top: 14px; left: 0; transform: translateX(-50%); font: 400 10.5px/1 var(--f-mono); color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tl__tick--zero b { color: var(--ink); }
 .tl__tick--end b { transform: translateX(-100%); }
 .tl__tick:first-child b { transform: none; }
@@ -143,13 +145,13 @@
 }
 .blink__q { grid-column: 1 / -1; min-height: 2.6em; font: 500 clamp(22px, 2.3vw, 34px)/1.3 var(--f-them); color: var(--them-ink); text-wrap: balance; }
 :lang(en) .blink__q { font: italic 400 clamp(26px, 2.7vw, 40px)/1.15 var(--f-serif); }
-.blink__placeholder { font: 400 var(--t-small)/1.6 var(--f-sans); color: var(--muted); font-style: normal; }
+.blink__placeholder { font: 400 var(--t-small)/1.6 var(--f-sans); color: var(--soft); font-style: normal; }
 .blink__q .qw { display: inline-block; opacity: 0; transform: translateY(.25em); transition: opacity 260ms var(--e-settle), transform 360ms var(--e-settle); }
 .blink__q .qw.is-on { opacity: 1; transform: none; }
 .blink__q .qcaret { display: inline-block; width: 2px; height: .9em; margin-left: .2em; vertical-align: -.08em; border-radius: 1px; background: var(--me); animation: gap-caret 1s steps(1) infinite; }
 .blink__readout { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-top: 18px; min-height: 1em; }
-.blink__ms { display: flex; align-items: baseline; gap: 10px; font: 400 clamp(72px, 8vw, 128px)/.86 var(--f-serif); letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--muted); margin-left: -.04em; }
-.blink__ms .blink__unit { font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.blink__ms { display: flex; align-items: baseline; gap: 10px; font: 400 clamp(72px, 8vw, 128px)/.86 var(--f-serif); letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: var(--soft); margin-left: -.04em; }
+.blink__ms .blink__unit { font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--soft); }
 .blink[data-state="result"] .blink__ms { color: var(--ink); }
 .blink[data-state="early"] .blink__ms { color: var(--them-ink); }
 .blink__verdict { font: 500 var(--t-answer)/1.45 var(--f-sans); color: var(--me-ink); max-width: 20em; text-wrap: balance; }
@@ -159,7 +161,7 @@
 .blink__band { left: 0; width: 20%; height: 0; border-top: 3px solid color-mix(in srgb, var(--me) 35%, transparent); top: -2px; }
 .blink__mark { left: calc(var(--a) / 10 * 1%); width: 1px; height: 9px; background: color-mix(in srgb, var(--ink) 45%, transparent); }
 .blink__mark b { position: absolute; top: 14px; left: 0; transform: translateX(-50%); font: 500 10.5px/1 var(--f-mono); color: var(--ink-2); }
-.blink__end { position: absolute; top: 14px; font: 400 10.5px/1 var(--f-mono); color: var(--muted); }
+.blink__end { position: absolute; top: 14px; font: 400 10.5px/1 var(--f-mono); color: var(--soft); }
 .blink__end--l { left: 0; } .blink__end--r { right: 0; }
 .blink__pin { left: 0; width: 13px; height: 13px; margin: -6px 0 0 -6.5px; border-radius: 50%; background: var(--me); box-shadow: 0 0 0 4px color-mix(in srgb, var(--me) 18%, transparent); opacity: 0; transition: left 620ms var(--e-spring), opacity 200ms; }
 .blink[data-state="early"] .blink__pin { background: var(--them); box-shadow: 0 0 0 4px color-mix(in srgb, var(--them) 18%, transparent); }
@@ -187,6 +189,9 @@
   .tl__gap b { left: auto; right: calc(100% + 5px); background: none; padding: 0; transform: translateY(-50%); }
   .tl__tag--listen { --a: -1150 !important; }
   .tl__overlap b { display: none; }
+}
+@media (max-width: 479.98px) {
+  .tl__tick--m:is([style*="-400"], [style*=":400"]) b { display: none; }
   .blink__head, .blink__screen, .blink__foot { grid-column: 1 / -1; }
   .blink__screen { grid-template-columns: 1fr; }
   .blink__btn { flex: 1 1 100%; }
