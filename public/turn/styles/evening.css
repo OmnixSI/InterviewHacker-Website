@@ -1,1 +1,188 @@
-/* evening — owned by the evening module. */
+/* Evening (20:00 → 21:40) — evening agent.
+   20:00 a late call in English: their line, the next line surfacing in English, a toggle that turns the same line
+   into Chinese, and two quiet clocks for two time zones. 21:40 the call is over: the day's raw transcript on the
+   left assembles into a tidy note on the right. Misheard word struck in amber and fixed in indigo, the vague date
+   resolved and tagged To confirm, each item keeps its timestamp (hover or focus: Back to the moment).
+   Default = finished state (no script, reduced motion, phones). Scripts add .is-armed to stage the entrances. */
+
+.evening { padding-block: clamp(120px, 18vh, 220px) clamp(80px, 12vh, 160px); }
+.ev-scene + .ev-scene { margin-top: clamp(160px, 26vh, 300px); }
+.ev-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); align-items: start; }
+
+/* ---------- Scene head: big time, place, mode ---------- */
+.ev-head { grid-column: 1 / -1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; margin-bottom: clamp(40px, 7vh, 88px); }
+/* Time numerals: Instrument Serif outlines drawn as hairlines, like the day's scenes. */
+.ev-num { line-height: 0; }
+.ev-numeral { height: clamp(64px, 9.2vw, 148px); width: auto; overflow: visible; fill: none; stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; }
+.ev-numeral path { vector-effect: non-scaling-stroke; }
+.ev-title { text-wrap: balance; }
+.ev-title + .t-body { margin-top: 24px; }
+
+/* ---------- 20:00 ---------- */
+.ev-call .ev-head { grid-column: 1 / span 8; }
+/* Two clocks, two cities. Hairline, mono, very quiet. */
+.ev-zones {
+  grid-column: 9 / -1; justify-self: end; align-self: end; margin-bottom: clamp(48px, 7.6vh, 96px);
+  display: flex; align-items: center; gap: 14px; color: var(--muted); font: 500 var(--t-micro)/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase;
+}
+.ev-zone { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+.ev-zone > span { display: grid; gap: 4px; }
+.ev-zone .mono { font-size: 15px; letter-spacing: 0; color: var(--ink-2); text-transform: none; }
+.ev-zone__city { color: var(--muted); }
+.ev-clock { width: 34px; height: 34px; flex: none; fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; color: var(--muted); }
+.ev-clock circle:first-child { stroke: var(--line-2); }
+.ev-clock__ticks { stroke: var(--line-2); }
+.ev-clock__h { stroke-width: 1.6; stroke: var(--ink-2); }
+.ev-clock__m { stroke: var(--ink-2); }
+.ev-clock__pin { fill: var(--ink-2); stroke: none; }
+.ev-zone--day .ev-clock circle:first-child { stroke: color-mix(in oklab, var(--them) 55%, transparent); }
+.ev-zone--day .ev-clock__h, .ev-zone--day .ev-clock__m { stroke: var(--them-ink); }
+.ev-zone--day .ev-clock__pin { fill: var(--them-ink); }
+.ev-zones__gap { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.ev-zones__gap i { display: block; width: clamp(14px, 2vw, 32px); height: 1px; background: var(--line-2); }
+.ev-zones__gap .mono { font-size: 10.5px; letter-spacing: .06em; }
+
+.ev-call .ev-copy { grid-column: 1 / span 4; position: sticky; top: calc(var(--header) + 32px); }
+.ev-stage { grid-column: 6 / -1; }
+.ev-who { display: inline-flex; align-items: center; gap: 10px; }
+.ev-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.ev-dot--them { background: var(--them); }
+.ev-dot--me { background: var(--me); }
+.ev-quote { margin: 18px 0 0; max-width: 18em; font-size: calc(var(--t-quote) * 1.08); }
+/* Their line is English on both pages, so it always takes the English serif italic. */
+.ev-quote, .ev-quote p { font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.008em; line-height: 1.1; }
+.ev-quote p { margin: 0; }
+.ev-next { margin-top: clamp(40px, 7vh, 72px); padding-top: 22px; border-top: 1px solid var(--line); max-width: 36em; }
+.ev-next__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+/* The toggle: a hairline pill with a sliding indigo thumb. */
+.ev-seg { position: relative; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 3px; border: 1px solid var(--line-2); border-radius: 999px; isolation: isolate; }
+.ev-seg::before {
+  content: ""; position: absolute; z-index: -1; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px); border-radius: 999px;
+  background: color-mix(in oklab, var(--me) 26%, transparent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--me) 60%, transparent);
+  transition: transform var(--d-ui) var(--e-change);
+}
+.ev-seg:has([data-ev-lang="zh"][aria-pressed="true"])::before { transform: translateX(100%); }
+.ev-seg__btn {
+  min-width: 76px; min-height: 40px; padding: 0 16px; border-radius: 999px; font: 500 13px/1 var(--f-sans); letter-spacing: .01em; color: var(--muted);
+  transition: color var(--d-ui) var(--e-change);
+}
+.ev-seg__btn[lang="zh-CN"] { font-family: "IH Sans", var(--f-sans); }
+.ev-seg__btn:hover { color: var(--ink); }
+.ev-seg__btn[aria-pressed="true"] { color: var(--ink); }
+.ev-seg__btn:active { transform: scale(.97); }
+.ev-seg__btn:focus-visible { outline-offset: 1px; border-radius: 999px; }
+/* Both versions share one grid cell, so the box never jumps when the language changes. */
+.ev-answer { display: grid; margin-top: 16px; }
+.ev-answer__v { grid-area: 1 / 1; margin: 0; font-size: clamp(19px, 1.8vw, 26px); }
+.ev-answer__v[lang="zh-CN"] { font-family: "IH Sans", var(--f-sans); line-height: 1.6; letter-spacing: .01em; font-weight: 500; }
+.ev-answer__v[lang="en"] { font-family: var(--f-sans); font-weight: 450; line-height: 1.5; letter-spacing: -.005em; }
+.ev-answer__v[data-off] { visibility: hidden; }
+.ev-answer .w { display: inline-block; }
+
+/* ---------- 21:40 ---------- */
+.ev-notes .ev-title { grid-column: 1 / span 6; }
+.ev-notes__body { grid-column: 8 / span 5; align-self: end; }
+.ev-vignette { grid-column: 1 / -1; margin-top: clamp(56px, 9vh, 112px); display: grid; grid-template-columns: subgrid; row-gap: 32px; }
+.ev-raw { grid-column: 1 / span 5; padding-top: 18px; border-top: 1px solid var(--line); }
+.ev-sheet { grid-column: 7 / -1; }
+.ev-raw__title { margin-bottom: 18px; }
+.ev-raw__list { display: grid; gap: 14px; }
+.ev-raw__line { display: grid; grid-template-columns: 5.2ch 1fr; gap: 14px; font: 400 13.5px/1.6 var(--f-mono); color: var(--muted); border-radius: 6px; scroll-margin: 30vh; }
+:lang(zh) .ev-raw__line { font-family: var(--f-mono), "IH Sans", sans-serif; }
+.ev-raw__line:target, .ev-raw__line.is-hit { color: var(--ink-2); }
+.ev-raw__line:target .ev-raw__t, .ev-raw__line.is-hit .ev-raw__t { color: var(--me-ink); }
+.ev-raw__t { font-variant-numeric: tabular-nums; color: var(--muted); }
+.ev-raw__x { min-width: 0; }
+.ev-raw__who { display: block; font: 500 var(--t-micro)/1.4 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
+.ev-raw__who--them { color: var(--them-ink); }
+.ev-raw__who--me { color: var(--me-ink); }
+.ev-heard { text-decoration: underline wavy color-mix(in oklab, var(--them) 70%, transparent); text-decoration-thickness: 1px; text-underline-offset: 4px; color: var(--ink-2); }
+.ev-heard--vague { text-decoration-style: dotted; }
+
+/* The note: a sheet of slightly lighter night. */
+.ev-sheet {
+  position: relative; padding: clamp(24px, 3vw, 44px); border-radius: var(--radius);
+  background: color-mix(in oklab, var(--paper-2) 82%, transparent); border: 1px solid var(--line);
+  box-shadow: 0 40px 80px -48px rgba(0, 0, 0, .6);
+}
+.ev-sheet__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.ev-sheet__title { font: 400 clamp(22px, 2vw, 28px)/1.2 var(--f-display); font-synthesis: none; }
+:lang(en) .ev-sheet__title { font-family: var(--f-serif); letter-spacing: -.01em; }
+.ev-note { display: grid; }
+.ev-item { position: relative; display: grid; grid-template-columns: 6.6ch 1fr; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.ev-item__x { font-size: 15.5px; line-height: 1.7; color: var(--ink); text-wrap: pretty; }
+.ev-k { display: inline-block; margin-right: .7em; font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); vertical-align: .14em; }
+/* Timestamps: real links back to the transcript line. */
+.ev-ts {
+  position: relative; justify-self: start; display: inline-flex; align-items: center; min-height: 28px; padding: 0 7px; margin: -4px 0 0 -7px; border-radius: 7px;
+  font: 500 12.5px/1 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--me-ink);
+  transition: background-color var(--d-ui) var(--e-settle), color var(--d-ui);
+}
+.ev-ts::after { content: ""; position: absolute; inset: -8px -4px; } /* 44px hit area */
+.ev-ts:hover, .ev-ts:focus-visible { background: color-mix(in oklab, var(--me) 18%, transparent); }
+.ev-tip {
+  position: absolute; z-index: 3; left: 0; bottom: calc(100% - 8px); padding: 7px 10px; border-radius: 8px; white-space: nowrap; pointer-events: none;
+  background: var(--ink); color: var(--paper); font: 500 12px/1 var(--f-sans);
+  opacity: 0; transform: translateY(4px); transition: opacity var(--d-micro) var(--e-settle), transform var(--d-ui) var(--e-settle);
+}
+.ev-tip::after { content: ""; position: absolute; left: 14px; top: 100%; border: 5px solid transparent; border-top-color: var(--ink); }
+.ev-item:has(.ev-ts:hover, .ev-ts:focus-visible) .ev-tip { opacity: 1; transform: none; }
+/* With anchor positioning the tip sits exactly over its own timestamp and flips below it near the top edge. */
+@supports (anchor-name: --a) {
+  .ev-tip { left: anchor(left); bottom: anchor(top); margin-bottom: 6px; position-try-fallbacks: flip-block; }
+}
+/* The correction: the misheard word struck in amber, the fix in indigo beside it. */
+.ev-old { color: var(--muted); text-decoration: none; position: relative; margin-right: .35em; }
+.ev-old::after { content: ""; position: absolute; left: -2px; right: -2px; top: 54%; height: 1.5px; border-radius: 1px; background: var(--them); transform-origin: 0 50%; transform: scaleX(var(--strike, 1)); }
+.ev-new { text-decoration: none; color: var(--me-ink); font-weight: 500; }
+.ev-date { color: var(--ink); box-shadow: inset 0 -1px 0 color-mix(in oklab, var(--them) 55%, transparent); }
+.ev-tag {
+  display: inline-flex; align-items: center; height: 22px; margin-left: .6em; padding: 0 9px; border-radius: 999px; vertical-align: .1em;
+  font: 500 11px/1 var(--f-mono); letter-spacing: .04em; white-space: nowrap;
+}
+.ev-tag--ask { color: var(--them-ink); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--them) 55%, transparent); }
+.ev-tag--bank { color: var(--me-ink); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--me) 55%, transparent); }
+.ev-sheet__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; padding-top: 22px; }
+.ev-bank { max-width: 26em; font-size: 15px; line-height: 1.7; color: var(--ink-2); text-wrap: pretty; }
+.ev-sign { height: clamp(40px, 4.2vw, 58px); color: var(--me); stroke-width: 2.4; margin-bottom: -6px; flex: none; }
+
+/* ---------- Armed (script running, motion allowed): entrances start from here ---------- */
+.ev-call.is-armed .ev-answer__v .w { opacity: 0; transform: translateY(.4em); }
+.ev-call.is-armed .ev-quote .w { opacity: .18; }
+.ev-call .ev-quote .w { position: relative; transition: opacity 240ms var(--e-settle); }
+.ev-quote .w::after { content: ""; position: absolute; left: 0; right: .2em; bottom: .02em; height: 1.5px; border-radius: 1px; background: var(--them); opacity: 0; transform: scaleX(0); transform-origin: 0 50%; }
+.ev-quote .w.is-on::after { opacity: .8; transform: scaleX(1); transition: transform 240ms var(--e-settle), opacity 120ms; }
+.ev-quote .w.was-on::after { opacity: 0; transform: scaleX(1); transition: opacity 360ms var(--e-settle); }
+
+/* ---------- Small laptops: the note gets the room it needs ---------- */
+@media (max-width: 1179.98px) {
+  .ev-raw { grid-column: 1 / span 5; }
+  .ev-sheet { grid-column: 6 / -1; }
+  .ev-call .ev-copy { grid-column: 1 / span 5; }
+  .ev-stage { grid-column: 7 / -1; }
+}
+
+/* ---------- Tablets and phones ---------- */
+@media (max-width: 1023.98px) {
+  .ev-call .ev-head { grid-column: 1 / -1; margin-bottom: 20px; }
+  .ev-zones { grid-column: 1 / -1; justify-self: start; margin-bottom: clamp(40px, 6vh, 64px); }
+  .ev-call .ev-copy { grid-column: 1 / -1; position: static; margin-bottom: clamp(48px, 7vh, 72px); max-width: 34em; }
+  .ev-stage { grid-column: 1 / -1; }
+  .ev-notes .ev-title { grid-column: 1 / -1; }
+  .ev-notes__body { grid-column: 1 / -1; margin-top: 24px; }
+  .ev-raw { grid-column: 1 / -1; }
+  .ev-sheet { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .ev-numeral { height: clamp(58px, 18vw, 80px); }
+  .ev-zones { gap: 10px; flex-wrap: wrap; }
+  .ev-zones__gap i { width: 10px; }
+  .ev-clock { width: 28px; height: 28px; }
+  .ev-quote { font-size: calc(var(--t-quote) * 1.02); }
+  .ev-seg__btn { min-height: 44px; }
+  .ev-raw__line { grid-template-columns: 1fr; gap: 2px; }
+  .ev-item { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+  .ev-ts { margin-top: 0; }
+  .ev-sheet { padding: 20px 18px; margin-inline: calc(var(--gutter) * -.4); }
+  .ev-item__x { font-size: 15px; }
+}

@@ -1,4 +1,167 @@
-<!-- OWNER: day agent. № 02 The day: 09:30 stand-up, 11:00 interview, 14:00 lab meeting, 16:30 client call. -->
-<section class="day section" id="day" data-time="09:20" data-palette="morning" data-lines="day" aria-labelledby="day-title">
-  <div class="wrap"><h2 class="t-h2" id="day-title">{{ 轮到你的，不止面试。 ‖ Your turn comes more than once a day. }}</h2></div>
+<!-- OWNER: day agent. № 02 The day: 09:30 stand-up, 11:00 interview, 14:00 lab meeting (in person), 16:30 client call.
+     Each scene is an <article> with its own [data-time] and [data-palette], so the header clock and the paper follow the
+     reader; a .scene__end mark late in each scene keeps the clock inside the meeting while it is on screen, and the
+     hours pass in the white space between meetings. Numerals are Instrument Serif outlines drawn as hairlines (one path
+     per contour, so scripts/day.js can draw them in). Without script every quote and answer is already in place; the
+     gestures (data-needs-js) need script and are hidden. -->
+<section class="day section" id="day" data-time="09:20" data-palette="morning" data-lines="day" aria-labelledby="day-title" data-day>
+  <div class="wrap day__intro">
+    <p class="kicker day__kicker"><b>№ 02</b><span>{{ 一天 ‖ The day }}</span></p>
+    <h2 class="t-h2 day__title" id="day-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 轮到你的， ‖ Your turn comes }}</span></span><span class="day-rl"><span>{{ 不止面试。 ‖ more than once a day. }}</span></span></h2>
+    <p class="t-body day__lead">{{ 例会、面试、组会、客户电话、跨时区的英文会议。一天里，有很多次轮到你开口。 ‖ Stand-ups, interviews, lab meetings, client calls, a late call in another language. A day hands you the floor more often than you think. }}</p>
+    <nav class="day__agenda" aria-label="{{ 这一天 ‖ This day }}">
+      <ol>
+        <li><a href="#day-0930"><time class="mono" datetime="09:30">09:30</time><span>{{ 周一例会 · 线上 ‖ Monday stand-up · online }}</span></a></li>
+        <li><a href="#day-1100"><time class="mono" datetime="11:00">11:00</time><span>{{ 二面 · 后端 ‖ Round two · backend }}</span></a></li>
+        <li><a href="#day-1400"><time class="mono" datetime="14:00">14:00</time><span>{{ 组会 · 线下 ‖ Lab meeting · in person }}</span></a></li>
+        <li><a href="#day-1630"><time class="mono" datetime="16:30">16:30</time><span>{{ 客户电话 · 共享整个屏幕 ‖ Client call · whole screen }}</span></a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- 09:30 · stand-up. The room's transcript passes in small type; the one line meant for you lands large. -->
+  <article class="scene scene--standup" id="day-0930" data-time="09:30" data-palette="morning" aria-labelledby="day-standup-title" data-scene="standup">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <svg class="scene__numeral" viewBox="0 -740 1690 752" style="--ar:2.2473" aria-hidden="true" focusable="false"><g data-ch="0"><path d="M194 9Q136 9 92 -40Q48 -89 24 -173Q0 -257 0 -361Q0 -465 24 -548.5Q48 -632 92 -681Q136 -730 194 -730Q252 -730 295.5 -681Q339 -632 363.5 -548.5Q388 -465 388 -361Q388 -257 363.5 -173Q339 -89 295.5 -40Q252 9 194 9Z"/><path d="M194 -18Q257 -18 286.5 -103Q316 -188 316 -361Q316 -534 286.5 -618.5Q257 -703 194 -703Q131 -703 101.5 -618.5Q72 -534 72 -361Q72 -188 101.5 -103Q131 -18 194 -18Z"/></g><g data-ch="9"><path d="M482 8Q472 10 467.5 6Q463 2 463 -4Q463 -13 474 -18Q551 -47 601 -115.5Q651 -184 670 -302Q672 -310 668 -312Q664 -314 658 -309Q627 -285 582 -285Q535 -285 498 -314Q461 -343 439.5 -392.5Q418 -442 418 -502Q418 -563 441 -614.5Q464 -666 502.5 -698Q541 -730 588 -730Q639 -730 677 -696Q715 -662 736.5 -601.5Q758 -541 758 -460Q758 -336 720.5 -237.5Q683 -139 620.5 -76Q558 -13 482 8Z"/><path d="M490 -507Q490 -310 583 -310Q634 -310 660 -363Q686 -416 686 -513Q686 -606 661.5 -654.5Q637 -703 587 -703Q490 -703 490 -507Z"/></g><g data-ch="colon"><path d="M855 9Q833 9 817.5 -5.5Q802 -20 802 -44Q802 -67 817.5 -81.5Q833 -96 855 -96Q875 -96 891 -81.5Q907 -67 907 -44Q907 -20 891 -5.5Q875 9 855 9Z"/><path d="M855 -371Q833 -371 817.5 -385.5Q802 -400 802 -424Q802 -447 817.5 -461.5Q833 -476 855 -476Q875 -476 891 -461.5Q907 -447 907 -424Q907 -400 891 -385.5Q875 -371 855 -371Z"/></g><g data-ch="3"><path d="M1066 9Q1014 9 982.5 -10Q951 -29 951 -60Q951 -77 961 -86.5Q971 -96 987 -96Q1006 -96 1012 -84Q1018 -72 1021 -57Q1024 -42 1034.5 -30Q1045 -18 1072 -18Q1129 -18 1164.5 -71.5Q1200 -125 1200 -212Q1200 -405 1090 -405Q1050 -405 1022 -386Q1006 -374 998 -383Q992 -393 1006 -407L1078 -475Q1122 -516 1142 -550Q1162 -584 1162 -618Q1162 -655 1145.5 -675.5Q1129 -696 1100 -696Q1062 -696 1036 -668Q1010 -640 1002 -591Q1000 -576 987 -576Q973 -576 975 -594Q982 -656 1021.5 -693Q1061 -730 1119 -730Q1169 -730 1199.5 -702.5Q1230 -675 1230 -629Q1230 -550 1101 -461L1078 -445Q1074 -442 1075.5 -438.5Q1077 -435 1082 -436Q1099 -441 1116 -441Q1162 -441 1197 -415Q1232 -389 1252 -342.5Q1272 -296 1272 -236Q1272 -188 1255 -144Q1238 -100 1209 -65.5Q1180 -31 1143 -11Q1106 9 1066 9Z"/></g><g data-ch="0"><path d="M1496 9Q1438 9 1394 -40Q1350 -89 1326 -173Q1302 -257 1302 -361Q1302 -465 1326 -548.5Q1350 -632 1394 -681Q1438 -730 1496 -730Q1554 -730 1597.5 -681Q1641 -632 1665.5 -548.5Q1690 -465 1690 -361Q1690 -257 1665.5 -173Q1641 -89 1597.5 -40Q1554 9 1496 9Z"/><path d="M1496 -18Q1559 -18 1588.5 -103Q1618 -188 1618 -361Q1618 -534 1588.5 -618.5Q1559 -703 1496 -703Q1433 -703 1403.5 -618.5Q1374 -534 1374 -361Q1374 -188 1403.5 -103Q1433 -18 1496 -18Z"/></g></svg>
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="09:30">09:30</time><span>{{ 周一例会 ‖ Monday stand-up }}</span><i aria-hidden="true">·</i><span>{{ 线上 ‖ online }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <ol class="room" aria-label="{{ 会议转写 ‖ Meeting transcript }}" data-room>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 周 ‖ Z }}</span><span class="room__text">{{ ……前端这周把登录页改完了。 ‖ …front end finished the login page this week. }}</span><time class="room__at mono">09:39</time></li>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 陈 ‖ C }}</span><span class="room__text">{{ 测试环境周三之前能好。 ‖ Staging should be ready before Wednesday. }}</span><time class="room__at mono">09:40</time></li>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 王 ‖ W }}</span><span class="room__text">{{ 好，下一个。 ‖ OK, next. }}</span><time class="room__at mono">09:41</time></li>
+        </ol>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 小林，你那边呢？ ‖ Lin, how about you? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret">{{ 支付接口周三联调完，周四给测试。证书申请卡住了，需要运维帮一下。 ‖ Payments API integration is done by Wednesday, QA on Thursday. I’m blocked on a certificate and need ops to help. }}</p>
+          <p class="noted" data-noted data-needs-js><span class="noted__line mono">{{ 已记下 · 09:41 被问到进度 ‖ Noted · 09:41 asked for an update }}</span>{{@letter:noted.|noted__letter}}</p>
+        </div>
+        <div class="seg scene__gesture" role="group" aria-label="{{ 被问到时 ‖ When you’re asked }}" data-seg="record" data-needs-js>
+          <span class="seg__thumb" aria-hidden="true"></span>
+          <button class="seg__btn" type="button" aria-pressed="true" data-value="answer">{{ 回答 ‖ Answer }}</button>
+          <button class="seg__btn" type="button" aria-pressed="false" data-value="record">{{ 只记录 ‖ Record only }}</button>
+        </div>
+      </div>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-standup-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 没人问你， ‖ Until someone asks you, }}</span></span><span class="day-rl"><span>{{ 它就不出声。 ‖ it stays quiet. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 例会上，大部分话不是说给你听的。它安静地记，听到在问你，才递上一句。想全程安静，就切到“只记录”。 ‖ Most of a stand-up isn’t addressed to you. It takes notes quietly and offers a line only when the question is yours. Want silence all the way through? Switch to Record only. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="09:45" aria-hidden="true"></span>
+  </article>
+
+  <!-- 11:00 · round two. The series carries forward; the follow-up lands; one tap rewrites the answer. -->
+  <article class="scene scene--round" id="day-1100" data-time="11:00" data-palette="morning" aria-labelledby="day-round-title" data-scene="round">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <svg class="scene__numeral" viewBox="0 -740 1497 752" style="--ar:1.9907" aria-hidden="true" focusable="false"><g data-ch="1"><path d="M15 0Q0 0 0 -11Q0 -22 13 -23L52 -27Q73 -29 80.5 -37Q88 -45 88 -66L88 -660Q88 -677 78.5 -682.5Q69 -688 54 -686L18 -682Q0 -681 0 -695Q0 -706 16 -709Q69 -718 94 -726.5Q119 -735 131 -735Q152 -735 152 -713L152 -66Q152 -45 159.5 -37Q167 -29 188 -27L221 -23Q234 -22 234 -11Q234 0 219 0Z"/></g><g data-ch="1"><path d="M279 0Q264 0 264 -11Q264 -22 277 -23L316 -27Q337 -29 344.5 -37Q352 -45 352 -66L352 -660Q352 -677 342.5 -682.5Q333 -688 318 -686L282 -682Q264 -681 264 -695Q264 -706 280 -709Q333 -718 358 -726.5Q383 -735 395 -735Q416 -735 416 -713L416 -66Q416 -45 423.5 -37Q431 -29 452 -27L485 -23Q498 -22 498 -11Q498 0 483 0Z"/></g><g data-ch="colon"><path d="M595 9Q573 9 557.5 -5.5Q542 -20 542 -44Q542 -67 557.5 -81.5Q573 -96 595 -96Q615 -96 631 -81.5Q647 -67 647 -44Q647 -20 631 -5.5Q615 9 595 9Z"/><path d="M595 -371Q573 -371 557.5 -385.5Q542 -400 542 -424Q542 -447 557.5 -461.5Q573 -476 595 -476Q615 -476 631 -461.5Q647 -447 647 -424Q647 -400 631 -385.5Q615 -371 595 -371Z"/></g><g data-ch="0"><path d="M885 9Q827 9 783 -40Q739 -89 715 -173Q691 -257 691 -361Q691 -465 715 -548.5Q739 -632 783 -681Q827 -730 885 -730Q943 -730 986.5 -681Q1030 -632 1054.5 -548.5Q1079 -465 1079 -361Q1079 -257 1054.5 -173Q1030 -89 986.5 -40Q943 9 885 9Z"/><path d="M885 -18Q948 -18 977.5 -103Q1007 -188 1007 -361Q1007 -534 977.5 -618.5Q948 -703 885 -703Q822 -703 792.5 -618.5Q763 -534 763 -361Q763 -188 792.5 -103Q822 -18 885 -18Z"/></g><g data-ch="0"><path d="M1303 9Q1245 9 1201 -40Q1157 -89 1133 -173Q1109 -257 1109 -361Q1109 -465 1133 -548.5Q1157 -632 1201 -681Q1245 -730 1303 -730Q1361 -730 1404.5 -681Q1448 -632 1472.5 -548.5Q1497 -465 1497 -361Q1497 -257 1472.5 -173Q1448 -89 1404.5 -40Q1361 9 1303 9Z"/><path d="M1303 -18Q1366 -18 1395.5 -103Q1425 -188 1425 -361Q1425 -534 1395.5 -618.5Q1366 -703 1303 -703Q1240 -703 1210.5 -618.5Q1181 -534 1181 -361Q1181 -188 1210.5 -103Q1240 -18 1303 -18Z"/></g></svg>
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="11:00">11:00</time><span>{{ 二面 ‖ Round two }}</span><i aria-hidden="true">·</i><span>{{ 后端 ‖ backend }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <ol class="series" aria-label="{{ 面试系列 ‖ Interview series }}" data-series>
+          <li class="series__tab series__tab--past"><b>{{ 一面 ‖ Round 1 }}</b><span>{{ 10月22日 · 已复盘 ‖ Oct 22 · reviewed }}</span></li>
+          <li class="series__arrow" aria-hidden="true"><svg viewBox="0 0 84 34" focusable="false"><path class="series__stem" d="M3 23.5C17 14.2 33.6 9.6 49.2 11.4C59.4 12.6 68.8 16.4 77.6 21.6"/><path class="series__head" d="M68.4 13.9C71.9 16.1 75.2 18.6 77.6 21.6C73.9 22.6 70 23.1 66.1 23.2"/></svg></li>
+          <li class="series__tab series__tab--now" aria-current="step"><b>{{ 二面 ‖ Round 2 }}</b><span>{{ 今天 · 带入上一场 ‖ today · continued }}</span></li>
+        </ol>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 那数据库和缓存<wbr>同时更新，<wbr>怎么保证<wbr>一致性？ ‖ When the database and the cache both change, how do you keep them consistent? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret"
+             data-rewrite-short="{{ 先写库，再删缓存；删失败就重试，binlog兜底。 ‖ Write the DB, delete the cache, retry failures, binlog as backstop. }}"
+             data-rewrite-example="{{ 比如订单系统：改价先落库，再删商品缓存；删失败的进重试队列，binlog订阅再删一次。 ‖ In our order system, a price change hits the database first, then the product cache is deleted; failures retry, and the binlog subscriber deletes once more. }}"
+             data-rewrite-lang="{{ Write the database first, then delete the cache. Failed deletes go to a retry queue, and a binlog subscriber deletes again as a backstop. ‖ 先更新数据库，再删缓存。删除失败的key进重试队列，再订阅binlog删一次兜底。 }}"
+             data-rewrite-lang-code="{{ en ‖ zh-CN }}">{{ 先更新数据库，再删缓存。删除失败的key进重试队列，再订阅binlog删一次兜底。 ‖ Write the database first, then delete the cache. Failed deletes go to a retry queue, and a binlog subscriber deletes again as a backstop. }}</p>
+        </div>
+        <div class="chips scene__gesture" role="group" aria-label="{{ 改写回答 ‖ Rewrite the answer }}" data-chips data-needs-js>
+          <button class="chip" type="button" aria-pressed="true" data-variant="original">{{ 原文 ‖ Original }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="short">{{ 更简短 ‖ Shorter }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="example">{{ 举例 ‖ Example }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="lang">{{ 英文版 ‖ In Chinese }}</button>
+        </div>
+      </div>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-round-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 一面卡住的题， ‖ What tripped you in round one, }}</span></span><span class="day-rl"><span>{{ 二面它记得。 ‖ it remembers in round two. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 二面接着一面：上一场的资料、复盘和改好的答法，都带进来。追问一来，回答一个词一个词浮上来；想短一点、要个例子、换成英文，点一下就好。 ‖ Round two picks up where round one left off: the material, the review and the better answers come along. When the follow-up lands, the answer surfaces word by word. Shorter, an example, the other language: one tap. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="11:45" aria-hidden="true"></span>
+  </article>
+
+  <!-- 14:00 · lab meeting, in person. Online, two channels; in the room, one microphone. The gesture merges the two
+       lines in the diagram and asks the background lines to do the same (IH.emit('lines', { merge })). -->
+  <article class="scene scene--lab" id="day-1400" data-time="14:00" data-palette="noon" aria-labelledby="day-lab-title" data-scene="lab">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <svg class="scene__numeral" viewBox="0 -740 1632 752" style="--ar:2.1702" aria-hidden="true" focusable="false"><g data-ch="1"><path d="M15 0Q0 0 0 -11Q0 -22 13 -23L52 -27Q73 -29 80.5 -37Q88 -45 88 -66L88 -660Q88 -677 78.5 -682.5Q69 -688 54 -686L18 -682Q0 -681 0 -695Q0 -706 16 -709Q69 -718 94 -726.5Q119 -735 131 -735Q152 -735 152 -713L152 -66Q152 -45 159.5 -37Q167 -29 188 -27L221 -23Q234 -22 234 -11Q234 0 219 0Z"/></g><g data-ch="4"><path d="M424 0Q409 0 409 -11Q409 -22 422 -23L465 -29Q486 -32 492.5 -39.5Q499 -47 499 -66L499 -196Q499 -210 485 -210L283 -210Q264 -210 264 -227Q264 -232 266.5 -237.5Q269 -243 273 -252L513 -710Q517 -720 529 -720L549 -720Q567 -720 558 -703L318 -280Q311 -266 326 -266L485 -266Q499 -266 499 -280L499 -476Q499 -485 509 -492L546 -513Q553 -517 558 -514.5Q563 -512 563 -504L563 -280Q563 -266 577 -266L621 -266Q633 -266 633 -254L633 -222Q633 -210 621 -210L577 -210Q563 -210 563 -196L563 -66Q563 -45 569.5 -38Q576 -31 597 -27L620 -23Q633 -20 633 -11Q633 0 618 0Z"/></g><g data-ch="colon"><path d="M730 9Q708 9 692.5 -5.5Q677 -20 677 -44Q677 -67 692.5 -81.5Q708 -96 730 -96Q750 -96 766 -81.5Q782 -67 782 -44Q782 -20 766 -5.5Q750 9 730 9Z"/><path d="M730 -371Q708 -371 692.5 -385.5Q677 -400 677 -424Q677 -447 692.5 -461.5Q708 -476 730 -476Q750 -476 766 -461.5Q782 -447 782 -424Q782 -400 766 -385.5Q750 -371 730 -371Z"/></g><g data-ch="0"><path d="M1020 9Q962 9 918 -40Q874 -89 850 -173Q826 -257 826 -361Q826 -465 850 -548.5Q874 -632 918 -681Q962 -730 1020 -730Q1078 -730 1121.5 -681Q1165 -632 1189.5 -548.5Q1214 -465 1214 -361Q1214 -257 1189.5 -173Q1165 -89 1121.5 -40Q1078 9 1020 9Z"/><path d="M1020 -18Q1083 -18 1112.5 -103Q1142 -188 1142 -361Q1142 -534 1112.5 -618.5Q1083 -703 1020 -703Q957 -703 927.5 -618.5Q898 -534 898 -361Q898 -188 927.5 -103Q957 -18 1020 -18Z"/></g><g data-ch="0"><path d="M1438 9Q1380 9 1336 -40Q1292 -89 1268 -173Q1244 -257 1244 -361Q1244 -465 1268 -548.5Q1292 -632 1336 -681Q1380 -730 1438 -730Q1496 -730 1539.5 -681Q1583 -632 1607.5 -548.5Q1632 -465 1632 -361Q1632 -257 1607.5 -173Q1583 -89 1539.5 -40Q1496 9 1438 9Z"/><path d="M1438 -18Q1501 -18 1530.5 -103Q1560 -188 1560 -361Q1560 -534 1530.5 -618.5Q1501 -703 1438 -703Q1375 -703 1345.5 -618.5Q1316 -534 1316 -361Q1316 -188 1345.5 -103Q1375 -18 1438 -18Z"/></g></svg>
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="14:00">14:00</time><span>{{ 组会 ‖ Lab meeting }}</span><i aria-hidden="true">·</i><span>{{ 线下 ‖ in person }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 这个对照组<wbr>是怎么选的？ ‖ How did you choose the control group? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret">{{ 按年龄和基线分层后随机抽取，细节在论文<span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>第4页，表2</span>。 ‖ Stratified by age and baseline, then drawn at random. Details on <span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>page 4, table 2</span>. }}</p>
+        </div>
+      </div>
+      <figure class="duo scene__stage" data-duo>
+        <div class="duo__field">
+          <svg class="duo__svg" viewBox="0 0 640 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="duo__them" d="M0.0 30.00L4.0 30.00L8.0 30.00L12.0 30.00L16.0 30.00L20.0 30.00L24.0 30.00L28.0 30.00L32.0 30.00L36.0 30.00L40.0 30.00L44.0 30.00L48.0 30.00L52.0 30.00L56.0 30.00L60.0 30.00L64.0 30.00L68.0 30.00L72.0 30.00L76.0 30.00L80.0 30.00L84.0 30.00L88.0 30.00L92.0 30.00L96.0 30.00L100.0 30.00L104.0 30.00L108.0 30.00L112.0 30.00L116.0 30.00L120.0 30.00L124.0 30.00L128.0 30.00L132.0 30.00L136.0 30.00L140.0 30.00L144.0 30.00L148.0 30.00L152.0 30.00L156.0 30.00L160.0 30.00L164.0 30.00L168.0 30.00L172.0 30.00L176.0 30.00L180.0 30.00L184.0 30.00L188.0 30.00L192.0 30.00L196.0 30.00L200.0 30.00L204.0 30.00L208.0 30.00L212.0 30.00L216.0 30.00L220.0 30.00L224.0 30.00L228.0 30.02L232.0 30.12L236.0 30.31L240.0 30.59L244.0 30.92L248.0 31.29L252.0 31.67L256.0 32.04L260.0 32.45L264.0 32.92L268.0 33.54L272.0 34.34L276.0 35.32L280.0 36.42L284.0 37.53L288.0 38.53L292.0 39.31L296.0 39.84L300.0 40.18L304.0 40.49L308.0 40.95L312.0 41.74L316.0 42.96L320.0 44.57L324.0 46.41L328.0 48.21L332.0 49.69L336.0 50.64L340.0 50.99L344.0 50.86L348.0 50.53L352.0 50.35L356.0 50.66L360.0 51.65L364.0 53.31L368.0 55.40L372.0 57.53L376.0 59.26L380.0 60.23L384.0 60.29L388.0 59.56L392.0 58.37L396.0 57.20L400.0 56.51L404.0 56.61L408.0 57.55L412.0 59.12L416.0 60.86L420.0 62.34L424.0 63.13L428.0 63.02L432.0 62.02L436.0 60.44L440.0 58.73L444.0 57.39L448.0 56.81L452.0 57.16L456.0 58.34L460.0 60.00L464.0 61.66L468.0 62.84L472.0 63.19L476.0 62.61L480.0 61.27L484.0 59.56L488.0 57.98L492.0 56.98L496.0 56.87L500.0 57.66L504.0 59.14L508.0 60.86L512.0 62.34L516.0 63.13L520.0 63.02L524.0 62.02L528.0 60.44L532.0 58.73L536.0 57.39L540.0 56.81L544.0 57.16L548.0 58.34L552.0 60.00L556.0 61.66L560.0 62.84L564.0 63.19L568.0 62.61L572.0 61.27L576.0 59.56L580.0 57.98L584.0 56.98L588.0 56.87L592.0 57.66L596.0 59.14L600.0 60.86L604.0 62.34L608.0 63.13L612.0 63.02L616.0 62.02L620.0 60.44L624.0 58.73L628.0 57.39L632.0 56.81L636.0 57.16L640.0 58.34"/><path class="duo__me" d="M0.0 90.00L4.0 90.00L8.0 90.00L12.0 90.00L16.0 90.00L20.0 90.00L24.0 90.00L28.0 90.00L32.0 90.00L36.0 90.00L40.0 90.00L44.0 90.00L48.0 90.00L52.0 90.00L56.0 90.00L60.0 90.00L64.0 90.00L68.0 90.00L72.0 90.00L76.0 90.00L80.0 90.00L84.0 90.00L88.0 90.00L92.0 90.00L96.0 90.00L100.0 90.00L104.0 90.00L108.0 90.00L112.0 90.00L116.0 90.00L120.0 90.00L124.0 90.00L128.0 90.00L132.0 90.00L136.0 90.00L140.0 90.00L144.0 90.00L148.0 90.00L152.0 90.00L156.0 90.00L160.0 90.00L164.0 90.00L168.0 90.00L172.0 90.00L176.0 90.00L180.0 90.00L184.0 90.00L188.0 90.00L192.0 90.00L196.0 90.00L200.0 90.00L204.0 90.00L208.0 90.00L212.0 90.00L216.0 90.00L220.0 90.00L224.0 90.00L228.0 89.98L232.0 89.88L236.0 89.69L240.0 89.41L244.0 89.08L248.0 88.71L252.0 88.33L256.0 87.96L260.0 87.55L264.0 87.08L268.0 86.46L272.0 85.66L276.0 84.68L280.0 83.58L284.0 82.47L288.0 81.47L292.0 80.69L296.0 80.16L300.0 79.82L304.0 79.51L308.0 79.05L312.0 78.26L316.0 77.04L320.0 75.43L324.0 73.59L328.0 71.79L332.0 70.31L336.0 69.36L340.0 69.01L344.0 69.14L348.0 69.47L352.0 69.65L356.0 69.34L360.0 68.35L364.0 66.69L368.0 64.60L372.0 62.47L376.0 60.74L380.0 59.77L384.0 59.71L388.0 60.44L392.0 61.63L396.0 62.80L400.0 63.49L404.0 63.39L408.0 62.45L412.0 60.88L416.0 59.14L420.0 57.66L424.0 56.87L428.0 56.98L432.0 57.98L436.0 59.56L440.0 61.27L444.0 62.61L448.0 63.19L452.0 62.84L456.0 61.66L460.0 60.00L464.0 58.34L468.0 57.16L472.0 56.81L476.0 57.39L480.0 58.73L484.0 60.44L488.0 62.02L492.0 63.02L496.0 63.13L500.0 62.34L504.0 60.86L508.0 59.14L512.0 57.66L516.0 56.87L520.0 56.98L524.0 57.98L528.0 59.56L532.0 61.27L536.0 62.61L540.0 63.19L544.0 62.84L548.0 61.66L552.0 60.00L556.0 58.34L560.0 57.16L564.0 56.81L568.0 57.39L572.0 58.73L576.0 60.44L580.0 62.02L584.0 63.02L588.0 63.13L592.0 62.34L596.0 60.86L600.0 59.14L604.0 57.66L608.0 56.87L612.0 56.98L616.0 57.98L620.0 59.56L624.0 61.27L628.0 62.61L632.0 63.19L636.0 62.84L640.0 61.66"/></svg>
+          <p class="duo__label duo__label--them"><b>{{ 对方 ‖ Them }}</b><span>{{ 这台Mac播放的声音 ‖ everything your Mac plays }}</span></p>
+          <p class="duo__label duo__label--me"><b>{{ 我 ‖ Me }}</b><span>{{ 麦克风 ‖ microphone }}</span></p>
+          <p class="duo__label duo__label--room"><b>{{ 现场 ‖ In the room }}</b><span>{{ 只用麦克风 ‖ microphone only }}</span></p>
+        </div>
+        <div class="seg duo__seg" role="group" aria-label="{{ 这场会 ‖ This meeting }}" data-seg="room" data-needs-js>
+          <span class="seg__thumb" aria-hidden="true"></span>
+          <button class="seg__btn" type="button" aria-pressed="true" data-value="online">{{ 线上 ‖ Online }}</button>
+          <button class="seg__btn" type="button" aria-pressed="false" data-value="room">{{ 线下 ‖ In person }}</button>
+        </div>
+      </figure>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-lab-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 坐在同一个房间， ‖ Same room, }}</span></span><span class="day-rl"><span>{{ 也一样。 ‖ same help. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 线下开会，它只用麦克风，房间里所有人的声音都在这一路，转写标成“现场”。线下默认只记录；需要时让它回答，它会对照你放进来的论文，注明在第几页。 ‖ In person it listens through the microphone alone: the whole room on one line, marked In the room. In person it records by default; ask it to answer and it works from the paper you added, page number included. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="14:50" aria-hidden="true"></span>
+  </article>
+
+  <!-- 16:30 · client call, whole screen shared. The answer moves from the laptop (what they see) to the phone (only you).
+       Without script the figure shows the shared state: the answer already on the phone. -->
+  <article class="scene scene--call" id="day-1630" data-time="16:30" data-palette="afternoon" aria-labelledby="day-call-title" data-scene="call">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <svg class="scene__numeral" viewBox="0 -740 1536 752" style="--ar:2.0426" aria-hidden="true" focusable="false"><g data-ch="1"><path d="M15 0Q0 0 0 -11Q0 -22 13 -23L52 -27Q73 -29 80.5 -37Q88 -45 88 -66L88 -660Q88 -677 78.5 -682.5Q69 -688 54 -686L18 -682Q0 -681 0 -695Q0 -706 16 -709Q69 -718 94 -726.5Q119 -735 131 -735Q152 -735 152 -713L152 -66Q152 -45 159.5 -37Q167 -29 188 -27L221 -23Q234 -22 234 -11Q234 0 219 0Z"/></g><g data-ch="6"><path d="M434 9Q384 9 345.5 -25Q307 -59 285.5 -120Q264 -181 264 -261Q264 -343 287.5 -420.5Q311 -498 353 -562Q395 -626 450.5 -670Q506 -714 570 -729Q580 -731 584.5 -727Q589 -723 589 -717Q589 -707 578 -704Q490 -675 436 -610.5Q382 -546 356 -442Q354 -435 357.5 -432.5Q361 -430 367 -434Q398 -456 440 -456Q487 -456 524 -426.5Q561 -397 582.5 -346Q604 -295 604 -229Q604 -164 581 -109.5Q558 -55 519.5 -23Q481 9 434 9Z"/><path d="M432 -18Q483 -18 507.5 -68.5Q532 -119 532 -224Q532 -331 509 -381Q486 -431 436 -431Q330 -431 330 -218Q330 -18 432 -18Z"/></g><g data-ch="colon"><path d="M701 9Q679 9 663.5 -5.5Q648 -20 648 -44Q648 -67 663.5 -81.5Q679 -96 701 -96Q721 -96 737 -81.5Q753 -67 753 -44Q753 -20 737 -5.5Q721 9 701 9Z"/><path d="M701 -371Q679 -371 663.5 -385.5Q648 -400 648 -424Q648 -447 663.5 -461.5Q679 -476 701 -476Q721 -476 737 -461.5Q753 -447 753 -424Q753 -400 737 -385.5Q721 -371 701 -371Z"/></g><g data-ch="3"><path d="M912 9Q860 9 828.5 -10Q797 -29 797 -60Q797 -77 807 -86.5Q817 -96 833 -96Q852 -96 858 -84Q864 -72 867 -57Q870 -42 880.5 -30Q891 -18 918 -18Q975 -18 1010.5 -71.5Q1046 -125 1046 -212Q1046 -405 936 -405Q896 -405 868 -386Q852 -374 844 -383Q838 -393 852 -407L924 -475Q968 -516 988 -550Q1008 -584 1008 -618Q1008 -655 991.5 -675.5Q975 -696 946 -696Q908 -696 882 -668Q856 -640 848 -591Q846 -576 833 -576Q819 -576 821 -594Q828 -656 867.5 -693Q907 -730 965 -730Q1015 -730 1045.5 -702.5Q1076 -675 1076 -629Q1076 -550 947 -461L924 -445Q920 -442 921.5 -438.5Q923 -435 928 -436Q945 -441 962 -441Q1008 -441 1043 -415Q1078 -389 1098 -342.5Q1118 -296 1118 -236Q1118 -188 1101 -144Q1084 -100 1055 -65.5Q1026 -31 989 -11Q952 9 912 9Z"/></g><g data-ch="0"><path d="M1342 9Q1284 9 1240 -40Q1196 -89 1172 -173Q1148 -257 1148 -361Q1148 -465 1172 -548.5Q1196 -632 1240 -681Q1284 -730 1342 -730Q1400 -730 1443.5 -681Q1487 -632 1511.5 -548.5Q1536 -465 1536 -361Q1536 -257 1511.5 -173Q1487 -89 1443.5 -40Q1400 9 1342 9Z"/><path d="M1342 -18Q1405 -18 1434.5 -103Q1464 -188 1464 -361Q1464 -534 1434.5 -618.5Q1405 -703 1342 -703Q1279 -703 1249.5 -618.5Q1220 -534 1220 -361Q1220 -188 1249.5 -103Q1279 -18 1342 -18Z"/></g></svg>
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="16:30">16:30</time><span>{{ 客户电话 ‖ Client call }}</span><i aria-hidden="true">·</i><span>{{ 共享整个屏幕 ‖ sharing your whole screen }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 月底能上线吗？ ‖ Can we go live by the end of the month? }}</p></blockquote>
+      </div>
+      <figure class="devices scene__stage is-sharing" data-devices>
+        <div class="devices__set">
+          <div class="laptop">
+            <div class="laptop__screen" data-dock="laptop">
+              <p class="laptop__share"><i aria-hidden="true"></i>{{ 正在共享整个屏幕 ‖ Sharing entire screen }}</p>
+              <span class="laptop__window" aria-hidden="true"><i></i><i></i></span>
+            </div>
+            <span class="laptop__base" aria-hidden="true"></span>
+            <p class="devices__cap devices__cap--laptop">{{ 对方看到的 ‖ What they see }}</p>
+          </div>
+          <div class="phone">
+            <div class="phone__screen" data-dock="phone">
+              <div class="prompt" data-card>
+                <p class="t-answer scene__answer prompt__text" data-answer data-cursor="caret">{{ 可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。 ‖ Yes. The core flow goes live before month-end; reports and export come in the next release. I’ll send the schedule on Monday. }}</p>
+              </div>
+            </div>
+            <p class="devices__cap devices__cap--phone">{{ 只有你看到的 ‖ Only you see }}</p>
+          </div>
+        </div>
+        <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch data-needs-js><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">{{ 共享整个屏幕 ‖ Share entire screen }}</span></button>
+        <figcaption class="t-small devices__fine">{{ 手机本身被共享或镜像到电脑时，同样会被看到。 ‖ If the phone itself is shared or mirrored, it can be seen too. }}</figcaption>
+      </figure>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-call-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 要共享整个屏幕？ ‖ Sharing your whole screen? }}</span></span><span class="day-rl"><span>{{ 回答放到手机上。 ‖ Keep the answer on your phone. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 只共享会议窗口时，对方看不到提词；要共享整个屏幕，就把回答交给手机。用手机相机扫一下配对码，打开的页面就是你的提词屏，不用装App。 ‖ Share only the meeting window and they never see your prompts. Sharing everything? Hand the answer to your phone: scan a pairing code with its camera and the page that opens is your prompter. No app to install. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="17:00" aria-hidden="true"></span>
+  </article>
+
+  <p class="sr-only" aria-live="polite" data-day-live></p>
 </section>
