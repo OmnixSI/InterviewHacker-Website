@@ -52,13 +52,10 @@
       const n200 = $('[data-beat="b"] .gap__n'), n600 = $('[data-beat="c"] .gap__n');
       const names = { plan: $('.tl__name--plan'), me: $('.tl__name--me'), ih: $('.tl__name--ih') };
       const el = s => $(`[data-${s}]`);
-      const meRow = [names.me, el('tl-gap'), el('tl-me')];
-      const planRow = [names.plan, el('tl-plan'), el('tl-plan-tag')];
-      const ihRow = [names.ih, el('tl-listen'), el('tl-listen-tag'), el('tl-surface'), el('tl-surface-tag')];
 
       // Initial pinned state (JS only): beat A shown dim, the rest waiting; the diagram empty.
       gsap.set([B.b, B.c, B.d, B.e], { autoAlpha: 0 });
-      gsap.set(words, { color: 'color-mix(in srgb, var(--them-ink) 24%, var(--paper))' });
+      gsap.set(words, { opacity: .55 });
       gsap.set([...segs, el('tl-me'), el('tl-surface'), el('tl-listen')], { scaleX: 0 });
       gsap.set(el('tl-plan'), { scaleX: 0 });
       gsap.set([el('tl-gap'), el('tl-plan-tag'), el('tl-overlap'), el('tl-end'), el('tl-listen-tag'), el('tl-surface-tag'), names.plan, names.me, names.ih], { autoAlpha: 0 });
@@ -72,17 +69,17 @@
       const tl = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
-          trigger: $('[data-gap-pin]'), pin: true, start: 'top top', end: () => '+=' + Math.round(innerHeight * 4.6),
+          trigger: $('[data-gap-pin]'), pin: true, start: 'top top', end: () => '+=' + Math.round(innerHeight * 2.1),
           scrub: .8, anticipatePin: 1, invalidateOnRefresh: true,
           onUpdate: self => {
             // Voice events follow the words as they light (forward only), so the amber string speaks with the quote.
-            const t = tl.time(), k = Math.max(0, Math.min(W, Math.floor((t - .2) / (1.8 / W)) + 1));
+            const t = tl.time(), k = Math.max(0, Math.min(W, Math.floor((t - .05) / (1.8 / W)) + 1));
             if (self.direction > 0) {
               if (k > 0 && !turned) { turned = true; IH.emit('turn', { who: 'them' }); }
               for (let i = lit; i < k; i++) IH.emit('voice', { who: 'them', level: .45 + .4 * ((i % 3) / 2), ms: 260 });
               if (t > 7.15 && !surfaced) { surfaced = true; IH.emit('turn', { who: 'me' }); }
             }
-            if (t < .2) turned = false;
+            if (t < .05) turned = false;
             if (t < 7) surfaced = false;
             lit = k;
             caret.classList.toggle('is-blinking', t > 2.95 && t < 3.6);
@@ -93,11 +90,11 @@
       // A — their question, word by word, the amber bar growing segment by segment under it.
       const step = 1.8 / W;
       words.forEach((w, i) => {
-        tl.to(w, { color: 'var(--them-ink)', duration: step * .9 }, .2 + i * step);
+        tl.to(w, { opacity: 1, duration: step * .9 }, .05 + i * step);
         const s = segs[i] || segs[segs.length - 1];
-        if (segs.length === W) tl.to(s, { scaleX: 1, duration: step }, .2 + i * step);
+        if (segs.length === W) tl.to(s, { scaleX: 1, duration: step }, .05 + i * step);
       });
-      if (segs.length !== W) tl.to(segs, { scaleX: 1, duration: 1.8 / segs.length, stagger: 1.8 / segs.length }, .2);
+      if (segs.length !== W) tl.to(segs, { scaleX: 1, duration: 1.8 / segs.length, stagger: 1.8 / segs.length }, .05);
       tl.to(el('tl-end'), { autoAlpha: 1, duration: .2 }, 2.0);
 
       // B — 200 ms.
@@ -130,9 +127,9 @@
         .to(el('tl-listen'), { scaleX: 1, duration: .5 }, 7.0)
         .to(el('tl-surface'), { scaleX: 1, duration: .9 }, 7.6)
         .to(el('tl-surface-tag'), { autoAlpha: 1, duration: .3 }, 7.7)
-        .to([...planRow, ...meRow, el('tl-overlap')], { opacity: .35, duration: .4 }, 7.6)
+        .to([el('tl-plan'), el('tl-gap'), el('tl-me')], { opacity: .4, duration: .4 }, 7.6)
         .to(answerWords, { opacity: 1, y: 0, duration: .35, ease, stagger: .9 / Math.max(1, answerWords.length) }, 7.7)
-        .to({}, { duration: .6 }, 8.9);
+        .to({}, { duration: .25 }, 8.7);
     }, sec);
   }
   function destroyPinned() {

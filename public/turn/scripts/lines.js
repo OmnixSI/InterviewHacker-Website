@@ -113,14 +113,14 @@
 
   /* ---------------- Poses ---------------- */
   // A pose is the resting geometry of both lines; modes morph by tweening every slot.
-  const TY = 0, MY = 1, TA = 2, MA = 3, LW = 4, X0 = 5, X1 = 6, AMP = 7, BR = 8, MG = 9, TW = 10, GL = 11, WA = 12, WARM = 13, NP = 14;
+  const TY = 0, MY = 1, TA = 2, MA = 3, LW = 4, X0 = 5, X1 = 6, AMP = 7, BR = 8, MG = 9, TW = 10, GL = 11, WA = 12, WARM = 13, CL = 14, NP = 15;
   const cur = new Float64Array(NP), from = new Float64Array(NP), tgt = new Float64Array(NP), rest = new Float64Array(NP);
   let mode = 'hero', sectionMode = null, overrideMode = null, mergeOverride = null, sectionKey = '';
   let morphAt = -1e9, morphDur = 1100, poseKey = '';
 
   const isMobile = () => W < 720;
   function gapPose(out) { out[TY] = VH * (isMobile() ? 0.655 : 0.535); out[MY] = VH * (isMobile() ? 0.7 : 0.59); }
-  function dayPose(out) { out[TY] = VH * (isMobile() ? 0.9 : 0.885); out[MY] = VH * (isMobile() ? 0.93 : 0.915); }
+  function dayPose(out) { out[TY] = VH * (isMobile() ? 0.915 : 0.905); out[MY] = VH * (isMobile() ? 0.945 : 0.935); }
   // Hero: the strings rest on the hero's slot (its top and bottom edges, in document coordinates) and scroll with
   // the copy, so its labels stay attached. Near the top of the screen they slow down and stop (a soft floor);
   // when the reader reaches № 01 the section change morphs them into their gap positions.
@@ -135,20 +135,20 @@
   function poseFor(m, out, sy) {
     const mob = isMobile();
     out[TA] = 1; out[MA] = 1; out[LW] = mob ? 1.35 : 1.5; out[X0] = 0; out[X1] = W; out[AMP] = 1; out[BR] = 1;
-    out[MG] = 0; out[TW] = 0; out[GL] = 1; out[WA] = 0; out[WARM] = 0;
+    out[MG] = 0; out[TW] = 0; out[GL] = 1; out[WA] = 0; out[WARM] = 0; out[CL] = 0;
     switch (m) {
       case 'hero': heroPose(out, sy); break;
       case 'gap': gapPose(out); break;
       case 'day':
-        dayPose(out); out[TA] = 0.6; out[MA] = 0.6; out[LW] = 1.15; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.55; out[BR] = 0.6; out[GL] = 0.45; break;
+        dayPose(out); out[TA] = 0.6; out[MA] = 0.6; out[LW] = 1.15; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.55; out[BR] = 0.6; out[GL] = 0.45; out[CL] = 1; break;
       case 'offline': {
         dayPose(out); const y = (out[TY] + out[MY]) / 2;
-        out[TY] = y; out[MY] = y; out[TA] = 0.85; out[MA] = 0.85; out[LW] = 1.25; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.6; out[BR] = 0.6; out[MG] = 1; out[TW] = 1.15; out[GL] = 0.6; break;
+        out[TY] = y; out[MY] = y; out[TA] = 0.85; out[MA] = 0.85; out[LW] = 1.25; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.6; out[BR] = 0.6; out[MG] = 1; out[TW] = 1.15; out[GL] = 0.6; out[CL] = 1; break;
       }
       case 'dusk':
         out[TY] = out[MY] = VH * 0.58; out[TA] = 0.95; out[MA] = 0.55; out[LW] = 1.5; out[X0] = -W * 0.02; out[X1] = W * 1.02; out[AMP] = 0.75; out[BR] = 1.3; out[MG] = 1; out[TW] = 0.55; out[GL] = 1.7; out[WARM] = 1; break;
       case 'still':
-        out[TY] = VH * (mob ? 0.905 : 0.89); out[MY] = VH * (mob ? 0.93 : 0.915); out[TA] = 0.26; out[MA] = 0.26; out[LW] = 1; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.4; out[BR] = 0.2; out[GL] = 0; break;
+        out[TY] = VH * (mob ? 0.92 : 0.91); out[MY] = VH * (mob ? 0.945 : 0.935); out[TA] = 0.26; out[MA] = 0.26; out[LW] = 1; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.4; out[BR] = 0.2; out[GL] = 0; out[CL] = 1; break;
       case 'water':
         out[TY] = out[MY] = VH * 0.42; out[TA] = 0.6; out[MA] = 0.5; out[LW] = 1.1; out[X0] = -W * 0.02; out[X1] = W * 1.02; out[AMP] = 0.55; out[BR] = 0; out[MG] = 1; out[TW] = 0.5; out[GL] = 1; out[WA] = 1; break;
     }
@@ -505,6 +505,64 @@
     ctx.fillRect(0, waterY - 30, W, CH - waterY + 30);
     ctx.globalCompositeOperation = 'source-over';
   }
+  /* ---------------- Text keeps clear of the lines ---------------- */
+  // In the quiet modes (day, offline, still) the lines must never read as strike-throughs: every text block in view
+  // carves a soft gap where its box crosses them. Text opts in with [data-lines-clear]; headlines, quotes, answers,
+  // body copy, FAQ rows and forms do by default. Boxes are read only for elements an IntersectionObserver reports in
+  // view, and only on scroll ticks and layout refreshes, never inside the animation loop.
+  const CLEAR_SEL = '[data-lines-clear], .t-h2, .t-h3, .t-quote, .t-answer, .t-body, .t-small, .t-label, .kicker, .faq details, .qa, form, .scene__numeral, .scene__kicker, .scene__note, .principle, .ev-raw__line, .ev-item, .room__line, .chip, .seg__btn';
+  const MAXR = 96, rects = new Float32Array(MAXR * 4), inView = new Set();
+  let nRects = 0, clearDirty = true;
+  const clearIO = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    for (const e of entries) { if (e.isIntersecting) inView.add(e.target); else inView.delete(e.target); }
+    clearDirty = true;
+    if (!running && cur[CL] > 0.01 && live) redrawIdle();
+  }) : null;
+  const observed = new WeakSet();
+  function watchClear() {
+    if (!clearIO) return;
+    for (const el of document.querySelectorAll(CLEAR_SEL)) {
+      if (el.closest('[data-lines-clear="off"]')) continue;
+      if (!observed.has(el)) { observed.add(el); clearIO.observe(el); }
+    }
+    clearDirty = true;
+  }
+  function readRects() {
+    clearDirty = false;
+    nRects = 0;
+    for (const el of inView) {
+      if (nRects >= MAXR) break;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2 || r.bottom < 0 || r.top > CH) continue;
+      const o = nRects * 4;
+      rects[o] = r.left; rects[o + 1] = r.top; rects[o + 2] = r.right; rects[o + 3] = r.bottom;
+      nRects++;
+    }
+  }
+  // Erase with stepped alpha at both ends: a 36 px feather, no gradients allocated.
+  const FEATHER = 36, STEPS = 9;
+  function carve(lo, hi, k) {
+    if (k < 0.01 || !nRects) return;
+    const padY = 10, padX = 14;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = '#000';
+    for (let i = 0; i < nRects; i++) {
+      const o = i * 4, top = rects[o + 1] - padY, bot = rects[o + 3] + padY;
+      if (bot < lo || top > hi) continue;
+      const l = rects[o] - padX, r = rects[o + 2] + padX, h = bot - top;
+      ctx.globalAlpha = k;
+      ctx.fillRect(l, top, r - l, h);
+      const sw = FEATHER / STEPS;
+      for (let j = 0; j < STEPS; j++) {
+        ctx.globalAlpha = k * (STEPS - j) / (STEPS + 1);
+        ctx.fillRect(l - (j + 1) * sw, top, sw, h);
+        ctx.fillRect(r + j * sw, top, sw, h);
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+  }
+
   function render() {
     if (!ctx || !W) return;
     if (!sized) resizeCanvas();
@@ -538,6 +596,7 @@
     else strokeString(sM, pal.me, meA, meW, glow * (1 + litM));
     strokeString(sT, pal.them, themA, themW, glow * (1 + litT));
     ctx.globalAlpha = 1;
+    if (cur[CL] > 0.01) { if (clearDirty) readRects(); carve(lo - 40, hi + 40, cur[CL]); }
     if (!live) { live = true; host && host.classList.add('is-live'); }
   }
 
@@ -917,11 +976,18 @@
     if ('merge' in d) mergeOverride = d.merge == null ? null : !!d.merge;
     applyMode(d.duration);
   });
+  IH.on('section', () => watchClear());
   IH.on('voice', onVoice);
   IH.on('turn', onTurn);
   IH.on('motion', ok => { if (ok) { static_ = false; wake(); } else renderStill(); });
+  function redrawIdle() {
+    if (running) return;
+    if (static_) renderStill(); else { poseFor(mode, cur, scrollY); render(); }
+  }
   IH.on('tick', () => {
+    clearDirty = true;
     if (!ctx || running) return;
+    if (cur[CL] > 0.01 && live) { redrawIdle(); return; }
     // Idle: redraw only when something on screen depends on the scroll — the hero strings or the colour.
     const palChanged = IH.palette !== palSeen;
     if (mode === 'hero' && motionOK() && !static_) { activity(); start(); return; }
@@ -940,6 +1006,7 @@
   measure();
   writeVars();
   poseFor(mode, cur, scrollY);
+  watchClear();
   if (!ctx) {
     host && host.classList.add('is-fallback');
     return;
@@ -980,7 +1047,7 @@
     if (static_ || !motionOK()) renderStill(); else { poseFor(mode, cur, scrollY); render(); }
   }
   addEventListener('resize', () => { if (!resizeQ) { resizeQ = true; requestAnimationFrame(onResize); } });
-  const relayout = () => { readSlot(); writeVars(); if (!running) { if (static_) renderStill(); else if (live) { poseFor(mode, cur, scrollY); render(); } } };
+  const relayout = () => { watchClear(); readSlot(); writeVars(); if (!running) { if (static_) renderStill(); else if (live) { poseFor(mode, cur, scrollY); render(); } } };
   if (window.ScrollTrigger && window.ScrollTrigger.addEventListener) window.ScrollTrigger.addEventListener('refresh', relayout);
   document.fonts && document.fonts.ready.then(relayout);
   addEventListener('load', () => { relayout(); setTimeout(relayout, 1200); });

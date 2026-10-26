@@ -21,7 +21,7 @@
         <form class="waitlist__form" action="/api/waitlist" method="post" aria-labelledby="waitlist-title" data-waitlist-form>
           <button class="waitlist__close" type="button" aria-label="{{ 关闭 ‖ Close }}" data-waitlist-close data-needs-js><i></i><i></i></button>
           <header class="waitlist__head">
-            <p class="waitlist__kicker mono">{{ InterviewHacker 2.0 · 等待名单 ‖ InterviewHacker 2.0 · Waitlist }}</p>
+            <p class="waitlist__kicker mono"><span>InterviewHacker 2.0</span> <span>· {{ 等待名单 ‖ Waitlist }}</span></p>
             <h3 class="waitlist__title" id="waitlist-title" tabindex="-1">{{ 加入等待名单 ‖ Join the waitlist }}</h3>
             <p class="waitlist__lead">{{ 开放时，我们会第一时间写信给你。 ‖ We’ll write to you as soon as places open. }}</p>
           </header>
@@ -73,8 +73,8 @@
         <div class="waitlist__done" data-waitlist-done data-needs-js>
           <svg class="waitlist__tick" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30"/><path d="m20 33 8.5 8.5L45 24"/></svg>
           <p class="waitlist__kicker mono">{{ 周二 · 00:00 ‖ Tue · 00:00 }}</p>
-          <h3 class="waitlist__title" tabindex="-1" data-waitlist-done-title>{{ 已加入名单。 ‖ You’re on the list. }}</h3>
-          <p class="waitlist__lead" data-waitlist-done-text data-template="{{ 开放时，我们会写信到 %email%。 ‖ We’ll write to %email% when your place opens. }}">{{ 开放时，我们会写信给你。 ‖ We’ll write to you when your place opens. }}</p>
+          <h3 class="waitlist__title" id="waitlist-done-title" tabindex="-1" data-waitlist-done-title>{{ 已加入名单。 ‖ You’re on the list. }}</h3>
+          <p class="waitlist__lead" id="waitlist-done-text" data-waitlist-done-text data-template="{{ 开放时，我们会写信到 %email%。 ‖ We’ll write to %email% when your place opens. }}">{{ 开放时，我们会写信给你。 ‖ We’ll write to you when your place opens. }}</p>
           <button class="btn btn--ghost waitlist__back" type="button" data-waitlist-close>{{ 好的 ‖ Done }}</button>
         </div>
       </div>

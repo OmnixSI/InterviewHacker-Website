@@ -13,7 +13,6 @@
   const done = $('[data-waitlist-done]'), doneText = $('[data-waitlist-done-text]'), doneTitle = $('[data-waitlist-done-title]');
   const title = form.querySelector('.waitlist__title');
   const openBtn = ending.querySelector('[data-waitlist-open]');
-  const copy = [...ending.querySelectorAll('[data-ending-copy]')];
   const play = (name, opts) => IH.sound?.play?.(name, opts);
   const f = form.elements;
   const usesBox = form.querySelector('.uses');
@@ -33,13 +32,47 @@
   const coarse = matchMedia('(pointer: coarse)');
 
   /* ---------- Open and close ---------- */
+  // While open the sheet is a modal dialog: everything outside it (header, other sections, the ending's own copy,
+  // the footer) is inert, so Tab and screen readers stay inside. Without script it is just a form on the page.
   const isOpen = () => ending.classList.contains('is-joining');
-  let focusTimer = 0;
+  let focusTimer = 0, outside = [];
+  function labelDialog() {
+    const done = box.classList.contains('is-done');
+    box.setAttribute('aria-labelledby', done ? 'waitlist-done-title' : 'waitlist-title');
+    if (done) box.setAttribute('aria-describedby', 'waitlist-done-text'); else box.removeAttribute('aria-describedby');
+  }
+  function modal(on) {
+    if (on) {
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-modal', 'true');
+      labelDialog();
+      outside = [];
+      for (let el = box; el && el !== document.body; el = el.parentElement) {
+        for (const sib of el.parentElement.children) {
+          if (sib === el || sib.inert || /^(SCRIPT|STYLE|LINK)$/.test(sib.tagName)) continue;
+          sib.inert = true; outside.push(sib);
+        }
+      }
+    } else {
+      ['role', 'aria-modal', 'aria-labelledby', 'aria-describedby'].forEach(a => box.removeAttribute(a));
+      outside.forEach(el => { el.inert = false; });
+      outside = [];
+    }
+  }
+  // Belt and braces for browsers without inert: Tab wraps within the sheet.
+  box.addEventListener('keydown', e => {
+    if (e.key !== 'Tab' || !isOpen()) return;
+    const items = [...box.querySelectorAll('button, input:not([type="hidden"]):not([tabindex="-1"]), textarea, a[href]')].filter(el => el.offsetParent && !el.closest('[inert], .waitlist__trap') && getComputedStyle(el).visibility !== 'hidden');
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && (document.activeElement === first || !box.contains(document.activeElement) || document.activeElement.tabIndex < 0 && document.activeElement !== last)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   function open() {
     if (isOpen()) return;
     ending.classList.add('is-joining');
     openBtn?.setAttribute('aria-expanded', 'true');
-    copy.forEach(el => { el.inert = true; });
+    modal(true);
     // Bring the whole sheet into view on short screens, then hand focus over without a second jump.
     const sheet = box.getBoundingClientRect();
     const top = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header')) || 64) + 12;
@@ -55,7 +88,7 @@
     clearTimeout(focusTimer);
     ending.classList.remove('is-joining');
     openBtn?.setAttribute('aria-expanded', 'false');
-    copy.forEach(el => { el.inert = false; });
+    modal(false);
     openBtn?.focus({ preventScroll: true });
     // On small screens the sheet is taller than the lake; come back up to the headline.
     if (ending.getBoundingClientRect().top < -4) IH.scrollTo?.(ending, { offset: 0 });
@@ -120,6 +153,7 @@
   function finish(email) {
     doneText.textContent = email ? doneText.dataset.template.replace('%email%', email) : doneText.textContent;
     box.classList.add('is-done');
+    if (isOpen()) labelDialog();
     doneTitle?.focus({ preventScroll: true });
     const top = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header')) || 64) + 12;
     if (box.getBoundingClientRect().top < top - 1) IH.scrollTo?.(box, { offset: -top });
@@ -184,7 +218,7 @@
     history.replaceState(null, '', '#join');
     ending.classList.add('is-joining');
     openBtn?.setAttribute('aria-expanded', 'true');
-    copy.forEach(el => { el.inert = true; });
+    modal(true);
     if (m[1] === 'ok') finish();
     else fail(m[1] in say ? m[1] : 'fail', ['name', 'email', 'uses'].includes(m[1]) ? m[1] : null);
     addEventListener('load', () => setTimeout(() => IH.scrollTo?.(ending, { immediate: true, offset: 0 }), 0));

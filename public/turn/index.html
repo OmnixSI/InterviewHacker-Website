@@ -21,15 +21,15 @@
   <link rel="preload" href="./assets/fonts/display/ih-display.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="./assets/fonts/fonts.css?v=9d6ec9a9d623">
   <link rel="stylesheet" href="./assets/vendor/lenis.css?v=2f668ae84a66">
-  <link rel="stylesheet" href="./style.css?v=fa2ec3fe5c9b">
+  <link rel="stylesheet" href="./style.css?v=7b0b647259e0">
   <link rel="stylesheet" href="./styles/lines.css?v=1f4368b2add8">
   <link rel="stylesheet" href="./styles/sound.css?v=af6aae29054c">
-  <link rel="stylesheet" href="./styles/hero.css?v=b0693de200a3">
-  <link rel="stylesheet" href="./styles/gap.css?v=6dae7f6594d4">
-  <link rel="stylesheet" href="./styles/day.css?v=a3a6a1dfab2c">
-  <link rel="stylesheet" href="./styles/dusk.css?v=4424d80e4101">
-  <link rel="stylesheet" href="./styles/evening.css?v=6c6400d3f643">
-  <link rel="stylesheet" href="./styles/night.css?v=8de16d2a2282">
+  <link rel="stylesheet" href="./styles/hero.css?v=e12a406bd1b1">
+  <link rel="stylesheet" href="./styles/gap.css?v=5891ea32ab99">
+  <link rel="stylesheet" href="./styles/day.css?v=2b25fb5de91b">
+  <link rel="stylesheet" href="./styles/dusk.css?v=52e27272f8a1">
+  <link rel="stylesheet" href="./styles/evening.css?v=82e33477544d">
+  <link rel="stylesheet" href="./styles/night.css?v=bc3897751014">
   <link rel="stylesheet" href="./styles/cursor.css?v=a56376ac8e0a">
   <script src="./scripts/bootstrap.js?v=b4881cbdbc4b"></script>
 </head>
@@ -46,7 +46,6 @@
   </svg>
 
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <a class="gallery-back" href="/" target="_top">← 风格画廊</a>
 
   <!-- The two lines: one fixed canvas behind the whole page (scripts/lines.js). Static SVG is the no-script and no-canvas look. -->
   <div class="lines" data-lines-root aria-hidden="true">
@@ -60,12 +59,6 @@
       <span class="brand__name">InterviewHacker</span>
     </a>
     <p class="clock" data-clock aria-hidden="true"><span class="clock__day">周一</span><span class="clock__time" data-clock-time>08:59</span></p>
-    <nav class="masthead__nav" id="site-nav" aria-label="页面章节">
-      <a href="#gap"><i>01</i>一眨眼</a>
-      <a href="#day"><i>02</i>一天</a>
-      <a href="#privacy"><i>03</i>隐私</a>
-      <a href="#faq"><i>04</i>问答</a>
-    </nav>
     <div class="masthead__actions">
       <button class="sound-toggle" type="button" data-sound-toggle aria-pressed="false" aria-label="打开声音" data-label-on="关闭声音" data-label-off="打开声音"><span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="sound-toggle__text">声音</span></button>
       <div class="lang" data-lang>
@@ -79,6 +72,12 @@
       <a class="btn btn--ink btn--sm masthead__cta" href="#join">等待名单</a>
       <button class="icon-btn menu-btn" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="打开菜单" data-label-open="关闭菜单" data-label-closed="打开菜单"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
+    <nav class="masthead__nav" id="site-nav" aria-label="页面章节">
+      <a href="#gap"><i>01</i>一眨眼</a>
+      <a href="#day"><i>02</i>一天</a>
+      <a href="#privacy"><i>03</i>隐私</a>
+      <a href="#faq"><i>04</i>问答</a>
+    </nav>
   </header>
 
   <main id="main">
@@ -439,7 +438,7 @@
       </header>
       <p class="ev-zones">
         <span class="ev-zone"><svg class="ev-clock" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="18.5"/><path class="ev-clock__ticks" d="M20 3.5v3M36.5 20h-3M20 36.5v-3M3.5 20h3"/><path class="ev-clock__h" d="M20 20 12.2 24.5"/><path class="ev-clock__m" d="M20 20V7.5"/><circle class="ev-clock__pin" cx="20" cy="20" r="1.4"/></svg><span><span class="ev-zone__city">这里</span> <span class="mono">20:00</span></span></span>
-        <span class="ev-zones__gap" aria-hidden="true"><i></i><span class="mono">时差 7 小时</span><i></i></span>
+        <span class="ev-zones__gap" aria-hidden="true"><i></i><span class="mono">时差7小时</span><i></i></span>
         <span class="ev-zone ev-zone--day"><svg class="ev-clock" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="18.5"/><path class="ev-clock__ticks" d="M20 3.5v3M36.5 20h-3M20 36.5v-3M3.5 20h3"/><path class="ev-clock__h" d="M20 20 24.5 12.2"/><path class="ev-clock__m" d="M20 20V7.5"/><circle class="ev-clock__pin" cx="20" cy="20" r="1.4"/></svg><span><span class="ev-zone__city">柏林</span> <span class="mono">13:00</span></span></span>
       </p>
 
@@ -480,7 +479,7 @@
 
       <div class="ev-vignette" data-ev-vignette>
         <section class="ev-raw" aria-labelledby="ev-raw-title">
-          <h3 class="t-label ev-raw__title" id="ev-raw-title">转写 · 11:00 二面 · 后端</h3>
+          <p class="t-label ev-raw__title" id="ev-raw-title">转写 · 11:00 二面 · 后端</p>
           <ol class="ev-raw__list">
             <li class="ev-raw__line" id="ev-m1" tabindex="-1" data-ev-raw="1"><span class="ev-raw__t">11:02</span><span class="ev-raw__x"><b class="ev-raw__who ev-raw__who--them">面试官</b>数据库和缓存同时更新，怎么保证一致性？</span></li>
             <li class="ev-raw__line" id="ev-m2" tabindex="-1" data-ev-raw="1"><span class="ev-raw__t">11:03</span><span class="ev-raw__x"><b class="ev-raw__who ev-raw__who--me">我</b>嗯……先更新数据库，再删缓存，删失败的进重试队列，binlog 兜底。</span></li>
@@ -493,7 +492,7 @@
         <section class="ev-sheet" aria-labelledby="ev-sheet-title" data-ev-sheet>
           <header class="ev-sheet__head">
             <h3 class="ev-sheet__title" id="ev-sheet-title">二面 · 后端</h3>
-            <p class="t-label">纪要 · 10 月 26 日</p>
+            <p class="t-label">纪要 · 10月26日</p>
           </header>
           <ol class="ev-note">
             <li class="ev-item" data-ev-item="1">
@@ -514,7 +513,7 @@
             <li class="ev-item" data-ev-item="4">
               <a class="ev-ts" href="#ev-m5" data-ev-ts data-no-smooth style="anchor-name: --ev-ts-4" aria-label="11:52，回到原话">11:52</a>
               <span class="ev-tip" style="position-anchor: --ev-ts-4" aria-hidden="true">回到原话</span>
-              <p class="ev-item__x"><b class="ev-k">小作业</b><span class="ev-date" data-ev-date>10 月 29 日（周四）</span>交付<span class="ev-tag ev-tag--ask" data-ev-tag>待确认</span></p>
+              <p class="ev-item__x"><b class="ev-k">小作业</b><span class="ev-date" data-ev-date>10月29日（周四）</span>交付<span class="ev-tag ev-tag--ask" data-ev-tag>待确认</span></p>
             </li>
           </ol>
           <footer class="ev-sheet__foot" data-ev-foot>
@@ -574,7 +573,7 @@
       <li class="principle">
         <span class="principle__n" aria-hidden="true">iii.</span>
         <h3 class="principle__title">交给谁，你说了算。</h3>
-        <p class="principle__body">写回答、整理纪要要用到的文字，只交给你自己选的服务。</p>
+        <p class="principle__body">写回答、整理纪要要用到的<span class="nw">文字</span>，只交给你自己选的服务。</p>
       </li>
     </ol>
 
@@ -609,7 +608,7 @@
       </details>
       <details class="qa">
         <summary class="qa__q"><span class="qa__n" aria-hidden="true">05</span><span class="qa__text">不想被打扰，只想要一份纪要？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
-        <div class="qa__a"><p>点“立即记录”。开会时它安静地记，散会后，纪要就在那一页上。</p></div>
+        <div class="qa__a"><p>点<span class="ui-key">立即记录</span>。开会时它安静地记，散会后，纪要就在那一页上。</p></div>
       </details>
       <details class="qa">
         <summary class="qa__q"><span class="qa__n" aria-hidden="true">06</span><span class="qa__text">什么时候可以用？</span><span class="qa__icon" aria-hidden="true"><i></i><i></i></span></summary>
@@ -641,7 +640,7 @@
         <form class="waitlist__form" action="/api/waitlist" method="post" aria-labelledby="waitlist-title" data-waitlist-form>
           <button class="waitlist__close" type="button" aria-label="关闭" data-waitlist-close data-needs-js><i></i><i></i></button>
           <header class="waitlist__head">
-            <p class="waitlist__kicker mono">InterviewHacker 2.0 · 等待名单</p>
+            <p class="waitlist__kicker mono"><span>InterviewHacker 2.0</span> <span>· 等待名单</span></p>
             <h3 class="waitlist__title" id="waitlist-title" tabindex="-1">加入等待名单</h3>
             <p class="waitlist__lead">开放时，我们会第一时间写信给你。</p>
           </header>
@@ -693,8 +692,8 @@
         <div class="waitlist__done" data-waitlist-done data-needs-js>
           <svg class="waitlist__tick" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="30"/><path d="m20 33 8.5 8.5L45 24"/></svg>
           <p class="waitlist__kicker mono">周二 · 00:00</p>
-          <h3 class="waitlist__title" tabindex="-1" data-waitlist-done-title>已加入名单。</h3>
-          <p class="waitlist__lead" data-waitlist-done-text data-template="开放时，我们会写信到 %email%。">开放时，我们会写信给你。</p>
+          <h3 class="waitlist__title" id="waitlist-done-title" tabindex="-1" data-waitlist-done-title>已加入名单。</h3>
+          <p class="waitlist__lead" id="waitlist-done-text" data-waitlist-done-text data-template="开放时，我们会写信到 %email%。">开放时，我们会写信给你。</p>
           <button class="btn btn--ghost waitlist__back" type="button" data-waitlist-close>好的</button>
         </div>
       </div>
@@ -708,6 +707,8 @@
 </section>
   </main>
 
+  <a class="gallery-back" href="/" target="_top">← 风格画廊</a>
+
   <script src="./assets/vendor/gsap.min.js?v=92bb9a96476f"></script>
   <script src="./assets/vendor/ScrollTrigger.min.js?v=b0b14d67b55b"></script>
   <script src="./assets/vendor/SplitText.min.js?v=419f7027a5f0"></script>
@@ -715,16 +716,16 @@
   <script src="./assets/vendor/CustomEase.min.js?v=466e426a5c60"></script>
   <script src="./assets/vendor/Flip.min.js?v=cbe3ca726350"></script>
   <script src="./assets/vendor/lenis.min.js?v=07020831fc52"></script>
-  <script src="./scripts/core.js?v=8e494b25b446"></script>
+  <script src="./scripts/core.js?v=0775a5b602bd"></script>
   <script src="./scripts/sound.js?v=0d43590a60ae"></script>
-  <script src="./scripts/lines.js?v=ff1b988c2fc4"></script>
+  <script src="./scripts/lines.js?v=b95c00e1cb5c"></script>
   <script src="./scripts/cursor.js?v=6052c64a1dbc"></script>
-  <script src="./scripts/hero.js?v=8eb99ce5e69f"></script>
-  <script src="./scripts/gap.js?v=81f1d6563cfb"></script>
-  <script src="./scripts/day.js?v=a0a0d555562c"></script>
-  <script src="./scripts/dusk.js?v=ac8ec432bc57"></script>
+  <script src="./scripts/hero.js?v=26d6c00be378"></script>
+  <script src="./scripts/gap.js?v=d20879b3bbd2"></script>
+  <script src="./scripts/day.js?v=927637933417"></script>
+  <script src="./scripts/dusk.js?v=cdd59347fbc5"></script>
   <script src="./scripts/evening.js?v=47c64ce6113e"></script>
   <script src="./scripts/night.js?v=fda9af8553c5"></script>
-  <script src="./scripts/waitlist.js?v=f61485da1a02"></script>
+  <script src="./scripts/waitlist.js?v=c101de96a7c7"></script>
 </body>
 </html>

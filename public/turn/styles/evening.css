@@ -179,10 +179,16 @@
   .ev-zones__gap i { width: 10px; }
   .ev-clock { width: 28px; height: 28px; }
   .ev-quote { font-size: calc(var(--t-quote) * 1.02); }
-  .ev-seg__btn { min-height: 44px; }
+  .ev-seg__btn { min-height: 44px; min-width: 84px; }
   .ev-raw__line { grid-template-columns: 1fr; gap: 2px; }
   .ev-item { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
   .ev-ts { margin-top: 0; }
   .ev-sheet { padding: 20px 18px; margin-inline: calc(var(--gutter) * -.4); }
   .ev-item__x { font-size: 15px; }
+}
+
+/* Touch: every control is at least 44px tall (the toggle and the timestamps). */
+@media (pointer: coarse), (max-width: 820px) {
+  .ev-seg__btn { min-height: 44px; }
+  .ev-ts { min-height: 44px; margin-block: -8px; }
 }

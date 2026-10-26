@@ -102,7 +102,6 @@ ol, ul { padding: 0; list-style: none; }
 /* The other side */
 .t-quote, .voice-them {
   font-family: var(--f-them); font-weight: 500; color: var(--them-ink);
-  font-feature-settings: "palt" 1;
 }
 .t-quote { font-size: var(--t-quote); line-height: 1.28; letter-spacing: .005em; text-wrap: balance; }
 :lang(en) .t-quote, :lang(en) .voice-them, .voice-them:lang(en) { font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.005em; }
@@ -160,10 +159,14 @@ ol, ul { padding: 0; list-style: none; }
 }
 .masthead::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(var(--paper) 30%, color-mix(in srgb, var(--paper) 0%, transparent));
+  /* Solid where the header's text sits; only the last 14px feathers into the page, so nothing reads through. */
+  background: linear-gradient(var(--paper) calc(100% - 14px), color-mix(in srgb, var(--paper) 0%, transparent));
+  bottom: -14px;
   opacity: 0; transition: opacity var(--d-ui) var(--e-settle);
 }
-.masthead.is-scrolled::before { opacity: .94; }
+.masthead.is-scrolled::before { opacity: 1; }
+/* The palette changes continuously with scroll; colour transitions here would trail it. Header motion is transform/opacity only. */
+.masthead, .masthead * { transition-property: transform, opacity !important; }
 .brand { display: inline-flex; align-items: center; gap: 10px; justify-self: start; font: 600 15px/1 var(--f-sans); letter-spacing: -.01em; }
 .brand__mark { width: 26px; height: 26px; color: var(--me); }
 .clock { display: inline-flex; align-items: baseline; gap: 10px; font: 500 13px/1 var(--f-mono); color: var(--ink); justify-self: center; }
@@ -175,7 +178,7 @@ ol, ul { padding: 0; list-style: none; }
 .clock__colon { display: inline-block; width: .4em; text-align: center; animation: ih-colon 2s steps(1) infinite; }
 @keyframes ih-colon { 50% { opacity: .25; } }
 .masthead__nav { display: none; }
-.masthead__actions { display: inline-flex; align-items: center; gap: 6px; justify-self: end; }
+.masthead__actions { display: inline-flex; align-items: center; gap: 6px; justify-self: end; grid-row: 1; grid-column: -2; }
 .masthead__nav a { display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 10px; border-radius: 8px; font-size: 13.5px; color: var(--ink-2); transition: color var(--d-ui); }
 .masthead__nav a i { font: italic 400 14px/1 var(--f-serif); color: var(--muted); }
 .masthead__nav a:hover { color: var(--ink); }
@@ -201,7 +204,7 @@ ol, ul { padding: 0; list-style: none; }
 .menu-btn { display: inline-grid; }
 @media (min-width: 1080px) {
   .masthead { grid-template-columns: auto 1fr auto; }
-  .masthead__nav { display: inline-flex; gap: 2px; justify-self: center; }
+  .masthead__nav { display: inline-flex; gap: 2px; justify-self: center; grid-row: 1; grid-column: 3; }
   .clock { justify-self: start; margin-left: 28px; padding-left: 20px; border-left: 1px solid var(--line-2); }
   .masthead { grid-template-columns: auto auto 1fr auto; }
   .menu-btn { display: none; }

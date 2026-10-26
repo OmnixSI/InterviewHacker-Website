@@ -34,18 +34,27 @@
     fin.forEach((ch, i) => {
       if (ch === draft[i]) { run += ch; return; }
       if (run) { word.append(run); run = ''; }
+      // The final glyph is the cell's only text; the misheard one is drawn by CSS (::before, content from data-d),
+      // so textContent, copy, find-in-page and the outline read the real headline at every moment.
       const cell = document.createElement('span');
       cell.className = 'hw';
-      const f = document.createElement('span'); f.className = 'hw__f'; f.textContent = ch;
-      const d = document.createElement('span'); d.className = 'hw__d'; d.textContent = draft[i]; d.setAttribute('aria-hidden', 'true');
-      cell.append(f, d);
+      cell.dataset.d = draft[i];
+      cell.textContent = ch;
       word.append(cell);
       wrong.push(cell);
     });
     if (run) word.append(run);
-    // Start as the draft: the misheard glyph shows, the final one waits (the real text stays in the DOM).
+    // Start as the draft: the misheard glyph shows, the final one waits.
     word.classList.add('is-draft');
-    gsap.set(wrong.map(c => c.firstChild), { opacity: 0 });
+    gsap.set(wrong, { '--f-o': 0, '--d-o': 1 });
+  }
+  // After the correction: plain text again, exactly the markup's original.
+  function unwrapDraft() {
+    if (!word) return;
+    wrong.forEach(c => c.replaceWith(c.textContent));
+    wrong = [];
+    word.normalize();
+    word.classList.remove('is-draft');
   }
 
   /* ---------- Entrance ---------- */
@@ -81,12 +90,12 @@
       .from(lines, { yPercent: 108, duration: .72, ease, stagger: .07 }, .06)
       .from(foot, { opacity: 0, y: 10, duration: .6, ease, stagger: .06 }, .3);
     if (wrong.length) {
-      const F = wrong.map(c => c.firstChild), D = wrong.map(c => c.lastChild);
       tl.to(wrong, { '--strike': 1, duration: .16, ease: IH.ease.change }, .5)
-        .to(D, { opacity: 0, yPercent: -30, duration: .22, ease: IH.ease.change }, .66)
-        .fromTo(F, { opacity: 0, yPercent: 30 }, { opacity: 1, yPercent: 0, duration: .4, ease }, .7)
+        .to(wrong, { '--d-o': 0, '--d-y': -.3, duration: .22, ease: IH.ease.change }, .66)
+        .to(wrong, { '--f-o': 1, duration: .32, ease }, .7)
         .to(wrong, { '--strike': 0, duration: .01 }, .72)
-        .call(() => word.classList.remove('is-draft'), null, .72);
+        .call(() => word.classList.remove('is-draft'), null, .72)
+        .call(unwrapDraft, null, 1.05);
     }
     // "your turn." — a turn starts: the indigo string answers.
     tl.call(() => IH.emit('turn', { who: 'me' }), null, .7)
@@ -110,6 +119,24 @@
       gsap.set($$('[data-hero-drift]'), { clearProps: 'transform,opacity' });
     }
   }
+
+  /* ---------- The string labels leave with the hero ----------
+     The canvas strings slow to a stop near the top of the screen as the hero leaves; the labels and the note are
+     ordinary content, so they fade out before they reach the header instead of sitting under it. */
+  const slot = $('[data-lines-slot]');
+  let slotFade = -1;
+  function fadeSlot() {
+    if (!slot) return;
+    const r = slot.getBoundingClientRect(), top = r.top - 64;
+    const o = Math.max(0, Math.min(1, (top - innerHeight * .06) / (innerHeight * .16)));
+    const q = Math.round(o * 50) / 50;
+    if (q === slotFade) return;
+    slotFade = q;
+    slot.style.opacity = q === 1 ? '' : q;
+    slot.style.visibility = q === 0 ? 'hidden' : '';
+  }
+  IH.on('tick', fadeSlot);
+  fadeSlot();
 
   /* ---------- Pointer hint ---------- */
   function hintLater() {

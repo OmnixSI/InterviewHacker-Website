@@ -93,8 +93,6 @@
   function split(el) {
     if (el._dw) return el._dw;
     const lang = langOf(el);
-    // Display lines (quotes) break between phrases; running text (answers) between words, like ordinary text.
-    const phrased = el.closest('[data-quote]') != null;
     // Authored phrases (span.nw, unbreakable without script) become break points.
     el.querySelectorAll('.nw').forEach(n => { n.before(document.createElement('wbr')); n.replaceWith(...n.childNodes); });
     el.normalize();
@@ -117,7 +115,8 @@
       }
     }
     const keepLast = (gs, n) => { if (gs.length > 1 && gs[gs.length - 1].reduce((k, i) => k + coreLen(words[i]), 0) <= n) gs[gs.length - 2].push(...gs.pop()); return gs; };
-    const groups = lang === 'zh' && phrased ? phrasesZh(words, authored)
+    // zh: always phrase groups, so a word (联调, 运维, 屏幕) is never split across lines.
+    const groups = lang === 'zh' ? phrasesZh(words, authored)
       : keepLast(words.map((w, i) => [i]), lang === 'zh' ? 3 : 12);
     const units = [];
     const frag = document.createDocumentFragment();
@@ -166,7 +165,7 @@
     const tl = gsap.timeline();
     const chars = units.reduce((n, u) => n + lenOf(u), 0) || 1;
     // A spoken line, compressed: about 70 ms a character (zh) or 26 ms a letter (en), 0.7–1.5 s in all.
-    const total = Math.min(1.5, Math.max(0.7, chars * (lang === 'zh' ? 0.07 : 0.026)));
+    const total = Math.min(0.55, Math.max(0.36, chars * (lang === 'zh' ? 0.045 : 0.017)));
     let t = 0;
     tl.call(() => IH.emit('turn', { who: 'them' }), null, 0);
     units.forEach((u, i) => {
@@ -178,7 +177,7 @@
         gsap.to(ul, { ...to, duration: i === 0 ? 0.22 : 0.16, ease: CHANGE, overwrite: true });
         IH.emit('voice', { who: 'them', level: 0.4 + 0.45 * Math.min(1, lenOf(u) / 4), ms: Math.round(d * 1000) });
       }, null, t);
-      tl.to(u, { opacity: 1, duration: 0.26, ease: SETTLE }, t);
+      tl.to(u, { opacity: 1, duration: 0.2, ease: SETTLE }, t);
       t += d;
     });
     tl.call(() => gsap.to(ul, { opacity: 0, duration: 0.32, ease: CHANGE, overwrite: true }), null, t + 0.06);
@@ -191,11 +190,13 @@
     const units = split(el);
     const tl = gsap.timeline();
     if (emitTurn) tl.call(() => IH.emit('turn', { who: 'me' }), null, 0);
-    tl.fromTo(units, { opacity: 0, y: '0.4em' }, { opacity: 1, y: 0, duration: 0.52, ease: SETTLE, stagger: 0.04 }, 0);
+    // 40 ms a word, but a long answer never takes more than ~0.36 s to start its last word.
+    const each = Math.min(0.04, 0.36 / Math.max(1, units.length - 1));
+    tl.fromTo(units, { opacity: 0, y: '0.4em' }, { opacity: 1, y: 0, duration: 0.42, ease: SETTLE, stagger: each }, 0);
     units.forEach((u, i) => tl.call(() => {
       IH.emit('voice', { who: 'me', level: 0.35 + 0.4 * Math.min(1, lenOf(u) / 5), ms: 120 });
       sound('word');
-    }, null, i * 0.04));
+    }, null, i * each));
     return tl;
   }
   /** Old words sink and fade (160 ms), the new ones rise. The slot's height eases between the two. */
@@ -440,13 +441,13 @@
     const qUnits = split(quote);
     const aUnits = split(ans);
     const cite = el.querySelector('.cite');
-    gsap.set(qUnits, { opacity: 0.16 });
+    gsap.set(qUnits, { opacity: 0.55 }); // readable before it is spoken
     gsap.set(aUnits, { opacity: 0, y: '0.4em' });
-    if (room.length) gsap.set(room, { opacity: 0, y: 8 });
+    if (room.length) gsap.set(room, { opacity: 0.35, y: 6 });
     let seriesParts = null;
     if (series) {
       seriesParts = { tabs: series.querySelectorAll('.series__tab'), paths: series.querySelectorAll('path') };
-      gsap.set(seriesParts.tabs, { opacity: 0, y: 8 });
+      gsap.set(seriesParts.tabs, { opacity: 0.35, y: 6 });
       if (canDraw) gsap.set(seriesParts.paths, { drawSVG: '0%' });
     }
     if (cite) el.classList.add('cite-pending');
@@ -463,24 +464,25 @@
       }
     };
     pending.add(item);
-    onEnter(first, 'top 80%', () => {
-      if (!pending.has(item)) return;
+    const play = () => {
+      if (!pending.has(item) || tl) return;
       tl = gsap.timeline({ onComplete: () => pending.delete(item) });
+      // ≈1.2 s from trigger to the last answer word starting: room / series 0.3 s, quote ≤ 0.55 s, 200 ms gap.
       let t = 0;
       if (room.length) {
         room.forEach((r, i) => {
-          tl.call(() => { room.forEach(x => x.classList.toggle('is-now', x === r)); IH.emit('voice', { who: 'them', level: 0.18, ms: 320 }); }, null, t);
-          tl.to(r, { opacity: 1, y: 0, duration: 0.42, ease: SETTLE }, t);
-          t += 0.36;
+          tl.call(() => { room.forEach(x => x.classList.toggle('is-now', x === r)); IH.emit('voice', { who: 'them', level: 0.18, ms: 120 }); }, null, t);
+          tl.to(r, { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t);
+          t += 0.1;
         });
-        tl.call(() => room.forEach(x => x.classList.remove('is-now')), null, t + 0.1);
-        t += 0.22;
+        tl.call(() => room.forEach(x => x.classList.remove('is-now')), null, t + 0.12);
+        t += 0.1;
       }
       if (seriesParts) {
-        tl.to(seriesParts.tabs[0], { opacity: 1, y: 0, duration: 0.42, ease: SETTLE }, t);
-        if (canDraw) tl.to(seriesParts.paths, { drawSVG: '100%', duration: 0.34, ease: CHANGE, stagger: 0.3 }, t + 0.18);
-        tl.to(seriesParts.tabs[1], { opacity: 1, y: 0, duration: 0.42, ease: SETTLE }, t + 0.62);
-        t += 0.9;
+        tl.to(seriesParts.tabs[0], { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t);
+        if (canDraw) tl.to(seriesParts.paths, { drawSVG: '100%', duration: 0.2, ease: CHANGE, stagger: 0.14 }, t + 0.06);
+        tl.to(seriesParts.tabs[1], { opacity: 1, y: 0, duration: 0.3, ease: SETTLE }, t + 0.24);
+        t += 0.3;
       }
       tl.call(() => ans.classList.add('is-listening'), null, t);
       const sp = speak(quote);
@@ -490,10 +492,22 @@
       const recording = s.kind === 'standup' && el.classList.contains('is-record');
       if (!recording) tl.add(surface(ans), t);
       else gsap.set(aUnits, { opacity: 1, y: 0 });
-      if (cite) tl.call(() => el.classList.remove('cite-pending'), null, t + aUnits.length * 0.04 + 0.3);
-    });
+      if (cite) tl.call(() => el.classList.remove('cite-pending'), null, t + 0.5);
+    };
+    const grid = el.querySelector('.scene__grid') || el;
+    if (ST) {
+      // Plays once the scene is about a quarter into the viewport. Scrolled past fast (or past it entirely): complete at once.
+      ST.create({
+        trigger: grid, start: 'top 75%', end: 'bottom top',
+        onEnter: self => { if (Math.abs(self.getVelocity()) > 3200) item.finish(); else play(); },
+        onLeave: () => { if (pending.has(item)) item.finish(); },
+        onEnterBack: () => { if (pending.has(item)) item.finish(); }
+      });
+    } else onEnter(grid, 'top 75%', play);
   }
   if (hasGsap && IH.motionOK()) scenes.forEach(sequence);
+  // Chinese body copy: the same phrase grouping keeps words whole at the line end (word-break: auto-phrase is Japanese-only).
+  if (IH.lang === 'zh') section.querySelectorAll('.scene__body, .day__lead').forEach(split);
 
   // Motion paused or reduced: whatever is waiting appears at once, whatever is running jumps to its end.
   IH.on('motion', () => { if (reduceNow()) [...pending].forEach(p => p.finish()); });

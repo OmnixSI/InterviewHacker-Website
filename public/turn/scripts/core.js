@@ -71,7 +71,15 @@
   IH.scrollTo = (target, opts = {}) => {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     const offset = opts.offset ?? -8;
-    if (lenis) { lenis.scrollTo(el ?? target, { offset, duration: opts.duration ?? 1.4, easing: t => 1 - Math.pow(1 - t, 4), immediate: !!opts.immediate }); return; }
+    if (opts.immediate) {
+      // Jumps go through the native scroll first, so a stale smooth-scroll limit can't clamp them.
+      const y = typeof target === 'number' ? target : (el ? el.getBoundingClientRect().top + scrollY + offset : 0);
+      lenis?.resize?.();
+      scrollTo({ top: y, behavior: 'auto' });
+      lenis?.scrollTo(y, { immediate: true, force: true });
+      return;
+    }
+    if (lenis) { lenis.scrollTo(el ?? target, { offset, duration: opts.duration ?? 1.4, easing: t => 1 - Math.pow(1 - t, 4) }); return; }
     const y = typeof target === 'number' ? target : (el ? el.getBoundingClientRect().top + scrollY + offset : 0);
     scrollTo({ top: y, behavior: IH.reduced || opts.immediate ? 'auto' : 'smooth' });
   };
@@ -113,10 +121,24 @@
   document.addEventListener('click', e => { if (lang && !lang.contains(e.target)) setLang(false); });
   addEventListener('keydown', e => { if (e.key === 'Escape') { setLang(false); closeMenu(); } });
   // Switching language keeps the reader in the same part of the day.
-  lang?.querySelectorAll('[data-lang-switch]').forEach(a => a.addEventListener('click', () => {
-    const cur = state.sectionEl?.closest('[id]')?.id;
-    if (cur) a.href = a.getAttribute('href').split('#')[0] + '#' + cur;
-  }));
+  const boxOf = sec => (sec.parentElement?.classList.contains('pin-spacer') ? sec.parentElement : sec);
+  function currentSection() {
+    const secs = [...document.querySelectorAll('main > section[id]')];
+    const y = scrollY + innerHeight * 0.35;
+    let cur = secs[0];
+    for (const sec of secs) if (boxOf(sec).getBoundingClientRect().top + scrollY <= y) cur = sec;
+    return cur;
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-lang-switch]');
+    if (!a) return;
+    const sec = currentSection();
+    if (!sec) return;
+    const box = boxOf(sec), top = box.getBoundingClientRect().top + scrollY;
+    const p = Math.max(0, Math.min(1, (scrollY - top) / Math.max(1, box.offsetHeight)));
+    try { sessionStorage.setItem('ih-turn-pos', JSON.stringify({ id: sec.id, p })); } catch (err) { /* ignore */ }
+    a.href = a.getAttribute('href').split('#')[0] + '#' + sec.id;
+  }, true);
 
   /* ---------------- Colour: OKLab blending ---------------- */
   const hex2rgb = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
@@ -151,10 +173,22 @@
   };
   const KEYS = ['paper', 'paper2', 'ink', 'ink2', 'muted', 'them', 'themInk', 'me', 'meInk'];
   const CSSVAR = { paper: '--paper', paper2: '--paper-2', ink: '--ink', ink2: '--ink-2', muted: '--muted', them: '--them', themInk: '--them-ink', me: '--me', meInk: '--me-ink' };
+  // Light → dark passes through a sunset (peach, then dusky rose) instead of grey; dark → light reverses it.
+  const SUNSET = [[0, null], [0.38, '#e9c4a2'], [0.72, '#6a4752'], [1, null]];
+  function paperPath(a, b, t, key) {
+    const down = IH.lightness(a) > IH.lightness(b);
+    const stops = SUNSET.map(([at, c]) => [at, c && key === 'paper2' ? IH.mix(c, down ? b : a, 0.18) : c]);
+    const pts = stops.map(([at, c], i) => [at, c ?? (i === 0 ? (down ? a : b) : (down ? b : a))]);
+    const u = down ? t : 1 - t;
+    let i = 0; while (i < pts.length - 2 && u > pts[i + 1][0]) i++;
+    const [u0, c0] = pts[i], [u1, c1] = pts[i + 1];
+    return IH.mix(c0, c1, (u - u0) / (u1 - u0));
+  }
   function blend(p, q, t) {
     if (t <= 0) return { ...p }; if (t >= 1) return { ...q };
     const out = {};
-    for (const k of KEYS) out[k] = IH.mix(p[k], q[k], t);
+    const crossing = (IH.lightness(p.paper) > 0.6) !== (IH.lightness(q.paper) > 0.6);
+    for (const k of KEYS) out[k] = crossing && (k === 'paper' || k === 'paper2') ? paperPath(p[k], q[k], t, k) : IH.mix(p[k], q[k], t);
     // Text flips cleanly instead of fading through grey: it follows which side of mid-lightness the paper is on.
     const lp = IH.lightness(p.paper), lq = IH.lightness(q.paper);
     if ((lp > 0.6) !== (lq > 0.6)) {
@@ -290,9 +324,23 @@
   // Fonts change line breaks; re-measure everything once they land.
   document.fonts?.ready.then(() => { if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh(); else measure(); });
   addEventListener('load', () => { if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh(); else measure(); });
-  // Arriving with a hash (e.g. after switching language): jump there once layout has settled.
+  // Arriving with a hash (e.g. after switching language): go back to the same place once fonts and pins have settled.
   if (location.hash.length > 1) {
-    const el = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    if (el) addEventListener('load', () => IH.scrollTo(el, { immediate: true }));
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = document.getElementById(id);
+    let saved = null;
+    try { saved = JSON.parse(sessionStorage.getItem('ih-turn-pos') || 'null'); sessionStorage.removeItem('ih-turn-pos'); } catch (e) { /* ignore */ }
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const go = () => {
+      if (!el) return;
+      if (saved && saved.id === id && el.matches('main > section')) {
+        const box = boxOf(el), top = box.getBoundingClientRect().top + scrollY;
+        IH.scrollTo(top + saved.p * box.offsetHeight, { immediate: true });
+      } else IH.scrollTo(el, { immediate: true });
+    };
+    addEventListener('load', () => Promise.resolve(document.fonts?.ready).then(() => requestAnimationFrame(() => {
+      if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh();
+      go(); setTimeout(go, 250);
+    })));
   }
 })();

@@ -46,7 +46,8 @@
   }
   function turnWindow() {
     const H = innerHeight, top = docTop(section);
-    if (mode === 'pinned') return { top, start: top - 0.2 * H, end: top + 0.8 * H };
+    // Pinned: 0.8 screen, starting once the day's last lines have left the top of the screen.
+    if (mode === 'pinned') return { top, start: top - 0.2 * H, end: top + 0.6 * H };
     // Static: the colour turns while the sunset alone fills the screen — from its top reaching the middle of the
     // screen until just before the title comes up from the bottom edge.
     const airH = air.offsetHeight || H;
@@ -93,7 +94,7 @@
   }
 
   /* ---------------- Pinned ---------------- */
-  const SLOW = 1.6; // the text moves at 1 / SLOW of the page
+  const SLOW = 1.1; // the text moves at 1 / SLOW of the page
   const sets = new Map();
   const setter = (el, prop, unit) => {
     const key = el; let m = sets.get(key);
@@ -124,21 +125,21 @@
     const e = end.getBoundingClientRect();
     M.endH = e.height;
     M.endLines = endLines.map(l => { const r = l.getBoundingClientRect(); return { el: l, mid: r.top - e.top + r.height / 2 }; });
-    const colH = col.offsetHeight, last = M.lines[M.lines.length - 1];
-    M.colY0 = H + 12;
-    M.colY1 = H * 0.05 - last.mid;
-    M.endFollow = colH + gap * 1.5;
-    M.endRest = Math.max(H * 0.16, M.hz - sun * 0.72 - M.endH / 2);
-    M.u0 = 0.6 * H; // the title starts to rise once the paper is past its turn (see turnWindow)
+    const colH = col.offsetHeight;
+    // The title waits just below the fold and starts to rise as the sun lands (the paper is dark by then).
+    M.colY0 = H * 0.92;
+    M.endFollow = colH + gap * 1.2;
+    // The last line comes to rest on the horizon, where the sun went down.
+    M.endRest = Math.max(H * 0.2, M.hz - M.endH - Math.max(22, H * 0.03));
+    M.u0 = 0.35 * H;
     const uAt = colY => M.u0 + (M.colY0 - colY) * SLOW;
-    M.uColEnd = uAt(M.colY1);
     M.uEndIn = uAt(H - M.endFollow);
-    M.uSet = uAt(M.hz + 24 - M.endFollow);
     M.uRest = uAt(M.endRest - M.endFollow);
     // The sun comes down exactly while the paper turns: core.js blends over the last 38% of [before, dusk].
     const top = docTop(section), b0 = anchorBefore(), b1 = anchorDusk(), bs = b0 + (b1 - b0) * HOLD;
     M.turnStart = bs - top; M.turnLen = Math.max(1, b1 - bs);
-    M.pin = Math.max(M.uColEnd, M.uRest) + 0.4 * H;
+    // A short hold once it has landed; then the page moves on. No empty screen after it.
+    M.pin = M.uRest + 0.12 * H;
     section.style.height = Math.round(M.pin + H) + 'px';
     M.ready = true;
     crossed = M.lines.map(() => false);
@@ -151,7 +152,9 @@
     // 1. The turn: same window and curve as core.js's colour blend.
     const a = smooth((u - M.turnStart) / M.turnLen);
     // 2. The column rises slower than the page.
-    const colY = M.colY0 - clamp(u - M.u0, 0, M.uColEnd - M.u0) / SLOW;
+    const colY = M.colY0 - clamp(u - M.u0, 0, M.pin - M.u0) / SLOW;
+    // Nothing shows before the title starts to move (the paper may still be turning).
+    const gate = c01((u - M.u0 + 0.12 * H) / (0.12 * H));
     // 3. The closing line follows the column and rests above where the sun was; the sun sets ahead of it.
     const endY = Math.max(M.endRest, colY + M.endFollow);
     const s = smooth((H - endY) / Math.max(1, H - hz - 24));
@@ -180,7 +183,7 @@
       const bell = Math.exp(-(d / fall) * (d / fall)) * (1 - sink);
       const k = smooth(Math.min((1 - sy) / 0.16, (sy - 0.07) / 0.2));
       setter(L.el, 'x', 'px')(L.side * L.amp * bell);
-      setter(L.el, 'opacity')(k);
+      setter(L.el, 'opacity')(k * gate);
       setter(L.el, 'scale')(sy > 0.5 ? 0.955 + 0.045 * k : 0.975 + 0.025 * k);
       // A quoted line crossing the horizon on the way up: a small ripple runs along the other side's string.
       const above = y < hz;

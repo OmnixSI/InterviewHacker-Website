@@ -99,6 +99,23 @@
   background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--them) 50%, transparent) 20%, var(--them) 50%, color-mix(in oklab, var(--them) 50%, transparent) 80%, transparent);
 }
 
+/* Still picture (phones, reduced motion, no script): the sky itself is lit. A warm wash rises to the horizon and
+   dims into violet below it, so the picture is a sunset whatever the paper is doing behind it; it fades out at its
+   top and bottom edges into the paper. */
+.dusk:not(.is-pinned) .dusk__air::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--me) 7%, transparent) calc(var(--hz) * .35),
+    color-mix(in oklab, var(--them) 16%, transparent) calc(var(--hz) * .75),
+    color-mix(in oklab, var(--them) 34%, transparent) var(--hz),
+    color-mix(in oklab, var(--them) 12%, transparent) calc(var(--hz) + 6%),
+    color-mix(in oklab, var(--me) 9%, transparent) calc(var(--hz) + 20%),
+    transparent 100%);
+}
+.dusk:not(.is-pinned) .dusk__band { opacity: 1; height: min(70%, 640px); top: calc(var(--hz) - min(70%, 640px)); }
+.dusk:not(.is-pinned) .dusk__glow { inset: -80%; }
+
 /* ---------- The stanzas ---------- */
 .dusk__col {
   position: relative; z-index: 1;
@@ -144,7 +161,7 @@
 .dusk.is-pinned .dusk__horizon {
   left: 50%; right: auto; width: calc(var(--sun) * 2.2); margin-left: calc(var(--sun) * -1.1); opacity: .6;
 }
-.dusk.is-pinned .dusk__col { position: absolute; left: 0; right: 0; top: 0; padding: 0; gap: clamp(64px, 12vh, 132px); font-size: clamp(24px, 2.6vw, 40px); }
+.dusk.is-pinned .dusk__col { position: absolute; left: 0; right: 0; top: 0; padding: 0; gap: clamp(40px, 6vh, 72px); font-size: clamp(24px, 2.6vw, 40px); }
 :lang(en) .dusk.is-pinned .dusk__col { font-size: clamp(27px, 2.9vw, 44px); }
 .dusk.is-pinned .dusk__end { position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; padding: 0; }
 .dusk.is-pinned .dl { will-change: transform, opacity; }

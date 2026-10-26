@@ -110,10 +110,10 @@
 .gap-pinned .gap { padding-block: 0; --band-a: var(--gap-line-them, 53.5svh); --band-b: var(--gap-line-me, 59svh); }
 .gap-pinned .gap__pin { height: 100svh; }
 .gap-pinned .gap__stage { height: 100%; }
-.gap-pinned .gap__kicker { position: absolute; top: calc(var(--header) + clamp(12px, 2.4svh, 28px)); margin: 0; }
+.gap-pinned .gap__kicker { position: absolute; top: calc((var(--band-a) + var(--band-b)) / 2); transform: translateY(-50%); margin: 0; }  /* between the two strings */
 .gap-pinned .gap__beats {
   position: absolute; left: 0; right: 0; top: calc(var(--header) + clamp(40px, 7svh, 72px)); bottom: calc(100svh - var(--band-a) + clamp(28px, 4.6svh, 48px));
-  grid-template-rows: minmax(0, 1fr); align-items: end; row-gap: 0;
+  grid-template-rows: minmax(0, 1fr); align-items: center; row-gap: 0;
 }
 .gap-pinned .gap__beat { grid-row: 1; }
 .gap-pinned .tl { position: absolute; left: 0; right: 0; top: calc(var(--band-b) + clamp(26px, 4svh, 44px)); margin: 0; }
@@ -181,9 +181,12 @@
   .tl__name--ih { font-size: 10px; }
   .tl__tick b { display: none; }
   .tl__tick--m b { display: block; font-size: 9.5px; }
-  .tl__overlap b { font-size: 9.5px; right: auto; left: 0; white-space: normal; width: 13em; }
   .tl__tag, .tl__gap b, .tl__end b { font-size: 9.5px; }
   .tl__tag--surface { display: none; }
+  .tl { --name-w: 76px; }
+  .tl__gap b { left: auto; right: calc(100% + 5px); background: none; padding: 0; transform: translateY(-50%); }
+  .tl__tag--listen { --a: -1150 !important; }
+  .tl__overlap b { display: none; }
   .blink__head, .blink__screen, .blink__foot { grid-column: 1 / -1; }
   .blink__screen { grid-template-columns: 1fr; }
   .blink__btn { flex: 1 1 100%; }
