@@ -1,4 +1,104 @@
-<!-- OWNER: hero agent. № 01 The blink (09:00). -->
-<section class="gap section" id="gap" data-time="09:00" data-palette="morning" data-lines="gap" aria-labelledby="gap-title">
-  <div class="wrap"><h2 class="t-h2" id="gap-title">{{ 两百毫秒 ‖ Two hundred milliseconds }}</h2></div>
+<!-- OWNER: hero agent. № 01 The blink (09:00).
+     Five beats over one timing diagram. Wide screens pin the stage and scroll scrubs the beats (scripts/gap.js); everywhere
+     else (and without script) the beats read in order and the diagram shows its final state.
+     Diagram positions are times in ms on a fixed axis (−1600 → 1200): --a start, --b end; 0 = the moment they stop. -->
+<section class="gap section" id="gap" data-time="09:00" data-palette="morning" data-lines="gap" aria-labelledby="gap-title" data-gap>
+  <div class="gap__pin" data-gap-pin>
+    <div class="gap__stage wrap">
+      <p class="kicker gap__kicker"><b>№ 01</b><span>{{ 一眨眼 ‖ The blink }}</span></p>
+
+      <div class="gap__beats" data-gap-beats>
+        <div class="gap__beat gap__beat--a" data-beat="a">
+          <p class="gap__who t-label"><i class="gap__dot gap__dot--them" aria-hidden="true"></i>{{ 对方 · 面试官 ‖ Them · the interviewer }}</p>
+          <blockquote class="t-quote gap__quote"><p><span class="gap__q" aria-hidden="true">“</span>{{ <span class="gap__w">那你</span><span class="gap__w">为什么</span><span class="gap__w">想离开</span><span class="gap__w">上一家</span><span class="gap__w">公司？</span> ‖ <span class="gap__w">So</span> <span class="gap__w">why</span> <span class="gap__w">did</span> <span class="gap__w">you</span> <span class="gap__w">leave</span> <span class="gap__w">your</span> <span class="gap__w">last</span> <span class="gap__w">job?</span> }}<span class="gap__q gap__q--close" aria-hidden="true">”</span></p></blockquote>
+        </div>
+
+        <div class="gap__beat gap__beat--num" data-beat="b">
+          <p class="gap__num" aria-hidden="true"><span class="gap__n" data-count="200">200</span><span class="gap__unit">{{ 毫秒 ‖ ms }}</span></p>
+          <p class="t-body gap__text">{{ 一个人说完，到另一个人开口，中间通常只隔两百毫秒左右。研究者比较过十种语言，都差不多。 ‖ Between one person finishing and the next one starting, there are usually about 200 milliseconds. Researchers compared ten languages; it barely changes. }}</p>
+        </div>
+
+        <div class="gap__beat gap__beat--num" data-beat="c">
+          <p class="gap__num" aria-hidden="true"><span class="gap__n" data-count="600">600</span><span class="gap__unit">{{ 毫秒 ‖ ms }}</span></p>
+          <p class="t-body gap__text">{{ 可从想说什么，到真正说出口，要六百毫秒以上。 ‖ Yet getting from a thought to a spoken word takes 600 milliseconds or more. }}</p>
+        </div>
+
+        <div class="gap__beat gap__beat--d" data-beat="d">
+          <h2 class="t-h2 gap__title" id="gap-title">{{ <span class="gap__ln"><span>所以，</span></span><span class="gap__ln"><span>人总是在对方还没说完时，</span></span><span class="gap__ln"><span>就开始想。</span></span> ‖ <span class="gap__ln"><span>So we start answering</span></span> <span class="gap__ln"><span>before they’ve finished asking.</span></span> }}</h2>
+        </div>
+
+        <div class="gap__beat gap__beat--e" data-beat="e">
+          <p class="gap__who t-label"><i class="gap__dot gap__dot--me" aria-hidden="true"></i>InterviewHacker</p>
+          <p class="t-answer gap__answer">{{ InterviewHacker 也这样：对方还在说，它已经在听；话音一落，回答就开始浮上来。 ‖ InterviewHacker works the same way. While they’re still talking, it’s listening. When they stop, the answer starts to surface. }}</p>
+        </div>
+      </div>
+
+      <figure class="tl" data-tl aria-labelledby="tl-cap">
+        <div class="tl__plot">
+          <p class="tl__name tl__name--them">{{ 对方 ‖ Them }}</p>
+          <div class="tl__track tl__track--them" data-tl-them>{{ <i class="tl__seg" style="--a:-1500;--b:-1306"></i><i class="tl__seg" style="--a:-1256;--b:-965"></i><i class="tl__seg" style="--a:-915;--b:-624"></i><i class="tl__seg" style="--a:-574;--b:-283"></i><i class="tl__seg" style="--a:-233;--b:0"></i> ‖ <i class="tl__seg" style="--a:-1500;--b:-1411"></i><i class="tl__seg" style="--a:-1371;--b:-1237"></i><i class="tl__seg" style="--a:-1197;--b:-1064"></i><i class="tl__seg" style="--a:-1024;--b:-890"></i><i class="tl__seg" style="--a:-850;--b:-628"></i><i class="tl__seg" style="--a:-588;--b:-409"></i><i class="tl__seg" style="--a:-369;--b:-191"></i><i class="tl__seg" style="--a:-151;--b:0"></i> }}</div>
+
+          <p class="tl__name tl__name--plan">{{ 想 ‖ Planning }}</p>
+          <div class="tl__track tl__track--plan"><i class="tl__plan" data-tl-plan style="--a:-400;--b:200"></i><span class="tl__tag tl__tag--plan" data-tl-plan-tag style="--a:-400">600 ms+</span></div>
+
+          <p class="tl__name tl__name--me">{{ 你 ‖ You }}</p>
+          <div class="tl__track tl__track--me"><span class="tl__gap" data-tl-gap style="--a:0;--b:200"><b>200</b></span><i class="tl__caret" data-tl-caret style="--a:200"></i><i class="tl__seg tl__seg--me" data-tl-me style="--a:200;--b:1200"></i></div>
+
+          <p class="tl__name tl__name--ih">InterviewHacker</p>
+          <div class="tl__track tl__track--ih"><i class="tl__listen" data-tl-listen style="--a:-1500;--b:0"></i><span class="tl__tag tl__tag--listen" data-tl-listen-tag style="--a:-1500">{{ 在听 ‖ listening }}</span><i class="tl__surface" data-tl-surface style="--a:0;--b:1200"></i><span class="tl__tag tl__tag--surface" data-tl-surface-tag style="--a:40">{{ 回答浮上来 ‖ the answer surfaces }}</span></div>
+
+          <div class="tl__over" aria-hidden="true">
+            <i class="tl__overlap" data-tl-overlap style="--a:-400;--b:0"><b>{{ 对方还没说完，已经在想 ‖ still asking, already planning }}</b></i>
+            <i class="tl__end" data-tl-end style="--a:0"><b>{{ 问完 ‖ they stop }}</b></i>
+          </div>
+
+          <div class="tl__axis" aria-hidden="true"><i class="tl__tick tl__tick--major" style="--a:-1600"><b>−1600</b></i><i class="tl__tick" style="--a:-1500"></i><i class="tl__tick" style="--a:-1400"></i><i class="tl__tick" style="--a:-1300"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:-1200"><b>−1200</b></i><i class="tl__tick" style="--a:-1100"></i><i class="tl__tick" style="--a:-1000"></i><i class="tl__tick" style="--a:-900"></i><i class="tl__tick tl__tick--major" style="--a:-800"><b>−800</b></i><i class="tl__tick" style="--a:-700"></i><i class="tl__tick" style="--a:-600"></i><i class="tl__tick" style="--a:-500"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:-400"><b>−400</b></i><i class="tl__tick" style="--a:-300"></i><i class="tl__tick" style="--a:-200"></i><i class="tl__tick" style="--a:-100"></i><i class="tl__tick tl__tick--major tl__tick--m tl__tick--zero" style="--a:0"><b>0</b></i><i class="tl__tick" style="--a:100"></i><i class="tl__tick" style="--a:200"></i><i class="tl__tick" style="--a:300"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:400"><b>400</b></i><i class="tl__tick" style="--a:500"></i><i class="tl__tick" style="--a:600"></i><i class="tl__tick" style="--a:700"></i><i class="tl__tick tl__tick--major" style="--a:800"><b>800</b></i><i class="tl__tick" style="--a:900"></i><i class="tl__tick" style="--a:1000"></i><i class="tl__tick" style="--a:1100"></i><i class="tl__tick tl__tick--major tl__tick--m tl__tick--end" style="--a:1200"><b>{{ 1200 毫秒 ‖ 1200 ms }}</b></i></div>
+        </div>
+        <figcaption class="sr-only" id="tl-cap">{{ 时间轴：对方的问题在 0 毫秒处说完，大约 200 毫秒后你开口。组织一句话要 600 毫秒以上，所以你在对方说完前约 400 毫秒就已经开始想。InterviewHacker 在对方说话时一直在听，话音一落，回答开始浮上来。 ‖ Timeline: their question ends at 0 ms and you start speaking about 200 ms later. Preparing a sentence takes 600 ms or more, so you begin about 400 ms before they finish. InterviewHacker listens while they talk, and the answer starts to surface when they stop. }}</figcaption>
+      </figure>
+
+      <p class="t-small gap__source">{{ 数据：Stivers 等，2009，PNAS；Levinson、Torreira，2015，Frontiers in Psychology。 ‖ Sources: Stivers et al., 2009, PNAS; Levinson &amp; Torreira, 2015, Frontiers in Psychology. }}</p>
+    </div>
+  </div>
+
+  <!-- Try your blink. Needs script; nothing is stored or sent. -->
+  <div class="wrap blink-wrap" data-needs-js>
+    <div class="blink" data-blink data-state="idle"
+      data-q1="{{ 能|简单|介绍一下|你自己吗？ ‖ Could you tell me a little about yourself? }}"
+      data-q2="{{ 你|最大的|缺点|是什么？ ‖ What’s your biggest weakness? }}"
+      data-q3="{{ 这个项目里，|哪一块|是你|做的？ ‖ Which part of the project was yours? }}"
+      data-q4="{{ 预算|砍掉一半，|你先|砍什么？ ‖ If the budget were cut in half, what goes first? }}"
+      data-label-start="{{ 开始 ‖ Start }}" data-label-answer="{{ 接 ‖ Answer }}" data-label-again="{{ 再来一次 ‖ Again }}"
+      data-unit="{{ 毫秒 ‖ ms }}"
+      data-v-early="{{ 抢话了。等对方说完再接。 ‖ You jumped in. Let them finish. }}"
+      data-v-fast="{{ 比对话的平均间隔还快。不过，这只是按一下。 ‖ Faster than the average gap. Then again, that was only a tap. }}"
+      data-v-ok="{{ 接得不慢。说出一整句话，还要更久。 ‖ Not slow. A whole sentence would take longer. }}"
+      data-v-slow="{{ 这一眨眼，有点长。 ‖ That was a long blink. }}"
+      data-ready="{{ 问题说完了。 ‖ The question has ended. }}">
+      <div class="blink__head">
+        <p class="kicker blink__kicker"><span>{{ 试一试 ‖ Try it }}</span></p>
+        <h3 class="t-h3 blink__title">{{ 试试你的一眨眼 ‖ Try your blink }}</h3>
+        <p class="t-small blink__how">{{ 等问题说完，再按空格，或点“接”。 ‖ Wait for the question to end, then press Space or tap Answer. }}</p>
+      </div>
+      <div class="blink__screen" data-blink-screen>
+        <p class="blink__q" data-blink-q aria-hidden="true"><span class="blink__placeholder">{{ 按“开始”，听一个问题。 ‖ Press Start to hear a question. }}</span></p>
+        <div class="blink__readout">
+          <p class="blink__ms" aria-hidden="true"><span data-blink-ms>—</span><span class="blink__unit">{{ 毫秒 ‖ ms }}</span></p>
+          <p class="blink__verdict" data-blink-verdict></p>
+        </div>
+        <div class="blink__scale" aria-hidden="true">
+          <i class="blink__band" style="--a:0;--b:200"></i>
+          <i class="blink__mark" style="--a:200"><b>200</b></i>
+          <i class="blink__mark" style="--a:600"><b>600</b></i>
+          <i class="blink__pin" data-blink-pin></i>
+          <span class="blink__end blink__end--l">0</span><span class="blink__end blink__end--r">1000 {{ 毫秒 ‖ ms }}</span>
+        </div>
+        <p class="sr-only" aria-live="polite" data-blink-live></p>
+      </div>
+      <div class="blink__foot">
+        <button class="btn btn--ink blink__btn" type="button" data-blink-btn>{{ 开始 ‖ Start }}</button>
+        <p class="t-small blink__note">{{ 只在这个页面里计时，不记录，也不上传。 ‖ Timed on this page only. Nothing is stored or sent. }}</p>
+      </div>
+    </div>
+  </div>
 </section>

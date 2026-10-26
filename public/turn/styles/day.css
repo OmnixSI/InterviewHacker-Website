@@ -228,9 +228,10 @@
 
 /* ---------- 16:30 · client call: laptop and phone in fine lines ---------- */
 .devices { margin: 0; container-type: inline-size; display: grid; }
+.devices__bar, .devices__set, .devices__caps { --lw: 70cqi; --pw: 26cqi; --ph: -5cqi; }
 .devices__bar { display: flex; align-items: center; gap: 16px; margin-bottom: clamp(20px, 2.4vw, 32px); }
 .devices__set {
-  --lw: 76cqi; --pw: 20cqi; --bz: 1.1cqi; --pad: .95cqi;
+  --bz: 1.1cqi; --pad: .95cqi;
   position: relative; display: grid; grid-template-columns: var(--lw) var(--pw); align-items: end;
   --card-w: calc(var(--pw) - 2 * var(--bz) - 2px);
   padding-bottom: 2.6cqi;
@@ -268,7 +269,7 @@
 .laptop [data-dock="laptop"] .prompt { grid-row: 2; align-self: end; justify-self: start; position: relative; z-index: 2; margin: 0 0 .4cqi .4cqi; }
 
 /* The phone stands in front of the laptop's right corner, on the desk (so it is lower and smaller). */
-.phone { position: relative; z-index: 2; grid-column: 2; grid-row: 1; width: var(--pw); margin-left: -6cqi; margin-bottom: -2.6cqi; }
+.phone { position: relative; z-index: 2; grid-column: 2; grid-row: 1; width: var(--pw); margin-left: var(--ph); margin-bottom: -2.6cqi; }
 .phone__screen {
   position: relative; aspect-ratio: 9 / 18.5; border: 1px solid var(--dev); border-radius: 3.2cqi;
   background: var(--paper); padding: 4.2cqi var(--bz) var(--bz); display: grid; align-content: center; justify-items: center;
@@ -279,7 +280,7 @@
   background: var(--paper); border: 1px solid var(--line-2);
   box-shadow: 0 12px 28px -18px color-mix(in srgb, var(--ink) 55%, transparent);
 }
-.devices .prompt__text { font-size: clamp(11.5px, 1.5cqi, 15px); line-height: 1.55; max-width: none; }
+.devices .prompt__text { font-size: clamp(12px, 1.62cqi, 15px); line-height: 1.55; max-width: none; }
 :lang(en) .devices .prompt__text { line-height: 1.42; }
 .devices__caps { display: grid; grid-template-columns: var(--lw) 1fr; margin-top: 16px; }
 .devices__cap {
@@ -287,21 +288,21 @@
   transition: opacity 360ms var(--e-change);
 }
 :lang(zh) .devices__cap { font-family: var(--f-mono), var(--f-sans); letter-spacing: .08em; }
-.devices__cap--phone { margin-left: -6cqi; }
+.devices__cap--phone { margin-left: var(--ph); }
 .devices.is-live:not(.is-sharing) .devices__cap { opacity: 0; }
 .devices__fine { margin-top: 10px; max-width: 34em; }
 
 @container (max-width: 560px) {
-  .devices__set { --lw: 72cqi; --pw: 36cqi; --bz: 2cqi; --pad: 2cqi; padding-bottom: 8cqi; }
-  .phone { margin-left: -14cqi; margin-bottom: -8cqi; }
-  .devices__cap--phone { margin-left: -14cqi; }
+  .laptop [data-dock="laptop"] .prompt { width: 62%; }
+  .devices__bar, .devices__set, .devices__caps { --lw: 72cqi; --pw: 36cqi; --ph: -14cqi; }
+  .devices__set { --bz: 2cqi; --pad: 2cqi; padding-bottom: 8cqi; }
+  .phone { margin-bottom: -8cqi; }
   .laptop__screen { padding: 2.4cqi; border-radius: 2.4cqi 2.4cqi .8cqi .8cqi; }
   .laptop__window { inset: 8.6cqi 2.4cqi 2.4cqi; }
   .phone__screen { border-radius: 5.6cqi; padding-top: 7cqi; }
   .phone__screen::before { top: 2.2cqi; height: 1.7cqi; }
   .devices .prompt__text { font-size: clamp(11px, 3.3cqi, 14px); }
   .laptop__share { padding: 4px 8px 4px 6px; font-size: 10.5px; }
-  .devices__caps { grid-template-columns: 72cqi 1fr; }
 }
 
 /* ---------- Desktop and tablet spreads ---------- */
@@ -321,9 +322,9 @@
   .scene--round .scene__head { grid-column: 7 / 13; grid-row: 1 / 3; display: grid; justify-items: end; }
   .scene--round .series { grid-column: 1 / 7; grid-row: 1; }
   .scene--round .scene__quote { --qs: 1.16; grid-column: 1 / 10; grid-row: 2; align-self: end; position: relative; z-index: 1; margin-top: clamp(8px, 2vw, 24px); }
-  .scene--round .scene__slot { grid-column: 2 / 8; grid-row: 3; margin-top: clamp(24px, 2.6vw, 40px); }
+  .scene--round .scene__slot { grid-column: 2 / 7; grid-row: 3; margin-top: clamp(24px, 2.6vw, 40px); }
   .scene--round .scene__gesture { grid-column: 2 / 8; grid-row: 4; }
-  .scene--round .scene__note { grid-column: 9 / 13; grid-row: 3 / 5; align-self: end; padding-top: clamp(32px, 4vw, 56px); }
+  .scene--round .scene__note { grid-column: 8 / 13; grid-row: 3 / 5; align-self: end; padding-top: clamp(32px, 4vw, 56px); }
 
   /* 14:00 — numeral left, the question set small against its baseline; the lines run the full width. */
   .scene--lab .scene__head { grid-column: 1 / 7; grid-row: 1; }
@@ -337,7 +338,7 @@
   .scene--call .scene__head { grid-column: 8 / 13; grid-row: 1; display: grid; justify-items: end; }
   .scene--call .scene__quote { --qs: 1.3; grid-column: 1 / 8; grid-row: 1; align-self: end; margin-bottom: calc(var(--t-micro) * 1.3 + clamp(14px, 1.6vw, 22px)); }
   .scene--call .scene__stage { grid-column: 1 / 8; grid-row: 2; margin-top: clamp(28px, 3vw, 48px); }
-  .scene--call .scene__note { grid-column: 9 / 13; grid-row: 2; align-self: end; padding-bottom: clamp(40px, 4vw, 64px); }
+  .scene--call .scene__note { grid-column: 9 / 13; grid-row: 2; align-self: end; padding-bottom: clamp(40px, 4vw, 64px); padding-left: clamp(0px, 2vw, 32px); }
 
   .scene--round .scene__kicker::before, .scene--call .scene__kicker::before { display: none; }
   .scene--round .scene__kicker::after, .scene--call .scene__kicker::after { content: ""; align-self: center; width: 28px; height: 1px; background: var(--line-2); }
@@ -361,7 +362,8 @@
   .day__intro > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
   .day__agenda { margin-top: 36px; }
   .scene { padding-block: clamp(56px, 12vw, 96px); }
-  .scene__grid > * { grid-column: 1 / -1; }
+  .scene__grid, .day__intro { grid-template-columns: minmax(0, 1fr); }
+  .scene__grid > *, .scene__talk > * { grid-column: 1 / -1; }
   .scene__head { margin-bottom: clamp(28px, 7vw, 44px); }
   .scene .scene__quote { --qs: 1; }
   .scene--call .scene__quote { --qs: 1.12; }
@@ -371,8 +373,9 @@
   .scene--lab .scene__stage { margin-block: 40px 8px; }
   .scene--lab .scene__slot { margin-top: 32px; }
   .duo__seg { justify-self: start; }
+  .series { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); max-width: 440px; }
   .series__tab { padding: 9px 12px 10px; }
-  .series__arrow svg { width: 44px; }
+  .series__arrow svg { width: 40px; }
 }
 @media (max-width: 380px) {
   .chips { gap: 6px; }

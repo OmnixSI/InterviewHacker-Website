@@ -93,6 +93,8 @@
   function split(el) {
     if (el._dw) return el._dw;
     const lang = langOf(el);
+    // Display lines (quotes) break between phrases; running text (answers) between words, like ordinary text.
+    const phrased = el.closest('[data-quote]') != null;
     const words = [];
     let cur = null, brBefore = false, authored = false;
     const start = () => { cur = { nodes: [], text: '', el: false, brBefore }; brBefore = false; words.push(cur); return cur; };
@@ -111,8 +113,9 @@
         cur.nodes.push(node); cur.text += node.textContent; cur.el = true; cur.open = false;
       }
     }
-    const groups = lang === 'zh' ? phrasesZh(words, authored)
-      : words.map((w, i) => [i]).reduce((a, g, i, all) => { if (i === all.length - 1 && a.length) a[a.length - 1].push(...g); else a.push(g); return a; }, []);
+    const keepLast = (gs, n) => { if (gs.length > 1 && gs[gs.length - 1].reduce((k, i) => k + coreLen(words[i]), 0) <= n) gs[gs.length - 2].push(...gs.pop()); return gs; };
+    const groups = lang === 'zh' && phrased ? phrasesZh(words, authored)
+      : keepLast(words.map((w, i) => [i]), lang === 'zh' ? 3 : 12);
     const units = [];
     const frag = document.createDocumentFragment();
     let lastChar = '';
@@ -176,6 +179,7 @@
       t += d;
     });
     tl.call(() => gsap.to(ul, { opacity: 0, duration: 0.32, ease: CHANGE, overwrite: true }), null, t + 0.06);
+    tl.lineEnd = t; // when the last word has been said
     return tl;
   }
 
@@ -326,7 +330,7 @@
     let W = 640;
     const H = 120;
     function draw() {
-      const yT = 30, yM = 90, y0 = 60, amp = 3.2, soft = Math.max(120, W * 0.3), wave = Math.max(34, Math.min(56, W / 14)), n = Math.min(220, Math.round(W / 4));
+      const yT = 30, yM = 90, y0 = 60, amp = 2.1, soft = Math.max(120, W * 0.3), wave = Math.max(90, Math.min(150, W / 9)), n = Math.min(240, Math.round(W / 4));
       const J = (W + soft) - st.m * (W + 2 * soft);
       const sm = t => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
       let a = '', b = '';
@@ -433,7 +437,7 @@
     const qUnits = split(quote);
     const aUnits = split(ans);
     const cite = el.querySelector('.cite');
-    gsap.set(qUnits, { opacity: 0.1 });
+    gsap.set(qUnits, { opacity: 0.16 });
     gsap.set(aUnits, { opacity: 0, y: '0.4em' });
     if (room.length) gsap.set(room, { opacity: 0, y: 8 });
     let seriesParts = null;
@@ -478,7 +482,7 @@
       tl.call(() => ans.classList.add('is-listening'), null, t);
       const sp = speak(quote);
       tl.add(sp, t);
-      t += sp.duration() - 0.3 + 0.2; // the line ends; about 200 ms later, your turn
+      t += sp.lineEnd + 0.2; // the line ends; 200 ms later, your turn
       tl.call(() => ans.classList.remove('is-listening'), null, t);
       const recording = s.kind === 'standup' && el.classList.contains('is-record');
       if (!recording) tl.add(surface(ans), t);

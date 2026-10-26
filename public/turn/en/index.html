@@ -24,9 +24,9 @@
   <link rel="stylesheet" href="../style.css?v=fa2ec3fe5c9b">
   <link rel="stylesheet" href="../styles/lines.css?v=1f4368b2add8">
   <link rel="stylesheet" href="../styles/sound.css?v=af6aae29054c">
-  <link rel="stylesheet" href="../styles/hero.css?v=bf4a89e0bdf8">
-  <link rel="stylesheet" href="../styles/gap.css?v=8bfe396cf1af">
-  <link rel="stylesheet" href="../styles/day.css?v=6fae613989f4">
+  <link rel="stylesheet" href="../styles/hero.css?v=d3d558ee8d29">
+  <link rel="stylesheet" href="../styles/gap.css?v=c27795ae1afe">
+  <link rel="stylesheet" href="../styles/day.css?v=a9abd4b57a35">
   <link rel="stylesheet" href="../styles/dusk.css?v=4424d80e4101">
   <link rel="stylesheet" href="../styles/evening.css?v=6c6400d3f643">
   <link rel="stylesheet" href="../styles/night.css?v=8de16d2a2282">
@@ -83,15 +83,22 @@
 
   <main id="main">
     <!-- OWNER: hero agent. Hero (08:59).
-     A poster frame: the headline; the lead; the two strings across the lower part, with a hand-written note pointing into
-     the gap between them. [data-lines-slot] tells scripts/lines.js where the strings rest: its top edge is the amber
-     string (them), its bottom edge the indigo string (you); the labels inside it travel with the strings.
+     A poster frame: the headline; the two strings across the lower part with a hand-written note pointing into the gap
+     between them; the lead and actions below. [data-lines-slot] tells scripts/lines.js where the strings rest: its top
+     edge is the amber string (them), its bottom edge the indigo string (you); the labels inside it travel with them.
      .hero__seg keeps each phrase of the headline whole, so narrow screens break only between phrases. -->
 <section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title" data-hero>
   <div class="hero__grid wrap">
     <div class="hero__head" data-hero-drift>
       <p class="kicker hero__kicker" data-enter>InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>Coming soon</p>
-      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in" data-enter>In conversation,</span></span><br><span class="hero__seg"><span class="hero__in" data-enter>you get about</span></span>&#32;<span class="hero__seg"><span class="hero__in" data-enter>a <span class="hero__word" data-draft="blank">blink</span><span class="hero__stop">.</span></span></span></h1>
+      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">In conversation,</span></span><br><span class="hero__seg"><span class="hero__in">you get about</span></span>&#32;<span class="hero__seg"><span class="hero__in">a <span class="hero__word" data-draft="blank">blink</span>.</span></span></h1>
+    </div>
+
+    <div class="hero__strings" data-lines-slot aria-hidden="true">
+      <span class="hero__label hero__label--them" data-mark>Them</span>
+      <span class="hero__measure" data-mark><i></i>≈ 0.2 s</span>
+      <span class="hero__label hero__label--me" data-mark>You</span>
+      <span class="hero__note"><svg class="lettering hero__letter" viewBox="-2 -154 818 249" data-word="your turn." data-baseline="0.6185" data-xheight="0.4016" style="--l-h:2.490;--l-base:0.6185" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="your" d="M5 -68.6C12.3 -78.8 16 -90.6 23.4 -100.9C18.2 -78.7 13.1 -56.4 7.9 -34.2C3.9 -17 7.7 0.1 23 0.1C43.3 0.1 56.5 -23.8 64.1 -46.3C70.2 -64.5 76.2 -82.7 80.4 -100.9C72.6 -67.2 64.1 -33.5 55.8 0.1C50.9 19.6 45.3 39 37.5 58.1C32.1 71.2 29.8 88.1 17.2 88.1C7.7 88.1 5.3 77 10.1 66.1C19.6 44.7 32.6 23.9 51.5 8.1C60 1 68.6 -6.1 78 -12C95.9 -23.1 115.3 -35.7 119.6 -54.4C124.9 -77.2 134.9 -101.9 154.5 -101.9C166.1 -101.9 175 -95.1 178.1 -84.7C175 -95.1 166.1 -101.9 154.5 -101.9C134.9 -101.9 124.9 -77.2 119.6 -54.4C113.6 -28.6 109.9 0.1 132.1 0.1C151.9 0.1 164.5 -23.7 170.5 -46.3C173.9 -59.2 177.4 -72.1 178.1 -84.7C178.5 -90.9 186 -94.6 192.5 -97.9C196.7 -100.1 201.2 -99.9 205.5 -99.9C214.6 -99.9 223.7 -99.6 233.1 -100.9C227.9 -78.6 222.8 -56.4 217.6 -34.2C213.6 -16.8 218.3 0.1 233.9 0.1C254.6 0.1 268.9 -23.5 276.6 -46.3C282.7 -64.5 288.8 -82.6 293 -100.9C287 -74.6 280.9 -48.3 274.8 -22.1C272.4 -11.6 272.3 -0.4 281.3 -0.4C287.4 -0.4 292.9 -5.4 298.6 -8.9C331 -29.1 326.7 -69.3 343.1 -100.9C335.3 -67.2 327.5 -33.5 319.7 0.1C323.3 -13.3 326.2 -26.8 330.3 -40.3C337.3 -63.6 340.5 -91.7 363.5 -97.9C370.2 -99.7 374 -93.7 379.5 -91.8C381.9 -90.9 383.1 -88.6 384.6 -86.7"/><path data-stroke="turn" d="M485.1 -147.3C478.2 -117.7 471.4 -88.1 464.5 -58.4C461.7 -46.3 458.9 -34.2 456.1 -22.1C453.7 -11.6 453.3 -0.4 462.2 -0.4C468.2 -0.4 473.5 -5.5 479 -8.9C511.3 -29 512.6 -68.8 529.2 -100.8C524.1 -78.6 519 -56.4 513.9 -34.2C509.9 -16.9 514.3 0.1 529.8 0.1C550.3 0.1 564.2 -23.6 571.8 -46.3C577.9 -64.4 584 -82.6 588.2 -100.8C582.1 -74.5 576.1 -48.3 570 -22.1C567.6 -11.6 567.3 -0.4 576.3 -0.4C582.3 -0.4 587.7 -5.4 593.3 -8.9C625.7 -29.1 621.8 -69.2 638.2 -100.8C630.4 -67.2 622.7 -33.5 614.9 0.1C618.5 -13.3 621.4 -26.8 625.4 -40.2C632.4 -63.5 635.3 -91.6 658.3 -97.8C664.9 -99.6 668.5 -93.7 674 -91.7C679.2 -89.9 685.6 -92.9 691.6 -93.7C704.3 -95.5 717.2 -99.3 730 -101C722.2 -67.3 714.2 -33.6 706.4 0.1C709.7 -12 712.7 -24.1 716.2 -36.3C724.9 -67.1 735.9 -102.1 762.9 -102.1C779.8 -102.1 789.7 -87.8 785.8 -70.7C782.1 -54.5 778.2 -38.3 774.5 -22.1C772.1 -11.6 771.7 -0.4 780.7 -0.4C785.8 -0.4 790.4 -4.8 795.1 -7.9"/><path data-stroke="t-bar" d="M453.6 -101.9C472.2 -104.1 490.6 -105.3 509 -106.9"/><path data-stroke="stop" d="M806.6 -1.5C807.6 -3 808.6 -4.5 809.6 -6"/></g></svg><svg class="hero__arrow" viewBox="0 0 80 110" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4C8 22 14 40 30 46C42 51 50 42 44 35C37 28 26 38 30 52C34 68 44 86 52 104"/><path d="M53.6 89.6C53 94.4 52.6 99.2 52 104C48.4 101.2 44.6 98.6 40.6 96"/></g></svg></span>
     </div>
 
     <div class="hero__foot" data-hero-drift>
@@ -102,21 +109,112 @@
       </p>
     </div>
 
-    <div class="hero__strings" data-lines-slot aria-hidden="true">
-      <div class="hero__marks" data-hero-marks>
-        <span class="hero__label hero__label--them" data-enter="mark">Them</span>
-        <span class="hero__label hero__label--me" data-enter="mark">You</span>
-        <span class="hero__measure" data-enter="mark"><i></i><span><b>≈</b> 0.2 s</span></span>
-        <span class="hero__note" data-enter="note"><svg class="hero__arrow" viewBox="0 0 100 100" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M88 95C86.6 85.2 82.6 75.3 74.4 67.5C66.6 60.1 55.8 61.3 55.4 68.2C55 75.4 66.8 75.2 69.1 66.3C71.8 55.9 62.8 45.8 52.6 38.4C40.8 29.8 27.5 20.6 14.6 10.6"/><path d="M17.6 25.4C16.9 20.3 15.8 15.4 14.6 10.6C19.6 11.4 24.4 12.6 29.6 13.6"/></g></svg><svg class="lettering hero__letter" viewBox="-2 -154 818 249" data-word="your turn." data-baseline="0.6185" data-xheight="0.4016" style="--l-h:2.490;--l-base:0.6185" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="your" d="M5 -68.6C12.3 -78.8 16 -90.6 23.4 -100.9C18.2 -78.7 13.1 -56.4 7.9 -34.2C3.9 -17 7.7 0.1 23 0.1C43.3 0.1 56.5 -23.8 64.1 -46.3C70.2 -64.5 76.2 -82.7 80.4 -100.9C72.6 -67.2 64.1 -33.5 55.8 0.1C50.9 19.6 45.3 39 37.5 58.1C32.1 71.2 29.8 88.1 17.2 88.1C7.7 88.1 5.3 77 10.1 66.1C19.6 44.7 32.6 23.9 51.5 8.1C60 1 68.6 -6.1 78 -12C95.9 -23.1 115.3 -35.7 119.6 -54.4C124.9 -77.2 134.9 -101.9 154.5 -101.9C166.1 -101.9 175 -95.1 178.1 -84.7C175 -95.1 166.1 -101.9 154.5 -101.9C134.9 -101.9 124.9 -77.2 119.6 -54.4C113.6 -28.6 109.9 0.1 132.1 0.1C151.9 0.1 164.5 -23.7 170.5 -46.3C173.9 -59.2 177.4 -72.1 178.1 -84.7C178.5 -90.9 186 -94.6 192.5 -97.9C196.7 -100.1 201.2 -99.9 205.5 -99.9C214.6 -99.9 223.7 -99.6 233.1 -100.9C227.9 -78.6 222.8 -56.4 217.6 -34.2C213.6 -16.8 218.3 0.1 233.9 0.1C254.6 0.1 268.9 -23.5 276.6 -46.3C282.7 -64.5 288.8 -82.6 293 -100.9C287 -74.6 280.9 -48.3 274.8 -22.1C272.4 -11.6 272.3 -0.4 281.3 -0.4C287.4 -0.4 292.9 -5.4 298.6 -8.9C331 -29.1 326.7 -69.3 343.1 -100.9C335.3 -67.2 327.5 -33.5 319.7 0.1C323.3 -13.3 326.2 -26.8 330.3 -40.3C337.3 -63.6 340.5 -91.7 363.5 -97.9C370.2 -99.7 374 -93.7 379.5 -91.8C381.9 -90.9 383.1 -88.6 384.6 -86.7"/><path data-stroke="turn" d="M485.1 -147.3C478.2 -117.7 471.4 -88.1 464.5 -58.4C461.7 -46.3 458.9 -34.2 456.1 -22.1C453.7 -11.6 453.3 -0.4 462.2 -0.4C468.2 -0.4 473.5 -5.5 479 -8.9C511.3 -29 512.6 -68.8 529.2 -100.8C524.1 -78.6 519 -56.4 513.9 -34.2C509.9 -16.9 514.3 0.1 529.8 0.1C550.3 0.1 564.2 -23.6 571.8 -46.3C577.9 -64.4 584 -82.6 588.2 -100.8C582.1 -74.5 576.1 -48.3 570 -22.1C567.6 -11.6 567.3 -0.4 576.3 -0.4C582.3 -0.4 587.7 -5.4 593.3 -8.9C625.7 -29.1 621.8 -69.2 638.2 -100.8C630.4 -67.2 622.7 -33.5 614.9 0.1C618.5 -13.3 621.4 -26.8 625.4 -40.2C632.4 -63.5 635.3 -91.6 658.3 -97.8C664.9 -99.6 668.5 -93.7 674 -91.7C679.2 -89.9 685.6 -92.9 691.6 -93.7C704.3 -95.5 717.2 -99.3 730 -101C722.2 -67.3 714.2 -33.6 706.4 0.1C709.7 -12 712.7 -24.1 716.2 -36.3C724.9 -67.1 735.9 -102.1 762.9 -102.1C779.8 -102.1 789.7 -87.8 785.8 -70.7C782.1 -54.5 778.2 -38.3 774.5 -22.1C772.1 -11.6 771.7 -0.4 780.7 -0.4C785.8 -0.4 790.4 -4.8 795.1 -7.9"/><path data-stroke="t-bar" d="M453.6 -101.9C472.2 -104.1 490.6 -105.3 509 -106.9"/><path data-stroke="stop" d="M806.6 -1.5C807.6 -3 808.6 -4.5 809.6 -6"/></g></svg></span>
-      </div>
-    </div>
-
-    <p class="hero__hint" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">Pluck the two lines · better with sound on</span><span class="hero__hint-touch">Touch the two lines</span></p>
+    <p class="hero__hint mono" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">Pluck the two lines · better with sound on</span><span class="hero__hint-touch">Touch the two lines</span></p>
   </div>
 </section>
-    <!-- OWNER: hero agent. № 01 The blink (09:00). -->
-<section class="gap section" id="gap" data-time="09:00" data-palette="morning" data-lines="gap" aria-labelledby="gap-title">
-  <div class="wrap"><h2 class="t-h2" id="gap-title">Two hundred milliseconds</h2></div>
+    <!-- OWNER: hero agent. № 01 The blink (09:00).
+     Five beats over one timing diagram. Wide screens pin the stage and scroll scrubs the beats (scripts/gap.js); everywhere
+     else (and without script) the beats read in order and the diagram shows its final state.
+     Diagram positions are times in ms on a fixed axis (−1600 → 1200): --a start, --b end; 0 = the moment they stop. -->
+<section class="gap section" id="gap" data-time="09:00" data-palette="morning" data-lines="gap" aria-labelledby="gap-title" data-gap>
+  <div class="gap__pin" data-gap-pin>
+    <div class="gap__stage wrap">
+      <p class="kicker gap__kicker"><b>№ 01</b><span>The blink</span></p>
+
+      <div class="gap__beats" data-gap-beats>
+        <div class="gap__beat gap__beat--a" data-beat="a">
+          <p class="gap__who t-label"><i class="gap__dot gap__dot--them" aria-hidden="true"></i>Them · the interviewer</p>
+          <blockquote class="t-quote gap__quote"><p><span class="gap__q" aria-hidden="true">“</span><span class="gap__w">So</span> <span class="gap__w">why</span> <span class="gap__w">did</span> <span class="gap__w">you</span> <span class="gap__w">leave</span> <span class="gap__w">your</span> <span class="gap__w">last</span> <span class="gap__w">job?</span><span class="gap__q gap__q--close" aria-hidden="true">”</span></p></blockquote>
+        </div>
+
+        <div class="gap__beat gap__beat--num" data-beat="b">
+          <p class="gap__num" aria-hidden="true"><span class="gap__n" data-count="200">200</span><span class="gap__unit">ms</span></p>
+          <p class="t-body gap__text">Between one person finishing and the next one starting, there are usually about 200 milliseconds. Researchers compared ten languages; it barely changes.</p>
+        </div>
+
+        <div class="gap__beat gap__beat--num" data-beat="c">
+          <p class="gap__num" aria-hidden="true"><span class="gap__n" data-count="600">600</span><span class="gap__unit">ms</span></p>
+          <p class="t-body gap__text">Yet getting from a thought to a spoken word takes 600 milliseconds or more.</p>
+        </div>
+
+        <div class="gap__beat gap__beat--d" data-beat="d">
+          <h2 class="t-h2 gap__title" id="gap-title"><span class="gap__ln"><span>So we start answering</span></span> <span class="gap__ln"><span>before they’ve finished asking.</span></span></h2>
+        </div>
+
+        <div class="gap__beat gap__beat--e" data-beat="e">
+          <p class="gap__who t-label"><i class="gap__dot gap__dot--me" aria-hidden="true"></i>InterviewHacker</p>
+          <p class="t-answer gap__answer">InterviewHacker works the same way. While they’re still talking, it’s listening. When they stop, the answer starts to surface.</p>
+        </div>
+      </div>
+
+      <figure class="tl" data-tl aria-labelledby="tl-cap">
+        <div class="tl__plot">
+          <p class="tl__name tl__name--them">Them</p>
+          <div class="tl__track tl__track--them" data-tl-them><i class="tl__seg" style="--a:-1500;--b:-1411"></i><i class="tl__seg" style="--a:-1371;--b:-1237"></i><i class="tl__seg" style="--a:-1197;--b:-1064"></i><i class="tl__seg" style="--a:-1024;--b:-890"></i><i class="tl__seg" style="--a:-850;--b:-628"></i><i class="tl__seg" style="--a:-588;--b:-409"></i><i class="tl__seg" style="--a:-369;--b:-191"></i><i class="tl__seg" style="--a:-151;--b:0"></i></div>
+
+          <p class="tl__name tl__name--plan">Planning</p>
+          <div class="tl__track tl__track--plan"><i class="tl__plan" data-tl-plan style="--a:-400;--b:200"></i><span class="tl__tag tl__tag--plan" data-tl-plan-tag style="--a:-400">600 ms+</span></div>
+
+          <p class="tl__name tl__name--me">You</p>
+          <div class="tl__track tl__track--me"><span class="tl__gap" data-tl-gap style="--a:0;--b:200"><b>200</b></span><i class="tl__caret" data-tl-caret style="--a:200"></i><i class="tl__seg tl__seg--me" data-tl-me style="--a:200;--b:1200"></i></div>
+
+          <p class="tl__name tl__name--ih">InterviewHacker</p>
+          <div class="tl__track tl__track--ih"><i class="tl__listen" data-tl-listen style="--a:-1500;--b:0"></i><span class="tl__tag tl__tag--listen" data-tl-listen-tag style="--a:-1500">listening</span><i class="tl__surface" data-tl-surface style="--a:0;--b:1200"></i><span class="tl__tag tl__tag--surface" data-tl-surface-tag style="--a:40">the answer surfaces</span></div>
+
+          <div class="tl__over" aria-hidden="true">
+            <i class="tl__overlap" data-tl-overlap style="--a:-400;--b:0"><b>still asking, already planning</b></i>
+            <i class="tl__end" data-tl-end style="--a:0"><b>they stop</b></i>
+          </div>
+
+          <div class="tl__axis" aria-hidden="true"><i class="tl__tick tl__tick--major" style="--a:-1600"><b>−1600</b></i><i class="tl__tick" style="--a:-1500"></i><i class="tl__tick" style="--a:-1400"></i><i class="tl__tick" style="--a:-1300"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:-1200"><b>−1200</b></i><i class="tl__tick" style="--a:-1100"></i><i class="tl__tick" style="--a:-1000"></i><i class="tl__tick" style="--a:-900"></i><i class="tl__tick tl__tick--major" style="--a:-800"><b>−800</b></i><i class="tl__tick" style="--a:-700"></i><i class="tl__tick" style="--a:-600"></i><i class="tl__tick" style="--a:-500"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:-400"><b>−400</b></i><i class="tl__tick" style="--a:-300"></i><i class="tl__tick" style="--a:-200"></i><i class="tl__tick" style="--a:-100"></i><i class="tl__tick tl__tick--major tl__tick--m tl__tick--zero" style="--a:0"><b>0</b></i><i class="tl__tick" style="--a:100"></i><i class="tl__tick" style="--a:200"></i><i class="tl__tick" style="--a:300"></i><i class="tl__tick tl__tick--major tl__tick--m" style="--a:400"><b>400</b></i><i class="tl__tick" style="--a:500"></i><i class="tl__tick" style="--a:600"></i><i class="tl__tick" style="--a:700"></i><i class="tl__tick tl__tick--major" style="--a:800"><b>800</b></i><i class="tl__tick" style="--a:900"></i><i class="tl__tick" style="--a:1000"></i><i class="tl__tick" style="--a:1100"></i><i class="tl__tick tl__tick--major tl__tick--m tl__tick--end" style="--a:1200"><b>1200 ms</b></i></div>
+        </div>
+        <figcaption class="sr-only" id="tl-cap">Timeline: their question ends at 0 ms and you start speaking about 200 ms later. Preparing a sentence takes 600 ms or more, so you begin about 400 ms before they finish. InterviewHacker listens while they talk, and the answer starts to surface when they stop.</figcaption>
+      </figure>
+
+      <p class="t-small gap__source">Sources: Stivers et al., 2009, PNAS; Levinson &amp; Torreira, 2015, Frontiers in Psychology.</p>
+    </div>
+  </div>
+
+  <!-- Try your blink. Needs script; nothing is stored or sent. -->
+  <div class="wrap blink-wrap" data-needs-js>
+    <div class="blink" data-blink data-state="idle"
+      data-q1="Could you tell me a little about yourself?"
+      data-q2="What’s your biggest weakness?"
+      data-q3="Which part of the project was yours?"
+      data-q4="If the budget were cut in half, what goes first?"
+      data-label-start="Start" data-label-answer="Answer" data-label-again="Again"
+      data-unit="ms"
+      data-v-early="You jumped in. Let them finish."
+      data-v-fast="Faster than the average gap. Then again, that was only a tap."
+      data-v-ok="Not slow. A whole sentence would take longer."
+      data-v-slow="That was a long blink."
+      data-ready="The question has ended.">
+      <div class="blink__head">
+        <p class="kicker blink__kicker"><span>Try it</span></p>
+        <h3 class="t-h3 blink__title">Try your blink</h3>
+        <p class="t-small blink__how">Wait for the question to end, then press Space or tap Answer.</p>
+      </div>
+      <div class="blink__screen" data-blink-screen>
+        <p class="blink__q" data-blink-q aria-hidden="true"><span class="blink__placeholder">Press Start to hear a question.</span></p>
+        <div class="blink__readout">
+          <p class="blink__ms" aria-hidden="true"><span data-blink-ms>—</span><span class="blink__unit">ms</span></p>
+          <p class="blink__verdict" data-blink-verdict></p>
+        </div>
+        <div class="blink__scale" aria-hidden="true">
+          <i class="blink__band" style="--a:0;--b:200"></i>
+          <i class="blink__mark" style="--a:200"><b>200</b></i>
+          <i class="blink__mark" style="--a:600"><b>600</b></i>
+          <i class="blink__pin" data-blink-pin></i>
+          <span class="blink__end blink__end--l">0</span><span class="blink__end blink__end--r">1000 ms</span>
+        </div>
+        <p class="sr-only" aria-live="polite" data-blink-live></p>
+      </div>
+      <div class="blink__foot">
+        <button class="btn btn--ink blink__btn" type="button" data-blink-btn>Start</button>
+        <p class="t-small blink__note">Timed on this page only. Nothing is stored or sent.</p>
+      </div>
+    </div>
+  </div>
 </section>
     <!-- OWNER: day agent. № 02 The day: 09:30 stand-up, 11:00 interview, 14:00 lab meeting (in person), 16:30 client call.
      Each scene is an <article> with its own [data-time] and [data-palette], so the header clock and the paper follow the
@@ -223,7 +321,7 @@
       </div>
       <figure class="duo scene__stage" data-duo>
         <div class="duo__field">
-          <svg class="duo__svg" viewBox="0 0 640 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="duo__them" d="M0.0 30.00L4.0 30.00L8.0 30.00L12.0 30.00L16.0 30.00L20.0 30.00L24.0 30.00L28.0 30.00L32.0 30.00L36.0 30.00L40.0 30.00L44.0 30.00L48.0 30.00L52.0 30.00L56.0 30.00L60.0 30.00L64.0 30.00L68.0 30.00L72.0 30.00L76.0 30.00L80.0 30.00L84.0 30.00L88.0 30.00L92.0 30.00L96.0 30.00L100.0 30.00L104.0 30.00L108.0 30.00L112.0 30.00L116.0 30.00L120.0 30.00L124.0 30.00L128.0 30.00L132.0 30.00L136.0 30.00L140.0 30.00L144.0 30.00L148.0 30.00L152.0 30.00L156.0 30.00L160.0 30.00L164.0 30.00L168.0 30.00L172.0 30.00L176.0 30.00L180.0 30.00L184.0 30.00L188.0 30.00L192.0 30.00L196.0 30.00L200.0 30.00L204.0 30.00L208.0 30.00L212.0 30.00L216.0 30.00L220.0 30.00L224.0 30.00L228.0 30.02L232.0 30.12L236.0 30.31L240.0 30.59L244.0 30.92L248.0 31.29L252.0 31.67L256.0 32.04L260.0 32.45L264.0 32.92L268.0 33.54L272.0 34.34L276.0 35.32L280.0 36.42L284.0 37.53L288.0 38.53L292.0 39.31L296.0 39.84L300.0 40.18L304.0 40.49L308.0 40.95L312.0 41.74L316.0 42.96L320.0 44.57L324.0 46.41L328.0 48.21L332.0 49.69L336.0 50.64L340.0 50.99L344.0 50.86L348.0 50.53L352.0 50.35L356.0 50.66L360.0 51.65L364.0 53.31L368.0 55.40L372.0 57.53L376.0 59.26L380.0 60.23L384.0 60.29L388.0 59.56L392.0 58.37L396.0 57.20L400.0 56.51L404.0 56.61L408.0 57.55L412.0 59.12L416.0 60.86L420.0 62.34L424.0 63.13L428.0 63.02L432.0 62.02L436.0 60.44L440.0 58.73L444.0 57.39L448.0 56.81L452.0 57.16L456.0 58.34L460.0 60.00L464.0 61.66L468.0 62.84L472.0 63.19L476.0 62.61L480.0 61.27L484.0 59.56L488.0 57.98L492.0 56.98L496.0 56.87L500.0 57.66L504.0 59.14L508.0 60.86L512.0 62.34L516.0 63.13L520.0 63.02L524.0 62.02L528.0 60.44L532.0 58.73L536.0 57.39L540.0 56.81L544.0 57.16L548.0 58.34L552.0 60.00L556.0 61.66L560.0 62.84L564.0 63.19L568.0 62.61L572.0 61.27L576.0 59.56L580.0 57.98L584.0 56.98L588.0 56.87L592.0 57.66L596.0 59.14L600.0 60.86L604.0 62.34L608.0 63.13L612.0 63.02L616.0 62.02L620.0 60.44L624.0 58.73L628.0 57.39L632.0 56.81L636.0 57.16L640.0 58.34"/><path class="duo__me" d="M0.0 90.00L4.0 90.00L8.0 90.00L12.0 90.00L16.0 90.00L20.0 90.00L24.0 90.00L28.0 90.00L32.0 90.00L36.0 90.00L40.0 90.00L44.0 90.00L48.0 90.00L52.0 90.00L56.0 90.00L60.0 90.00L64.0 90.00L68.0 90.00L72.0 90.00L76.0 90.00L80.0 90.00L84.0 90.00L88.0 90.00L92.0 90.00L96.0 90.00L100.0 90.00L104.0 90.00L108.0 90.00L112.0 90.00L116.0 90.00L120.0 90.00L124.0 90.00L128.0 90.00L132.0 90.00L136.0 90.00L140.0 90.00L144.0 90.00L148.0 90.00L152.0 90.00L156.0 90.00L160.0 90.00L164.0 90.00L168.0 90.00L172.0 90.00L176.0 90.00L180.0 90.00L184.0 90.00L188.0 90.00L192.0 90.00L196.0 90.00L200.0 90.00L204.0 90.00L208.0 90.00L212.0 90.00L216.0 90.00L220.0 90.00L224.0 90.00L228.0 89.98L232.0 89.88L236.0 89.69L240.0 89.41L244.0 89.08L248.0 88.71L252.0 88.33L256.0 87.96L260.0 87.55L264.0 87.08L268.0 86.46L272.0 85.66L276.0 84.68L280.0 83.58L284.0 82.47L288.0 81.47L292.0 80.69L296.0 80.16L300.0 79.82L304.0 79.51L308.0 79.05L312.0 78.26L316.0 77.04L320.0 75.43L324.0 73.59L328.0 71.79L332.0 70.31L336.0 69.36L340.0 69.01L344.0 69.14L348.0 69.47L352.0 69.65L356.0 69.34L360.0 68.35L364.0 66.69L368.0 64.60L372.0 62.47L376.0 60.74L380.0 59.77L384.0 59.71L388.0 60.44L392.0 61.63L396.0 62.80L400.0 63.49L404.0 63.39L408.0 62.45L412.0 60.88L416.0 59.14L420.0 57.66L424.0 56.87L428.0 56.98L432.0 57.98L436.0 59.56L440.0 61.27L444.0 62.61L448.0 63.19L452.0 62.84L456.0 61.66L460.0 60.00L464.0 58.34L468.0 57.16L472.0 56.81L476.0 57.39L480.0 58.73L484.0 60.44L488.0 62.02L492.0 63.02L496.0 63.13L500.0 62.34L504.0 60.86L508.0 59.14L512.0 57.66L516.0 56.87L520.0 56.98L524.0 57.98L528.0 59.56L532.0 61.27L536.0 62.61L540.0 63.19L544.0 62.84L548.0 61.66L552.0 60.00L556.0 58.34L560.0 57.16L564.0 56.81L568.0 57.39L572.0 58.73L576.0 60.44L580.0 62.02L584.0 63.02L588.0 63.13L592.0 62.34L596.0 60.86L600.0 59.14L604.0 57.66L608.0 56.87L612.0 56.98L616.0 57.98L620.0 59.56L624.0 61.27L628.0 62.61L632.0 63.19L636.0 62.84L640.0 61.66"/></svg>
+          <svg class="duo__svg" viewBox="0 0 640 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="duo__them" d="M0.0 30.00L4.0 30.00L8.0 30.00L12.0 30.00L16.0 30.00L20.0 30.00L24.0 30.00L28.0 30.00L32.0 30.00L36.0 30.00L40.0 30.00L44.0 30.00L48.0 30.00L52.0 30.00L56.0 30.00L60.0 30.00L64.0 30.00L68.0 30.00L72.0 30.00L76.0 30.00L80.0 30.00L84.0 30.00L88.0 30.00L92.0 30.00L96.0 30.00L100.0 30.00L104.0 30.00L108.0 30.00L112.0 30.00L116.0 30.00L120.0 30.00L124.0 30.00L128.0 30.00L132.0 30.00L136.0 30.00L140.0 30.00L144.0 30.00L148.0 30.00L152.0 30.00L156.0 30.00L160.0 30.00L164.0 30.00L168.0 30.00L172.0 30.00L176.0 30.00L180.0 30.00L184.0 30.00L188.0 30.00L192.0 30.00L196.0 30.00L200.0 30.00L204.0 30.00L208.0 30.00L212.0 30.00L216.0 30.00L220.0 30.00L224.0 30.00L228.0 30.02L232.0 30.12L236.0 30.31L240.0 30.57L244.0 30.90L248.0 31.30L252.0 31.76L256.0 32.27L260.0 32.82L264.0 33.41L268.0 34.02L272.0 34.65L276.0 35.30L280.0 35.97L284.0 36.64L288.0 37.34L292.0 38.07L296.0 38.82L300.0 39.62L304.0 40.46L308.0 41.36L312.0 42.32L316.0 43.35L320.0 44.43L324.0 45.57L328.0 46.76L332.0 47.97L336.0 49.19L340.0 50.41L344.0 51.60L348.0 52.72L352.0 53.78L356.0 54.73L360.0 55.57L364.0 56.29L368.0 56.87L372.0 57.32L376.0 57.65L380.0 57.86L384.0 57.98L388.0 58.02L392.0 58.00L396.0 57.96L400.0 57.91L404.0 57.87L408.0 57.86L412.0 57.88L416.0 57.94L420.0 58.09L424.0 58.34L428.0 58.67L432.0 59.07L436.0 59.52L440.0 60.00L444.0 60.48L448.0 60.93L452.0 61.33L456.0 61.66L460.0 61.91L464.0 62.06L468.0 62.10L472.0 62.03L476.0 61.86L480.0 61.59L484.0 61.23L488.0 60.82L492.0 60.36L496.0 59.88L500.0 59.41L504.0 58.97L508.0 58.58L512.0 58.27L516.0 58.04L520.0 57.92L524.0 57.91L528.0 58.00L532.0 58.20L536.0 58.49L540.0 58.86L544.0 59.29L548.0 59.76L552.0 60.24L556.0 60.71L560.0 61.14L564.0 61.51L568.0 61.80L572.0 62.00L576.0 62.09L580.0 62.08L584.0 61.96L588.0 61.73L592.0 61.42L596.0 61.03L600.0 60.59L604.0 60.12L608.0 59.64L612.0 59.18L616.0 58.77L620.0 58.41L624.0 58.14L628.0 57.97L632.0 57.90L636.0 57.94L640.0 58.09"/><path class="duo__me" d="M0.0 90.00L4.0 90.00L8.0 90.00L12.0 90.00L16.0 90.00L20.0 90.00L24.0 90.00L28.0 90.00L32.0 90.00L36.0 90.00L40.0 90.00L44.0 90.00L48.0 90.00L52.0 90.00L56.0 90.00L60.0 90.00L64.0 90.00L68.0 90.00L72.0 90.00L76.0 90.00L80.0 90.00L84.0 90.00L88.0 90.00L92.0 90.00L96.0 90.00L100.0 90.00L104.0 90.00L108.0 90.00L112.0 90.00L116.0 90.00L120.0 90.00L124.0 90.00L128.0 90.00L132.0 90.00L136.0 90.00L140.0 90.00L144.0 90.00L148.0 90.00L152.0 90.00L156.0 90.00L160.0 90.00L164.0 90.00L168.0 90.00L172.0 90.00L176.0 90.00L180.0 90.00L184.0 90.00L188.0 90.00L192.0 90.00L196.0 90.00L200.0 90.00L204.0 90.00L208.0 90.00L212.0 90.00L216.0 90.00L220.0 90.00L224.0 90.00L228.0 89.98L232.0 89.88L236.0 89.69L240.0 89.43L244.0 89.10L248.0 88.70L252.0 88.24L256.0 87.73L260.0 87.18L264.0 86.59L268.0 85.98L272.0 85.35L276.0 84.70L280.0 84.03L284.0 83.36L288.0 82.66L292.0 81.93L296.0 81.18L300.0 80.38L304.0 79.54L308.0 78.64L312.0 77.68L316.0 76.65L320.0 75.57L324.0 74.43L328.0 73.24L332.0 72.03L336.0 70.81L340.0 69.59L344.0 68.40L348.0 67.28L352.0 66.22L356.0 65.27L360.0 64.43L364.0 63.71L368.0 63.13L372.0 62.68L376.0 62.35L380.0 62.14L384.0 62.02L388.0 61.98L392.0 62.00L396.0 62.04L400.0 62.09L404.0 62.13L408.0 62.14L412.0 62.12L416.0 62.06L420.0 61.91L424.0 61.66L428.0 61.33L432.0 60.93L436.0 60.48L440.0 60.00L444.0 59.52L448.0 59.07L452.0 58.67L456.0 58.34L460.0 58.09L464.0 57.94L468.0 57.90L472.0 57.97L476.0 58.14L480.0 58.41L484.0 58.77L488.0 59.18L492.0 59.64L496.0 60.12L500.0 60.59L504.0 61.03L508.0 61.42L512.0 61.73L516.0 61.96L520.0 62.08L524.0 62.09L528.0 62.00L532.0 61.80L536.0 61.51L540.0 61.14L544.0 60.71L548.0 60.24L552.0 59.76L556.0 59.29L560.0 58.86L564.0 58.49L568.0 58.20L572.0 58.00L576.0 57.91L580.0 57.92L584.0 58.04L588.0 58.27L592.0 58.58L596.0 58.97L600.0 59.41L604.0 59.88L608.0 60.36L612.0 60.82L616.0 61.23L620.0 61.59L624.0 61.86L628.0 62.03L632.0 62.10L636.0 62.06L640.0 61.91"/></svg>
           <p class="duo__label duo__label--them"><b>Them</b><span>everything your Mac plays</span></p>
           <p class="duo__label duo__label--me"><b>Me</b><span>microphone</span></p>
           <p class="duo__label duo__label--room"><b>In the room</b><span>microphone only</span></p>
@@ -620,9 +718,9 @@
   <script src="../scripts/sound.js?v=0d43590a60ae"></script>
   <script src="../scripts/lines.js?v=ff1b988c2fc4"></script>
   <script src="../scripts/cursor.js?v=6052c64a1dbc"></script>
-  <script src="../scripts/hero.js?v=d15d73419809"></script>
-  <script src="../scripts/gap.js?v=2b7071f11c4f"></script>
-  <script src="../scripts/day.js?v=6dc8d8c1a3f6"></script>
+  <script src="../scripts/hero.js?v=54f56d87533f"></script>
+  <script src="../scripts/gap.js?v=48d20f9e7325"></script>
+  <script src="../scripts/day.js?v=8a914f7e2ad3"></script>
   <script src="../scripts/dusk.js?v=ac8ec432bc57"></script>
   <script src="../scripts/evening.js?v=47c64ce6113e"></script>
   <script src="../scripts/night.js?v=fda9af8553c5"></script>

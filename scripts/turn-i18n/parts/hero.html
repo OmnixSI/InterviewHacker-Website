@@ -1,13 +1,20 @@
 <!-- OWNER: hero agent. Hero (08:59).
-     A poster frame: the headline; the lead; the two strings across the lower part, with a hand-written note pointing into
-     the gap between them. [data-lines-slot] tells scripts/lines.js where the strings rest: its top edge is the amber
-     string (them), its bottom edge the indigo string (you); the labels inside it travel with the strings.
+     A poster frame: the headline; the two strings across the lower part with a hand-written note pointing into the gap
+     between them; the lead and actions below. [data-lines-slot] tells scripts/lines.js where the strings rest: its top
+     edge is the amber string (them), its bottom edge the indigo string (you); the labels inside it travel with them.
      .hero__seg keeps each phrase of the headline whole, so narrow screens break only between phrases. -->
 <section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title" data-hero>
   <div class="hero__grid wrap">
     <div class="hero__head" data-hero-drift>
       <p class="kicker hero__kicker" data-enter>InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>{{ 即将开放 ‖ Coming soon }}</p>
-      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in" data-enter>{{ 对话里， ‖ In conversation, }}</span></span><br><span class="hero__seg"><span class="hero__in" data-enter>{{ 留给你的， ‖ you get about }}</span></span>{{ <wbr> ‖ &#32; }}<span class="hero__seg"><span class="hero__in" data-enter>{{ 只有<span class="hero__word" data-draft="一扎眼">一眨眼</span><span class="hero__stop">。</span> ‖ a <span class="hero__word" data-draft="blank">blink</span><span class="hero__stop">.</span> }}</span></span></h1>
+      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">{{ 对话里， ‖ In conversation, }}</span></span><br><span class="hero__seg"><span class="hero__in">{{ 留给你的， ‖ you get about }}</span></span>{{ <wbr> ‖ &#32; }}<span class="hero__seg"><span class="hero__in">{{ 只有<span class="hero__word" data-draft="一扎眼">一眨眼</span>。 ‖ a <span class="hero__word" data-draft="blank">blink</span>. }}</span></span></h1>
+    </div>
+
+    <div class="hero__strings" data-lines-slot aria-hidden="true">
+      <span class="hero__label hero__label--them" data-mark>{{ 对方 ‖ Them }}</span>
+      <span class="hero__measure" data-mark><i></i>≈ 0.2 s</span>
+      <span class="hero__label hero__label--me" data-mark>{{ 你 ‖ You }}</span>
+      <span class="hero__note">{{@letter:your turn.|hero__letter}}<svg class="hero__arrow" viewBox="0 0 80 110" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4C8 22 14 40 30 46C42 51 50 42 44 35C37 28 26 38 30 52C34 68 44 86 52 104"/><path d="M53.6 89.6C53 94.4 52.6 99.2 52 104C48.4 101.2 44.6 98.6 40.6 96"/></g></svg></span>
     </div>
 
     <div class="hero__foot" data-hero-drift>
@@ -18,15 +25,6 @@
       </p>
     </div>
 
-    <div class="hero__strings" data-lines-slot aria-hidden="true">
-      <div class="hero__marks" data-hero-marks>
-        <span class="hero__label hero__label--them" data-enter="mark">{{ 对方 ‖ Them }}</span>
-        <span class="hero__label hero__label--me" data-enter="mark">{{ 你 ‖ You }}</span>
-        <span class="hero__measure" data-enter="mark"><i></i><span><b>≈</b> 0.2 s</span></span>
-        <span class="hero__note" data-enter="note"><svg class="hero__arrow" viewBox="0 0 100 100" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M88 95C86.6 85.2 82.6 75.3 74.4 67.5C66.6 60.1 55.8 61.3 55.4 68.2C55 75.4 66.8 75.2 69.1 66.3C71.8 55.9 62.8 45.8 52.6 38.4C40.8 29.8 27.5 20.6 14.6 10.6"/><path d="M17.6 25.4C16.9 20.3 15.8 15.4 14.6 10.6C19.6 11.4 24.4 12.6 29.6 13.6"/></g></svg>{{@letter:your turn.|hero__letter}}</span>
-      </div>
-    </div>
-
-    <p class="hero__hint" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">{{ 拨一下这两根线 · 打开声音会更好 ‖ Pluck the two lines · better with sound on }}</span><span class="hero__hint-touch">{{ 碰一下这两根线 ‖ Touch the two lines }}</span></p>
+    <p class="hero__hint mono" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">{{ 拨一下这两根线 · 打开声音会更好 ‖ Pluck the two lines · better with sound on }}</span><span class="hero__hint-touch">{{ 碰一下这两根线 ‖ Touch the two lines }}</span></p>
   </div>
 </section>
