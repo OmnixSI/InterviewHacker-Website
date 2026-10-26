@@ -1,1 +1,13 @@
-/* lines — owned by the lines module. */
+/* The two lines (scripts/lines.js). The base rules and the SVG fallback live in style.css; this file adds
+   what the live canvas needs. */
+
+/* The canvas spans the large viewport so mobile toolbars sliding in and out never resize it (the strings
+   rest at fractions of the small viewport, so none of them hide behind a toolbar). */
+.lines { inset: 0 0 auto; height: 100vh; height: 100lvh; contain: strict; }
+.lines__canvas { display: block; }
+
+/* Close enough to hold a string: a grab hand (pointer devices). While held, nothing selects. */
+@media (hover: hover) and (pointer: fine) {
+  html.lines-near, html.lines-near body { cursor: grab; }
+  html.lines-grabbing, html.lines-grabbing * { cursor: grabbing !important; user-select: none; -webkit-user-select: none; }
+}

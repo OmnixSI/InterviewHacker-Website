@@ -1,1 +1,110 @@
-/* sound — owned by the sound module. */
+/* Turn — the Sound toggle and its one-line hint. Owned by the sound module (scripts/sound.js).
+   A small instrument in the header: five bars lie flat while sound is off and breathe, each at its own pace,
+   while it is on. Sound itself is off on every visit; the label swaps through aria-label (data-label-on/off). */
+
+.sound-toggle {
+  --bar: var(--muted);
+  position: relative; display: inline-flex; align-items: center; gap: 9px;
+  height: 36px; padding: 0 13px 0 12px; border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--ink-2);
+  font: 500 12px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  transition: background-color var(--d-ui) var(--e-settle), border-color var(--d-ui) var(--e-settle), color var(--d-ui) var(--e-settle);
+}
+/* A 44 px hit area around the 36 px pill. */
+.sound-toggle::after { content: ""; position: absolute; inset: -4px; border-radius: inherit; }
+:lang(zh) .sound-toggle { font: 500 12.5px/1 var(--f-sans); letter-spacing: .08em; }
+.sound-toggle:hover { --bar: var(--ink-2); color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.sound-toggle:active { background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.sound-toggle[aria-pressed="true"] { --bar: var(--ink); color: var(--ink); border-color: var(--line-2); }
+.sound-toggle[aria-pressed="true"]:hover { border-color: color-mix(in srgb, var(--ink) 34%, transparent); }
+.sound-toggle__text { translate: 0 .5px; }
+:lang(zh) .sound-toggle__text { translate: 0 0; }
+
+/* The bars: 2 px wide, 12 px tall at full height, scaled from the middle like a level meter. */
+.sound-toggle__bars {
+  display: inline-flex; align-items: center; gap: 2px; height: 14px;
+  transition: transform 420ms var(--e-spring);
+}
+.sound-toggle__bars i {
+  --flat: .17;
+  display: block; width: 2px; height: 12px; border-radius: 1px; background: var(--bar);
+  transform: scaleY(var(--flat)); transform-origin: 50% 50%;
+  transition: transform 420ms var(--e-settle), background-color var(--d-ui) var(--e-settle);
+}
+/* Off: a dotted rest line, the middle bar a hair taller so it reads as a meter at rest, not as an ellipsis. */
+.sound-toggle__bars i:nth-child(3) { --flat: .26; }
+
+/* Hover while off: the meter peeks — a still, tiny waveform rises left to right, as if about to play. */
+.sound-toggle[aria-pressed="false"]:hover .sound-toggle__bars i { transform: scaleY(var(--peek)); }
+.sound-toggle__bars i:nth-child(1) { --peek: .3; transition-delay: 0ms; }
+.sound-toggle__bars i:nth-child(2) { --peek: .55; transition-delay: 30ms; }
+.sound-toggle__bars i:nth-child(3) { --peek: .42; transition-delay: 60ms; }
+.sound-toggle__bars i:nth-child(4) { --peek: .66; transition-delay: 90ms; }
+.sound-toggle__bars i:nth-child(5) { --peek: .34; transition-delay: 120ms; }
+.sound-toggle[aria-pressed="false"]:not(:hover) .sound-toggle__bars i { transition-delay: 0ms; }
+
+/* On: each bar breathes at its own length (prime-ish durations, so the pattern never visibly repeats). */
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i { animation: ih-bar 1.13s var(--e-change) infinite alternate both; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i:nth-child(1) { --lo: .3;  --hi: .62; animation-duration: 1.31s; animation-delay: -.42s; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i:nth-child(2) { --lo: .42; --hi: .96; animation-duration: .97s;  animation-delay: -.11s; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i:nth-child(3) { --lo: .5;  --hi: 1;   animation-duration: 1.19s; animation-delay: -.73s; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i:nth-child(4) { --lo: .36; --hi: .84; animation-duration: 1.43s; animation-delay: -.29s; }
+.sound-toggle[aria-pressed="true"] .sound-toggle__bars i:nth-child(5) { --lo: .24; --hi: .56; animation-duration: 1.07s; animation-delay: -.58s; }
+@keyframes ih-bar {
+  from { transform: scaleY(var(--lo, .4)); }
+  to { transform: scaleY(var(--hi, .9)); }
+}
+/* A sound that matters (a turn cue, a pluck) lifts the whole meter for a moment. */
+.sound-toggle.is-hit .sound-toggle__bars { transform: scaleY(1.28); transition-duration: 90ms; transition-timing-function: var(--e-settle); }
+
+/* Paused or reduced motion: the bars stand still at a level, so "on" is still unmistakable. */
+.motion-paused .sound-toggle[aria-pressed="true"] .sound-toggle__bars i,
+.motion-reduced .sound-toggle[aria-pressed="true"] .sound-toggle__bars i { animation: none; transform: scaleY(var(--hi, .8)); }
+@media (prefers-reduced-motion: reduce) {
+  .sound-toggle[aria-pressed="true"] .sound-toggle__bars i { animation: none; transform: scaleY(var(--hi, .8)); }
+}
+
+@media (max-width: 640px) {
+  .sound-toggle { width: 40px; height: 40px; padding: 0; justify-content: center; }
+  .sound-toggle::after { inset: -2px; }
+  .sound-toggle__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+/* ---------- The hint under the toggle, once, the first time sound comes on ---------- */
+.sound-hint {
+  --notch: 24px;
+  position: fixed; z-index: 55; top: 72px; right: 16px; max-width: calc(100vw - 24px);
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 13px 9px 11px; border-radius: 999px;
+  background: var(--ink); color: var(--paper);
+  font: 500 11.5px/1.2 var(--f-mono); letter-spacing: .02em; white-space: nowrap;
+  box-shadow: 0 14px 34px -16px rgba(0, 0, 0, .45);
+  pointer-events: none;
+  opacity: 0; transform: translateY(-6px) scale(.98); transform-origin: calc(100% - var(--notch)) 0;
+  transition: opacity 260ms var(--e-settle), transform 420ms var(--e-settle);
+}
+:lang(zh) .sound-hint { font-family: var(--f-mono), var(--f-sans); letter-spacing: .06em; }
+.sound-hint::before {
+  content: ""; position: absolute; top: -4px; right: calc(var(--notch) - 4px);
+  width: 8px; height: 8px; background: inherit; border-radius: 1.5px; transform: rotate(45deg);
+}
+.sound-hint.is-in { opacity: 1; transform: none; }
+.sound-hint.is-out { opacity: 0; transform: translateY(-3px); transition-duration: 220ms, 320ms; }
+.sound-hint__lines { width: 18px; height: 12px; flex: none; fill: none; stroke-width: 1.4; stroke-linecap: round; overflow: visible; }
+.sound-hint__them { stroke: var(--them); }
+.sound-hint__me { stroke: var(--me); }
+/* The amber string quivers once, as if it had just been touched. */
+.sound-hint.is-in .sound-hint__them { animation: ih-hint-string 1.2s var(--e-settle) .25s both; transform-origin: 50% 50%; transform-box: fill-box; }
+@keyframes ih-hint-string {
+  0% { transform: scaleY(1); }
+  18% { transform: scaleY(-.9); }
+  36% { transform: scaleY(.6); }
+  54% { transform: scaleY(-.35); }
+  72% { transform: scaleY(.15); }
+  100% { transform: scaleY(0); }
+}
+.motion-paused .sound-hint__them, .motion-reduced .sound-hint__them { animation: none !important; transform: none; }
+@media (prefers-reduced-motion: reduce) { .sound-hint { transform: none; } }
+@media print { .sound-hint { display: none; } }
