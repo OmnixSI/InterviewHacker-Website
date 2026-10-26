@@ -232,7 +232,7 @@
 
 /* ---------- 16:30 · client call: laptop and phone in fine lines ---------- */
 .devices { margin: 0; container-type: inline-size; display: grid; }
-.devices__bar, .devices__set, .devices__caps { --lw: 66cqi; --pw: 21cqi; --ph: 7cqi; }
+.devices__bar, .devices__set, .devices__caps { --lw: 64cqi; --pw: 21cqi; --ph: 9cqi; }
 .devices__bar { display: flex; align-items: center; gap: 16px; margin-bottom: clamp(20px, 2.4vw, 32px); }
 .devices__set {
   --bz: 1.1cqi; --pad: .95cqi;
@@ -297,13 +297,16 @@
 
 @container (max-width: 560px) {
   .laptop [data-dock="laptop"] .prompt { width: 62%; }
-  .devices__bar, .devices__set, .devices__caps { --lw: 58cqi; --pw: 31cqi; --ph: 6cqi; }
-  .devices__set { --bz: 2cqi; --pad: 2cqi; padding-left: 4cqi; }
+  .devices__bar, .devices__set, .devices__caps { --lw: 54cqi; --pw: 38cqi; --ph: 4cqi; }
+  .devices__set { --bz: 1.6cqi; --pad: 1.8cqi; padding-left: 2cqi; }
+  .devices__caps { padding-left: 2cqi; }
+  .devices .prompt__text { overflow-wrap: anywhere; }
+  .laptop__base { width: 106%; margin-left: -3%; }
   .laptop__screen { padding: 2.4cqi; border-radius: 2.4cqi 2.4cqi .8cqi .8cqi; }
   .laptop__window { inset: 8.6cqi 2.4cqi 2.4cqi; }
   .phone__screen { border-radius: 5.6cqi; padding-top: 7cqi; }
   .phone__screen::before { top: 2.2cqi; height: 1.7cqi; }
-  .devices .prompt__text { font-size: clamp(11px, 3.3cqi, 14px); }
+  .devices .prompt__text { font-size: clamp(10.5px, 3.2cqi, 14px); line-height: 1.45; }
   .laptop__share { padding: 4px 8px 4px 6px; font-size: 10.5px; }
 }
 
@@ -383,8 +386,14 @@
   .scene__slot { margin-top: 18px; }
   .scene__stage { margin-top: 36px; }
   .scene__note { margin-top: clamp(44px, 11vw, 64px); }
-  .scene--lab .scene__stage { margin-block: 40px 8px; }
-  .scene--lab .scene__slot { margin-top: 32px; }
+  /* 14:00 keeps its own composition on phones: a small numeral beside the kicker, the quote, the line edge to edge,
+     then the answer. */
+  .scene--lab { --num-scale: .42; }
+  .scene--lab .scene__head { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+  .scene--lab .scene__head .scene__kicker { margin: 0 0 3px; }
+  .scene--lab .scene__stage { order: 1; margin-block: 28px 0; }
+  .scene--lab .scene__slot { order: 2; margin-top: 24px; }
+  .scene--lab .scene__note { order: 3; }
   .duo__seg { justify-self: start; }
   .series { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); max-width: 440px; }
   .series__tab { padding: 9px 12px 10px; }
