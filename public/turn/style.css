@@ -145,12 +145,6 @@ ol, ul { padding: 0; list-style: none; }
 /* ---------- Masthead ---------- */
 .skip-link { position: fixed; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 10px; background: var(--ink); color: var(--paper); font-size: 14px; transition: top var(--d-ui) var(--e-settle); }
 .skip-link:focus { top: 12px; }
-.gallery-back {
-  position: fixed; right: 16px; bottom: 16px; z-index: 40; padding: 8px 14px; border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 86%, transparent); color: var(--paper); font: 500 12px/1 var(--f-sans);
-  transition: transform var(--d-ui) var(--e-settle), opacity var(--d-ui);
-}
-.gallery-back:hover { transform: translateY(-2px); }
 .masthead {
   position: fixed; inset: 0 0 auto; z-index: 50; height: var(--header);
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
@@ -224,7 +218,6 @@ ol, ul { padding: 0; list-style: none; }
   .clock { display: none; }
   .brand__name { display: none; }
   .masthead__cta { display: none; }
-  .gallery-back { display: none; }
 }
 
 /* ---------- The two lines (fallback look; scripts/lines.js draws the live version) ---------- */
@@ -260,3 +253,8 @@ body::after {
 
 /* ---------- No script: everything is already readable; just hide controls that need script ---------- */
 .no-js [data-needs-js] { display: none !important; }
+/* Without script the language menu can't open, so both languages show as plain links. */
+.no-js .lang__toggle { display: none; }
+.no-js .lang__menu { position: static; display: flex; gap: 2px; min-width: 0; padding: 0; opacity: 1; visibility: visible; transform: none; background: none; border: 0; box-shadow: none; }
+.no-js .lang__menu a { padding: 8px 8px; font-size: 13px; }
+.no-js .lang__menu a .mono { display: none; }

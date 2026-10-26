@@ -11,7 +11,7 @@
 
 [![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:2f3ec82e8a998f62fec0181b4ae9f9bcc192ed7c23fd90dd47ce482619d4aca7 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:d8eff6756c8d12a15a2ca79bca0ada315f5afc078646566b21e8e63090d6b513 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -65,13 +65,13 @@
 
 ### Turn · 一天 · 留白 · 声音
 
-[![Turn 首页](public/previews/turn-home.png?v=0326af0dfbc5)](https://interviewhacker.vercel.app/turn/)
+[![Turn 首页](public/previews/turn-home.png?v=6753e8c62cbb)](https://interviewhacker.vercel.app/turn/)
 
 以「轮到你」叙事：对话只给你一眨眼，从清晨例会到深夜纪要的一天；可拨动的两根声弦与实时合成的声音，纸色随时间入夜，中英双语。
 
 **访问页面：[https://interviewhacker.vercel.app/turn/](https://interviewhacker.vercel.app/turn/)**
 
-<!-- style:turn source:bdc0b068008e473617070438d975e535df64fd0ad664ca1c92192ac86c00db43 preview:0326af0dfbc565c71c069b00334df39ac8f0e9805981b0beaf90fd76f954b4de -->
+<!-- style:turn source:6d0adc48baa2ca2259f3586b30fccaa5d7d35d021c0b7f0aa643701a0af3306d preview:6753e8c62cbbbee660d70417b7543c1aec9714123744e780596ac5d0f160e1bb -->
 <!-- STYLES:END -->
 
 ## 本地运行

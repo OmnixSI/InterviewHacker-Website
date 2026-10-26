@@ -138,7 +138,9 @@
     out[MG] = 0; out[TW] = 0; out[GL] = 1; out[WA] = 0; out[WARM] = 0; out[CL] = 0;
     switch (m) {
       case 'hero': heroPose(out, sy); break;
-      case 'gap': gapPose(out); break;
+      // Pinned (wide screens with motion), № 01 is a stage built around the strings; unpinned it is ordinary
+      // reading order, and the strings part around its text like the quiet modes do.
+      case 'gap': gapPose(out); out[CL] = root.classList.contains('gap-pinned') ? 0 : 1; break;
       case 'day':
         dayPose(out); out[TA] = 0.6; out[MA] = 0.6; out[LW] = 1.15; out[X0] = wrapL; out[X1] = wrapR; out[AMP] = 0.55; out[BR] = 0.6; out[GL] = 0.45; out[CL] = 1; break;
       case 'offline': {
@@ -923,14 +925,16 @@
     if (waterF > 0.5 && wA) {
       if (t - s.packetAt > 140) { waterDrop(sourceX(k) + (rand() - 0.5) * 2, sourceY() + (rand() - 0.5) * 2, 1.5, 0.25 + 0.35 * level); s.packetAt = t; }
     } else if (t - s.packetAt > 110) {
-      addPacket(s, Math.max(420, W * 0.5), (1.3 + 3.4 * level) * (isMobile() ? 0.8 : 1), 64, 72, t);
+      // Low, dim strings (day, still) get a relatively larger wave so a spoken line stays visible on them.
+      const quiet = cur[AMP] < 0.9 ? 1.5 / Math.max(0.4, cur[AMP]) : 1;
+      addPacket(s, Math.max(420, W * 0.5), (1.3 + 3.4 * level) * (isMobile() ? 0.8 : 1) * quiet, 64, 72, t);
     } else {
       // Words closer together than the packets: the newest packet carries the louder level instead.
       let o = -1, p = 1e9; const pk = s.pk;
       for (let j = 0; j < PK; j++) if (pk[j * PF + 2] !== 0 && pk[j * PF] < p) { p = pk[j * PF]; o = j * PF; }
       if (o >= 0) pk[o + 2] = Math.max(pk[o + 2], 1.3 + 3.4 * level);
     }
-    s.lit = Math.max(s.lit, 0.15 + 0.25 * level);
+    s.lit = Math.max(s.lit, (cur[AMP] < 0.9 ? 0.45 : 0.15) + 0.3 * level);
     start();
   }
   function onTurn(d) {
