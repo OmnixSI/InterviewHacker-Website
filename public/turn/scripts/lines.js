@@ -665,7 +665,7 @@
       if (s.peak > 0 || s.grab || s.pickT < s.pickDur) busy = true;
     }
     if (waterF > 0.002 && wA) {
-      const talking = t - lastActive < WATER_MS && waterF > 0.6;
+      const talking = !hush && t - lastActive < WATER_MS && waterF > 0.6;
       if (talking) waterTalk(dt);
       wAcc += dt;
       let n = 0;
@@ -828,6 +828,7 @@
     if (any || running) { activity(); if (motionOK()) start(); }
   }
   function stir(x0, y0, x1, y1, dtm) {
+    if (hush) return;
     if (!wA || waterF < 0.5 || y1 < waterY + 4) return;
     const speed = Math.hypot(x1 - x0, y1 - y0);
     const c0 = (x0 + W * 0.02) / (W * 1.04) * (GW - 1), c1 = (x1 + W * 0.02) / (W * 1.04) * (GW - 1);
@@ -905,7 +906,7 @@
       // Touch: a tap plucks (a drag would become a scroll). Mouse: press and hold.
       if (touch || !motionOK() || static_) pluckAt(best, pX, 0.5, pY < stringY(best, pX) ? 1 : -1, true);
       else grabAt(best, pX, pY);
-    } else if (waterF > 0.5 && pY > waterY + 4 && wA) {
+    } else if (!hush && waterF > 0.5 && pY > waterY + 4 && wA) {
       if (motionOK() && !static_) { waterDrop((pX + W * 0.02) / (W * 1.04) * (GW - 1), waterRow(pY), 1.8, 0.55); wake(); }
       emitPluck(pX < W / 2 ? 0 : 1, pX / W, 0.45);
     }
@@ -915,7 +916,7 @@
 
   /* ---------------- Voices and turns ---------------- */
   function onVoice(d) {
-    if (!d) return;
+    if (!d || (hush && waterF > 0.5)) return;
     const k = d.who === 'me' ? 1 : 0, s = S[k], level = clamp(d.level == null ? 0.6 : +d.level, 0, 1), t = now();
     if (!motionOK() || static_ || !ctx) return;
     activity();
@@ -933,7 +934,7 @@
     start();
   }
   function onTurn(d) {
-    if (!d) return;
+    if (!d || (hush && waterF > 0.5)) return;
     const k = d.who === 'me' ? 1 : 0, s = S[k];
     if (!motionOK() || static_ || !ctx) return;
     activity();
@@ -941,6 +942,22 @@
     else addPacket(s, Math.max(760, W * 0.8), isMobile() ? 6 : 8, 110, 0, now());
     s.lit = 1;
     start();
+  }
+
+  /* ---------------- Hush: the waitlist sheet is open ---------------- */
+  // While #join has .is-joining the frosted sheet blurs whatever is behind it, so the lake stops talking and
+  // stirring and settles; the loop then stops by itself. Removing the class lets it speak again.
+  let hush = false;
+  const joinEl = document.getElementById('join');
+  if (joinEl && 'MutationObserver' in window) {
+    const sync = () => {
+      const h = joinEl.classList.contains('is-joining');
+      if (h === hush) return;
+      hush = h;
+      if (!hush) { activity(); if (motionOK() && !static_) start(); }
+    };
+    new MutationObserver(sync).observe(joinEl, { attributes: true, attributeFilter: ['class'] });
+    sync();
   }
 
   /* ---------------- API ---------------- */
@@ -961,7 +978,7 @@
       pluckAt(k, vx, clamp(+strength || 0, 0, 1), opts.dir || 1, !opts.silent);
     },
     /** Diagnostics: quality level, smoothed cost of our frame (ms), whether the loop runs. */
-    stats() { return { soft, quality: Q, half: halfRate, work: Math.round(workEMA * 100) / 100, frame: Math.round(dtEMA * 10) / 10, running, dpr: DPR, nodes: N, grid: GW + '×' + GH, wPeak: Math.round(wPeak * 1000) / 1000 }; },
+    stats() { return { hush, soft, quality: Q, half: halfRate, work: Math.round(workEMA * 100) / 100, frame: Math.round(dtEMA * 10) / 10, running, dpr: DPR, nodes: N, grid: GW + '×' + GH, wPeak: Math.round(wPeak * 1000) / 1000 }; },
     quality(q, hold) { setQuality(clamp(q | 0, 0, 2)); adaptOff = !!hold; if (!running) render(); },
     setMode(name, opts = {}) { overrideMode = MODES.includes(name) ? name : null; applyMode(opts.duration); },
     merge(on) { mergeOverride = on == null ? null : !!on; applyMode(); }
@@ -1006,7 +1023,7 @@
       if (static_) renderStill();
       else { poseFor(mode, cur, scrollY); render(); }
     }
-    if (waterF > 0.5 && motionOK()) { activity(); start(); }
+    if (waterF > 0.5 && !hush && motionOK()) { activity(); start(); }
   });
 
   /* ---------------- Start ---------------- */
