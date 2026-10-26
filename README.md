@@ -84,7 +84,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/` 和 `/final/`（英文版 `/final/en/`）是五种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/`、`/final/`（英文版 `/final/en/`）和 `/turn/`（英文版 `/turn/en/`）是六种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -97,6 +97,7 @@ npm run dev
 | Story 全部页面代码和素材 | `public/story/` |
 | Classic 全部页面代码和素材 | `public/classic/` |
 | Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
+| Turn 生成的中英页面、样式、脚本和素材 | `public/turn/`（源码在 `scripts/turn-i18n/`，见 [Turn 维护说明](docs/TURN-NOTES.md)） |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |
