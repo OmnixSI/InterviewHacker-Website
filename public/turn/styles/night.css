@@ -77,7 +77,6 @@
 .qa__n { padding-top: .72em; font: 500 var(--t-micro)/1 var(--f-mono); letter-spacing: .06em; color: var(--muted); transition: color var(--d-ui) var(--e-settle); }
 .qa__text {
   font: 400 clamp(21px, 2vw, 29px)/1.32 var(--f-display); color: var(--ink); font-synthesis: none; text-wrap: balance;
-  font-feature-settings: "palt" 1;
   justify-self: start;
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;

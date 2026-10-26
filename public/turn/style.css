@@ -102,6 +102,8 @@ ol, ul { padding: 0; list-style: none; }
 /* The other side */
 .t-quote, .voice-them {
   font-family: var(--f-them); font-weight: 500; color: var(--them-ink);
+  /* Quoted speech keeps full-width ，？ even inside display text set with "palt". */
+  font-feature-settings: normal;
 }
 .t-quote { font-size: var(--t-quote); line-height: 1.28; letter-spacing: .005em; text-wrap: balance; }
 :lang(en) .t-quote, :lang(en) .voice-them, .voice-them:lang(en) { font-family: var(--f-serif); font-style: italic; font-weight: 400; letter-spacing: -.005em; }
