@@ -512,7 +512,7 @@
   // carves a soft gap where its box crosses them. Text opts in with [data-lines-clear]; headlines, quotes, answers,
   // body copy, FAQ rows and forms do by default. Boxes are read only for elements an IntersectionObserver reports in
   // view, and only on scroll ticks and layout refreshes, never inside the animation loop.
-  const CLEAR_SEL = '[data-lines-clear], .t-h2, .t-h3, .t-quote, .t-answer, .t-body, .t-small, .t-label, .kicker, .faq details, .qa, form, .scene__numeral, .scene__kicker, .scene__note, .principle, .ev-raw__line, .ev-item, .room__line, .chip, .seg__btn';
+  const CLEAR_SEL = '[data-lines-clear], .t-h2, .t-h3, .t-quote, .t-answer, .t-body, .t-small, .t-label, .kicker, .faq details, .qa, form, .scene__numeral, .scene__kicker, .scene__note, .principle, .ev-raw__line, .ev-item, .room__line, .chip, .seg__btn, .gap__num, .gap__quote, .tl__plot, .tl__name, .blink, .btn';
   const MAXR = 96, rects = new Float32Array(MAXR * 4), pinned = new Uint8Array(MAXR), inView = new Set();
   let nRects = 0, clearDirty = true, rectsAt = -1e9, rectsY = 0;
   const clearIO = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {

@@ -186,34 +186,38 @@
   }
 
   /* ---------------- Surface: the next line, word by word ---------------- */
-  function surface(el, { emitTurn = true } = {}) {
+  function surface(el, { emitTurn = true, dur = 0.42, spread = 0.3 } = {}) {
     const units = split(el);
     const tl = gsap.timeline();
     if (emitTurn) tl.call(() => IH.emit('turn', { who: 'me' }), null, 0);
     // 40 ms a word, but a long answer never takes more than ~0.36 s to start its last word.
-    const each = Math.min(0.04, 0.3 / Math.max(1, units.length - 1));
-    tl.fromTo(units, { opacity: 0, y: '0.4em' }, { opacity: 1, y: 0, duration: 0.42, ease: SETTLE, stagger: each }, 0);
+    const each = Math.min(0.04, spread / Math.max(1, units.length - 1));
+    tl.fromTo(units, { opacity: 0, y: '0.4em' }, { opacity: 1, y: 0, duration: dur, ease: SETTLE, stagger: each }, 0);
     units.forEach((u, i) => tl.call(() => {
       IH.emit('voice', { who: 'me', level: 0.35 + 0.4 * Math.min(1, lenOf(u) / 5), ms: 120 });
       sound('word');
     }, null, i * each));
     return tl;
   }
-  /** Old words sink and fade (160 ms), the new ones rise. The slot's height eases between the two. */
+  /** A cross-fade: the old words sink and fade (140 ms) in a ghost copy while the new ones rise at once
+      (≤ 450 ms in all). The slot's height eases between the two. */
   function resurface(el, slot, text, lang) {
     if (!motion()) { setContent(el, text, lang); return null; }
-    const old = split(el);
+    const ghost = el.cloneNode(true);
+    ghost.removeAttribute('data-answer');
+    ghost.removeAttribute('data-cursor');
+    ghost.classList.add('scene__ghost-out');
+    ghost.setAttribute('aria-hidden', 'true');
     const h0 = slot.offsetHeight;
-    const tl = gsap.timeline();
-    tl.to(old, { opacity: 0, y: '0.3em', duration: 0.16, ease: CHANGE, stagger: { each: 0.006, from: 'end' } });
-    tl.call(() => {
-      setContent(el, text, lang);
-      const units = split(el);
-      gsap.set(units, { opacity: 0, y: '0.4em' });
-      const h1 = slot.offsetHeight;
-      if (Math.abs(h1 - h0) > 1) gsap.fromTo(slot, { height: h0 }, { height: h1, duration: 0.42, ease: CHANGE, clearProps: 'height' });
-      tl.add(surface(el), '>');
-    });
+    slot.append(ghost);
+    setContent(el, text, lang);
+    const units = split(el);
+    gsap.set(units, { opacity: 0, y: '0.4em' });
+    const h1 = el.offsetHeight;
+    const tl = gsap.timeline({ onComplete: () => ghost.remove() });
+    if (Math.abs(h1 - h0) > 1) tl.fromTo(slot, { height: h0 }, { height: h1, duration: 0.36, ease: CHANGE, clearProps: 'height' }, 0);
+    tl.to(ghost.querySelectorAll('.dw').length ? ghost.querySelectorAll('.dw') : ghost, { opacity: 0, y: '0.25em', duration: 0.14, ease: CHANGE }, 0);
+    tl.add(surface(el, { dur: 0.3, spread: 0.12 }), 0.03);
     return tl;
   }
 
