@@ -33,9 +33,16 @@
     announceTimer = setTimeout(() => { live.textContent = text.replace(/\s+/g, ' ').trim(); }, 120);
   }
 
-  /* ---------------- Split text into words (en) or segmenter words (zh), punctuation kept with its word ---------------- */
+  /* ---------------- Split text into words, grouped into unbreakable phrases ----------------
+     Words (en: by space; zh: Intl.Segmenter words, punctuation kept with its word) become inline blocks (.dw) so they
+     can rise. Inline blocks may break anywhere, so words are grouped into nowrap phrases (.dp) and lines break only
+     between phrases: zh at authored <wbr>s and after punctuation when the copy has them, otherwise between words
+     with particles kept on the word before and runs of one-character words kept together; the last short phrase
+     never stands alone on a line (en: the last two words stay together). */
   const CLOSE = /^[，。、；：？！…）」』》〉】,.;:?!’”)\]]/;
   const OPEN = /[（「『《〈【“‘(\[]$/;
+  const PUNCT_END = /[，。、；：？！…,.;:?!]$/;
+  const PARTICLE = /^[的了吗呢吧着过地得们]$/;
   const HAN = /[㐀-鿿豈-﫿]/;
   const LATIN = /[A-Za-z0-9]/;
   const zhSeg = typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter('zh', { granularity: 'word' }) : null;
@@ -45,40 +52,89 @@
     if (zhSeg) return [...zhSeg.segment(text)].map(s => s.segment);
     return text.match(/[A-Za-z0-9]+|\s+|./gu) || [];
   }
-  /** Wraps each word of el in span.dw (once); returns the spans. Child elements (e.g. the citation) stay whole. */
+  const coreLen = w => w.text.replace(/[，。、；：？！…（）“”‘’,.;:?!()\s]/g, '').length;
+  const isSingle = w => !w.el && coreLen(w) === 1 && !/[A-Za-z]/.test(w.text);
+  /** Group zh words into phrases (arrays of word indices). */
+  function phrasesZh(words, authored) {
+    const out = [];
+    let cur = [];
+    const flush = () => { if (cur.length) out.push(cur); cur = []; };
+    if (authored) {
+      words.forEach((w, i) => { if (w.brBefore) flush(); cur.push(i); if (PUNCT_END.test(w.text)) flush(); });
+      flush();
+    } else {
+      // Units: runs of single characters stick together; particles join the word before.
+      const units = [];
+      words.forEach((w, i) => {
+        const prev = units[units.length - 1];
+        const prevWord = prev && words[prev[prev.length - 1]];
+        const prevOpen = prevWord && !PUNCT_END.test(prevWord.text);
+        if (prev && prevOpen && (PARTICLE.test(w.text.replace(/[，。、；：？！]$/, '')) || (isSingle(w) && prev.single))) { prev.push(i); prev.single = prev.single && isSingle(w); return; }
+        const u = [i]; u.single = isSingle(w); units.push(u);
+      });
+      // A lone single character joins its neighbour in the same clause (the one before, else the one after).
+      for (let k = 0; k < units.length; k++) {
+        const u = units[k];
+        if (u.length !== 1 || !u.single) continue;
+        const prev = units[k - 1], next = units[k + 1];
+        const prevOpen = prev && !PUNCT_END.test(words[prev[prev.length - 1]].text);
+        if (prevOpen && !PUNCT_END.test(words[u[0]].text) && next && !(k === 0)) { prev.push(...u); units.splice(k--, 1); }
+        else if (!PUNCT_END.test(words[u[0]].text) && next) { next.unshift(...u); units.splice(k--, 1); }
+        else if (prevOpen) { prev.push(...u); units.splice(k--, 1); }
+      }
+      out.push(...units);
+    }
+    // No orphan: a short last phrase stays with the one before it.
+    const last = out[out.length - 1];
+    if (out.length > 1 && last.reduce((n, i) => n + coreLen(words[i]), 0) <= 4) { out[out.length - 2].push(...last); out.pop(); }
+    return out;
+  }
+  /** Wraps each word of el in span.dw (once), grouped in span.dp; returns the word spans. */
   function split(el) {
     if (el._dw) return el._dw;
     const lang = langOf(el);
-    const units = [];
-    const frag = document.createDocumentFragment();
-    let cur = null, lastChar = '';
-    const open = (first) => {
-      cur = document.createElement('span');
-      cur.className = 'dw';
-      // text-autospace does not reach across inline blocks: keep the ⅛ em between Han and Latin by hand.
-      if (lang === 'zh' && lastChar && first && ((HAN.test(lastChar) && LATIN.test(first)) || (LATIN.test(lastChar) && HAN.test(first)))) cur.classList.add('as');
-      frag.append(cur); units.push(cur);
-      return cur;
-    };
+    const words = [];
+    let cur = null, brBefore = false, authored = false;
+    const start = () => { cur = { nodes: [], text: '', el: false, brBefore }; brBefore = false; words.push(cur); return cur; };
     for (const node of [...el.childNodes]) {
       if (node.nodeType === 3) {
         for (const tok of tokens(node.textContent, lang)) {
           if (!tok) continue;
-          if (/^\s+$/.test(tok)) { frag.append(' '); cur = null; lastChar = ' '; continue; }
-          if (cur && (CLOSE.test(tok) || cur._open)) cur.append(tok);
-          else open(tok[0]).append(tok);
-          cur._open = OPEN.test(tok);
-          lastChar = tok[tok.length - 1];
+          if (/^\s+$/.test(tok)) { cur = null; continue; }
+          if (!(cur && (CLOSE.test(tok) || cur.open))) start();
+          cur.nodes.push(tok); cur.text += tok; cur.open = OPEN.test(tok);
         }
       } else if (node.nodeType === 1 && (node.tagName === 'WBR' || node.tagName === 'BR')) {
-        frag.append(node); cur = null;
+        cur = null; brBefore = true; authored = true;
       } else if (node.nodeType === 1) {
-        if (cur && cur._open) cur.append(node); else open(node.textContent.trim()[0] || '').append(node);
-        cur._open = false;
-        const t = node.textContent.trim();
-        lastChar = t[t.length - 1] || lastChar;
+        if (!(cur && cur.open)) start();
+        cur.nodes.push(node); cur.text += node.textContent; cur.el = true; cur.open = false;
       }
     }
+    const groups = lang === 'zh' ? phrasesZh(words, authored)
+      : words.map((w, i) => [i]).reduce((a, g, i, all) => { if (i === all.length - 1 && a.length) a[a.length - 1].push(...g); else a.push(g); return a; }, []);
+    const units = [];
+    const frag = document.createDocumentFragment();
+    let lastChar = '';
+    groups.forEach((g, gi) => {
+      if (lang !== 'zh' && gi) frag.append(' ');
+      const dp = document.createElement('span');
+      dp.className = 'dp';
+      g.forEach((i, k) => {
+        const w = words[i];
+        if (lang !== 'zh' && k) dp.append(' ');
+        const dw = document.createElement('span');
+        dw.className = 'dw';
+        const first = w.text.trim()[0] || '';
+        // text-autospace does not reach across inline blocks: keep the ⅛ em between Han and Latin by hand.
+        if (lang === 'zh' && lastChar && first && ((HAN.test(lastChar) && LATIN.test(first)) || (LATIN.test(lastChar) && HAN.test(first)))) dw.classList.add('as');
+        dw.append(...w.nodes);
+        dp.append(dw);
+        units.push(dw);
+        lastChar = w.text.trim().slice(-1) || lastChar;
+      });
+      frag.append(dp);
+    });
     el.textContent = '';
     el.append(frag);
     el._dw = units;
@@ -119,7 +175,7 @@
       tl.to(u, { opacity: 1, duration: 0.26, ease: SETTLE }, t);
       t += d;
     });
-    tl.to(ul, { opacity: 0, duration: 0.32, ease: CHANGE }, t + 0.06);
+    tl.call(() => gsap.to(ul, { opacity: 0, duration: 0.32, ease: CHANGE, overwrite: true }), null, t + 0.06);
     return tl;
   }
 

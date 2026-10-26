@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="./styles/sound.css?v=af6aae29054c">
   <link rel="stylesheet" href="./styles/hero.css?v=bf4a89e0bdf8">
   <link rel="stylesheet" href="./styles/gap.css?v=8bfe396cf1af">
-  <link rel="stylesheet" href="./styles/day.css?v=594c86d8a566">
+  <link rel="stylesheet" href="./styles/day.css?v=51c23eec44a6">
   <link rel="stylesheet" href="./styles/dusk.css?v=4424d80e4101">
   <link rel="stylesheet" href="./styles/evening.css?v=6c6400d3f643">
   <link rel="stylesheet" href="./styles/night.css?v=8de16d2a2282">
@@ -254,6 +254,9 @@
         <blockquote class="t-quote scene__quote" data-quote><p>月底能上线吗？</p></blockquote>
       </div>
       <figure class="devices scene__stage is-sharing" data-devices>
+        <div class="devices__bar" data-needs-js>
+          <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">共享整个屏幕</span></button>
+        </div>
         <div class="devices__set">
           <div class="laptop">
             <div class="laptop__screen" data-dock="laptop">
@@ -261,7 +264,6 @@
               <span class="laptop__window" aria-hidden="true"><i></i><i></i></span>
             </div>
             <span class="laptop__base" aria-hidden="true"></span>
-            <p class="devices__cap devices__cap--laptop">对方看到的</p>
           </div>
           <div class="phone">
             <div class="phone__screen" data-dock="phone">
@@ -269,10 +271,9 @@
                 <p class="t-answer scene__answer prompt__text" data-answer data-cursor="caret">可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。</p>
               </div>
             </div>
-            <p class="devices__cap devices__cap--phone">只有你看到的</p>
           </div>
         </div>
-        <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch data-needs-js><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">共享整个屏幕</span></button>
+        <p class="devices__caps"><span class="devices__cap devices__cap--laptop">对方看到的</span><span class="devices__cap devices__cap--phone">只有你看到的</span></p>
         <figcaption class="t-small devices__fine">手机本身被共享或镜像到电脑时，同样会被看到。</figcaption>
       </figure>
       <div class="scene__note">
@@ -621,7 +622,7 @@
   <script src="./scripts/cursor.js?v=6052c64a1dbc"></script>
   <script src="./scripts/hero.js?v=d15d73419809"></script>
   <script src="./scripts/gap.js?v=2b7071f11c4f"></script>
-  <script src="./scripts/day.js?v=566173c0b8d2"></script>
+  <script src="./scripts/day.js?v=6dc8d8c1a3f6"></script>
   <script src="./scripts/dusk.js?v=ac8ec432bc57"></script>
   <script src="./scripts/evening.js?v=47c64ce6113e"></script>
   <script src="./scripts/night.js?v=fda9af8553c5"></script>

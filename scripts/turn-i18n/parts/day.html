@@ -134,6 +134,9 @@
         <blockquote class="t-quote scene__quote" data-quote><p>{{ 月底能上线吗？ ‖ Can we go live by the end of the month? }}</p></blockquote>
       </div>
       <figure class="devices scene__stage is-sharing" data-devices>
+        <div class="devices__bar" data-needs-js>
+          <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">{{ 共享整个屏幕 ‖ Share entire screen }}</span></button>
+        </div>
         <div class="devices__set">
           <div class="laptop">
             <div class="laptop__screen" data-dock="laptop">
@@ -141,7 +144,6 @@
               <span class="laptop__window" aria-hidden="true"><i></i><i></i></span>
             </div>
             <span class="laptop__base" aria-hidden="true"></span>
-            <p class="devices__cap devices__cap--laptop">{{ 对方看到的 ‖ What they see }}</p>
           </div>
           <div class="phone">
             <div class="phone__screen" data-dock="phone">
@@ -149,10 +151,9 @@
                 <p class="t-answer scene__answer prompt__text" data-answer data-cursor="caret">{{ 可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。 ‖ Yes. The core flow goes live before month-end; reports and export come in the next release. I’ll send the schedule on Monday. }}</p>
               </div>
             </div>
-            <p class="devices__cap devices__cap--phone">{{ 只有你看到的 ‖ Only you see }}</p>
           </div>
         </div>
-        <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch data-needs-js><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">{{ 共享整个屏幕 ‖ Share entire screen }}</span></button>
+        <p class="devices__caps"><span class="devices__cap devices__cap--laptop">{{ 对方看到的 ‖ What they see }}</span><span class="devices__cap devices__cap--phone">{{ 只有你看到的 ‖ Only you see }}</span></p>
         <figcaption class="t-small devices__fine">{{ 手机本身被共享或镜像到电脑时，同样会被看到。 ‖ If the phone itself is shared or mirrored, it can be seen too. }}</figcaption>
       </figure>
       <div class="scene__note">
