@@ -47,7 +47,7 @@
   function turnWindow() {
     const H = innerHeight, top = docTop(section);
     // Pinned: 0.8 screen, starting once the day's last lines have left the top of the screen.
-    if (mode === 'pinned') return { top, start: top - 0.2 * H, end: top + 0.6 * H };
+    if (mode === 'pinned') return { top, start: top - 0.45 * H, end: top + 0.42 * H };
     // Static: the colour turns while the sunset alone fills the screen — from its top reaching the middle of the
     // screen until just before the title comes up from the bottom edge.
     const airH = air.offsetHeight || H;
@@ -94,7 +94,7 @@
   }
 
   /* ---------------- Pinned ---------------- */
-  const SLOW = 1.1; // the text moves at 1 / SLOW of the page
+  const SLOW = 1.0; // the text moves at 1 / SLOW of the page
   const sets = new Map();
   const setter = (el, prop, unit) => {
     const key = el; let m = sets.get(key);
@@ -131,7 +131,8 @@
     M.endFollow = colH + gap * 1.2;
     // The last line comes to rest on the horizon, where the sun went down.
     M.endRest = Math.max(H * 0.2, M.hz - M.endH - Math.max(22, H * 0.03));
-    M.u0 = 0.35 * H;
+    // The title only appears once the paper has finished turning (turnWindow ends at 0.42 H).
+    M.u0 = 0.52 * H;
     const uAt = colY => M.u0 + (M.colY0 - colY) * SLOW;
     M.uEndIn = uAt(H - M.endFollow);
     M.uRest = uAt(M.endRest - M.endFollow);
@@ -154,7 +155,7 @@
     // 2. The column rises slower than the page.
     const colY = M.colY0 - clamp(u - M.u0, 0, M.pin - M.u0) / SLOW;
     // Nothing shows before the title starts to move (the paper may still be turning).
-    const gate = c01((u - M.u0 + 0.12 * H) / (0.12 * H));
+    const gate = c01((u - M.u0 + 0.08 * H) / (0.08 * H));
     // 3. The closing line follows the column and rests above where the sun was; the sun sets ahead of it.
     const endY = Math.max(M.endRest, colY + M.endFollow);
     const s = smooth((H - endY) / Math.max(1, H - hz - 24));
