@@ -1,0 +1,172 @@
+/* Dusk interlude (18:10) — evening agent.
+   The page turns from day to night. A low sun made of the two voices (amber and indigo: blurred conic light with
+   grain) sits on the horizon, half sunk, slowly turning; the moments of the day rise past it and part around it.
+   Default (no script, phones, reduced motion): a still sunset above the stanzas, which step from side to side.
+   .is-pinned (scripts/dusk.js, large screens with motion): the stage holds still while the reader's scroll brings
+   the sun down, lifts the stanzas past it and sets it. Blur is static: only transform and opacity ever move. */
+
+.dusk {
+  --sun: clamp(210px, 33vmin, 380px);
+  --hz: 60%; /* the horizon, from the top of the picture */
+  position: relative;
+}
+.dusk__mark { position: absolute; left: 0; top: 0; width: 1px; height: 1px; pointer-events: none; }
+.dusk__mark--after { top: auto; bottom: 0; }
+
+/* ---------- The sunset ---------- */
+.dusk__stage { position: relative; }
+.dusk__air {
+  position: relative; height: 110vh; height: 110svh; min-height: 480px; max-height: 1080px;
+  pointer-events: none; overflow-x: clip;
+}
+/* Warm air low over the horizon, a breath of indigo higher up. */
+.dusk__band {
+  position: absolute; left: -20%; right: -20%; top: calc(var(--hz) - min(56%, 560px)); height: min(56%, 560px);
+  background:
+    radial-gradient(42% 100% at 50% 100%, color-mix(in oklab, var(--them) 26%, transparent), color-mix(in oklab, var(--them) 8%, transparent) 48%, transparent 80%),
+    radial-gradient(64% 80% at 50% 100%, color-mix(in oklab, var(--me) 9%, transparent), transparent 82%);
+}
+/* The sky clips only at the horizon (never at its top, so the glow has no edge while the stage scrolls in). */
+.dusk__sky { position: absolute; left: 0; right: 0; top: 0; height: var(--hz); clip-path: inset(-100vh -50vw 0 -50vw); }
+.dusk__sea { position: absolute; left: 0; right: 0; top: var(--hz); bottom: 0; overflow: hidden; }
+/* The same air, reflected and dimmer, so the horizon reads as a horizon and never as a clipped edge. */
+.dusk__sea::before {
+  content: ""; position: absolute; left: -20%; right: -20%; top: 0; height: min(60%, 460px);
+  background: radial-gradient(40% 100% at 50% 0, color-mix(in oklab, var(--them) 13%, transparent), color-mix(in oklab, var(--them) 4%, transparent) 50%, transparent 82%);
+}
+/* The sun's centre rests on the horizon (the bottom edge of the sky); scripts move it with transform only. */
+.dusk__lift {
+  position: absolute; left: 50%; top: 100%; width: var(--sun); height: var(--sun);
+  margin: calc(var(--sun) / -2) 0 0 calc(var(--sun) / -2);
+}
+.dusk__glow {
+  position: absolute; inset: -58%; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--them) 30%, transparent), color-mix(in oklab, var(--them) 11%, transparent) 40%, color-mix(in oklab, var(--me) 5%, transparent) 68%, transparent);
+}
+.dusk__orb { position: absolute; inset: 0; border-radius: 50%; isolation: isolate; }
+.dusk__orb > i, .dusk__turn { position: absolute; inset: 0; border-radius: 50%; }
+.dusk__turn > i { position: absolute; inset: 0; border-radius: 50%; }
+/* A warm, nearly white heart, so the sun reads as light rather than as a disc of paint. */
+.dusk__core {
+  inset: 8% !important;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--them) 22%, #fff7ee), color-mix(in oklab, var(--them) 70%, #fff) 44%, color-mix(in oklab, var(--them) 60%, transparent) 74%, transparent);
+  filter: blur(10px);
+}
+/* Two turning layers: the two voices' colours, and a counter-turning veil of light. The blur never changes. */
+.dusk__turn { animation: dusk-turn 48s linear infinite; animation-play-state: paused; }
+.dusk__turn--back { inset: 12%; animation-duration: 31s; animation-direction: reverse; }
+.dusk__a {
+  background: conic-gradient(from 20deg, var(--them), color-mix(in oklab, var(--them) 50%, #fff) 16%, var(--me) 38%, color-mix(in oklab, var(--me) 40%, #fff) 54%, var(--them) 72%, color-mix(in oklab, var(--them) 70%, var(--me)) 88%, var(--them));
+  filter: blur(24px); opacity: .88;
+}
+.dusk__b {
+  background: conic-gradient(from 150deg, color-mix(in oklab, var(--them) 18%, #fff), transparent 25%, color-mix(in oklab, var(--me) 22%, #fff) 50%, transparent 75%, color-mix(in oklab, var(--them) 18%, #fff));
+  filter: blur(16px); opacity: .5;
+}
+.dusk__grain {
+  inset: -14% !important; border-radius: 0 !important;
+  background: url("../assets/grain.png") 0 0 / 128px; mix-blend-mode: soft-light; opacity: .9;
+  -webkit-mask: radial-gradient(closest-side, #000 36%, transparent); mask: radial-gradient(closest-side, #000 36%, transparent);
+}
+.dusk.is-live .dusk__turn { animation-play-state: running; }
+@keyframes dusk-turn { to { rotate: 360deg; } }
+
+/* The reflection: a short smear of the same light, and glints that thin out towards the viewer. */
+.dusk__dip {
+  position: absolute; left: 50%; top: 0; width: calc(var(--sun) * 1.6); height: calc(var(--sun) * 1.1);
+  margin-left: calc(var(--sun) * -.8); transform-origin: 50% 0;
+}
+.dusk__mirror {
+  position: absolute; inset: 0 14%;
+  background: radial-gradient(50% 32% at 50% 0, color-mix(in oklab, var(--them) 55%, transparent), color-mix(in oklab, var(--me) 12%, transparent) 62%, transparent);
+  filter: blur(6px); opacity: .55;
+}
+.dusk__glint {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    transparent 3%, color-mix(in oklab, var(--them) 70%, #fff) 3% 3.5%, transparent 3.5% 7.5%,
+    color-mix(in oklab, var(--them) 70%, #fff) 7.5% 8.1%, transparent 8.1% 13.5%,
+    color-mix(in oklab, var(--them) 60%, var(--me)) 13.5% 14.2%, transparent 14.2% 21.5%,
+    color-mix(in oklab, var(--them) 40%, var(--me)) 21.5% 22.4%, transparent 22.4% 32%,
+    color-mix(in oklab, var(--me) 70%, #fff) 32% 33.1%, transparent 33.1%);
+  -webkit-mask: radial-gradient(30% 64% at 50% 0, #000 16%, transparent); mask: radial-gradient(30% 64% at 50% 0, #000 16%, transparent);
+  opacity: .5;
+}
+/* The horizon of the still picture. When pinned, the background lines draw the horizon; this stays as the short
+   hot stretch where the sun touches it. */
+.dusk__horizon {
+  position: absolute; left: 0; right: 0; top: var(--hz); height: 1px; margin-top: -.5px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--them) 50%, transparent) 20%, var(--them) 50%, color-mix(in oklab, var(--them) 50%, transparent) 80%, transparent);
+}
+
+/* Still picture (phones, reduced motion, no script): the sky itself is lit. A warm wash rises to the horizon and
+   dims into violet below it, so the picture is a sunset whatever the paper is doing behind it; it fades out at its
+   top and bottom edges into the paper. */
+.dusk:not(.is-pinned) .dusk__air::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in oklab, var(--me) 7%, transparent) calc(var(--hz) * .35),
+    color-mix(in oklab, var(--them) 16%, transparent) calc(var(--hz) * .75),
+    color-mix(in oklab, var(--them) 34%, transparent) var(--hz),
+    color-mix(in oklab, var(--them) 12%, transparent) calc(var(--hz) + 6%),
+    color-mix(in oklab, var(--me) 9%, transparent) calc(var(--hz) + 20%),
+    transparent 100%);
+}
+.dusk:not(.is-pinned) .dusk__band { opacity: 1; height: min(70%, 640px); top: calc(var(--hz) - min(70%, 640px)); }
+.dusk:not(.is-pinned) .dusk__glow { inset: -80%; }
+
+/* ---------- The stanzas ---------- */
+.dusk__col {
+  position: relative; z-index: 1;
+  width: min(1240px, 100% - 2 * var(--gutter)); margin-inline: auto;
+  display: flex; flex-direction: column; gap: clamp(48px, 9vh, 112px);
+  padding-top: clamp(32px, 6vh, 88px);
+  font: 400 clamp(25px, 2.9vw, 42px)/1.32 var(--f-display); letter-spacing: -.004em; color: var(--ink);
+  font-synthesis: none; font-feature-settings: "palt" 1;
+}
+.dusk__end { font: 400 clamp(30px, 3.6vw, 54px)/1.25 var(--f-display); letter-spacing: -.008em; color: var(--ink); font-synthesis: none; font-feature-settings: "palt" 1; }
+:lang(en) .dusk__col { font: 400 clamp(28px, 3.2vw, 46px)/1.14 var(--f-serif); letter-spacing: -.012em; font-feature-settings: "kern" 1, "liga" 1; }
+:lang(en) .dusk__end { font: 400 clamp(34px, 4vw, 60px)/1.06 var(--f-serif); letter-spacing: -.018em; font-feature-settings: "kern" 1, "liga" 1; }
+.dusk__st { margin: 0; max-width: 100%; }
+.dl { display: block; width: max-content; max-width: 100%; text-wrap: balance; }
+.dusk__st .voice-them { font-weight: 500; letter-spacing: 0; }
+:lang(en) .dusk__st .voice-them { font-weight: 400; letter-spacing: -.008em; }
+/* Each stanza bows: its second line steps in. Left stanzas lean on the left, right ones on the right. */
+.dusk__st[data-side="l"] { align-self: flex-start; }
+.dusk__st[data-side="r"] { align-self: flex-end; text-align: right; }
+.dusk__st[data-side="r"] .dl { margin-left: auto; }
+.dusk__st[data-side="l"] .dl + .dl { margin-left: .9em; }
+.dusk__st[data-side="r"] .dl + .dl { margin-right: .9em; }
+.dusk__head { font-size: 1.36em; line-height: 1.08; letter-spacing: -.012em; }
+:lang(en) .dusk__head { font-size: 1.4em; line-height: 1; letter-spacing: -.022em; }
+.dusk__head .dl + .dl { margin-left: .62em; }
+.dusk__head .dl + .dl + .dl { margin-left: 1.24em; }
+.dusk__end { position: relative; z-index: 1; width: min(1240px, 100% - 2 * var(--gutter)); margin: clamp(96px, 16vh, 176px) auto 0; padding-bottom: clamp(120px, 22vh, 240px); text-align: center; }
+.dusk__end .dl { margin-inline: auto; }
+
+@media (max-width: 640px) {
+  .dusk { --hz: 62%; }
+  .dusk__air { height: 118vh; height: 118svh; min-height: 520px; }
+  .dusk__col { gap: clamp(40px, 7vh, 64px); }
+  .dusk__st[data-side="l"] .dl + .dl { margin-left: .6em; }
+  .dusk__st[data-side="r"] .dl + .dl { margin-right: .6em; }
+  .dusk__head { font-size: 1.28em; }
+  .dusk__head .dl + .dl, .dusk__head .dl + .dl + .dl { margin-left: .5em; }
+}
+
+/* ---------- Pinned (large screens, motion allowed): the stage holds; the scroll sets the sun ---------- */
+.dusk.is-pinned .dusk__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow-x: clip; }
+.dusk.is-pinned .dusk__air { position: absolute; inset: 0; height: auto; min-height: 0; max-height: none; --hz: var(--horizon-y, 58%); }
+.dusk.is-pinned .dusk__horizon {
+  left: 50%; right: auto; width: calc(var(--sun) * 2.2); margin-left: calc(var(--sun) * -1.1); opacity: .6;
+}
+.dusk.is-pinned .dusk__col { position: absolute; left: 0; right: 0; top: 0; padding: 0; gap: clamp(40px, 6vh, 72px); font-size: clamp(24px, 2.6vw, 40px); }
+:lang(en) .dusk.is-pinned .dusk__col { font-size: clamp(27px, 2.9vw, 44px); }
+.dusk.is-pinned .dusk__end { position: absolute; left: 0; right: 0; top: 0; margin: 0 auto; padding: 0; }
+.dusk.is-pinned .dl { will-change: transform, opacity; }
+.dusk.is-pinned .dusk__st[data-side="l"] .dl { transform-origin: 0 60%; }
+.dusk.is-pinned .dusk__st[data-side="r"] .dl { transform-origin: 100% 60%; }
+.dusk.is-pinned .dusk__end .dl { transform-origin: 50% 60%; }
+.dusk.is-pinned :is(.dusk__lift, .dusk__orb, .dusk__dip, .dusk__band, .dusk__horizon) { will-change: transform, opacity; }
+.dusk.is-pinned .dusk__turn { will-change: transform; }

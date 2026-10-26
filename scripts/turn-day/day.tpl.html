@@ -1,0 +1,168 @@
+<!-- OWNER: day agent. № 02 The day: 09:30 stand-up, 11:00 interview, 14:00 lab meeting (in person), 16:30 client call.
+     Each scene is an <article> with its own [data-time] and [data-palette], so the header clock and the paper follow the
+     reader; a .scene__end mark late in each scene keeps the clock inside the meeting while it is on screen, and the
+     hours pass in the white space between meetings. Numerals are Instrument Serif outlines drawn as hairlines (one path
+     per contour, so scripts/day.js can draw them in). Without script every quote and answer is already in place; the
+     gestures (data-needs-js) need script and are hidden. -->
+<section class="day section" id="day" data-time="09:20" data-palette="morning" data-lines="day" aria-labelledby="day-title" data-day>
+  <div class="wrap day__intro">
+    <p class="kicker day__kicker"><b>№ 02</b><span>{{ 一天 ‖ The day }}</span></p>
+    <h2 class="t-h2 day__title" id="day-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 轮到你的， ‖ Your turn comes }}</span></span><span class="day-rl"><span>{{ 不止面试。 ‖ more than once a day. }}</span></span></h2>
+    <p class="t-body day__lead">{{ 例会、面试、组会、客户电话、跨时区的英文会议。一天里，有很多次轮到你开口。 ‖ Stand-ups, interviews, lab meetings, client calls, a late call in another language. A day hands you the floor more often than you think. }}</p>
+    <nav class="day__agenda" aria-label="{{ 这一天 ‖ This day }}">
+      <ol>
+        <li><a href="#day-0930"><time class="mono" datetime="09:30">09:30</time><span>{{ 周一例会 · 线上 ‖ Monday stand-up · online }}</span></a></li>
+        <li><a href="#day-1100"><time class="mono" datetime="11:00">11:00</time><span>{{ 二面 · 后端 ‖ Round two · backend }}</span></a></li>
+        <li><a href="#day-1400"><time class="mono" datetime="14:00">14:00</time><span>{{ 组会 · 线下 ‖ Lab meeting · in person }}</span></a></li>
+        <li><a href="#day-1630"><time class="mono" datetime="16:30">16:30</time><span>{{ 客户电话 · 共享整个屏幕 ‖ Client call · whole screen }}</span></a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- 09:30 · stand-up. The room's transcript passes in small type; the one line meant for you lands large. -->
+  <article class="scene scene--standup" id="day-0930" data-time="09:30" data-palette="morning" aria-labelledby="day-standup-title" data-scene="standup">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <!--NUM:09:30-->
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="09:30">09:30</time><span>{{ 周一例会 ‖ Monday stand-up }}</span><i aria-hidden="true">·</i><span>{{ 线上 ‖ online }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <ol class="room" aria-label="{{ 会议转写 ‖ Meeting transcript }}" data-room>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 周 ‖ Z }}</span><span class="room__text">{{ ……前端这周把登录页改完了。 ‖ …front end finished the login page this week. }}</span><time class="room__at mono">09:39</time></li>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 陈 ‖ C }}</span><span class="room__text">{{ 测试环境周三之前能好。 ‖ Staging should be ready before Wednesday. }}</span><time class="room__at mono">09:40</time></li>
+          <li class="room__line"><span class="room__who" aria-hidden="true">{{ 王 ‖ W }}</span><span class="room__text">{{ 好，下一个。 ‖ OK, next. }}</span><time class="room__at mono">09:41</time></li>
+        </ol>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 小林，你那边呢？ ‖ Lin, how about you? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret">{{ 支付接口周三联调完，周四给测试。证书申请卡住了，需要运维帮一下。 ‖ Payments API integration is done by Wednesday, QA on Thursday. I’m blocked on a certificate and need ops to help. }}</p>
+          <p class="noted" data-noted data-needs-js><span class="noted__line mono">{{ 已记下 · 09:41 被问到进度 ‖ Noted · 09:41 asked for an update }}</span>{{@letter:noted.|noted__letter}}</p>
+        </div>
+        <div class="seg scene__gesture" role="group" aria-label="{{ 被问到时 ‖ When you’re asked }}" data-seg="record" data-needs-js>
+          <span class="seg__thumb" aria-hidden="true"></span>
+          <button class="seg__btn" type="button" aria-pressed="true" data-value="answer">{{ 回答 ‖ Answer }}</button>
+          <button class="seg__btn" type="button" aria-pressed="false" data-value="record">{{ 只记录 ‖ Record only }}</button>
+        </div>
+      </div>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-standup-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 没人问你， ‖ Until someone asks you, }}</span></span><span class="day-rl"><span>{{ 它就不出声。 ‖ it stays quiet. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 例会上，大部分话不是说给你听的。它安静地记，听到在问你，才递上一句。想全程安静，就切到“只记录”。 ‖ Most of a stand-up isn’t addressed to you. It takes notes quietly and offers a line only when the question is yours. Want silence all the way through? Switch to Record only. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="09:45" aria-hidden="true"></span>
+  </article>
+
+  <!-- 11:00 · round two. The series carries forward; the follow-up lands; one tap rewrites the answer. -->
+  <article class="scene scene--round" id="day-1100" data-time="11:00" data-palette="morning" aria-labelledby="day-round-title" data-scene="round">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <!--NUM:11:00-->
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="11:00">11:00</time><span>{{ 二面 ‖ Round two }}</span><i aria-hidden="true">·</i><span>{{ 后端 ‖ backend }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <ol class="series" aria-label="{{ 面试系列 ‖ Interview series }}" data-series>
+          <li class="series__tab series__tab--past"><b>{{ 一面 ‖ Round 1 }}</b><span>{{ 10月22日 · 已复盘 ‖ Oct 22 · reviewed }}</span></li>
+          <li class="series__arrow" aria-hidden="true"><svg viewBox="0 0 84 34" focusable="false"><path class="series__stem" d="M3 23.5C17 14.2 33.6 9.6 49.2 11.4C59.4 12.6 68.8 16.4 77.6 21.6"/><path class="series__head" d="M68.4 13.9C71.9 16.1 75.2 18.6 77.6 21.6C73.9 22.6 70 23.1 66.1 23.2"/></svg></li>
+          <li class="series__tab series__tab--now" aria-current="step"><b>{{ 二面 ‖ Round 2 }}</b><span>{{ 今天 · 带入上一场 ‖ today · continued }}</span></li>
+        </ol>
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ <span class="nw">那数据库和缓存</span><span class="nw">同时更新，</span><span class="nw">怎么保证</span><span class="nw">一致性？</span> ‖ When the database and the cache both change, how do you keep them consistent? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret"
+             data-rewrite-short="{{ 先写库，再删缓存；删失败就重试，binlog兜底。 ‖ Write the DB, delete the cache, retry failures, binlog as backstop. }}"
+             data-rewrite-example="{{ 比如订单系统：改价先落库，再删商品缓存；删失败的进重试队列，binlog订阅再删一次。 ‖ In our order system, a price change hits the database first, then the product cache is deleted; failures retry, and the binlog subscriber deletes once more. }}"
+             data-rewrite-lang="{{ Write the database first, then delete the cache. Failed deletes go to a retry queue, and a binlog subscriber deletes again as a backstop. ‖ 先更新数据库，再删缓存。删除失败的key进重试队列，再订阅binlog删一次兜底。 }}"
+             data-rewrite-lang-code="{{ en ‖ zh-CN }}">{{ 先更新数据库，再删缓存。删除失败的key进重试队列，再订阅binlog删一次兜底。 ‖ Write the database first, then delete the cache. Failed deletes go to a retry queue, and a binlog subscriber deletes again as a backstop. }}</p>
+        </div>
+        <div class="chips scene__gesture" role="group" aria-label="{{ 改写回答 ‖ Rewrite the answer }}" data-chips data-needs-js>
+          <button class="chip" type="button" aria-pressed="true" data-variant="original">{{ 原文 ‖ Original }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="short">{{ 更简短 ‖ Shorter }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="example">{{ 举例 ‖ Example }}</button>
+          <button class="chip" type="button" aria-pressed="false" data-variant="lang">{{ 英文版 ‖ In Chinese }}</button>
+        </div>
+      </div>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-round-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 一面卡住的题， ‖ What tripped you in round one, }}</span></span><span class="day-rl"><span>{{ 二面它记得。 ‖ it remembers in round two. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 二面接着一面：上一场的资料、复盘和改好的答法，都带进来。追问一来，回答一个词一个词浮上来；想短一点、要个例子、换成英文，点一下就好。 ‖ Round two picks up where round one left off: the material, the review and the better answers come along. When the follow-up lands, the answer surfaces word by word. Shorter, an example, the other language: one tap. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="11:45" aria-hidden="true"></span>
+  </article>
+
+  <!-- 14:00 · lab meeting, in person. Online, two channels; in the room, one microphone. The gesture merges the two
+       lines in the diagram and asks the background lines to do the same (IH.emit('lines', { merge })). -->
+  <article class="scene scene--lab" id="day-1400" data-time="14:00" data-palette="noon" aria-labelledby="day-lab-title" data-scene="lab">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <!--NUM:14:00-->
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="14:00">14:00</time><span>{{ 组会 ‖ Lab meeting }}</span><i aria-hidden="true">·</i><span>{{ 线下 ‖ in person }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ <span class="nw">这个对照组</span><span class="nw">是怎么选的？</span> ‖ How did you choose the control group? }}</p></blockquote>
+        <div class="scene__slot" data-slot>
+          <p class="t-answer scene__answer" data-answer data-cursor="caret">{{ 按年龄和基线分层后随机抽取，细节在论文<span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>第4页，表2</span>。 ‖ Stratified by age and baseline, then drawn at random. Details on <span class="cite"><svg class="cite__page" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M1.5.5h4.6l2.4 2.4v8.6h-7zM6.1.5v2.4h2.4M3.3 6h3.4M3.3 8.2h3.4"/></svg>page 4, table 2</span>. }}</p>
+        </div>
+      </div>
+      <figure class="duo scene__stage" data-duo>
+        <div class="duo__field">
+          <svg class="duo__svg" viewBox="0 0 640 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="duo__them" d="__DUO_A__"/><path class="duo__me" d="__DUO_B__"/></svg>
+          <p class="duo__label duo__label--them"><b>{{ 对方 ‖ Them }}</b><span>{{ 这台Mac播放的声音 ‖ everything your Mac plays }}</span></p>
+          <p class="duo__label duo__label--me"><b>{{ 我 ‖ Me }}</b><span>{{ 麦克风 ‖ microphone }}</span></p>
+          <p class="duo__label duo__label--room"><b>{{ 现场 ‖ In the room }}</b><span>{{ 只用麦克风 ‖ microphone only }}</span></p>
+        </div>
+        <div class="seg duo__seg" role="group" aria-label="{{ 这场会 ‖ This meeting }}" data-seg="room" data-needs-js>
+          <span class="seg__thumb" aria-hidden="true"></span>
+          <button class="seg__btn" type="button" aria-pressed="true" data-value="online">{{ 线上 ‖ Online }}</button>
+          <button class="seg__btn" type="button" aria-pressed="false" data-value="room">{{ 线下 ‖ In person }}</button>
+        </div>
+      </figure>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-lab-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 坐在同一个房间， ‖ Same room, }}</span></span><span class="day-rl"><span>{{ 也一样。 ‖ same help. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 线下开会，它只用麦克风，房间里所有人的声音都在这一路，转写标成“现场”。线下默认只记录；需要时让它回答，它会对照你放进来的论文，注明在第几页。 ‖ In person it listens through the microphone alone: the whole room on one line, marked In the room. In person it records by default; ask it to answer and it works from the paper you added, page number included. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="14:50" aria-hidden="true"></span>
+  </article>
+
+  <!-- 16:30 · client call, whole screen shared. The answer moves from the laptop (what they see) to the phone (only you).
+       Without script the figure shows the shared state: the answer already on the phone. -->
+  <article class="scene scene--call" id="day-1630" data-time="16:30" data-palette="afternoon" aria-labelledby="day-call-title" data-scene="call">
+    <div class="wrap scene__grid">
+      <header class="scene__head">
+        <!--NUM:16:30-->
+        <p class="kicker scene__kicker"><time class="sr-only" datetime="16:30">16:30</time><span>{{ 客户电话 ‖ Client call }}</span><i aria-hidden="true">·</i><span>{{ 共享整个屏幕 ‖ sharing your whole screen }}</span></p>
+      </header>
+      <div class="scene__talk">
+        <blockquote class="t-quote scene__quote" data-quote><p>{{ 月底能上线吗？ ‖ Can we go live by the end of the month? }}</p></blockquote>
+      </div>
+      <figure class="devices scene__stage is-sharing" data-devices>
+        <div class="devices__bar" data-needs-js>
+          <button class="switch devices__switch" type="button" role="switch" aria-checked="false" data-switch><span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span><span class="switch__label">{{ 共享整个屏幕 ‖ Share entire screen }}</span></button>
+        </div>
+        <div class="devices__set">
+          <div class="laptop">
+            <div class="laptop__screen" data-dock="laptop">
+              <p class="laptop__share"><i aria-hidden="true"></i>{{ 正在共享整个屏幕 ‖ Sharing entire screen }}</p>
+              <span class="laptop__window" aria-hidden="true"><i></i><i></i></span>
+            </div>
+            <span class="laptop__base" aria-hidden="true"></span>
+          </div>
+          <div class="phone">
+            <div class="phone__screen" data-dock="phone">
+              <div class="prompt" data-card>
+                <p class="t-answer scene__answer prompt__text" data-answer data-cursor="caret">{{ 可以。核心流程月底前上线，报表和导出放到下个版本，我周一把排期发给你。 ‖ Yes. The core flow goes live before month-end; reports and export come in the next release. I’ll send the schedule on Monday. }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="devices__caps"><span class="devices__cap devices__cap--laptop">{{ 对方看到的 ‖ What they see }}</span><span class="devices__cap devices__cap--phone">{{ 只有你看到的 ‖ Only you see }}</span></p>
+        <figcaption class="t-small devices__fine">{{ 手机本身被共享或镜像到电脑时，同样会被看到。 ‖ If the phone itself is shared or mirrored, it can be seen too. }}</figcaption>
+      </figure>
+      <div class="scene__note">
+        <h3 class="t-h3 scene__title" id="day-call-title" data-cursor="caret" data-day-reveal><span class="day-rl"><span>{{ 要共享整个屏幕？ ‖ Sharing your whole screen? }}</span></span><span class="day-rl"><span>{{ 回答放到手机上。 ‖ Keep the answer on your phone. }}</span></span></h3>
+        <p class="t-body scene__body">{{ 只共享会议窗口时，对方看不到提词；要共享整个屏幕，就把回答交给手机。用手机相机扫一下配对码，打开的页面就是你的提词屏，不用装App。 ‖ Share only the meeting window and they never see your prompts. Sharing everything? Hand the answer to your phone: scan a pairing code with its camera and the page that opens is your prompter. No app to install. }}</p>
+      </div>
+    </div>
+    <span class="scene__end" data-time="17:00" aria-hidden="true"></span>
+  </article>
+
+  <p class="sr-only" aria-live="polite" data-day-live></p>
+</section>

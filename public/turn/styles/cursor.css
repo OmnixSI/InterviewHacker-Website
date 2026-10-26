@@ -1,0 +1,99 @@
+/* Turn — cursor (scripts/cursor.js). Fine pointers with motion allowed only; the system cursor is hidden only while
+   the custom one is on screen (.has-cursor), and never over text fields.
+   The dot is exact; the ring follows on a spring. Sizes and colours change through transitions on the inner
+   shapes, never on the positioned layers, so position (JS) and state (CSS) never fight over one transform. */
+
+.has-cursor, .has-cursor * { cursor: none !important; }
+.has-cursor :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="color"]):not([type="file"]), textarea, [contenteditable]:not([contenteditable="false"])) { cursor: text !important; }
+.has-cursor select { cursor: auto !important; }
+.has-cursor [data-cursor="hide"], .has-cursor [data-cursor="hide"] * { cursor: auto !important; }
+/* lines.css shows grab/grabbing hands; with the custom cursor the ring shows the hold instead. */
+html.has-cursor.lines-near, html.has-cursor.lines-near body,
+html.has-cursor.lines-grabbing, html.has-cursor.lines-grabbing * { cursor: none !important; }
+
+.cursor {
+  --c-dot: var(--ink);
+  --c-ring: color-mix(in srgb, var(--ink) 32%, transparent);
+  --c-hot: var(--me);
+  --caret-h: 28px;
+  position: fixed; inset: 0; z-index: 2147483000; pointer-events: none; contain: strict;
+  opacity: 0; transition: opacity 240ms var(--e-settle);
+}
+.cursor.is-on { opacity: 1; }
+.cursor.is-hidden { opacity: 0; transition-duration: 120ms; }
+.cursor__dot, .cursor__ring { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; }
+
+/* ---------- Dot: 6 px ink; becomes a 4 px indigo point over controls, a caret over [data-cursor="caret"] ---------- */
+.cursor__dot i {
+  position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 3px;
+  background: var(--c-dot);
+  transition: width 260ms var(--e-settle), height 260ms var(--e-settle), left 260ms var(--e-settle), top 260ms var(--e-settle),
+    border-radius 260ms var(--e-settle), background-color 200ms var(--e-settle), opacity 160ms, transform 160ms var(--e-settle);
+}
+.cursor.is-hot .cursor__dot i { left: -2px; top: -2px; width: 4px; height: 4px; border-radius: 2px; background: var(--c-hot); }
+.cursor.is-light .cursor__dot i { background: var(--paper); }
+.cursor.is-light { --c-hot: var(--paper); }
+.cursor.is-disabled .cursor__dot i { opacity: .5; }
+.cursor.is-caret .cursor__dot i {
+  left: -1px; top: calc(var(--caret-h) / -2); width: 2px; height: var(--caret-h); border-radius: 1px;
+  background: var(--me);
+  animation: ih-caret 1.06s steps(1, end) .5s infinite;
+}
+/* A caret holds still while it moves, and blinks once you stop: like the one waiting for your turn. */
+.cursor.is-caret.is-moving .cursor__dot i { animation: none; }
+@keyframes ih-caret { 50% { opacity: 0; } }
+.cursor.is-down .cursor__dot i { transform: scale(.7); }
+.cursor.is-caret.is-down .cursor__dot i { transform: none; }
+
+/* ---------- Ring: 28 px hairline that tightens, stretches or steps aside ---------- */
+.cursor__ring i {
+  position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 14px;
+  border: 1px solid var(--c-ring);
+  transition: width 420ms var(--e-settle), height 420ms var(--e-settle), left 420ms var(--e-settle), top 420ms var(--e-settle),
+    border-radius 420ms var(--e-settle), border-color 260ms var(--e-settle), opacity 260ms var(--e-settle);
+}
+.cursor.is-hot .cursor__ring i { left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 10px; border-color: color-mix(in srgb, var(--c-hot) 58%, transparent); }
+.cursor.is-disabled .cursor__ring i { border-style: dashed; border-color: color-mix(in srgb, var(--ink) 26%, transparent); }
+.cursor.is-down .cursor__ring i { left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 9px; transition-duration: 160ms; }
+.cursor.is-hot.is-down .cursor__ring i { left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 7px; }
+.cursor.is-caret .cursor__ring i { left: -4px; top: -4px; width: 8px; height: 8px; border-radius: 4px; opacity: 0; }
+
+/* Near a line: the ring widens along the string in that string's colour, and a small "~" says it can ring. */
+.cursor.is-pluck .cursor__ring i { left: -22px; top: -10px; width: 44px; height: 20px; border-radius: 10px; }
+.cursor.is-pluck.is-me .cursor__ring i { border-color: color-mix(in srgb, var(--me) 62%, transparent); }
+.cursor.is-pluck.is-them .cursor__ring i { border-color: color-mix(in srgb, var(--them) 70%, transparent); }
+/* Merged into one cord (in the room, at dusk): both voices in one ring, amber above, indigo below. */
+.cursor.is-pluck.is-one .cursor__ring i { border-color: color-mix(in srgb, var(--them) 70%, transparent) color-mix(in srgb, var(--them) 70%, transparent) color-mix(in srgb, var(--me) 62%, transparent) color-mix(in srgb, var(--me) 62%, transparent); }
+.cursor.is-pluck.is-down .cursor__ring i, .cursor.is-held .cursor__ring i { left: -26px; top: -6px; width: 52px; height: 12px; border-radius: 6px; }
+.cursor.is-held .cursor__glyph { opacity: 0; }
+.cursor__glyph {
+  position: absolute; left: 0; top: -27px; transform: translate(-50%, 4px);
+  font: 500 13px/1 var(--f-mono); color: var(--muted);
+  opacity: 0; transition: opacity 200ms var(--e-settle), transform 380ms var(--e-settle), color 200ms;
+}
+.cursor.is-pluck .cursor__glyph { opacity: 1; transform: translate(-50%, 0); }
+.cursor.is-pluck.is-me .cursor__glyph { color: var(--me-ink); }
+.cursor.is-pluck.is-them .cursor__glyph { color: var(--them-ink); }
+.cursor.is-pluck.is-one .cursor__glyph { color: var(--ink-2); }
+
+/* ---------- Label: [data-cursor-label] — mono, below-right of the ring, so it never covers what you point at ---------- */
+.cursor__label {
+  position: absolute; left: 14px; top: 16px; transform: translate(-3px, -3px);
+  padding: 5px 8px; border-radius: 6px;
+  background: var(--ink); color: var(--paper);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 22%, transparent), 0 8px 20px -10px rgba(0, 0, 0, .4);
+  font: 500 10.5px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  opacity: 0; transition: opacity 200ms var(--e-settle), transform 380ms var(--e-settle), left 420ms var(--e-settle), top 420ms var(--e-settle);
+}
+:lang(zh) .cursor__label { font-family: var(--f-mono), var(--f-sans); letter-spacing: .08em; }
+.cursor.has-label .cursor__label { opacity: 1; transform: none; }
+.cursor.is-hot .cursor__label { left: 11px; top: 12px; }
+.cursor.is-pluck .cursor__label { left: 24px; top: 8px; }
+.cursor.is-caret .cursor__label { left: 8px; top: calc(var(--caret-h) / 2 + 4px); }
+.cursor.is-flip .cursor__label { left: auto; right: 14px; transform-origin: 100% 0; }
+.cursor.is-flip.is-hot .cursor__label { right: 11px; }
+.cursor.is-flip.is-pluck .cursor__label { right: 24px; }
+
+/* Never in print, never for reduced motion (the script does not start; this is a second fence). */
+@media print { .cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cursor { display: none; } }

@@ -11,7 +11,7 @@
 
 [![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:b8e235d9cf2caeae37dba1265c7a4cbbaf1f15f0a859d262a4ef2a58201ec691 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:d8eff6756c8d12a15a2ca79bca0ada315f5afc078646566b21e8e63090d6b513 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -62,6 +62,16 @@
 **访问页面：[https://interviewhacker.vercel.app/final/](https://interviewhacker.vercel.app/final/)**
 
 <!-- style:final source:8d784e6fa3a9c198e5a337e32aa8d93dcddb91d057e0ba147bfd9441565694f1 preview:2f66aed59500470a5ce3f72bd88464ec84502c7770114927a273c03f7432f4f5 -->
+
+### Turn · 一天 · 留白 · 声音
+
+[![Turn 首页](public/previews/turn-home.png?v=6753e8c62cbb)](https://interviewhacker.vercel.app/turn/)
+
+以「轮到你」叙事：对话只给你一眨眼，从清晨例会到深夜纪要的一天；可拨动的两根声弦与实时合成的声音，纸色随时间入夜，中英双语。
+
+**访问页面：[https://interviewhacker.vercel.app/turn/](https://interviewhacker.vercel.app/turn/)**
+
+<!-- style:turn source:2e67bc0ab3fdb3d7e523768f14a400ca142e048c15650101012b2a203ebe45b3 preview:6753e8c62cbbbee660d70417b7543c1aec9714123744e780596ac5d0f160e1bb -->
 <!-- STYLES:END -->
 
 ## 本地运行
@@ -74,7 +84,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/` 和 `/final/`（英文版 `/final/en/`）是五种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/`、`/final/`（英文版 `/final/en/`）和 `/turn/`（英文版 `/turn/en/`）是六种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
 
 ## 修改与新增风格
 
@@ -87,6 +97,7 @@ npm run dev
 | Story 全部页面代码和素材 | `public/story/` |
 | Classic 全部页面代码和素材 | `public/classic/` |
 | Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
+| Turn 生成的中英页面、样式、脚本和素材 | `public/turn/`（源码在 `scripts/turn-i18n/`，见 [Turn 维护说明](docs/TURN-NOTES.md)） |
 | 并排对比工具 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |
