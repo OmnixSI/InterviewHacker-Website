@@ -1,4 +1,31 @@
-<!-- OWNER: hero agent. Hero (08:59). -->
-<section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title">
-  <div class="wrap"><h1 class="t-hero" id="hero-title">{{ 对话里，留给你的只有一眨眼。 ‖ In conversation, you get about a blink. }}</h1></div>
+<!-- OWNER: hero agent. Hero (08:59). Layout: headline above the two strings, a hand annotation pointing into the gap
+     between them, the lead and actions below. [data-lines-slot] tells scripts/lines.js where the strings rest:
+     its top edge is the amber string (them), its bottom edge the indigo string (you). -->
+<section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero__grid wrap">
+    <div class="hero__head" data-hero-drift>
+      <p class="kicker hero__kicker" data-hero-in>InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>{{ 即将开放 ‖ Coming soon }}</p>
+      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">{{ 对话里， ‖ In conversation, }}</span></span><br><span class="hero__seg"><span class="hero__in">{{ 留给你的， ‖ you get about }}</span></span>{{ <wbr> ‖ &#32; }}<span class="hero__seg"><span class="hero__in">{{ 只有<span class="hero__word" data-draft="一瞬间">一眨眼</span>。 ‖ a <span class="hero__word" data-draft="moment">blink</span>. }}</span></span></h1>
+    </div>
+
+    <div class="hero__strings" data-lines-slot aria-hidden="true">
+      <span class="hero__label hero__label--them mono" data-hero-mark>{{ 对方 ‖ Them }}</span>
+      <span class="hero__measure mono" data-hero-mark><i></i>≈ 0.2 s</span>
+      <span class="hero__label hero__label--me mono" data-hero-mark>{{ 你 ‖ You }}</span>
+      <span class="hero__note" data-hero-note>
+        <svg class="hero__arrow" viewBox="0 0 92 132" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-arrow d="M44.5 3.5C53 15 63.5 29 60.5 44.5C58.6 54.3 47.2 58.6 42.3 51.5C37.6 44.7 46.4 37.6 52.6 43.4C61.5 51.8 56.8 75.2 46.6 91C39.4 102.2 28.7 113.1 15.8 122.4"/><path data-arrow d="M17.6 106.9C17.9 112.4 16.9 117.6 15.8 122.4C21.2 121.6 26.5 121.4 31.8 122.3"/></g></svg>
+        {{@letter:your turn.|hero__letter}}
+      </span>
+    </div>
+
+    <div class="hero__foot" data-hero-drift>
+      <p class="t-body hero__lead" data-hero-in>{{ InterviewHacker和你一起听。对方一问完，你能说出口的那句话，就开始浮上来，用的是你自己的资料。 ‖ InterviewHacker listens with you. The moment their question ends, a line you can actually say starts to surface, drawn from your own notes. }}</p>
+      <p class="hero__actions" data-hero-in>
+        <a class="btn btn--ink" href="#join">{{ 加入等待名单 ‖ Join the waitlist }}<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="#gap">{{ 过一遍这一天 ‖ Walk through the day }}<svg aria-hidden="true"><use href="#i-down"/></svg></a>
+      </p>
+    </div>
+
+    <p class="hero__hint mono" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">{{ 拨一下这两根线 · 打开声音会更好 ‖ Pluck the two lines · better with sound on }}</span><span class="hero__hint-touch">{{ 碰一下这两根线 ‖ Touch the two lines }}</span></p>
+  </div>
 </section>

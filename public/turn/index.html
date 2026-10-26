@@ -82,9 +82,36 @@
   </header>
 
   <main id="main">
-    <!-- OWNER: hero agent. Hero (08:59). -->
-<section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title">
-  <div class="wrap"><h1 class="t-hero" id="hero-title">对话里，留给你的只有一眨眼。</h1></div>
+    <!-- OWNER: hero agent. Hero (08:59). Layout: headline above the two strings, a hand annotation pointing into the gap
+     between them, the lead and actions below. [data-lines-slot] tells scripts/lines.js where the strings rest:
+     its top edge is the amber string (them), its bottom edge the indigo string (you). -->
+<section class="hero" id="top" data-time="08:59" data-palette="dawn" data-lines="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero__grid wrap">
+    <div class="hero__head" data-hero-drift>
+      <p class="kicker hero__kicker" data-hero-in>InterviewHacker 2.0<span class="hero__sep" aria-hidden="true">·</span>即将开放</p>
+      <h1 class="t-hero hero__title" id="hero-title" data-cursor="caret"><span class="hero__seg"><span class="hero__in">对话里，</span></span><br><span class="hero__seg"><span class="hero__in">留给你的，</span></span><wbr><span class="hero__seg"><span class="hero__in">只有<span class="hero__word" data-draft="一瞬间">一眨眼</span>。</span></span></h1>
+    </div>
+
+    <div class="hero__strings" data-lines-slot aria-hidden="true">
+      <span class="hero__label hero__label--them mono" data-hero-mark>对方</span>
+      <span class="hero__measure mono" data-hero-mark><i></i>≈ 0.2 s</span>
+      <span class="hero__label hero__label--me mono" data-hero-mark>你</span>
+      <span class="hero__note" data-hero-note>
+        <svg class="hero__arrow" viewBox="0 0 92 132" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-arrow d="M44.5 3.5C53 15 63.5 29 60.5 44.5C58.6 54.3 47.2 58.6 42.3 51.5C37.6 44.7 46.4 37.6 52.6 43.4C61.5 51.8 56.8 75.2 46.6 91C39.4 102.2 28.7 113.1 15.8 122.4"/><path data-arrow d="M17.6 106.9C17.9 112.4 16.9 117.6 15.8 122.4C21.2 121.6 26.5 121.4 31.8 122.3"/></g></svg>
+        <svg class="lettering hero__letter" viewBox="-2 -154 818 249" data-word="your turn." data-baseline="0.6185" data-xheight="0.4016" style="--l-h:2.490;--l-base:0.6185" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path data-stroke="your" d="M5 -68.6C12.3 -78.8 16 -90.6 23.4 -100.9C18.2 -78.7 13.1 -56.4 7.9 -34.2C3.9 -17 7.7 0.1 23 0.1C43.3 0.1 56.5 -23.8 64.1 -46.3C70.2 -64.5 76.2 -82.7 80.4 -100.9C72.6 -67.2 64.1 -33.5 55.8 0.1C50.9 19.6 45.3 39 37.5 58.1C32.1 71.2 29.8 88.1 17.2 88.1C7.7 88.1 5.3 77 10.1 66.1C19.6 44.7 32.6 23.9 51.5 8.1C60 1 68.6 -6.1 78 -12C95.9 -23.1 115.3 -35.7 119.6 -54.4C124.9 -77.2 134.9 -101.9 154.5 -101.9C166.1 -101.9 175 -95.1 178.1 -84.7C175 -95.1 166.1 -101.9 154.5 -101.9C134.9 -101.9 124.9 -77.2 119.6 -54.4C113.6 -28.6 109.9 0.1 132.1 0.1C151.9 0.1 164.5 -23.7 170.5 -46.3C173.9 -59.2 177.4 -72.1 178.1 -84.7C178.5 -90.9 186 -94.6 192.5 -97.9C196.7 -100.1 201.2 -99.9 205.5 -99.9C214.6 -99.9 223.7 -99.6 233.1 -100.9C227.9 -78.6 222.8 -56.4 217.6 -34.2C213.6 -16.8 218.3 0.1 233.9 0.1C254.6 0.1 268.9 -23.5 276.6 -46.3C282.7 -64.5 288.8 -82.6 293 -100.9C287 -74.6 280.9 -48.3 274.8 -22.1C272.4 -11.6 272.3 -0.4 281.3 -0.4C287.4 -0.4 292.9 -5.4 298.6 -8.9C331 -29.1 326.7 -69.3 343.1 -100.9C335.3 -67.2 327.5 -33.5 319.7 0.1C323.3 -13.3 326.2 -26.8 330.3 -40.3C337.3 -63.6 340.5 -91.7 363.5 -97.9C370.2 -99.7 374 -93.7 379.5 -91.8C381.9 -90.9 383.1 -88.6 384.6 -86.7"/><path data-stroke="turn" d="M485.1 -147.3C478.2 -117.7 471.4 -88.1 464.5 -58.4C461.7 -46.3 458.9 -34.2 456.1 -22.1C453.7 -11.6 453.3 -0.4 462.2 -0.4C468.2 -0.4 473.5 -5.5 479 -8.9C511.3 -29 512.6 -68.8 529.2 -100.8C524.1 -78.6 519 -56.4 513.9 -34.2C509.9 -16.9 514.3 0.1 529.8 0.1C550.3 0.1 564.2 -23.6 571.8 -46.3C577.9 -64.4 584 -82.6 588.2 -100.8C582.1 -74.5 576.1 -48.3 570 -22.1C567.6 -11.6 567.3 -0.4 576.3 -0.4C582.3 -0.4 587.7 -5.4 593.3 -8.9C625.7 -29.1 621.8 -69.2 638.2 -100.8C630.4 -67.2 622.7 -33.5 614.9 0.1C618.5 -13.3 621.4 -26.8 625.4 -40.2C632.4 -63.5 635.3 -91.6 658.3 -97.8C664.9 -99.6 668.5 -93.7 674 -91.7C679.2 -89.9 685.6 -92.9 691.6 -93.7C704.3 -95.5 717.2 -99.3 730 -101C722.2 -67.3 714.2 -33.6 706.4 0.1C709.7 -12 712.7 -24.1 716.2 -36.3C724.9 -67.1 735.9 -102.1 762.9 -102.1C779.8 -102.1 789.7 -87.8 785.8 -70.7C782.1 -54.5 778.2 -38.3 774.5 -22.1C772.1 -11.6 771.7 -0.4 780.7 -0.4C785.8 -0.4 790.4 -4.8 795.1 -7.9"/><path data-stroke="t-bar" d="M453.6 -101.9C472.2 -104.1 490.6 -105.3 509 -106.9"/><path data-stroke="stop" d="M806.6 -1.5C807.6 -3 808.6 -4.5 809.6 -6"/></g></svg>
+      </span>
+    </div>
+
+    <div class="hero__foot" data-hero-drift>
+      <p class="t-body hero__lead" data-hero-in>InterviewHacker和你一起听。对方一问完，你能说出口的那句话，就开始浮上来，用的是你自己的资料。</p>
+      <p class="hero__actions" data-hero-in>
+        <a class="btn btn--ink" href="#join">加入等待名单<svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="#gap">过一遍这一天<svg aria-hidden="true"><use href="#i-down"/></svg></a>
+      </p>
+    </div>
+
+    <p class="hero__hint mono" data-needs-js aria-hidden="true"><i></i><span class="hero__hint-fine">拨一下这两根线 · 打开声音会更好</span><span class="hero__hint-touch">碰一下这两根线</span></p>
+  </div>
 </section>
     <!-- OWNER: hero agent. № 01 The blink (09:00). -->
 <section class="gap section" id="gap" data-time="09:00" data-palette="morning" data-lines="gap" aria-labelledby="gap-title">
@@ -94,52 +121,110 @@
 <section class="day section" id="day" data-time="09:20" data-palette="morning" data-lines="day" aria-labelledby="day-title">
   <div class="wrap"><h2 class="t-h2" id="day-title">轮到你的，不止面试。</h2></div>
 </section>
-    <!-- OWNER: evening agent. Dusk interlude (18:10). The paper turns from afternoon to dusk while a low sun made of the
-     two voices (amber, indigo) settles on the horizon; then the moments of the day rise past it, bending around it,
-     and the sun sinks as the last line arrives. Script: scripts/dusk.js · styles: styles/dusk.css.
-     Reading order without script: a still sun, the title, the stanzas. -->
+    <!-- OWNER: evening agent. Dusk interlude (18:10).
+     The paper turns from afternoon to dusk while a low sun made of the two voices (amber, indigo) comes down onto the
+     horizon; then the moments of the day rise past it, parting around it, and the sun sinks as the last line arrives.
+     Script: scripts/dusk.js (pinned scrub on large screens; sticky still sun elsewhere) · styles: styles/dusk.css.
+     The two marks give the clock and the colour turn their own places (see dusk.js → anchors). -->
 <section class="dusk" id="dusk" data-time="18:10" data-palette="dusk" data-lines="dusk" aria-labelledby="dusk-title" data-dusk>
-  <span class="dusk__mark" data-time="17:30" data-palette="afternoon" data-dusk-mark="before" aria-hidden="true"></span>
+  <span class="dusk__mark dusk__mark--before" data-time="17:30" data-palette="afternoon" data-dusk-mark="before" aria-hidden="true"></span>
   <div class="dusk__stage" data-dusk-stage>
-    <div class="dusk__sun" aria-hidden="true">
-      <i class="dusk__halo" data-dusk-halo></i>
-      <div class="dusk__sky">
-        <div class="dusk__orb" data-dusk-orb>
-          <div class="dusk__turn"><i class="dusk__a"></i></div>
-          <div class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></div>
-          <i class="dusk__grain"></i>
+    <div class="dusk__air" aria-hidden="true">
+      <div class="dusk__sun" data-dusk-sun>
+        <i class="dusk__band" data-dusk-band></i>
+        <i class="dusk__glow" data-dusk-glow></i>
+        <div class="dusk__sky">
+          <div class="dusk__orb" data-dusk-orb>
+            <i class="dusk__core"></i>
+            <div class="dusk__turn"><i class="dusk__a"></i></div>
+            <div class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></div>
+            <i class="dusk__grain"></i>
+          </div>
         </div>
-      </div>
-      <div class="dusk__sea">
-        <div class="dusk__orb dusk__orb--mirror" data-dusk-mirror>
-          <div class="dusk__turn"><i class="dusk__a"></i></div>
-          <div class="dusk__turn dusk__turn--back"><i class="dusk__b"></i></div>
+        <div class="dusk__sea">
+          <div class="dusk__orb dusk__orb--mirror" data-dusk-mirror>
+            <i class="dusk__core"></i>
+            <div class="dusk__turn"><i class="dusk__a"></i></div>
+          </div>
         </div>
+        <i class="dusk__horizon"></i>
+        <i class="dusk__rule" data-dusk-rule></i>
       </div>
-      <i class="dusk__rule"></i>
     </div>
-
-    <h2 class="dusk__head" id="dusk-title" data-dusk-head><span class="dusk__hl"><span>对话，</span></span><span class="dusk__hl"><span>从不等你准备好。</span></span></h2>
 
     <div class="dusk__col" data-dusk-col>
-      <p class="dusk__st" data-side="r"><span class="dl">面试官的追问，</span><span class="dl">停在半空。</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">导师一句：</span><span class="dl voice-them">“这个对照组呢？”</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">谈判桌对面：</span><span class="dl voice-them">“再降八个点。”</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">网课里，</span><span class="dl">突然被点到名字。</span></p>
-      <p class="dusk__st" data-side="r"><span class="dl">电话那头：</span><span class="dl voice-them">“月底能上线吗？”</span></p>
-      <p class="dusk__st" data-side="l"><span class="dl">答辩的</span><span class="dl">最后一个问题。</span></p>
-      <p class="dusk__st dusk__st--end" data-side="c"><span class="dl">每一句，</span><span class="dl">都只给你一眨眼。</span></p>
+      <h2 class="dusk__st dusk__head" id="dusk-title" data-side="l"><span class="dl">对话，</span> <span class="dl">从不等你准备好。</span></h2>
+      <p class="dusk__st" data-side="r"><span class="dl">面试官的追问，</span> <span class="dl">停在半空。</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">导师一句：</span> <span class="dl voice-them">“这个对照组呢？”</span></p>
+      <p class="dusk__st" data-side="r"><span class="dl">谈判桌对面：</span> <span class="dl voice-them">“再降八个点。”</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">网课里，</span> <span class="dl">突然被点到名字。</span></p>
+      <p class="dusk__st" data-side="r"><span class="dl">电话那头：</span> <span class="dl voice-them">“月底能上线吗？”</span></p>
+      <p class="dusk__st" data-side="l"><span class="dl">答辩的</span> <span class="dl">最后一个问题。</span></p>
+      <p class="dusk__st dusk__st--end" data-side="e"><span class="dl">每一句，</span> <span class="dl">都只给你一眨眼。</span></p>
     </div>
+
+    <div class="dusk__set" aria-hidden="true"><i class="dusk__set-glow"></i><i class="dusk__set-line"></i></div>
   </div>
-  <span class="dusk__mark" data-time="19:30" data-dusk-mark="after" aria-hidden="true"></span>
+  <span class="dusk__mark dusk__mark--after" data-time="19:30" data-dusk-mark="after" aria-hidden="true"></span>
 </section>
     <!-- OWNER: evening agent. 20:00 call in English, 21:40 notes. -->
 <section class="evening section" id="evening" data-time="20:00" data-palette="evening" data-lines="day" aria-labelledby="evening-title">
   <div class="wrap"><h2 class="t-h2" id="evening-title">用第二语言开会，也有下一句。</h2></div>
 </section>
-    <!-- OWNER: night agent. № 03 Privacy (22:30). -->
+    <!-- OWNER: night agent. № 03 Privacy (22:30). Quiet type on a ruled page, and one small drawing: the two voices
+     cross into a Mac, settle, and stay there as lines of text. Nothing leaves on the other side. -->
 <section class="privacy section" id="privacy" data-time="22:30" data-palette="night" data-lines="still" aria-labelledby="privacy-title">
-  <div class="wrap"><h2 class="t-h2" id="privacy-title">你的声音，留在这台 Mac 上。</h2></div>
+  <div class="wrap privacy__grid">
+    <header class="privacy__head">
+      <p class="kicker"><b>№ 03</b><span>隐私</span><span class="night-time">22:30</span></p>
+      <h2 class="t-h2 privacy__title" id="privacy-title" data-night-title><span class="rl"><span>你的声音，</span></span><span class="rl"><span>留在这台 Mac 上。</span></span></h2>
+    </header>
+
+    <figure class="privacy__figure" aria-hidden="true" data-privacy-figure>
+      <svg class="pf" viewBox="0 0 330 176" focusable="false">
+        <defs>
+          <linearGradient id="pf-fade-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+          <mask id="pf-fade" maskUnits="userSpaceOnUse" x="-4" y="0" width="340" height="176"><rect x="-4" width="340" height="176" fill="url(#pf-fade-g)"/></mask>
+        </defs>
+        <path class="pf-mac" d="M96 150V26a8 8 0 0 1 8-8h184a8 8 0 0 1 8 8v124"/>
+        <path class="pf-mac" d="M66 150h260l-8 8H74z"/>
+        <path class="pf-mac pf-mac--soft" d="M178 150v2.5h36V150"/>
+        <circle class="pf-cam" cx="196" cy="24" r="1.4"/>
+        <g mask="url(#pf-fade)">
+          <path class="pf-voice pf-voice--them" d="M0 68.3L2.5 73.5L5 75.7L7.5 74L10 68.8L12.5 62L15 55.9L17.5 52.6L20 53.1L22.5 57.2L25 63.3L27.5 69.1L30 72.8L32.5 73.4L35 70.9L37.5 66.5L40 61.8L42.5 58.4L45 57.1L47.5 58.1L50 60.8L52.5 64.3L55 67.5L57.5 69.4L60 69.6L62.5 68.1L65 65.1L67.5 61.6L70 58.5L72.5 57L75 57.8L77.5 60.9L80 65.3L82.5 69.7L85 72.3L87.5 72.2L90 69.3L92.5 64.6L95 59.7L97.5 56.5L100 56L102.5 58.1L105 61.9L107.5 65.8L110 68.5L112.5 69.3L115 68.2L117.5 66L120 63.8L122.5 62.3L125 61.9L127.5 62.3L130 63.1L132.5 63.8L135 64.3L137.5 64.4L140 64.3L142.5 64.1L145 64L147.5 64L150 64H194"/>
+          <path class="pf-voice pf-voice--me" d="M0 93.2L2.5 91.6L5 89.6L7.5 87.7L10 86.1L12.5 85.1L15 85.1L17.5 86.3L20 88.3L22.5 91.1L25 93.9L27.5 96.2L30 97.4L32.5 97L35 94.9L37.5 91.6L40 87.7L42.5 84.1L45 81.7L47.5 81L50 82.3L52.5 85.2L55 89.1L57.5 93L60 96.1L62.5 97.8L65 97.6L67.5 96L70 93.2L72.5 90.1L75 87.3L77.5 85.5L80 84.8L82.5 85.3L85 86.7L87.5 88.5L90 90.3L92.5 91.8L95 92.8L97.5 93.1L100 92.8L102.5 92L105 90.8L107.5 89.5L110 88.4L112.5 87.7L115 87.6L117.5 87.9L120 88.7L122.5 89.6L125 90.5L127.5 91L130 91.2L132.5 91L135 90.7L137.5 90.3L140 90L142.5 89.9L145 89.9L147.5 90L150 90H176"/>
+        </g>
+        <path class="pf-word pf-word--them" d="M203 64h30"/>
+        <path class="pf-word pf-word--them" d="M241 64h22"/>
+        <path class="pf-word pf-word--them" d="M271 64h9"/>
+        <path class="pf-word pf-word--me" d="M185 90h31"/>
+        <path class="pf-word pf-word--me" d="M224 90h27"/>
+        <path class="pf-word pf-word--note" d="M114 117h58"/>
+        <path class="pf-word pf-word--note" d="M180 117h46"/>
+        <path class="pf-word pf-word--note" d="M114 129h40"/>
+      </svg>
+    </figure>
+
+    <ol class="principles" role="list">
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">i.</span>
+        <h3 class="principle__title">在这台 Mac 上听。</h3>
+        <p class="principle__body">对方和你说的话，默认就在本机变成文字。</p>
+      </li>
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">ii.</span>
+        <h3 class="principle__title">不留录音。</h3>
+        <p class="principle__body">留下来的只有转写和纪要，想删就删。</p>
+      </li>
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">iii.</span>
+        <h3 class="principle__title">交给谁，你说了算。</h3>
+        <p class="principle__body">写回答、整理纪要要用到的文字，只交给你自己选的服务。</p>
+      </li>
+    </ol>
+
+    <p class="privacy__fine"><strong>不做“隐身”承诺：</strong>录音和转写之前，请取得在场的人同意，并遵守会议的规则。</p>
+  </div>
 </section>
     <!-- OWNER: night agent. № 04 FAQ (23:10). -->
 <section class="faq section" id="faq" data-time="23:10" data-palette="night" data-lines="still" aria-labelledby="faq-title">
@@ -161,7 +246,7 @@
   <script src="./assets/vendor/lenis.min.js?v=07020831fc52"></script>
   <script src="./scripts/core.js?v=8e494b25b446"></script>
   <script src="./scripts/sound.js?v=0d43590a60ae"></script>
-  <script src="./scripts/lines.js?v=02be00c514e7"></script>
+  <script src="./scripts/lines.js?v=ff1b988c2fc4"></script>
   <script src="./scripts/cursor.js?v=6052c64a1dbc"></script>
   <script src="./scripts/hero.js?v=d15d73419809"></script>
   <script src="./scripts/gap.js?v=2b7071f11c4f"></script>

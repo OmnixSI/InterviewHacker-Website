@@ -17,8 +17,23 @@
   const root = document.documentElement;
   const host = document.querySelector('[data-lines-root]');
   const canvas = host ? host.querySelector('[data-lines-canvas]') : null;
+  // With a software GPU (SwiftShader, llvmpipe: blocklisted drivers, VMs, headless test browsers) an accelerated
+  // 2D canvas is emulated GPU work on the CPU and rasterises many times slower than plain software canvas, so
+  // ask for a CPU-backed canvas there. A real GPU keeps the accelerated path.
+  function softwareGPU() {
+    try {
+      const gl = document.createElement('canvas').getContext('webgl', { antialias: false, depth: false, stencil: false, powerPreference: 'low-power' });
+      if (!gl) return true;
+      const ext = gl.getExtension('WEBGL_debug_renderer_info');
+      const name = String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+      const lose = gl.getExtension('WEBGL_lose_context');
+      if (lose) lose.loseContext();
+      return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+    } catch (e) { return false; }
+  }
+  const soft = !!canvas && softwareGPU();
   let ctx = null;
-  try { ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null; } catch (e) { ctx = null; }
+  try { ctx = canvas && canvas.getContext ? canvas.getContext('2d', soft ? { willReadFrequently: true } : undefined) : null; } catch (e) { ctx = null; }
 
   const MODES = ['hero', 'gap', 'day', 'offline', 'dusk', 'still', 'water'];
   const fineMQ = matchMedia('(hover: hover) and (pointer: fine)');
@@ -60,7 +75,13 @@
   ];
   let Q = coarse || innerWidth < 720 ? 1 : 2;
   if ((navigator.hardwareConcurrency || 8) <= 2) Q = 0;
-  try { const s = sessionStorage.getItem('ih-lines-q'); if (s !== null) Q = Math.min(Q, clamp(Number(s) | 0, 0, 2)); } catch (e) { /* storage blocked */ }
+  if (soft) Q = Math.min(Q, 1);
+  let halfStored = false;
+  try {
+    const s = sessionStorage.getItem('ih-lines-q');
+    if (s !== null) Q = Math.min(Q, clamp(Number(s) | 0, 0, 2));
+    halfStored = sessionStorage.getItem('ih-lines-half') === '1';
+  } catch (e) { /* storage blocked */ }
 
   /* ---------------- Viewport ---------------- */
   // The canvas spans the large viewport (lines.css), so mobile toolbars never resize it; resting positions are
@@ -77,7 +98,8 @@
     const el = document.querySelector('[data-lines-slot]');
     if (!el) { slotTop = slotBottom = NaN; return; }
     const r = el.getBoundingClientRect();
-    if (!r.width && !r.height) { slotTop = slotBottom = NaN; return; }
+    // A slot that isn't laid out yet (no size, or taller than a fifth of the screen) is ignored: fall back to 62/70%.
+    if (r.height < 8 || r.height > VH * 0.2) { slotTop = slotBottom = NaN; return; }
     slotTop = r.top + scrollY; slotBottom = r.bottom + scrollY;
   }
   function measure() {
@@ -100,16 +122,15 @@
   function gapPose(out) { out[TY] = VH * (isMobile() ? 0.655 : 0.535); out[MY] = VH * (isMobile() ? 0.7 : 0.59); }
   function dayPose(out) { out[TY] = VH * (isMobile() ? 0.9 : 0.885); out[MY] = VH * (isMobile() ? 0.93 : 0.915); }
   // Hero: the strings rest on the hero's slot (its top and bottom edges, in document coordinates) and scroll with
-  // the copy, then slow down and settle into their gap positions — exact while the slot is in place, smooth after.
+  // the copy, so its labels stay attached. Near the top of the screen they slow down and stop (a soft floor);
+  // when the reader reaches № 01 the section change morphs them into their gap positions.
   function heroPose(out, sy) {
-    gapPose(out);
     let a = slotTop, b = slotBottom;
     if (!(a === a) || !(b === b)) { a = VH * (isMobile() ? 0.74 : 0.62); b = VH * (isMobile() ? 0.8 : 0.7); }
-    const r = VH * 0.05;
-    const soft = (d) => (d >= r ? d : r * Math.exp(d / r - 1));
-    const gT = Math.min(out[TY], a - 1.5 * r), gM = Math.min(out[MY], b - 1.5 * r);
-    out[TY] = gT + soft(a - sy - gT);
-    out[MY] = gM + soft(b - sy - gM);
+    const r = VH * 0.06, floor = Math.max(96, VH * 0.2);
+    const ease = d => (d >= r ? d : r * Math.exp(d / r - 1));
+    out[TY] = floor + ease(a - sy - floor);
+    out[MY] = floor + (b - a) + ease(b - sy - floor - (b - a));
   }
   function poseFor(m, out, sy) {
     const mob = isMobile();
@@ -252,7 +273,7 @@
       const u = (k + 1) / GH, o = persp(u), near = 1 / (ZF + (1 - ZF) * u); // 1/z: 0.31 far … 1 near
       rowY[k] = waterY + (waterB - waterY) * o;
       rowNear[k] = near;
-      rowS[k] = near * near * 16;
+      rowS[k] = 10 + near * near * 80;
       rowAl[k] = 0.1 + 0.5 * Math.pow(o, 0.7);
       rowLw[k] = 0.5 + 0.95 * near;
     }
@@ -272,9 +293,11 @@
         const avg = (src[l] + src[r] + src[up + x] + src[dn + x]) * 0.25;
         const vel = (v[i] + (avg - src[i]) * WK) * e[i];
         let nx = src[i] + vel;
-        nx += (avg - nx) * WSM;
+        // Smoothing keeps rings soft; the small leak returns the surface to level (drops add volume that the wave
+        // rule alone would keep forever, and a lake that never settles would never let the loop stop).
+        nx = (nx + (avg - nx) * WSM) * 0.996;
         v[i] = vel; dst[i] = nx;
-        const m = nx < 0 ? -nx : nx;
+        const m = (nx < 0 ? -nx : nx) + (vel < 0 ? -vel : vel) * 4;
         if (m > peak) peak = m;
       }
     }
@@ -311,7 +334,7 @@
     convT += dt;
     if (convT < convNext) return;
     if (convLeft > 0) {
-      waterDrop(sourceX(convWho) + (rand() - 0.5) * 2.2, sourceY() + (rand() - 0.5) * 2, 1.5, 0.32 + rand() * 0.28);
+      waterDrop(sourceX(convWho) + (rand() - 0.5) * 2.2, sourceY() + (rand() - 0.5) * 2, 1.6 * GW / 96 + 0.6, 0.5 + rand() * 0.35);
       convLeft--; convNext = convT + 0.2 + rand() * 0.16;
     } else {
       convWho ^= 1; convLeft = 2 + ((rand() * 3) | 0); convNext = convT + 0.9 + rand() * 0.9;
@@ -339,7 +362,7 @@
 
   /* ---------------- State over time ---------------- */
   let running = false, rafId = 0, last = 0, bt = 0, bEnv = 0, lastActive = -1e9, drawAt = -1, waterF = 0;
-  let adaptOff = false, workEMA = 0, dtEMA = 16.7, slow = 0, lastEmit = -1e9, static_ = false, live = false;
+  let adaptOff = false, workEMA = 0, dtEMA = 16.7, slow = 0, frameN = 0, halfRate = halfStored, bornAt = now(), lastEmit = -1e9, static_ = false, live = false;
   const ACTIVE_MS = 6500, WATER_MS = 16000;
   const motionOK = () => IH.motionOK();
   const activity = () => { lastActive = now(); };
@@ -409,7 +432,7 @@
   function resizeCanvas() {
     if (!ctx) return;
     const q = QUALITY[Q], area = Math.max(1, W * CH);
-    DPR = Math.max(1, Math.min(devicePixelRatio || 1, 2, Math.sqrt(q.px / area)));
+    DPR = soft ? 1 : Math.max(1, Math.min(devicePixelRatio || 1, 2, Math.sqrt(q.px / area)));
     const bw = Math.max(1, Math.round(W * DPR)), bh = Math.max(1, Math.round(CH * DPR));
     if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -436,12 +459,24 @@
     ctx.lineWidth = width;
     ctx.stroke();
   }
-  let wx = null, wy = null;
+  let wx = null, wy = null, waterGrad = null, gradKey = '';
+  // The lake: every row is stroked in one neutral ink, then a single amber → indigo gradient is laid over just
+  // those pixels (source-atop). One gradient fill costs about as much as one solid stroke; a gradient stroke per
+  // row would cost 2–3× in raster time.
+  function getWaterGrad() {
+    const key = W + segCol[0] + segCol[SEG - 1];
+    if (waterGrad && key === gradKey) return waterGrad;
+    gradKey = key;
+    const g = ctx.createLinearGradient(0, 0, W, 0);
+    for (let i = 0; i < SEG; i++) g.addColorStop((i + 0.5) / SEG, segCol[i]);
+    waterGrad = g;
+    return g;
+  }
   function drawWater(f, t) {
     const w = GW, xL = -W * 0.02, dx = (W * 1.04) / (w - 1), still = wStatic;
     if (!wx || wx.length !== w) { wx = new Float32Array(w); wy = new Float32Array(w); }
     for (let i = 0; i < w; i++) wx[i] = xL + i * dx;
-    ctx.lineCap = 'butt';
+    ctx.strokeStyle = '#000';
     for (let k = 0; k < GH; k++) {
       // Rows fall from the horizon into place, nearest last: the line multiplies into the lake.
       const u = (k + 1) / GH, fk = clamp(f * 1.35 - u * 0.35, 0, 1);
@@ -449,31 +484,26 @@
       const e = easeMorph(fk), y0 = waterY + (rowY[k] - waterY) * e, a = rowAl[k] * smooth(fk * 1.6);
       if (a < 0.004) continue;
       const sc = rowS[k], sw = still ? 0 : 0.8 * rowNear[k], off = k * GW, ph = k * 0.83;
+      let lift = 0;
       for (let i = 0; i < w; i++) {
-        const x = wx[i];
-        wy[i] = y0 - wA[off + i] * sc + (sw ? sw * (Math.sin(x * 0.0061 + t * 0.33 + ph) + 0.5 * Math.sin(x * 0.0143 - t * 0.47 + ph * 2.3)) : 0);
+        const x = wx[i], h = wA[off + i];
+        wy[i] = y0 - h * sc + (sw ? sw * (Math.sin(x * 0.0061 + t * 0.33 + ph) + 0.5 * Math.sin(x * 0.0143 - t * 0.47 + ph * 2.3)) : 0);
+        if (h > lift) lift = h; else if (-h > lift) lift = -h;
       }
+      ctx.beginPath();
+      ctx.moveTo(wx[0], wy[0]);
+      for (let i = 1; i < w - 1; i++) ctx.quadraticCurveTo(wx[i], wy[i], (wx[i] + wx[i + 1]) * 0.5, (wy[i] + wy[i + 1]) * 0.5);
+      ctx.lineTo(wx[w - 1], wy[w - 1]);
+      // Ripples catch the light: a row with a ring passing through it brightens a little.
+      ctx.globalAlpha = Math.min(1, a * (1 + (still ? 0 : Math.min(1, lift * 2.4))));
       ctx.lineWidth = rowLw[k];
-      // Quadratic curves through the midpoints, cut into SEG pieces that meet exactly at a midpoint.
-      let sx = wx[0], sy = wy[0];
-      for (let g = 0; g < SEG; g++) {
-        const i0 = Math.max(1, Math.round(g * (w - 1) / SEG)), i1 = Math.round((g + 1) * (w - 1) / SEG);
-        let lift = 0;
-        ctx.beginPath();
-        ctx.moveTo(sx, sy);
-        for (let i = i0; i <= i1; i++) {
-          if (i < w - 1) { const mx = (wx[i] + wx[i + 1]) * 0.5, my = (wy[i] + wy[i + 1]) * 0.5; ctx.quadraticCurveTo(wx[i], wy[i], mx, my); sx = mx; sy = my; }
-          else { ctx.lineTo(wx[i], wy[i]); sx = wx[i]; sy = wy[i]; }
-          const h = wA[off + i]; lift += h < 0 ? -h : h;
-        }
-        // Ripples catch the light: a passing ring brightens the line it moves through.
-        const glint = still ? 0 : Math.min(0.9, (lift / (i1 - i0 + 1)) * sc * 0.16);
-        ctx.globalAlpha = Math.min(1, a * (1 + glint));
-        ctx.strokeStyle = segCol[g];
-        ctx.stroke();
-      }
+      ctx.stroke();
     }
-    ctx.lineCap = 'round';
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.fillStyle = getWaterGrad();
+    ctx.fillRect(0, waterY - 30, W, CH - waterY + 30);
+    ctx.globalCompositeOperation = 'source-over';
   }
   function render() {
     if (!ctx || !W) return;
@@ -577,23 +607,41 @@
       let n = 0;
       while (wAcc >= WDT && n < 3) { wAcc -= WDT; n++; wPeak = waterStep(); }
       if (wAcc > WDT) wAcc = 0;
-      if (talking || wPeak > 0.0015) busy = true;
+      if (talking || wPeak > 0.004) busy = true;
+      else if (wPeak > 0) { wA.fill(0); wB.fill(0); wV.fill(0); wPeak = 0; }
     }
     const w1 = now();
-    render();
+    // Half rate (last resort on a raster-bound device): physics every frame, drawing every other frame.
+    frameN++;
+    if (!halfRate || !(frameN & 1) || grabbed >= 0) render();
     const work = now() - w0;
     if (api.trace) api.trace.push([w1 - w0, work - (w1 - w0)]);
     adapt(work, dt * 1000);
     if (!busy) stop();
   }
+  // Two signals: our own script time, and the frame pacing the browser actually delivers (rasterising the strokes
+  // happens outside our timer). Pacing is judged against the display's own interval, so a 30 Hz battery-saver
+  // display is not mistaken for a slow one. The first 1.5 s after load are ignored (fonts, other modules starting).
+  const ring = new Float32Array(48), sorted = new Float32Array(48);
+  let ringN = 0, bestP25 = 1e9;
   function adapt(work, dtms) {
+    if (adaptOff || dtms > 120) return;
     workEMA += (work - workEMA) * 0.1;
-    dtEMA += (dtms - dtEMA) * 0.06;
+    dtEMA += (dtms - dtEMA) * 0.08;
+    ring[ringN++ % 48] = dtms;
+    if (now() - bornAt < 1500 || ringN % 24 || ringN < 48) return;
+    // Every 24 frames: the display interval is the best 25th percentile of 48 frames seen so far (a 30 Hz
+    // display never shows better than 33 ms, so it is never mistaken for a slow one); we are dropping frames when
+    // the median sits well above it.
+    sorted.set(ring); sorted.sort();
+    bestP25 = Math.min(bestP25, Math.max(6.9, sorted[12]));
+    const base = bestP25, median = sorted[24];
     const budget = waterF > 0.3 ? 4 : 2;
-    if (workEMA > budget * 1.2 || (dtEMA > 26 && workEMA > budget * 0.45)) slow++; else if (slow > 0) slow--;
-    if (slow > 36 && Q > 0 && !adaptOff) {
-      slow = 0; workEMA = 0; dtEMA = 16.7;
-      setQuality(Q - 1);
+    if (workEMA > budget * 1.2 || median > base * 1.5) slow++; else if (slow > 0) slow--;
+    if (slow >= 3) {
+      slow = 0; workEMA = 0; ringN = 0;
+      if (Q > 0) setQuality(Q - 1);
+      else if (!halfRate) { halfRate = true; try { sessionStorage.setItem('ih-lines-half', '1'); } catch (e) { /* ignore */ } }
     }
   }
   function setQuality(q) {
@@ -648,7 +696,7 @@
   }
 
   /* ---------------- Plucking ---------------- */
-  const pickMax = () => clamp(VH * 0.024, 10, 22);
+  const pickMax = () => clamp(VH * 0.036, 14, 32);
   const pullMax = () => clamp(VH * 0.085, 40, 84) * Math.max(0.55, cur[AMP]);
   function emitPluck(k, xFrac, strength) {
     const t = now(), s = S[k];
@@ -767,7 +815,7 @@
 
   function onMove(e) {
     const x = e.clientX, y = e.clientY, t = e.timeStamp || now();
-    if (!pIn) { pX = x; pY = y; pT = t; pIn = true; return; }
+    if (!pIn) { pX = x; pY = y; pT = t; pIn = true; if (e.pointerType === 'mouse') proximity(x, y); return; }
     const dtm = Math.max(4, t - pT);
     if (grabbed >= 0) moveGrab(x, y);
     else {
@@ -810,12 +858,12 @@
     if (waterF > 0.5 && wA) {
       if (t - s.packetAt > 140) { waterDrop(sourceX(k) + (rand() - 0.5) * 2, sourceY() + (rand() - 0.5) * 2, 1.5, 0.25 + 0.35 * level); s.packetAt = t; }
     } else if (t - s.packetAt > 110) {
-      addPacket(s, Math.max(420, W * 0.5), (0.9 + 3.1 * level) * (isMobile() ? 0.8 : 1), 44, 34, t);
+      addPacket(s, Math.max(420, W * 0.5), (1.3 + 3.4 * level) * (isMobile() ? 0.8 : 1), 64, 72, t);
     } else {
       // Words closer together than the packets: the newest packet carries the louder level instead.
       let o = -1, p = 1e9; const pk = s.pk;
       for (let j = 0; j < PK; j++) if (pk[j * PF + 2] !== 0 && pk[j * PF] < p) { p = pk[j * PF]; o = j * PF; }
-      if (o >= 0) pk[o + 2] = Math.max(pk[o + 2], 0.9 + 3.1 * level);
+      if (o >= 0) pk[o + 2] = Math.max(pk[o + 2], 1.3 + 3.4 * level);
     }
     s.lit = Math.max(s.lit, 0.15 + 0.25 * level);
     start();
@@ -826,7 +874,7 @@
     if (!motionOK() || static_ || !ctx) return;
     activity();
     if (waterF > 0.5 && wA) waterDrop(sourceX(k), sourceY(), 2.4, 0.9);
-    else addPacket(s, Math.max(620, W * 0.62), isMobile() ? 4 : 5.5, 120, 0, now());
+    else addPacket(s, Math.max(760, W * 0.8), isMobile() ? 6 : 8, 110, 0, now());
     s.lit = 1;
     start();
   }
@@ -849,7 +897,7 @@
       pluckAt(k, vx, clamp(+strength || 0, 0, 1), opts.dir || 1, !opts.silent);
     },
     /** Diagnostics: quality level, smoothed cost of our frame (ms), whether the loop runs. */
-    stats() { return { quality: Q, work: Math.round(workEMA * 100) / 100, running, dpr: DPR, nodes: N, grid: GW + '×' + GH }; },
+    stats() { return { soft, quality: Q, half: halfRate, work: Math.round(workEMA * 100) / 100, frame: Math.round(dtEMA * 10) / 10, running, dpr: DPR, nodes: N, grid: GW + '×' + GH, wPeak: Math.round(wPeak * 1000) / 1000 }; },
     quality(q, hold) { setQuality(clamp(q | 0, 0, 2)); adaptOff = !!hold; if (!running) render(); },
     setMode(name, opts = {}) { overrideMode = MODES.includes(name) ? name : null; applyMode(opts.duration); },
     merge(on) { mergeOverride = on == null ? null : !!on; applyMode(); }

@@ -1,4 +1,55 @@
-<!-- OWNER: night agent. № 03 Privacy (22:30). -->
+<!-- OWNER: night agent. № 03 Privacy (22:30). Quiet type on a ruled page, and one small drawing: the two voices
+     cross into a Mac, settle, and stay there as lines of text. Nothing leaves on the other side. -->
 <section class="privacy section" id="privacy" data-time="22:30" data-palette="night" data-lines="still" aria-labelledby="privacy-title">
-  <div class="wrap"><h2 class="t-h2" id="privacy-title">{{ 你的声音，留在这台 Mac 上。 ‖ Your voice stays on this Mac. }}</h2></div>
+  <div class="wrap privacy__grid">
+    <header class="privacy__head">
+      <p class="kicker"><b>№ 03</b><span>{{ 隐私 ‖ Privacy }}</span><span class="night-time">22:30</span></p>
+      <h2 class="t-h2 privacy__title" id="privacy-title" data-night-title><span class="rl"><span>{{ 你的声音， ‖ Your voice }}</span></span><span class="rl"><span>{{ 留在这台 Mac 上。 ‖ stays on this Mac. }}</span></span></h2>
+    </header>
+
+    <figure class="privacy__figure" aria-hidden="true" data-privacy-figure>
+      <svg class="pf" viewBox="0 0 330 176" focusable="false">
+        <defs>
+          <linearGradient id="pf-fade-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="60" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>
+          <mask id="pf-fade" maskUnits="userSpaceOnUse" x="-4" y="0" width="340" height="176"><rect x="-4" width="340" height="176" fill="url(#pf-fade-g)"/></mask>
+        </defs>
+        <path class="pf-mac" d="M96 150V26a8 8 0 0 1 8-8h184a8 8 0 0 1 8 8v124"/>
+        <path class="pf-mac" d="M66 150h260l-8 8H74z"/>
+        <path class="pf-mac pf-mac--soft" d="M178 150v2.5h36V150"/>
+        <circle class="pf-cam" cx="196" cy="24" r="1.4"/>
+        <g mask="url(#pf-fade)">
+          <path class="pf-voice pf-voice--them" d="M0 68.3L2.5 73.5L5 75.7L7.5 74L10 68.8L12.5 62L15 55.9L17.5 52.6L20 53.1L22.5 57.2L25 63.3L27.5 69.1L30 72.8L32.5 73.4L35 70.9L37.5 66.5L40 61.8L42.5 58.4L45 57.1L47.5 58.1L50 60.8L52.5 64.3L55 67.5L57.5 69.4L60 69.6L62.5 68.1L65 65.1L67.5 61.6L70 58.5L72.5 57L75 57.8L77.5 60.9L80 65.3L82.5 69.7L85 72.3L87.5 72.2L90 69.3L92.5 64.6L95 59.7L97.5 56.5L100 56L102.5 58.1L105 61.9L107.5 65.8L110 68.5L112.5 69.3L115 68.2L117.5 66L120 63.8L122.5 62.3L125 61.9L127.5 62.3L130 63.1L132.5 63.8L135 64.3L137.5 64.4L140 64.3L142.5 64.1L145 64L147.5 64L150 64H194"/>
+          <path class="pf-voice pf-voice--me" d="M0 93.2L2.5 91.6L5 89.6L7.5 87.7L10 86.1L12.5 85.1L15 85.1L17.5 86.3L20 88.3L22.5 91.1L25 93.9L27.5 96.2L30 97.4L32.5 97L35 94.9L37.5 91.6L40 87.7L42.5 84.1L45 81.7L47.5 81L50 82.3L52.5 85.2L55 89.1L57.5 93L60 96.1L62.5 97.8L65 97.6L67.5 96L70 93.2L72.5 90.1L75 87.3L77.5 85.5L80 84.8L82.5 85.3L85 86.7L87.5 88.5L90 90.3L92.5 91.8L95 92.8L97.5 93.1L100 92.8L102.5 92L105 90.8L107.5 89.5L110 88.4L112.5 87.7L115 87.6L117.5 87.9L120 88.7L122.5 89.6L125 90.5L127.5 91L130 91.2L132.5 91L135 90.7L137.5 90.3L140 90L142.5 89.9L145 89.9L147.5 90L150 90H176"/>
+        </g>
+        <path class="pf-word pf-word--them" d="M203 64h30"/>
+        <path class="pf-word pf-word--them" d="M241 64h22"/>
+        <path class="pf-word pf-word--them" d="M271 64h9"/>
+        <path class="pf-word pf-word--me" d="M185 90h31"/>
+        <path class="pf-word pf-word--me" d="M224 90h27"/>
+        <path class="pf-word pf-word--note" d="M114 117h58"/>
+        <path class="pf-word pf-word--note" d="M180 117h46"/>
+        <path class="pf-word pf-word--note" d="M114 129h40"/>
+      </svg>
+    </figure>
+
+    <ol class="principles" role="list">
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">i.</span>
+        <h3 class="principle__title">{{ 在这台 Mac 上听。 ‖ Heard on this Mac. }}</h3>
+        <p class="principle__body">{{ 对方和你说的话，默认就在本机变成文字。 ‖ What they say and what you say becomes text right here, by default. }}</p>
+      </li>
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">ii.</span>
+        <h3 class="principle__title">{{ 不留录音。 ‖ No recordings. }}</h3>
+        <p class="principle__body">{{ 留下来的只有转写和纪要，想删就删。 ‖ Only the transcript and the notes remain, and you can delete them. }}</p>
+      </li>
+      <li class="principle">
+        <span class="principle__n" aria-hidden="true">iii.</span>
+        <h3 class="principle__title">{{ 交给谁，你说了算。 ‖ You decide who gets what. }}</h3>
+        <p class="principle__body">{{ 写回答、整理纪要要用到的文字，只交给你自己选的服务。 ‖ The text needed for answers and notes goes only to the service you choose. }}</p>
+      </li>
+    </ol>
+
+    <p class="privacy__fine"><strong>{{ 不做“隐身”承诺： ‖ No stealth promises: }}</strong>{{ 录音和转写之前，请取得在场的人同意，并遵守会议的规则。 ‖ get consent from everyone present before recording or transcribing, and follow the rules of the meeting. }}</p>
+  </div>
 </section>
