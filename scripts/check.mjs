@@ -158,11 +158,13 @@ for(const style of catalog.styles){
   };
   const uncovered=(text,set)=>[...new Set(text)].filter(ch=>cjk(ch)&&!set.has(ch)).join('');
   const sans=new Set(charset.sans),display=new Set(charset.display),serif=new Set(charset.serif||'');
-  const js=(await Promise.all((await readdir(path.join(base,'scripts'))).filter(n=>n.endsWith('.js')).map(n=>readFile(path.join(base,'scripts',n),'utf8')))).join('');
+  // Script strings count (scripts stream lines into the page); whole-line comments don't (as in scripts/turn-fonts.py).
+  const js=(await Promise.all((await readdir(path.join(base,'scripts'))).filter(n=>n.endsWith('.js')).map(n=>readFile(path.join(base,'scripts',n),'utf8'))))
+   .map(src=>src.replace(/^[ \t]*\/\*[\s\S]*?\*\//gm,'').replace(/^[ \t]*\/\/.*$/gm,'')).join('');
   const fix='run npm run turn:build, then npm run fonts:turn -- --src <font sources>';
-  assert.equal(uncovered(textOf(html)+textOf(en)+js,sans),'',`Turn IH Sans subset is missing characters: ${fix}`);
-  assert.equal(uncovered([html,en].map(p=>inside(p,tag=>/^h[1-3]$/.test(tag))).join(''),display),'',`Turn IH Display subset is missing heading characters: ${fix}`);
-  assert.equal(uncovered([html,en].map(p=>inside(p,(tag,cls)=>cls.includes('t-quote')||cls.includes('voice-them'))).join(''),serif),'',`Turn IH Serif subset is missing quote characters: ${fix}`);
+  assert.equal(uncovered(textOf(html)+textOf(en)+js,sans),'',`Turn IH Sans subset is missing characters (shown as actual): ${fix}`);
+  assert.equal(uncovered([html,en].map(p=>inside(p,tag=>/^h[1-3]$/.test(tag))).join(''),display),'',`Turn IH Display subset is missing heading characters (shown as actual): ${fix}`);
+  assert.equal(uncovered([html,en].map(p=>inside(p,(tag,cls)=>cls.includes('t-quote')||cls.includes('voice-them'))).join(''),serif),'',`Turn IH Serif subset is missing quote characters (shown as actual): ${fix}`);
  }
  if(['story','classic'].includes(style.slug)){
   for(const m of html.matchAll(/(?:href|src|data-ih-light|data-ih-dark)="(\.\/[^"?#]+\.(?:css|js|svg))\?v=([a-f0-9]{12})(?:#[^"]*)?"/g)){

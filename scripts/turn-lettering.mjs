@@ -49,7 +49,7 @@ const GLYPHS = {
     left: 10, right: 10, in: nIn,
     body: [[10, 100, null, -90]],
     out: lowOut(10), end: lowEnd(10), exit: 'low',
-    marks: [{ id: 'i-dot', pts: [[11, 146, 70], [12.4, 149.5, 70]] }]
+    marks: [{ id: 'i-dot', pts: [[11, 145, 66], [12.8, 149.5, 66]] }]
   },
   r: {
     // The arch rises to a small shoulder and eases down a touch before the tie, so a pair of r's never reads as a bar.
@@ -194,10 +194,17 @@ function layout(word) {
   const endWord = () => { endRun(); strokes.push(...marks); marks = []; prev = null; };
   chars.forEach((ch, i) => {
     if (ch === ' ') { endWord(); x = Math.max(x, tail) + SPACE; return; }
+    if (ch === ',') {
+      endWord();
+      const cx = Math.max(x, tail) + 12;
+      strokes.push({ id: 'comma', nodes: [[cx + 2, 6, -100], [cx - 6, -22, -120]] });
+      x = tail = cx + 4;
+      return;
+    }
     if (ch === '.') {
       endWord();
       const sx0 = Math.max(x, tail) + 13;
-      strokes.push({ id: 'stop', nodes: [[sx0, 1.5, 70], [sx0 + 1.4, 5, 70]] });
+      strokes.push({ id: 'stop', nodes: [[sx0, 1.5, 66], [sx0 + 2, 6, 66]] });
       x = tail = sx0 + 2;
       return;
     }
@@ -273,7 +280,7 @@ export function letteringSvg({ word, className = 'lettering' }) {
   return `<svg class="${esc(className)}" viewBox="${L.viewBox}" data-word="${esc(word)}" data-baseline="${L.baseline}" data-xheight="${L.xHeight}" style="--l-h:${(L.height / 100).toFixed(3)};--l-base:${L.baseline}" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${paths}</g></svg>`;
 }
 
-export const LETTERING_CHARS = `${Object.keys(GLYPHS).join('')} .`;
+export const LETTERING_CHARS = `${Object.keys(GLYPHS).join('')} .,`;
 
 // CLI. The module itself has no Node dependencies, so a copy can run in the browser to build strokes on the fly.
 if (typeof process !== 'undefined' && import.meta.url === `file://${process.argv?.[1]}`) {

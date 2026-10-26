@@ -24,7 +24,7 @@ Smiley Sans reserves "Smiley" and "得意黑" and Noto Sans CJK reserves "Source
 requires for modified versions; Noto Serif SC is renamed too, for consistency.
 
 Which characters go where (exact mode), read from public/turn/index.html, public/turn/en/index.html and
-public/turn/scripts/*.js:
+public/turn/scripts/*.js (code and string literals; whole-line comments are skipped):
   IH Display  text inside h1–h3, elements with class t-hero / t-h2 / t-h3 / t-display or data-font="display", and
               elements with any class whose CSS rule uses var(--f-display)
   IH Serif    text inside elements with class t-quote / voice-them, data-font="serif", or a class whose CSS rule
@@ -33,12 +33,18 @@ public/turn/scripts/*.js:
   IH Sans     everything on both pages, in the scripts and in CSS content strings
 Attribute values inside those elements count too (scripts swap data-* text in).
 Each also keeps printable ASCII (Chinese text mixes Latin, digits and punctuation) and common CJK punctuation.
+Layout features kept: kern liga calt locl ccmp mark mkmk palt halt chws vhal vchw vert vrt2 vpal vkrn (where the
+font has them). CSS text-spacing-trim needs `halt` or `chws`; Smiley Sans has neither, so a `halt` is synthesized
+from the punctuation's ink bounds (see add_halt).
 """
-import argparse, json, re, shutil, sys
+import argparse, json, re, sys
 from html.parser import HTMLParser
 from pathlib import Path
 from fontTools import subset
+from fontTools.otlLib import builder as otl
+from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont, TTCollection
+from fontTools.ttLib.tables import otTables as ot
 
 ROOT = Path(__file__).resolve().parent.parent
 TURN = ROOT / 'public' / 'turn'
@@ -63,23 +69,27 @@ ROLE = {'display': 'display', 'sans-400': 'sans', 'sans-500': 'sans', 'serif-500
 RESERVED = ('Smiley', '得意黑', 'Source', 'Noto')
 
 
-def css_roles():
-    """Classes whose rules set the display or the serif face (directly, or via --f-serif, which falls back to IH Serif
-    for Chinese), and the non-ASCII characters CSS `content` strings add, per face."""
+def css_roles(lang):
+    """Classes whose rules set the display or the serif face on the page in `lang` (directly, or via --f-serif, which
+    falls back to IH Serif for Chinese), and the non-ASCII characters CSS `content` strings add, per face."""
     display, serif, content = {'t-hero', 't-h2', 't-h3', 't-display'}, {'t-quote', 'voice-them'}, {'display': '', 'serif': '', 'sans': ''}
+    other = 'zh' if lang == 'en' else 'en'
     for p in [TURN / 'style.css', *sorted((TURN / 'styles').glob('*.css'))]:
         css = re.sub(r'/\*[\s\S]*?\*/', '', p.read_text('utf-8'))
-        for selector, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
-            classes = set(re.findall(r'\.([A-Za-z_][\w-]*)', selector))
+        for selectors, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
             text = ''.join(re.findall(r'content\s*:\s*([^;]+)', body))
             wide = ''.join(c for c in text if ord(c) > 0x7e)
             content['sans'] += wide
-            if re.search(r'--f-display\b|IH Display', body) and not selector.strip().startswith(':root'):
-                display |= classes
-                content['display'] += wide
-            if re.search(r'--f-(?:them|serif)\b|IH Serif', body) and not selector.strip().startswith(':root'):
-                serif |= classes
-                content['serif'] += wide
+            for selector in selectors.split(','):
+                if selector.strip().startswith(':root') or re.search(rf':lang\({other}', selector):
+                    continue
+                classes = set(re.findall(r'\.([A-Za-z_][\w-]*)', selector))
+                if re.search(r'--f-display\b|IH Display', body):
+                    display |= classes
+                    content['display'] += wide
+                if re.search(r'--f-(?:them|serif)\b|IH Serif', body):
+                    serif |= classes
+                    content['serif'] += wide
     return display, serif, content
 
 
@@ -134,10 +144,16 @@ class Roles(HTMLParser):
             self.text[r].append(data)
 
 
+def strip_comments(src):
+    """Drops whole-line // and /* */ comments (comments after code stay: they may share a line with a string).
+    scripts/check.mjs strips the same way, so both read the same text."""
+    return re.sub(r'^[ \t]*//.*$', '', re.sub(r'^[ \t]*/\*[\s\S]*?\*/', '', src, flags=re.M), flags=re.M)
+
+
 def script_text():
     out = []
     for p in sorted((TURN / 'scripts').glob('*.js')):
-        src = p.read_text('utf-8')
+        src = strip_comments(p.read_text('utf-8'))
         out.append(src)
         out += [chr(int(h, 16)) for h in re.findall(r'\\u([0-9a-fA-F]{4})', src)]
         out += [chr(int(h, 16)) for h in re.findall(r'\\u\{([0-9a-fA-F]{1,6})\}', src)]
@@ -147,19 +163,20 @@ def script_text():
 def page_sets():
     pages = [(TURN / 'index.html').read_text('utf-8'), (TURN / 'en' / 'index.html').read_text('utf-8')]
     js = script_text()
-    display_classes, serif_classes, content = css_roles()
-    display, serif = [], []
-    for html in pages:
+    display, serif, extra = [], [], []
+    for lang, html in zip(('zh', 'en'), pages):
+        display_classes, serif_classes, content = css_roles(lang)
         r = Roles(display_classes, serif_classes)
         r.feed(html)
-        display += r.text['display']
-        serif += r.text['serif']
+        display += r.text['display'] + [content['display']]
+        serif += r.text['serif'] + [content['serif']]
+        extra.append(content['sans'])
     js_wide = ''.join(c for c in js if ord(c) > 0x7e)
     base = set(ASCII) | set(PUNCT)
     return {
-        'display': set(''.join(display) + content['display']) | base,
-        'serif': set(''.join(serif) + content['serif'] + js_wide) | base,
-        'sans': set(''.join(pages) + content['sans'] + js_wide) | base,
+        'display': set(''.join(display)) | base,
+        'serif': set(''.join(serif) + js_wide) | base,
+        'sans': set(''.join(pages) + ''.join(extra) + js_wide) | base,
     }
 
 
@@ -251,8 +268,61 @@ def rename(font, family, sub, weight):
         raise SystemExit(f'{family}: reserved name left in name table: {left}')
 
 
+HALT_CHARS = '，。、；：！？）」』》】〕〗〉｝］（「『《【〔〖〈｛［'
+
+
+def add_halt(font):
+    """Give a font without `halt` (Smiley Sans has none) a synthesized one: full-width punctuation whose ink sits in
+    one half of the em is set half-width. CSS text-spacing-trim only works with fonts that carry `halt` or `chws`."""
+    if 'GPOS' not in font:
+        return 0
+    gpos = font['GPOS'].table
+    if any(fr.FeatureTag in ('halt', 'chws') for fr in gpos.FeatureList.FeatureRecord):
+        return 0
+    cmap, gs, hmtx = font.getBestCmap(), font.getGlyphSet(), font['hmtx']
+    em = font['head'].unitsPerEm
+    values = {}
+    for ch in HALT_CHARS:
+        g = cmap.get(ord(ch))
+        if not g or hmtx[g][0] < em * .7:
+            continue
+        pen = BoundsPen(gs)
+        gs[g].draw(pen)
+        if not pen.bounds:
+            continue
+        adv = hmtx[g][0]
+        half, tol = round(adv / 2), adv * .03
+        if pen.bounds[2] <= half + tol:  # ink on the left: closing punctuation (and SC colon, semicolon, !)
+            values[g] = otl.buildValue({'XAdvance': -half})
+        elif pen.bounds[0] >= half - tol:  # ink on the right: opening punctuation
+            values[g] = otl.buildValue({'XPlacement': -half, 'XAdvance': -half})
+    if not values:
+        return 0
+    lookups = gpos.LookupList.Lookup
+    lookups.append(otl.buildLookup([otl.buildSinglePosSubtable(values, font.getReverseGlyphMap())]))
+    gpos.LookupList.LookupCount = len(lookups)
+    feature = ot.Feature()
+    feature.FeatureParams, feature.LookupListIndex, feature.LookupCount = None, [len(lookups) - 1], 1
+    record = ot.FeatureRecord()
+    record.FeatureTag, record.Feature = 'halt', feature
+    records = gpos.FeatureList.FeatureRecord + [record]
+    order = sorted(range(len(records)), key=lambda i: records[i].FeatureTag)  # FeatureList stays sorted by tag
+    remap = {old: new for new, old in enumerate(order)}
+    gpos.FeatureList.FeatureRecord, gpos.FeatureList.FeatureCount = [records[i] for i in order], len(records)
+    for sr in gpos.ScriptList.ScriptRecord:
+        for ls in [sr.Script.DefaultLangSys, *[r.LangSys for r in sr.Script.LangSysRecord]]:
+            if ls is None:
+                continue
+            ls.FeatureIndex = sorted([remap[i] for i in ls.FeatureIndex] + [remap[len(records) - 1]])
+            ls.FeatureCount = len(ls.FeatureIndex)
+            if ls.ReqFeatureIndex != 0xFFFF:
+                ls.ReqFeatureIndex = remap[ls.ReqFeatureIndex]
+    return len(values)
+
+
 def build(spec, dest, chars, family, sub, weight):
     font, label = open_font(spec)
+    copyright_ = font['name'].getDebugName(0) or ''
     cmap = font.getBestCmap()
     have = ''.join(sorted(c for c in chars if ord(c) in cmap))
     opts = subset.Options()
@@ -265,10 +335,11 @@ def build(spec, dest, chars, family, sub, weight):
     sub_.populate(text=have)
     sub_.subset(font)
     rename(font, family, sub, weight)
+    add_halt(font)
     dest.parent.mkdir(parents=True, exist_ok=True)
     font.flavor = 'woff2'
     font.save(dest)
-    return have, label, dest.stat().st_size
+    return have, label, dest.stat().st_size, copyright_
 
 
 def main():
@@ -291,11 +362,13 @@ def main():
     for key, (rel, family, weight, sub, _) in FACES.items():
         src = find_source(key, args.src, getattr(args, key.replace('-', '_')))
         dest = args.out / rel
-        have, label, size = build(src, dest, wanted[ROLE[key]], family, sub, weight)
+        have, label, size, copyright_ = build(src, dest, wanted[ROLE[key]], family, sub, weight)
         missing = sorted(c for c in wanted[ROLE[key]] - set(PUNCT) if c not in have and ord(c) > 0x7e and not c.isspace())
         lic = licence_for(src, dest.parent)
-        if lic.resolve() != (dest.parent / 'OFL.txt').resolve():
-            shutil.copyfile(lic, dest.parent / 'OFL.txt')
+        text = lic.read_text('utf-8')
+        if 'Copyright' not in text[:400] and '©' not in text[:400] and copyright_:
+            text = f'{copyright_}\n\n{text}'  # some release zips ship the bare licence; keep the notice with it
+        (dest.parent / 'OFL.txt').write_text(text, 'utf-8')
         role = ROLE[key]
         charset[role] = ''.join(sorted(set(have) & set(charset[role]))) if role in charset else have
         report.append(f'{rel}: {size / 1024:.0f} KB, {len(have)} chars from {label}' + (f'; not in source: {"".join(missing)}' if missing else ''))
