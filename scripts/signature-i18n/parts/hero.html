@@ -1,0 +1,56 @@
+<section class="hero wrap" id="top" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="status-dot"></span> {{ 为每一次重要对话 ‖ A LITTLE CLARITY. RIGHT WHEN IT MATTERS. }}</p>
+    <h1 id="hero-title">{{ 把注意力，<br>留给<span class="hero-emphasis">对话。</span> ‖ Stay in the<br><em>conversation.</em> }}</h1>
+    <div class="hero-script" aria-hidden="true">{{@letter:your next line.}}</div>
+    <p class="hero-description">{{ 你的 Mac 会议助手。带着你的资料一起听，<br class="desktop-break">帮你理清下一句，也记住这一场。 ‖ A thoughtful meeting companion for your Mac.<br class="desktop-break">Your context, your next words, and everything<br class="desktop-break">worth remembering. }}</p>
+    <div class="hero-actions"><a class="button" href="#join" data-cta="hero">{{ 加入等待名单 ‖ Get early access }}<svg><use href="#i-arrow"/></svg></a><a class="text-link" href="#experience">{{ 亲手试一试 ‖ Try it for yourself }}<span aria-hidden="true">↘</span></a></div>
+    <p class="availability">{{ 为 Mac 而做 · 2.0 即将开放 ‖ Made for Mac · 2.0 coming soon }}</p>
+    <div class="hero-margin-note"><span class="margin-number">01 / 03</span><span>{{ 从这一句开始。 ‖ Start with this moment. }}</span></div>
+  </div>
+  <div class="hero-product" id="experience">
+    <div class="orbit-art" aria-hidden="true"><svg viewBox="0 0 760 650"><defs><linearGradient id="ribbon-grad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d4b48b"/><stop offset=".54" stop-color="#a18aa3"/><stop offset="1" stop-color="#e2c3b4"/></linearGradient></defs><ellipse cx="380" cy="326" rx="337" ry="211" transform="rotate(-35 380 326)"/><ellipse cx="380" cy="326" rx="339" ry="215" transform="rotate(-35 380 326)"/><ellipse cx="380" cy="326" rx="342" ry="220" transform="rotate(-35 380 326)"/><path d="M27 389C113 600 663 564 736 227"/></svg></div>
+    <div class="demo-topline"><span><i class="status-dot"></i>{{ 一场会的三个时刻 ‖ THREE MOMENTS. ONE MEETING. }}</span><span class="demo-label">{{ 交互示意 ‖ INTERACTIVE DEMO }}</span></div>
+    <div class="stage-tabs js-only" role="tablist" aria-label="{{ 选择会议阶段 ‖ Choose a meeting stage }}">
+      <button type="button" role="tab" id="tab-before" aria-controls="panel-before" aria-selected="false" tabindex="-1" data-stage-tab="before"><span>01</span>{{ 会前准备 ‖ Before }}</button>
+      <button type="button" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-stage-tab="live"><span>02</span>{{ 正在对话 ‖ During }}</button>
+      <button type="button" role="tab" id="tab-after" aria-controls="panel-after" aria-selected="false" tabindex="-1" data-stage-tab="after"><span>03</span>{{ 会后纪要 ‖ After }}</button>
+    </div>
+    <div class="app-window" data-product-window>
+      <div class="app-titlebar"><div class="traffic-lights" aria-hidden="true"><i></i><i></i><i></i></div><span>InterviewHacker</span><svg class="tiny-icon"><use href="#i-mark"/></svg></div>
+      <div class="app-layout">
+        <aside class="app-sidebar" aria-hidden="true"><span class="sidebar-label">{{ 工作空间 ‖ WORKSPACE }}</span><span class="sidebar-item is-current">◷ <span>{{ 会议 ‖ Meetings }}</span></span><span class="sidebar-item">▤ <span>{{ 资料 ‖ Library }}</span></span><div class="sidebar-divider"></div><span class="sidebar-label">{{ 最近 ‖ RECENT }}</span><span class="sidebar-meeting" data-meeting-name>{{ 周一产品例会 ‖ Monday product sync }}</span><span class="sidebar-hint">{{ 这一场，接着上一场。 ‖ Pick up where you left off. }}</span><span class="sidebar-bottom"><span class="avatar">Y</span>{{ 我的空间 ‖ My space }}</span></aside>
+        <div class="app-main">
+          <section class="app-view view-before" id="panel-before" role="tabpanel" aria-labelledby="tab-before" data-stage="before">
+            <div class="app-heading"><span class="app-eyebrow">{{ 准备好，再开始 ‖ A LITTLE PREPARATION }}</span><h2 data-meeting-name>{{ 周一产品例会 ‖ Monday product sync }}</h2><p>{{ 会议类型、上次的进展、这次的资料，都在这里。 ‖ The right context, ready when you are. }}</p></div>
+            <div class="prepare-row"><span class="step-number">1</span><div><h3>{{ 这是什么会 ‖ Set the context }}</h3><span class="context-chip" data-meeting-type>{{ 工作会议 ‖ Team meeting }}</span><span class="context-note">{{ 线上 · 双路声音 ‖ Online · Two audio sources }}</span></div></div>
+            <div class="prepare-row"><span class="step-number">2</span><div><h3>{{ 接着上一场 ‖ Continue the thread }}</h3><div class="previous-meeting"><svg><use href="#i-check"/></svg><span>{{ 带上上次的决定与待办 ‖ Bring the last decisions and next steps }}</span></div></div></div>
+            <div class="prepare-row"><span class="step-number">3</span><div><h3>{{ 带上这次的资料 ‖ Bring what matters }}</h3><div class="document-row"><svg><use href="#i-file"/></svg><span data-document-name>{{ 本周发布计划.pdf ‖ Release plan.pdf }}</span><span class="file-ready">{{ 已就绪 ‖ Ready }}</span></div><div class="context-insight"><svg><use href="#i-spark"/></svg><span data-context-insight>{{ 核心流程本周上线，报表留到下一版。 ‖ Core flows this week. Reporting in the next release. }}</span></div></div></div>
+            <button class="app-primary js-only" type="button" data-go-stage="live">{{ 开始这场对话 ‖ Start the conversation }}<span>↗</span></button>
+          </section>
+          <section class="app-view view-live is-active" id="panel-live" role="tabpanel" aria-labelledby="tab-live" data-stage="live">
+            <div class="meeting-bar"><span class="record-indicator"></span><span data-meeting-name>{{ 周一产品例会 ‖ Monday product sync }}</span><time>09:41</time></div>
+            <div class="conversation-columns">
+              <div class="transcript"><p class="app-eyebrow">{{ 实时对话 ‖ CONVERSATION }}</p><div class="transcript-turn"><span class="speaker-label"><i></i>{{ 对方 ‖ THEM }} <time>09:40</time></span><p data-lead>{{ 登录和支付都联调完了，我们再确认一下排期。 ‖ Login and payments are tested. Let's confirm the release plan. }}</p></div><div class="transcript-turn is-question"><span class="speaker-label"><i></i>{{ 对方 ‖ THEM }} <time>09:41</time></span><p data-question>{{ 这个版本，周五能上线吗？ ‖ Can we ship this by Friday? }}</p><span class="question-tag">{{ 一个问题，轮到你。 ‖ A question. Your turn. }}</span></div><div class="listening-line"><svg><use href="#i-wave"/></svg><span>{{ 继续听，也继续记 ‖ Listening, and taking note }}</span></div></div>
+              <div class="answer-column"><p class="app-eyebrow answer-eyebrow"><svg><use href="#i-spark"/></svg>{{ 你的下一句 ‖ YOUR NEXT WORDS }}</p><div class="answer-body" data-answer aria-live="polite"><p>{{ 核心流程可以。我们先上线登录与支付，报表放进下一轮。 ‖ The core flows, yes. We can ship login and payments first, with reporting in the next release. }}</p><p>{{ 我会在周三前把回归结果和最终排期发给大家。 ‖ I'll share the regression results and final timeline by Wednesday. }}</p></div><div class="answer-source"><svg><use href="#i-file"/></svg><span data-source>{{ 本周发布计划 · 第 2 页 ‖ Release plan · page 2 }}</span></div><div class="rewrite-controls js-only" role="group" aria-label="{{ 改写示例回答 ‖ Rewrite the example answer }}"><button type="button" data-rewrite="short" aria-pressed="false">{{ 更简短 ‖ Shorter }}</button><button type="button" data-rewrite="example" aria-pressed="false">{{ 给个例子 ‖ An example }}</button><button type="button" data-rewrite="english" aria-pressed="false">{{ English ‖ 中文 }}</button><button type="button" class="rewrite-reset" data-rewrite="base" aria-pressed="true" aria-label="{{ 恢复原回答 ‖ Original answer }}">↺</button></div><div class="record-only" hidden><svg><use href="#i-wave"/></svg><h3>{{ 你专心听，它安静记。 ‖ Just listen. We'll take notes. }}</h3><p>{{ 已切到只记录。对话继续转写，不生成回答。 ‖ Notes-only mode. The transcript continues, without answer suggestions. }}</p></div></div>
+            </div>
+            <div class="app-bottom"><span><svg><use href="#i-lock"/></svg>{{ 本机转写 ‖ Transcribed on your Mac }}</span><button class="quiet-toggle js-only" type="button" data-quiet aria-pressed="false">{{ 切到只记录 ‖ Switch to notes only }}</button></div>
+          </section>
+          <section class="app-view view-after" id="panel-after" role="tabpanel" aria-labelledby="tab-after" data-stage="after">
+            <div class="app-heading"><span class="app-eyebrow">{{ 散会了，线索还在 ‖ THE MEETING ENDS. THE THREAD STAYS. }}</span><h2 data-meeting-name>{{ 周一产品例会 ‖ Monday product sync }}</h2><p>{{ 会议纪要 · 讨论、决定、下一步 ‖ Meeting notes · Discussion, decisions, next steps }}</p></div>
+            <div class="note-section"><h3>{{ 决定了什么 ‖ What we decided }}</h3><p data-note-decision>{{ 本周先上线登录与支付，报表安排在下一版本。 ‖ Ship login and payments this week; reporting follows in the next release. }}</p><button class="timestamp js-only" type="button" data-citation>↗ 09:41 <span>{{ 回到原话 ‖ See the source }}</span></button></div>
+            <div class="note-section"><h3>{{ 接下来 ‖ What's next }}</h3><div class="note-task"><span class="task-box" aria-hidden="true"></span><p data-note-action>{{ 周三前共享回归结果和最终排期。 ‖ Share regression results and the final timeline by Wednesday. }}</p><span class="note-assignee">{{ 我 ‖ YOU }}</span></div></div>
+            <div class="note-caution"><span>○</span><div><b>{{ 待确认 ‖ TO CONFIRM }}</b><p data-note-unsure>{{ 最终上线时间，等待回归结果确认。 ‖ Final release timing, pending regression results. }}</p></div></div>
+            <p class="note-foot">{{ 每一条有来处，不确定的留给你确认。 ‖ Traceable notes. Room for your judgment. }}</p>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="demo-caption"><span class="hand-note js-only">{{ 试试「更简短」 ↗ ‖ try “Shorter” ↗ }}</span><p>{{ 示例数据，不采集声音。 ‖ Example content. No audio is captured. }}</p></div>
+    <div class="scenario-picker js-only" role="group" aria-label="{{ 选择示例会议 ‖ Choose an example meeting }}"><span>{{ 换个场景 ‖ TRY A DIFFERENT MOMENT }}</span><button type="button" data-scenario="meeting" aria-pressed="true">{{ 工作会议 ‖ Team sync }}</button><button type="button" data-scenario="interview" aria-pressed="false">{{ 面试准备 ‖ Interview }}</button><button type="button" data-scenario="research" aria-pressed="false">{{ 学术讨论 ‖ Research }}</button></div>
+  </div>
+</section>
+<div class="voice-strip" aria-label="{{ 两路声音，一个对话 ‖ Two voices, one conversation }}">
+  <div class="voice-caption wrap"><span class="small-label">{{ 对话有来有往，思路一直接着。 ‖ TWO VOICES. ONE CONTINUOUS THREAD. }}</span><div class="voice-options js-only"><button type="button" data-voice-pluck="them"><i class="voice-dot them"></i>{{ 对方 ‖ Them }}</button><button type="button" data-voice-pluck="you"><i class="voice-dot you"></i>{{ 你 ‖ You }}</button><button type="button" data-voice-sound aria-pressed="false" data-label-on="{{ 关闭声音 ‖ Sound on }}" data-label-off="{{ 开启声音 ‖ Sound off }}"><svg><use href="#i-wave"/></svg><span data-voice-sound-label>{{ 开启声音 ‖ Sound off }}</span></button></div></div>
+  <div class="voice-surface" data-voice-surface><svg class="voice-fallback" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true"><path d="M0 65C170 65 190 18 360 50S550 122 730 73s205-61 360-24 260 23 350 7"/><path d="M0 90C180 90 236 116 390 86S580 30 760 80s240 29 360-13 240 9 320 4"/></svg><canvas data-voice-canvas aria-hidden="true"></canvas></div>
+</div>

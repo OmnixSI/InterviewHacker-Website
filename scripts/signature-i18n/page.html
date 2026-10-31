@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="{{html}}" data-motion="running">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f2ec">
+  <title>{{ InterviewHacker — 把注意力，留给对话。 ‖ InterviewHacker — Stay in the conversation. }}</title>
+  <meta name="description" content="{{ InterviewHacker 是你的 Mac 会议助手。会前带上资料，会中梳理回答，会后留下清晰纪要。亲手体验交互演示，加入 2.0 等待名单。 ‖ Your meeting companion for Mac. Bring your context, find your next words, and leave with clear notes. Explore the interactive demo and join the 2.0 waitlist. }}">
+  <link rel="canonical" href="{{url}}">
+  <link rel="alternate" hreflang="zh-CN" href="{{url-zh}}">
+  <link rel="alternate" hreflang="en" href="{{url-en}}">
+  <link rel="alternate" hreflang="x-default" href="{{url-en}}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ 把注意力，留给对话。 · InterviewHacker ‖ Stay in the conversation. · InterviewHacker }}">
+  <meta property="og:description" content="{{ 你的资料，你的下一句，你的会议纪要。 ‖ Your context. Your next words. Your meeting, remembered. }}">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="https://interviewhacker.vercel.app/previews/signature-home.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{base}}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{{base}}assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{base}}style.css">
+  <script src="{{base}}scripts/bootstrap.js"></script>
+  <script src="{{base}}scripts/main.js" defer></script>
+  <script src="{{base}}scripts/voice.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">{{ 跳到正文 ‖ Skip to content }}</a>
+<svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+  <symbol id="i-mark" viewBox="0 0 32 32"><path d="M2 18c4 0 4-11 8-11s4 18 8 18 4-13 8-13h4"/><path d="M2 24c4 0 4-11 8-11s4 18 8 18 4-13 8-13h4" opacity=".3" transform="translate(0 -9)"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8Zm0 0v5h5M8 12h8m-8 4h6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 10v4m4-7v10m5-14v18m5-14v10m4-7v4"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6v12m6-12v12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</defs></svg>
+<header class="site-header">
+  <a class="wordmark" href="#top" aria-label="InterviewHacker {{ 首页 ‖ home }}"><svg class="brand-mark"><use href="#i-mark"/></svg><span>InterviewHacker<span class="brand-period">.</span></span></a>
+  <nav class="desktop-nav" aria-label="{{ 页面导航 ‖ Main navigation }}"><a href="#experience">{{ 体验 ‖ Experience }}</a><a href="#one-page">{{ 一场会，一页 ‖ One meeting, one page }}</a><a href="#privacy">{{ 隐私 ‖ Privacy }}</a></nav>
+  <div class="header-actions">
+    <button class="icon-button js-only" type="button" data-motion-toggle aria-pressed="false" aria-label="{{ 暂停动效 ‖ Pause motion }}" data-label-on="{{ 暂停动效 ‖ Pause motion }}" data-label-off="{{ 开启动效 ‖ Enable motion }}"><svg><use href="#i-pause"/></svg></button>
+    <a class="language-link" href="{{other}}" lang="{{ en ‖ zh }}" data-language>{{otherName}}</a>
+    <a class="button button-small" href="#join" data-cta="header">{{ 加入等待名单 ‖ Get early access }}<span aria-hidden="true">↗</span></a>
+  </div>
+</header>
+<main id="main">
+  {{@part:hero}}
+  {{@part:story}}
+  {{@part:close}}
+</main>
+<footer class="site-footer wrap">
+  <a class="wordmark" href="#top"><svg class="brand-mark"><use href="#i-mark"/></svg><span>InterviewHacker.</span></a>
+  <span>© 2026 OmnixSI</span>
+  <div><a href="{{other}}" data-language>{{ English ‖ 中文 }}</a><a href="{{ /turn/ ‖ /turn/en/ }}">{{ 对话的一天 ↗ ‖ A day in conversation ↗ }}</a><a href="/">{{ 设计画廊 ‖ Design gallery }}</a><button type="button" class="footer-motion js-only" data-motion-toggle aria-pressed="false" data-label-on="{{ 暂停动效 ‖ Pause motion }}" data-label-off="{{ 开启动效 ‖ Enable motion }}"><span data-motion-label>{{ 暂停动效 ‖ Pause motion }}</span></button></div>
+</footer>
+<script type="application/json" id="signature-data">{{@data}}</script>
+</body>
+</html>

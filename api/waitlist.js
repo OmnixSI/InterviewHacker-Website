@@ -1,4 +1,4 @@
-// Early-access sign-ups from the Final page. Each one is sent as an email through the maintainer's own SMTP
+// Early-access sign-ups from the product pages. Each one is sent as an email through the maintainer's own SMTP
 // mailbox (QQ Mail by default) to the maintainer. No database, no third-party form service, no npm packages.
 //
 // Environment (set in the Vercel project, never committed):
@@ -18,39 +18,45 @@ export const USES = {
 
 const EMAIL = /^[^\s@<>()",;:]{1,64}@[^\s@<>()",;:]{1,190}\.[a-z]{2,24}$/i;
 const clean = (value, max) => String(value ?? '').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '').trim().slice(0, max);
+const SOURCES = new Set(['final', 'final-en', 'turn', 'turn-en', 'signature', 'signature-en']);
+const RETURN_PATHS = new Set(['/final/', '/final/en/', '/turn/', '/turn/en/', '/signature/', '/signature/en/']);
+const RETURN_ERRORS = new Set(['email', 'name', 'uses', 'busy', 'offline', 'mail', 'method', 'preview']);
 
 // Returns { data } or { error } — the error is a short key the page turns into a sentence.
 export function validate(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'email' };
   if (clean(input.website, 200)) return { error: 'spam' }; // honeypot: people never see this field
-  const email = clean(input.email, 254), name = clean(input.name, 60).replace(/[\r\n]+/g, ' ');
-  if (!EMAIL.test(email)) return { error: 'email' };
-  if (!name) return { error: 'name' };
-  const picked = [].concat(input.uses ?? []).flatMap(v => String(v).split(',')).map(v => v.trim()).filter(v => v in USES);
+  // Do not silently truncate an address into a different, apparently valid one.
+  const email = clean(input.email, 255), name = clean(input.name, 60).replace(/[\r\n]+/g, ' ');
+  if (email.length > 254 || !EMAIL.test(email)) return { error: 'email' };
+  const picked = [].concat(input.uses ?? []).flatMap(v => String(v).split(',')).map(v => v.trim()).filter(v => Object.hasOwn(USES, v));
   const uses = [...new Set(picked)];
   const more = clean(input.more, 1000);
-  if (!uses.length && !more) return { error: 'uses' };
   const lang = input.lang === 'en' ? 'en' : 'zh';
-  return { data: { email, name, uses, more, lang } };
+  const source = SOURCES.has(input.source) ? input.source : 'unspecified';
+  return { data: { email, name, uses, more, lang, source } };
 }
 
-export function compose({ email, name, uses, more, lang }, { from, to, now = new Date() }) {
+export function compose({ email, name, uses = [], more, lang, source }, { from, to, now = new Date() }) {
   const b64 = s => Buffer.from(s, 'utf8').toString('base64');
+  const displayName = name || '未填写';
   const body = [
     'InterviewHacker 早期试用申请 / Early-access request',
     '',
-    `称呼 Name: ${name}`,
+    `称呼 Name: ${displayName}`,
     `邮箱 Email: ${email}`,
     `用途 Uses: ${uses.map(k => USES[k]).join('；') || '—'}`,
     `补充 More: ${more || '—'}`,
     '',
     `页面语言 Page language: ${lang}`,
+    `来源 Source: ${SOURCES.has(source) ? source : 'unspecified'}`,
     `时间 Time: ${now.toISOString()}`
   ].join('\r\n');
   const headers = [
     `From: =?UTF-8?B?${b64('InterviewHacker 网站')}?= <${from}>`,
     `To: <${to}>`,
     `Reply-To: <${email}>`,
-    `Subject: =?UTF-8?B?${b64(`试用申请：${name}`)}?=`,
+    `Subject: =?UTF-8?B?${b64(`试用申请：${displayName}`)}?=`,
     `Date: ${now.toUTCString().replace('GMT', '+0000')}`,
     `Message-ID: <${now.getTime().toString(36)}.${Math.random().toString(36).slice(2)}@interviewhacker.vercel.app>`,
     'MIME-Version: 1.0',
@@ -138,8 +144,15 @@ export function formFields(raw) {
 // JSON for the script, or — after a script-free post — back to the ending with the outcome in the hash.
 export function outcome({ status, error }, { json, referer }) {
   if (json) return { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }, body: JSON.stringify(status < 300 ? { ok: true } : { ok: false, error }) };
-  const back = (referer || '/final/').split('#')[0];
-  return { status: 303, headers: { Location: `${back}#waitlist-${status < 300 ? 'ok' : error}` }, body: '' };
+  let back = '/final/';
+  try {
+    const url = new URL(referer || back, 'https://interviewhacker.vercel.app');
+    // Preserve only a known path. Never copy a referer origin, query or fragment into Location,
+    // so this also works on preview hosts without creating an external redirect.
+    if (['https:', 'http:'].includes(url.protocol) && RETURN_PATHS.has(url.pathname)) back = url.pathname;
+  } catch { /* Missing or malformed referrer returns to the existing Final page. */ }
+  const state = status < 300 ? 'ok' : RETURN_ERRORS.has(error) ? error : 'offline';
+  return { status: 303, headers: { Location: `${back}#waitlist-${state}`, 'Cache-Control': 'no-store' }, body: '' };
 }
 
 async function readBody(req) {
@@ -154,7 +167,9 @@ async function readBody(req) {
 export default async function handler(req, res) {
   const json = /json/.test(req.headers.accept || '') || /json/.test(req.headers['content-type'] || '');
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
-  const result = req.method === 'POST' ? await submit(await readBody(req), process.env, ip) : { status: 405, error: 'method' };
+  const result = req.method !== 'POST' ? { status: 405, error: 'method' }
+    : process.env.VERCEL_ENV === 'preview' ? { status: 503, error: 'preview' }
+    : await submit(await readBody(req), process.env, ip);
   if (result.status === 405) res.setHeader('Allow', 'POST');
   const out = outcome(result, { json, referer: req.headers.referer });
   res.statusCode = out.status;

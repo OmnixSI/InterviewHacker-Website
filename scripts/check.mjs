@@ -38,7 +38,7 @@ for(const style of catalog.styles){
  const version={final:'v1.9.0'}[style.slug]||'v1.8.0';
  // Final is an early-access page with a waitlist instead of a download, so it carries no download prerequisites.
  // Turn is a coming-soon page for 2.0: no release, no download and no setup to disclose (its own checks are below).
- const disclosures=style.slug==='turn'?['交互示意']:[version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])];
+ const disclosures=['turn','signature'].includes(style.slug)?['交互示意']:[version,'不会把所有资料塞入上下文',...(style.slug==='final'?[]:['需要仓库访问权','语音识别 + 对话服务']),...(['story','classic'].includes(style.slug)?[]:['交互示意'])];
  for(const text of disclosures)assert(html.includes(text),`Missing product disclosure in ${style.slug}: ${text}`);
  const css=await readFile(path.join(base,'style.css'),'utf8');
  const scripts=[...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m=>m[1]);

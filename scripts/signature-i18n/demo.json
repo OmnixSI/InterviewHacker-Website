@@ -1,0 +1,206 @@
+{
+  "zh": {
+    "scenarios": {
+      "meeting": {
+        "title": "周一产品例会",
+        "type": "工作会议",
+        "document": "本周发布计划.pdf",
+        "insight": "核心流程本周上线，报表留到下一版。",
+        "lead": "登录和支付都联调完了，我们再确认一下排期。",
+        "question": "这个版本，周五能上线吗？",
+        "source": "本周发布计划 · 第 2 页",
+        "answers": {
+          "base": [
+            "核心流程可以。我们先上线登录与支付，报表放进下一轮。",
+            "我会在周三前把回归结果和最终排期发给大家。"
+          ],
+          "short": [
+            "登录和支付先上，报表下一轮。周三确认回归结果和最终排期。"
+          ],
+          "example": [
+            "比如用户从登录到完成支付，这条流程放在本周。报表导出留到下一版。",
+            "周三先看回归结果，再确认周五的上线安排。"
+          ],
+          "english": [
+            "The core flows, yes. We can ship login and payments first, with reporting in the next release.",
+            "I'll share the regression results and final timeline by Wednesday."
+          ]
+        },
+        "decision": "本周先上线登录与支付，报表安排在下一版本。",
+        "action": "周三前共享回归结果和最终排期。",
+        "unsure": "最终上线时间，等待回归结果确认。"
+      },
+      "interview": {
+        "title": "后端面试练习",
+        "type": "面试准备",
+        "document": "项目架构笔记.pdf",
+        "insight": "先讲更新顺序，再解释失败重试与一致性边界。",
+        "lead": "我们接着聊订单服务，重点看数据库和缓存的配合。",
+        "question": "如果删除缓存失败了，你会怎么处理？",
+        "source": "项目架构笔记 · 第 3 页",
+        "answers": {
+          "base": [
+            "先更新数据库，再删除缓存。删除失败时进入重试队列，也可以用变更日志触发补偿删除。",
+            "这仍是最终一致性的思路，期间可能读到旧值。需要强一致的关键数据，应单独设计读写路径。"
+          ],
+          "short": [
+            "先写库再删缓存，失败就重试并补偿；同时说清可能出现旧读的边界。"
+          ],
+          "example": [
+            "比如用户修改收货地址：先保存新地址，再删除对应缓存。删不掉的键交给后台重试。",
+            "在缓存真正失效前，读取可能还是旧地址，所以不能把它当作强一致方案。"
+          ],
+          "english": [
+            "Write to the database, then invalidate the cache. Queue failed invalidations for retry; a change log can also trigger a compensating delete.",
+            "That is an eventual-consistency approach, with possible stale reads in between. Critical data needs a separately designed consistency path."
+          ]
+        },
+        "decision": "回答先说明写库、删缓存的顺序，再补充失败处理。",
+        "action": "补一张重试流程图，练习解释旧读发生的条件。",
+        "unsure": "重试策略与关键数据的一致性要求，还需要进一步说明。"
+      },
+      "research": {
+        "title": "每周研究讨论",
+        "type": "学术讨论",
+        "document": "方法对比报告.pdf",
+        "insight": "先对齐输入、预算和评估设置，再讨论方法差异。",
+        "lead": "这周整理了两个候选方法，我们先看看比较是否公平。",
+        "question": "怎么确认提升来自方法，而不是用了更多观测？",
+        "source": "方法对比报告 · 第 4 页",
+        "answers": {
+          "base": [
+            "先把观测数量、输入信息和评估设置对齐，再比较结果。额外信息的收益，单独做一组对照。",
+            "报告里目前还是初步比较。我会补齐相同预算下的结果，再讨论方法本身的贡献。"
+          ],
+          "short": [
+            "先对齐观测与评估预算，再单独比较额外信息的收益；目前先保留结论。"
+          ],
+          "example": [
+            "比如一个方法多看了一段历史，就让基线也使用同样的历史，再做一次比较。",
+            "随后固定输入，只更换方法，这样更容易分清收益来自哪里。"
+          ],
+          "english": [
+            "First align the observation count, available inputs, and evaluation setup. Then test the benefit of additional information separately.",
+            "The report is still preliminary. I'll add results under the same budget before attributing the difference to the method."
+          ]
+        },
+        "decision": "先对齐观测与评估预算，暂不把差异全部归因于方法。",
+        "action": "补齐相同输入与预算下的对照结果。",
+        "unsure": "方法本身带来的收益，等待补充比较后确认。"
+      }
+    },
+    "strings": {
+      "illustrative": "示例数据，不采集声音。",
+      "quietOn": "恢复回答建议",
+      "quietOff": "切到只记录",
+      "companionOn": "现在：回答显示在手机上。",
+      "companionOff": "现在：回答显示在电脑上。",
+      "scenarioChanged": "已切换示例会议。",
+      "answerChanged": "示例回答已更新。",
+      "sourceReturned": "已回到纪要对应的对话。",
+      "stages": { "before": "会前准备", "live": "正在对话", "after": "会后纪要" }
+    }
+  },
+  "en": {
+    "scenarios": {
+      "meeting": {
+        "title": "Monday product sync",
+        "type": "Team meeting",
+        "document": "Release plan.pdf",
+        "insight": "Core flows this week. Reporting in the next release.",
+        "lead": "Login and payments are tested. Let's confirm the release plan.",
+        "question": "Can we ship this by Friday?",
+        "source": "Release plan · page 2",
+        "answers": {
+          "base": [
+            "The core flows, yes. We can ship login and payments first, with reporting in the next release.",
+            "I'll share the regression results and final timeline by Wednesday."
+          ],
+          "short": [
+            "Login and payments first; reporting next. We'll confirm regression results and timing by Wednesday."
+          ],
+          "example": [
+            "For example, the journey from login to payment ships first. Report exports follow in the next release.",
+            "We'll review regression results on Wednesday before confirming Friday's release."
+          ],
+          "english": [
+            "核心流程可以。我们先上线登录与支付，报表放进下一轮。",
+            "我会在周三前把回归结果和最终排期发给大家。"
+          ]
+        },
+        "decision": "Ship login and payments this week; reporting follows in the next release.",
+        "action": "Share regression results and the final timeline by Wednesday.",
+        "unsure": "Final release timing, pending regression results."
+      },
+      "interview": {
+        "title": "Backend interview practice",
+        "type": "Interview preparation",
+        "document": "Architecture notes.pdf",
+        "insight": "Start with the update order, then explain retries and the consistency boundary.",
+        "lead": "Let's stay with the order service and look at the database and cache together.",
+        "question": "What would you do if cache invalidation failed?",
+        "source": "Architecture notes · page 3",
+        "answers": {
+          "base": [
+            "Write to the database, then invalidate the cache. Queue failed invalidations for retry; a change log can also trigger a compensating delete.",
+            "That is an eventual-consistency approach, with possible stale reads in between. Critical data needs a separately designed consistency path."
+          ],
+          "short": [
+            "Write, invalidate, and retry failed deletes. Be explicit about when stale reads can still happen."
+          ],
+          "example": [
+            "Say someone changes their shipping address. Save it in the database, then invalidate the address cache. Retry failed deletes in the background.",
+            "Until that entry is invalidated, a read might return the old address. This is not a strong-consistency guarantee."
+          ],
+          "english": [
+            "先更新数据库，再删除缓存。删除失败时进入重试队列，也可以用变更日志触发补偿删除。",
+            "这仍是最终一致性的思路，期间可能读到旧值。需要强一致的关键数据，应单独设计读写路径。"
+          ]
+        },
+        "decision": "Explain the database-write and cache-invalidation order before covering failures.",
+        "action": "Add a retry-flow sketch and practise explaining when stale reads can occur.",
+        "unsure": "Retry policy and consistency requirements for critical data still need clarification."
+      },
+      "research": {
+        "title": "Weekly research discussion",
+        "type": "Research discussion",
+        "document": "Method comparison.pdf",
+        "insight": "Align inputs, budgets, and evaluation settings before comparing methods.",
+        "lead": "We have two candidate methods. Let's check whether the comparison is fair.",
+        "question": "How do we know the gain comes from the method, rather than more observations?",
+        "source": "Method comparison · page 4",
+        "answers": {
+          "base": [
+            "First align the observation count, available inputs, and evaluation setup. Then test the benefit of additional information separately.",
+            "The report is still preliminary. I'll add results under the same budget before attributing the difference to the method."
+          ],
+          "short": [
+            "Match the inputs and budget first. Test extra information separately, and keep the conclusion open for now."
+          ],
+          "example": [
+            "If one method sees a longer history, give the baseline that same history and compare them again.",
+            "Then keep the inputs fixed and change only the method to better isolate where the gain comes from."
+          ],
+          "english": [
+            "先把观测数量、输入信息和评估设置对齐，再比较结果。额外信息的收益，单独做一组对照。",
+            "报告里目前还是初步比较。我会补齐相同预算下的结果，再讨论方法本身的贡献。"
+          ]
+        },
+        "decision": "Align observations and evaluation budgets before attributing the difference to the method.",
+        "action": "Add comparison results with the same inputs and budget.",
+        "unsure": "The method's contribution remains open until the matched comparison is complete."
+      }
+    },
+    "strings": {
+      "illustrative": "Example content. No audio is captured.",
+      "quietOn": "Restore answer suggestions",
+      "quietOff": "Switch to notes only",
+      "companionOn": "Right now: the answer is on the phone.",
+      "companionOff": "Right now: the answer is on the computer.",
+      "scenarioChanged": "Example meeting changed.",
+      "answerChanged": "Example answer updated.",
+      "sourceReturned": "Returned to the conversation behind this note.",
+      "stages": { "before": "Before", "live": "During", "after": "After" }
+    }
+  }
+}
