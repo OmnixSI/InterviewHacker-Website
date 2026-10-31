@@ -4,15 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory public",
+    "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node scripts/check-js.mjs && node scripts/story-screens.mjs --check && node scripts/build-final.mjs --check && node scripts/build-turn.mjs --check && node scripts/check.mjs",
+    "check": "node scripts/check-js.mjs && node scripts/story-screens.mjs --check && node scripts/build-final.mjs --check && node scripts/build-turn.mjs --check && node scripts/build-signature.mjs --check && node scripts/check-signature.mjs && node scripts/test-waitlist.mjs && node scripts/check.mjs",
     "screens:build": "node scripts/story-screens.mjs",
-    "docs:sync": "node scripts/build-final.mjs && node scripts/build-turn.mjs && node scripts/version-story.mjs && node scripts/sync-readme.mjs",
+    "docs:sync": "node scripts/build-final.mjs && node scripts/build-turn.mjs && node scripts/build-signature.mjs && node scripts/version-story.mjs && node scripts/sync-readme.mjs",
     "final:build": "node scripts/build-final.mjs",
     "fonts:final": "python3 scripts/subset-fonts.py --src",
     "turn:build": "node scripts/build-turn.mjs",
-    "fonts:turn": "python3 scripts/turn-fonts.py"
+    "fonts:turn": "python3 scripts/turn-fonts.py",
+    "signature:build": "node scripts/build-signature.mjs"
   },
   "repository": {
     "type": "git",

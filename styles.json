@@ -3,6 +3,21 @@
   "origin": "https://interviewhacker.vercel.app",
   "styles": [
     {
+      "slug": "signature",
+      "name": "Signature",
+      "subtitle": "纸与墨 · 在场 · 产品体验",
+      "description": "把注意力留给对话：暖纸与深梅色的编辑排版，首屏即能操作的会议窗口，三段产品体验、可拨动声弦与手机交接；保留原生滚动，以邮箱等待名单收尾，中英双语。",
+      "path": "/signature/",
+      "preview": "/previews/signature-home.png",
+      "accent": "#60485f",
+      "tags": [
+        "即时交互演示",
+        "会前 / 会中 / 会后",
+        "中英双语"
+      ],
+      "updated": "2026-10-31"
+    },
+    {
       "slug": "minimal",
       "name": "Minimal",
       "subtitle": "简洁 · 原生 · 从容",

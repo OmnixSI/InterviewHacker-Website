@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>单页视口检查 — InterviewHacker 风格画廊</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://interviewhacker.vercel.app/compare/inspect/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/compare/inspect.css">
+  <script src="/compare/inspect.js" type="module"></script>
+</head>
+<body>
+  <header class="inspector-toolbar">
+    <div class="inspector-heading"><div><p class="inspector-eyebrow">INTERVIEWHACKER / VIEWPORT INSPECTOR</p><h1>单页视口检查</h1></div><nav aria-label="检查工具导航"><a href="/compare/">并排对比</a><a href="/">返回画廊</a></nav></div>
+    <p class="inspector-help">以实际 CSS 像素显示，不缩放；窗口较窄时可横向滚动。只读取当前同一部署的风格目录，不会切到生产站或自动加载 PR 分支。</p>
+    <form id="inspector-controls" class="inspector-controls">
+      <label>风格<select id="inspect-style" name="style" disabled><option>正在读取目录…</option></select></label>
+      <label>语言<select id="inspect-lang" name="lang"><option value="zh">中文</option><option value="en">English</option></select></label>
+      <label>宽度<select id="inspect-width" name="width"><option value="320">320 px</option><option value="390">390 px</option><option value="768">768 px</option><option value="1280" selected>1280 px</option><option value="1440">1440 px</option></select></label>
+      <label>高度<input id="inspect-height" name="height" type="number" min="200" max="4000" step="1" value="844" inputmode="numeric"></label>
+      <label class="inspector-checkbox"><input id="inspect-noscript" name="noscript" type="checkbox" value="1">无脚本</label>
+      <button type="submit">应用视口</button>
+      <a id="inspect-open" href="/" target="_blank" rel="noopener noreferrer">完整打开 ↗</a>
+      <a id="inspect-capture" href="/compare/inspect.html?capture=1">纯画面截图 ↗</a>
+    </form>
+    <p id="inspect-status" class="inspector-status" role="status">正在读取当前部署的风格目录。</p>
+  </header>
+  <main class="inspector-stage" aria-label="页面视口预览"><iframe id="inspect-frame" title="等待选择风格" width="1280" height="844"></iframe></main>
+  <noscript><p class="inspector-noscript">视口检查工具需要 JavaScript。请从<a href="/">画廊</a>直接打开页面。</p></noscript>
+</body>
+</html>

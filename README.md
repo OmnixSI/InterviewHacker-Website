@@ -6,12 +6,24 @@
 
 ## 风格展示
 
+Signature 是本次新增的产品官网评审方案，提供中英双语入口。目录中的线上地址是各风格的固定部署路径，**分支新增页面只有相应部署完成后才能访问；PR、合并和正式上线是三个独立状态。** 评审新方案时请使用对应 PR 的 Preview 部署。
+
 <!-- STYLES:START -->
 [打开在线展示画廊](https://interviewhacker.vercel.app/) · [并排对比风格](https://interviewhacker.vercel.app/compare/)
 
-[![展示画廊首页](public/previews/gallery-home.png?v=b401a9a41ed4)](https://interviewhacker.vercel.app/)
+[![展示画廊首页](public/previews/gallery-home.png?v=6040a36a6dbb)](https://interviewhacker.vercel.app/)
 
-<!-- gallery-source:d8eff6756c8d12a15a2ca79bca0ada315f5afc078646566b21e8e63090d6b513 preview:b401a9a41ed41da505dad14ec8adcb0c39de0c9c30b2100111a027c7d3985d7e -->
+<!-- gallery-source:37a5ffa766e3ab228f484436cfbaf528dcae9a9a8ebbb4bc3a565a2798394658 preview:6040a36a6dbb8b42d3cb33ec0d4c9fff63a9998e5a8f3c6c6c72597ee891f195 -->
+
+### Signature · 纸与墨 · 在场 · 产品体验
+
+[![Signature 首页](public/previews/signature-home.png?v=384375eff369)](https://interviewhacker.vercel.app/signature/)
+
+把注意力留给对话：暖纸与深梅色的编辑排版，首屏即能操作的会议窗口，三段产品体验、可拨动声弦与手机交接；保留原生滚动，以邮箱等待名单收尾，中英双语。
+
+**访问页面：[https://interviewhacker.vercel.app/signature/](https://interviewhacker.vercel.app/signature/)**
+
+<!-- style:signature source:ffce260dcb6bcf978c3bcec0ffc1c19dd0ca39811675eee089c5a8d16f28023c preview:384375eff36984fe898f2088ab8239647b0924a175102e2e1fc0b54b34b369f7 -->
 
 ### Minimal · 简洁 · 原生 · 从容
 
@@ -76,7 +88,7 @@
 
 ## 本地运行
 
-需要 Node.js 24（与正式构建一致，可用 `nvm use`）；本地预览另需 Python 3。没有 npm 依赖。
+需要 Node.js 24（与正式构建一致，可用 `nvm use`）。本地预览没有 npm 依赖；只有重新生成字体子集时才需要 Python 字体工具。
 
 ```sh
 git clone https://github.com/OmnixSI/InterviewHacker-Website.git
@@ -84,7 +96,7 @@ cd InterviewHacker-Website
 npm run dev
 ```
 
-打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/`、`/final/`（英文版 `/final/en/`）和 `/turn/`（英文版 `/turn/en/`）是六种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面版面或自适应视口。
+打开 http://127.0.0.1:4173/ 为画廊；`/minimal/`、`/technology/`、`/story/`、`/classic/`、`/final/`（英文版 `/final/en/`）、`/turn/`（英文版 `/turn/en/`）和 `/signature/`（英文版 `/signature/en/`）是七种独立风格，`/compare/` 为并排对比工具。对比工具不算一种设计风格，可分别操作两侧页面，并切换桌面、320 / 390 像素或自适应视口。两侧来自当前同一部署，不能把 main 的 `/final/` 当作 PR #4 的 Final v2。单页检查器 `/compare/inspect.html` 还支持精确视口、双语、无脚本和纯画面截图模式。
 
 ## 修改与新增风格
 
@@ -98,7 +110,8 @@ npm run dev
 | Classic 全部页面代码和素材 | `public/classic/` |
 | Final 生成的中英页面、样式、脚本和素材 | `public/final/`（源码在 `scripts/final-i18n/`，见 [Final 维护说明](docs/FINAL-NOTES.md)） |
 | Turn 生成的中英页面、样式、脚本和素材 | `public/turn/`（源码在 `scripts/turn-i18n/`，见 [Turn 维护说明](docs/TURN-NOTES.md)） |
-| 并排对比工具 | `public/compare/` |
+| Signature 生成的中英页面、样式、脚本和素材 | `public/signature/`（源码在 `scripts/signature-i18n/`，见 [Signature 维护说明](docs/SIGNATURE-NOTES.md)） |
+| 并排对比工具与单页检查器 | `public/compare/` |
 | 每个风格的当前首页截图 | `public/previews/<slug>-home.png` |
 | 画廊自身的首页截图 | `public/previews/gallery-home.png` |
 
@@ -151,3 +164,11 @@ Story 动效与手机适配由 `styles/motion-polish.css` 和 `scripts/motion-po
 Classic 继续维护在 `/classic/`，本次更新沿用原风格入口。六步工作链路直接嵌入首页，由现有滚动器驱动；该栏目及附近区域关闭磁吸，避免与横向演示争抢滚动位置。其他栏目在手势停下并接近栏目起点时平滑吸附，参数集中在 `public/classic/scripts/section-snap.js` 的 `CONFIG`。
 
 Classic 的完整笔记本素材包含顶部刘海，浅色与深色界面分别生成；裁切卡片保留原布局。`npm run screens:build` 可重新生成这些素材，`npm run docs:sync` 会为 Classic 的 CSS、JS、SVG 和主题图片写入内容版本。首页使用局部背景，离屏栏目暂停装饰动画与无效更新。变更和实际验证范围见 [Classic 更新验证](VALIDATION-CLASSIC.md)。
+
+### Signature 维护与设计取舍
+
+Signature 将完整产品体验放在首屏，用纸色、宋体、手写文字与两根声弦形成统一视觉语言。三阶段与三场景演示可直接操作；移动端重新排版产品窗口，页面使用原生滚动。声音默认关闭，支持键盘、暂停和系统减少动态效果；无脚本时三个产品阶段仍可阅读。
+
+此页面是静态、确定性的交互示意，不是软件实时连接或实际录屏。产品能力、隐私边界和交互来源需与实际发行版本持续核对。设计比较与页面分工见 [设计评审](docs/SIGNATURE-DESIGN-REVIEW.md)，源码、字体、数据和表单维护见 [维护说明](docs/SIGNATURE-NOTES.md)。
+
+本地预览服务器不发送邮件，Vercel Preview 环境也会拒绝等待名单投递并明确反馈；正式环境保留现有 SMTP 提交流程。新表单只要求邮箱，其余信息选填。正式上线前仍需用受控邮箱确认 SMTP 真实送达、收件处理与产品承诺，不应把静态检查或预览表单状态当作真实邀请闭环验收。
